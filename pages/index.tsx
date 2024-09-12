@@ -38,7 +38,7 @@ export default function HomePage() {
 
             <Button
               variant="bordered"
-              className="border-foreground px-4 font-bold text-foreground ring-foreground"
+              className="border-1 border-foreground px-4 font-bold text-foreground"
             >
               Mulai Ujian Sekarang!
             </Button>

@@ -4,6 +4,7 @@ import { Button } from "@nextui-org/react";
 import { SignIn } from "@phosphor-icons/react";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 
 interface CbtLayoutProps {
@@ -17,6 +18,8 @@ export default function CbtLayout({
   children,
   className,
 }: CbtLayoutProps) {
+  const router = useRouter();
+
   return (
     <>
       <Head>
@@ -36,10 +39,12 @@ export default function CbtLayout({
             <Button
               variant="light"
               startContent={<SignIn weight="bold" size={16} />}
+              onClick={() => router.push("/cbt/login")}
               className="px-4 font-bold text-foreground"
             >
               Masuk
             </Button>
+
             <Button
               variant="solid"
               className="bg-secondary px-8 font-bold text-white"
