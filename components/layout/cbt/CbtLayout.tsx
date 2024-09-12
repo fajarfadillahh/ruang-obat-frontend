@@ -1,6 +1,9 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { Button } from "@nextui-org/react";
+import { SignIn } from "@phosphor-icons/react";
 import Head from "next/head";
+import Link from "next/link";
 import { ReactNode } from "react";
 
 interface CbtLayoutProps {
@@ -20,18 +23,35 @@ export default function CbtLayout({
         <title>{title}</title>
       </Head>
 
-      <div className="wfull mx-auto grid max-w-[1200px] gap-11">
+      <div className="wfull mx-auto grid max-w-[1200px]">
         <Navbar className="items-center justify-between">
-          <div>logo</div>
+          <Link
+            href="/"
+            className="text-[20px] font-extrabold -tracking-wide text-foreground"
+          >
+            Ruang Obat<span className="text-secondary">.</span>
+          </Link>
 
-          <div>dropdown account</div>
+          <div className="inline-flex items-center gap-1">
+            <Button
+              variant="light"
+              startContent={<SignIn weight="bold" size={16} />}
+              className="px-4 font-bold text-foreground"
+            >
+              Masuk
+            </Button>
+            <Button
+              variant="solid"
+              className="bg-secondary px-8 font-bold text-white"
+            >
+              Register
+            </Button>
+          </div>
         </Navbar>
 
-        <main className={`${className}`}>
-          {children}
+        <main className={`${className}`}>{children}</main>
 
-          <Footer />
-        </main>
+        <Footer />
       </div>
     </>
   );

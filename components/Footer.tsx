@@ -1,7 +1,7 @@
 export default function Footer() {
   return (
     <footer className="flex h-16 items-center justify-center px-6 text-center">
-      <p className="text-default text-sm font-medium capitalize">
+      <p className="text-sm font-medium capitalize text-default">
         &copy; PT. Pharmacy Cone Group {new Date().getFullYear()}
       </p>
     </footer>
