@@ -47,6 +47,7 @@ export default function CbtLayout({
 
             <Button
               variant="solid"
+              onClick={() => router.push("/cbt/register")}
               className="bg-secondary px-8 font-bold text-white"
             >
               Register
