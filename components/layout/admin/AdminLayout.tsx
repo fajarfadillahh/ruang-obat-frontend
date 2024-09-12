@@ -2,15 +2,12 @@ import Footer from "@/components/Footer";
 import Head from "next/head";
 import { ReactNode } from "react";
 
-interface DashboardLayoutProps {
+interface AdminLayoutProps {
   title?: string;
   children: ReactNode;
 }
 
-export default function DashboardLayout({
-  title,
-  children,
-}: DashboardLayoutProps) {
+export default function AdminLayout({ title, children }: AdminLayoutProps) {
   return (
     <>
       <Head>
