@@ -3,8 +3,11 @@ import { EnvelopeSimple, Lock, Quotes, User } from "@phosphor-icons/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function LoginPage() {
+  const router = useRouter();
+
   const customInput =
     "font-semibold text-foreground placeholder:text-[14px] placeholder:text-default placeholder:font-semibold";
 
@@ -49,6 +52,7 @@ export default function LoginPage() {
             variant="bordered"
             size="sm"
             startContent={<User weight="bold" size={14} />}
+            onClick={() => router.push("/admin/login")}
             className="w-max self-end border-1 border-foreground font-bold text-foreground"
           >
             Login Admin
@@ -56,7 +60,7 @@ export default function LoginPage() {
 
           <div className="grid gap-8">
             <div>
-              <h1 className="text-[28px] font-bold -tracking-wide text-foreground">
+              <h1 className="text-[32px] font-bold -tracking-wide text-foreground">
                 Selamat datang lagi 🙌
               </h1>
               <p className="font-medium text-default">
