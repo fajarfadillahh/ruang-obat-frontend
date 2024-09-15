@@ -10,8 +10,8 @@ export default function DetailsProgram() {
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 
-        <div className="divide-gray/20 grid gap-6 divide-y-2 divide-dashed">
-          <div className="flex items-start gap-6 pb-2">
+        <div className="divide-gray/20 grid divide-y-2 divide-dashed">
+          <div className="flex items-start gap-6 pb-8">
             <BookBookmark weight="bold" size={56} className="text-purple" />
 
             <div className="grid gap-6">

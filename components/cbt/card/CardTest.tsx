@@ -1,7 +1,10 @@
 import { Button, Chip } from "@nextui-org/react";
 import { ClipboardText, ClockCountdown } from "@phosphor-icons/react";
+import { useRouter } from "next/router";
 
 export default function CardTest() {
+  const router = useRouter();
+
   return (
     <div className="hover:bg-gray/10 border-gray/20 group flex items-center justify-between gap-4 rounded-xl border-2 bg-transparent p-6">
       <div className="inline-flex flex-1 items-start gap-3">
@@ -62,6 +65,7 @@ export default function CardTest() {
         variant="solid"
         size="sm"
         color="secondary"
+        onClick={() => router.push("/cbt/tests/1")}
         className="px-6 font-bold"
       >
         Lihat Ujian
