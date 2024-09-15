@@ -1,16 +1,21 @@
 import { Chip } from "@nextui-org/react";
 import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
+import Link from "next/link";
 
 export default function CardProgram() {
   return (
-    <div className="hover:bg-gray/10 border-gray/20 group flex items-start gap-4 rounded-xl border-2 bg-transparent p-6 hover:cursor-pointer">
-      <BookBookmark weight="regular" size={32} className="text-purple" />
+    <Link
+      href="/cbt/programs/1"
+      className="hover:bg-gray/10 border-gray/20 group flex items-start gap-4 rounded-xl border-2 bg-transparent p-6 hover:cursor-pointer"
+    >
+      <BookBookmark weight="bold" size={32} className="text-purple" />
 
       <div className="divide-gray/20 flex-1 divide-y-2 divide-dashed">
         <div className="grid gap-3 pb-4">
           <h4 className="group-hover:text-purple line-clamp-2 text-[18px] font-bold leading-[120%] -tracking-wide text-black">
             Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
           </h4>
+
           <Chip
             variant="flat"
             size="sm"
@@ -37,6 +42,6 @@ export default function CardProgram() {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
