@@ -6,9 +6,6 @@ import { useRouter } from "next/router";
 export default function LoginPage() {
   const router = useRouter();
 
-  const customInput =
-    "font-semibold text-foreground placeholder:text-[14px] placeholder:text-default placeholder:font-semibold";
-
   return (
     <>
       <Head>
@@ -19,19 +16,20 @@ export default function LoginPage() {
         <Button
           variant="light"
           size="sm"
+          color="default"
           startContent={<ArrowLeft weight="bold" size={14} />}
           onClick={() => router.back()}
-          className="w-max self-end font-bold text-foreground"
+          className="w-max self-end font-bold"
         >
           Kembali
         </Button>
 
         <div className="grid w-[480px] gap-8 justify-self-center">
           <div className="text-center">
-            <h1 className="text-[42px] font-bold -tracking-wide text-foreground">
+            <h1 className="text-[42px] font-bold -tracking-wide text-black">
               Hi, admin Ruangobat 👋
             </h1>
-            <p className="font-medium text-default">
+            <p className="text-gray font-medium">
               Silakan login dulu untuk bisa mengatur semuanya
             </p>
           </div>
@@ -40,35 +38,35 @@ export default function LoginPage() {
             <Input
               type="email"
               variant="flat"
-              startContent={
-                <EnvelopeSimple
-                  weight="bold"
-                  size={16}
-                  className="text-default"
-                />
-              }
+              color="default"
               labelPlacement="outside"
               placeholder="Alamat Email"
+              startContent={
+                <EnvelopeSimple weight="bold" size={18} className="text-gray" />
+              }
               classNames={{
-                input: customInput,
+                input:
+                  "font-semibold placeholder:font-semibold placeholder:text-gray",
               }}
             />
 
             <Input
               type="password"
               variant="flat"
-              startContent={
-                <Lock weight="bold" size={16} className="text-default" />
-              }
+              color="default"
               labelPlacement="outside"
               placeholder="Kata Sandi"
+              startContent={
+                <Lock weight="bold" size={18} className="text-gray" />
+              }
               classNames={{
-                input: customInput,
+                input:
+                  "font-semibold placeholder:font-semibold placeholder:text-gray",
               }}
             />
           </div>
 
-          <Button variant="solid" className="bg-secondary font-bold text-white">
+          <Button variant="solid" color="secondary" className="font-bold">
             Masuk Sekarang
           </Button>
         </div>

@@ -14,12 +14,21 @@ const config: Config = {
       center: true,
       padding: "1.5rem",
       screens: {
-        lg: "1120px",
+        lg: "1200px",
       },
     },
     extend: {
       fontFamily: {
         sans: ["Mulish", "sans-serif"],
+      },
+      colors: {
+        black: "#171717",
+        gray: {
+          DEFAULT: "#525252",
+        },
+        purple: {
+          DEFAULT: "#6238C3",
+        },
       },
     },
   },
@@ -28,12 +37,8 @@ const config: Config = {
       themes: {
         light: {
           colors: {
-            foreground: "#171717", // black
-            default: {
-              DEFAULT: "#525252", // grey
-            },
             secondary: {
-              DEFAULT: "#6328c3", // purple
+              DEFAULT: "#6238C3", // purple
             },
           },
         },

@@ -2,17 +2,20 @@ import CbtLayout from "@/components/layout/cbt/CbtLayout";
 import { Avatar, AvatarGroup, Button } from "@nextui-org/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function HomePage() {
+  const router = useRouter();
+
   return (
     <CbtLayout title="Landing Page">
-      <div className="relative grid min-h-[calc(100vh-96px)] grid-cols-[1fr_480px] items-center gap-4 py-8">
+      <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
         <div className="grid max-w-[580px] gap-10">
           <div className="grid gap-4">
-            <p className="font-medium text-default">
+            <p className="text-gray font-medium">
               👋 Selamat datang di Ruang Obat
             </p>
-            <h1 className="text-[72px] font-black leading-[100%] -tracking-wide text-foreground">
+            <h1 className="text-[72px] font-black leading-[100%] -tracking-wide text-black">
               Rumah Ujian Para Mahasiswa Farmasi{" "}
               <AvatarGroup size="lg" className="inline-flex">
                 <Avatar src="/img/home-avatar-1.png" />
@@ -20,7 +23,7 @@ export default function HomePage() {
                 <Avatar src="/img/home-avatar-3.png" />
               </AvatarGroup>
             </h1>
-            <p className="font-medium leading-[170%] text-default">
+            <p className="text-gray font-medium leading-[170%]">
               Kami berfokus untuk memberikan tempat ujian yang disesuaikan
               dengan kebutuhan. Sumber soal-soal yang relevan, serta komunitas
               yang suportif, dan peluang untuk mengasah kemampuan berfikirmu.
@@ -30,15 +33,17 @@ export default function HomePage() {
           <div className="inline-flex items-center gap-4">
             <Button
               variant="solid"
+              color="secondary"
               endContent={<ArrowRight weight="bold" size={16} />}
-              className="bg-secondary px-4 font-bold text-white"
+              onClick={() => router.push("/cbt")}
+              className="px-4 font-bold"
             >
               Halaman Dashboard
             </Button>
 
             <Button
               variant="bordered"
-              className="border-1 border-foreground px-4 font-bold text-foreground"
+              className="border-1 border-black px-4 font-bold text-black"
             >
               Mulai Ujian Sekarang!
             </Button>

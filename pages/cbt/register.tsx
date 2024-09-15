@@ -15,9 +15,6 @@ import { useRouter } from "next/router";
 export default function RegisterPage() {
   const router = useRouter();
 
-  const customInput =
-    "font-semibold text-foreground placeholder:text-[14px] placeholder:text-default placeholder:font-semibold";
-
   return (
     <>
       <Head>
@@ -30,10 +27,10 @@ export default function RegisterPage() {
             <Quotes
               weight="fill"
               size={64}
-              className="absolute -left-12 -top-12 rotate-180 text-secondary/40"
+              className="text-purple/40 absolute -left-12 -top-12 rotate-180"
             />
 
-            <h1 className="z-10 max-w-[680px] text-[32px] font-bold leading-[125%] -tracking-wide text-foreground">
+            <h1 className="z-10 max-w-[680px] text-[32px] font-bold leading-[125%] -tracking-wide text-black">
               Hanya pendidikan yang bisa menyelamatkan masa depan, tanpa
               pendidikan Indonesia tak mungkin bertahan.
             </h1>
@@ -47,30 +44,20 @@ export default function RegisterPage() {
                 className="h-[64px] w-[64px] rounded-full object-cover object-center"
               />
 
-              <h4 className="text-[22px] font-bold text-foreground">
-                Najwa Shihab
-              </h4>
+              <h4 className="text-[22px] font-bold text-black">Najwa Shihab</h4>
             </div>
           </div>
         </div>
 
         <div className="flex flex-col justify-between gap-4 px-16 py-10">
-          <Button
-            variant="bordered"
-            size="sm"
-            startContent={<User weight="bold" size={14} />}
-            onClick={() => router.push("/admin/login")}
-            className="w-max self-end border-1 border-foreground font-bold text-foreground"
-          >
-            Login Admin
-          </Button>
+          <div></div>
 
           <div className="grid gap-8">
             <div>
-              <h1 className="text-[32px] font-bold -tracking-wide text-foreground">
+              <h1 className="text-[32px] font-bold -tracking-wide text-black">
                 Ayo kita mulai 🚀
               </h1>
-              <p className="font-medium text-default">Buat akunmu sekarang</p>
+              <p className="text-gray font-medium">Buat akunmu sekarang</p>
             </div>
 
             <div className="grid gap-2">
@@ -78,29 +65,32 @@ export default function RegisterPage() {
                 type="text"
                 variant="flat"
                 startContent={
-                  <User weight="bold" size={16} className="text-default" />
+                  <User weight="bold" size={18} className="text-gray" />
                 }
                 labelPlacement="outside"
                 placeholder="Nama Lengkap"
                 classNames={{
-                  input: customInput,
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
 
               <Input
                 type="email"
                 variant="flat"
+                color="default"
+                labelPlacement="outside"
+                placeholder="Alamat Email"
                 startContent={
                   <EnvelopeSimple
                     weight="bold"
-                    size={16}
-                    className="text-default"
+                    size={18}
+                    className="text-gray"
                   />
                 }
-                labelPlacement="outside"
-                placeholder="Alamat Email"
                 classNames={{
-                  input: customInput,
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
 
@@ -109,12 +99,13 @@ export default function RegisterPage() {
                 inputMode="numeric"
                 variant="flat"
                 startContent={
-                  <Phone weight="bold" size={16} className="text-default" />
+                  <Phone weight="bold" size={18} className="text-gray" />
                 }
                 labelPlacement="outside"
                 placeholder="No. Telpon"
                 classNames={{
-                  input: customInput,
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
 
@@ -122,12 +113,13 @@ export default function RegisterPage() {
                 type="text"
                 variant="flat"
                 startContent={
-                  <Buildings weight="bold" size={16} className="text-default" />
+                  <Buildings weight="bold" size={18} className="text-gray" />
                 }
                 labelPlacement="outside"
                 placeholder="Asal Kampus"
                 classNames={{
-                  input: customInput,
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
 
@@ -135,41 +127,35 @@ export default function RegisterPage() {
                 type="password"
                 variant="flat"
                 startContent={
-                  <Lock weight="bold" size={16} className="text-default" />
+                  <Lock weight="bold" size={18} className="text-gray" />
                 }
                 labelPlacement="outside"
                 placeholder="Kata Sandi"
                 classNames={{
-                  input: customInput,
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
             </div>
 
             <div className="grid gap-4">
-              <Button
-                variant="solid"
-                className="bg-secondary font-bold text-white"
-              >
+              <Button variant="solid" color="secondary" className="font-bold">
                 Daftar Sekarang
               </Button>
 
-              <p className="text-center text-sm font-medium text-default">
+              <p className="text-gray text-center text-sm font-medium">
                 Sudah punya akun?{" "}
-                <Link
-                  href="/cbt/login"
-                  className="font-extrabold text-secondary"
-                >
+                <Link href="/cbt/login" className="text-purple font-extrabold">
                   Masuk disini
                 </Link>
               </p>
             </div>
           </div>
 
-          <p className="mx-auto max-w-[360px] text-center text-[12px] font-medium text-default">
+          <p className="text-gray mx-auto max-w-[360px] text-center text-[12px] font-medium">
             Dengan melanjutkan, anda menyetujui{" "}
-            <span className="text-foreground underline">Ketentuan Layanan</span>{" "}
-            dan{" "}
-            <span className="text-foreground underline">Kebijakan Privasi</span>{" "}
+            <span className="text-black underline">Ketentuan Layanan</span> dan{" "}
+            <span className="text-black underline">Kebijakan Privasi</span>{" "}
             Ruangobat
           </p>
         </div>
