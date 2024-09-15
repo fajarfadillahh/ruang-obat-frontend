@@ -33,7 +33,7 @@ const config: Config = {
               DEFAULT: "#525252", // grey
             },
             secondary: {
-              DEFAULT: "#9333EA", // purple
+              DEFAULT: "#6328c3", // purple
             },
           },
         },
