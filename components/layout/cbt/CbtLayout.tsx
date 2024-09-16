@@ -75,6 +75,7 @@ export default function CbtLayout({
                     src="/img/avatar.svg"
                     classNames={{
                       base: "ring-purple bg-purple/20",
+                      icon: "text-purple",
                     }}
                   />
 
