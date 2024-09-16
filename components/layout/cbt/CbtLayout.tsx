@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import {
   Avatar,
   Button,
@@ -36,11 +37,11 @@ export default function CbtLayout({
 
       <div className="wfull mx-auto grid max-w-[1200px]">
         <Navbar className="items-center justify-between">
-          <Link
-            href="/"
-            className="text-[20px] font-extrabold -tracking-wide text-black"
-          >
-            Ruang Obat<span className="text-purple">.</span>
+          <Link href="/" className="inline-flex items-center gap-2">
+            <LogoRuangobat className="h-auto w-[32px] text-gray/20" />
+            <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
+              Ruang Obat<span className="text-[#73C5FF]">.</span>
+            </h1>
           </Link>
 
           {router.pathname == "/" ? (
@@ -81,7 +82,7 @@ export default function CbtLayout({
                     <h6 className="text-sm font-bold text-black">
                       Fajar Fadillah Agustian
                     </h6>
-                    <p className="text-gray text-[12px] font-semibold uppercase">
+                    <p className="text-[12px] font-semibold uppercase text-gray">
                       ROUFFA125638
                     </p>
                   </div>
