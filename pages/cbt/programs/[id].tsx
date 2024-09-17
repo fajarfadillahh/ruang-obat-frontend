@@ -1,3 +1,4 @@
+import { tests } from "@/_dummy/tests";
 import ButtonBack from "@/components/button/ButtonBack";
 import CardTest from "@/components/cbt/card/CardTest";
 import CbtLayout from "@/components/layout/cbt/CbtLayout";
@@ -10,7 +11,7 @@ export default function DetailsProgram() {
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 
-        <div className="divide-gray/20 grid divide-y-2 divide-dashed">
+        <div className="grid divide-y-2 divide-dashed divide-gray/20">
           <div className="flex items-start gap-6 pb-8">
             <BookBookmark weight="bold" size={56} className="text-purple" />
 
@@ -49,9 +50,9 @@ export default function DetailsProgram() {
             </h4>
 
             <div className="grid gap-4">
-              <CardTest />
-              <CardTest />
-              <CardTest />
+              {tests.map((test) => (
+                <CardTest key={test.id} {...test} />
+              ))}
             </div>
           </div>
         </div>

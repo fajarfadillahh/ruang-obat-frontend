@@ -1,48 +1,49 @@
+import { TestsType } from "@/types/tests.type";
 import { Button, Chip } from "@nextui-org/react";
 import { ClipboardText, ClockCountdown } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
-export default function CardTest() {
+export default function CardTest(test: TestsType) {
   const router = useRouter();
 
   return (
-    <div className="hover:bg-gray/10 border-gray/20 group flex items-center justify-between gap-4 rounded-xl border-2 bg-transparent p-6">
+    <div className="group flex items-center justify-between gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:bg-gray/10">
       <div className="inline-flex flex-1 items-start gap-3">
         <ClipboardText weight="bold" size={28} className="text-purple" />
 
         <div className="grid gap-6">
-          <h4 className="group-hover:text-purple line-clamp-2 max-w-[620px] text-[20px] font-bold leading-[120%] -tracking-wide text-black">
-            Tryout Internal Ruangobat Part 1
+          <h4 className="line-clamp-2 max-w-[620px] text-[20px] font-bold leading-[120%] -tracking-wide text-black group-hover:text-purple">
+            {test.title}
           </h4>
 
           <div className="inline-flex items-start gap-6">
             <div className="grid gap-[2px]">
-              <span className="text-gray text-[12px] font-medium">
+              <span className="text-[12px] font-medium text-gray">
                 Tanggal Mulai:
               </span>
               <h1 className="text-sm font-bold text-black">
-                5 Agustus 2024 10:00
+                {test.start_test}
               </h1>
             </div>
 
             <div className="grid gap-[2px]">
-              <span className="text-gray text-[12px] font-medium">
+              <span className="text-[12px] font-medium text-gray">
                 Tanggal Selesai:
               </span>
+              <h1 className="text-sm font-bold text-black">{test.end_test}</h1>
+            </div>
+
+            <div className="grid gap-[2px]">
+              <span className="text-[12px] font-medium text-gray">
+                Durasi Pengerjaan:
+              </span>
               <h1 className="text-sm font-bold text-black">
-                10 Agustus 2024 23:59
+                {test.duration_test} Menit
               </h1>
             </div>
 
             <div className="grid gap-[2px]">
-              <span className="text-gray text-[12px] font-medium">
-                Durasi Pengerjaan:
-              </span>
-              <h1 className="text-sm font-bold text-black">200 Menit</h1>
-            </div>
-
-            <div className="grid gap-[2px]">
-              <span className="text-gray text-[12px] font-medium">
+              <span className="text-[12px] font-medium text-gray">
                 Status Program:
               </span>
               <Chip
@@ -51,10 +52,10 @@ export default function CardTest() {
                 startContent={<ClockCountdown weight="bold" size={18} />}
                 classNames={{
                   base: "px-3 gap-1",
-                  content: "font-bold",
+                  content: "font-bold capitalize",
                 }}
               >
-                Belum Dimulai
+                {test.status_test}
               </Chip>
             </div>
           </div>
@@ -65,7 +66,7 @@ export default function CardTest() {
         variant="solid"
         size="sm"
         color="secondary"
-        onClick={() => router.push("/cbt/tests/1")}
+        onClick={() => router.push(`/tests/${test.id}`)}
         className="px-6 font-bold"
       >
         Lihat Ujian
