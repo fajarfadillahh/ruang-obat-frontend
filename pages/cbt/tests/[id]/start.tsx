@@ -8,6 +8,9 @@ export default function StartTest() {
   const router = useRouter();
   const { id } = router.query;
 
+  const totalTests: number = 100;
+  const currentNumber = parseInt(router.query.number as string);
+
   return (
     <CbtLayout title="Start Test Page">
       <section className="grid grid-cols-[260px_1fr_260px] items-start gap-4">
@@ -47,8 +50,7 @@ export default function StartTest() {
             </h4>
 
             <div className="grid h-full max-h-[230px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide">
-              {Array.from({ length: 100 }, (_, i) => {
-                const currentNumber = parseInt(router.query.number as string);
+              {Array.from({ length: totalTests }, (_, i) => {
                 const isActive = currentNumber === i + 1;
 
                 return (
@@ -123,23 +125,40 @@ export default function StartTest() {
           </div>
 
           <div className="inline-flex items-center gap-4 justify-self-center">
-            <Button
-              variant="solid"
-              color="default"
-              startContent={<ArrowLeft weight="bold" size={16} />}
-              className="font-bold"
-            >
-              Sebelumnya
-            </Button>
+            {currentNumber === totalTests ? (
+              <Button
+                variant="solid"
+                color="secondary"
+                onClick={() => {
+                  if (confirm("Yakin dengan semua jawabanmu?")) {
+                    router.push(`/cbt/tests/${id}/finish?number=1`);
+                  }
+                }}
+                className="font-bold"
+              >
+                Kumpulkan Jawaban 🚀
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="solid"
+                  color="default"
+                  startContent={<ArrowLeft weight="bold" size={16} />}
+                  className="font-bold"
+                >
+                  Sebelumnya
+                </Button>
 
-            <Button
-              variant="solid"
-              color="secondary"
-              endContent={<ArrowRight weight="bold" size={16} />}
-              className="font-bold"
-            >
-              Selanjutnya
-            </Button>
+                <Button
+                  variant="solid"
+                  color="secondary"
+                  endContent={<ArrowRight weight="bold" size={16} />}
+                  className="font-bold"
+                >
+                  Selanjutanya
+                </Button>
+              </>
+            )}
           </div>
         </div>
 
