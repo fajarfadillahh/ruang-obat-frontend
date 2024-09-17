@@ -28,6 +28,10 @@ const nextConfig = {
         source: "/tests/:path*",
         destination: "/cbt/tests/:path*",
       },
+      {
+        source: "/dashboard",
+        destination: "/cbt",
+      },
     ];
   },
 };

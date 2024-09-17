@@ -12,7 +12,7 @@ export default function HomePage() {
       <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
         <div className="grid max-w-[580px] gap-10">
           <div className="grid gap-4">
-            <p className="text-gray font-medium">
+            <p className="font-medium text-gray">
               👋 Selamat datang di Ruang Obat
             </p>
             <h1 className="text-[72px] font-black leading-[100%] -tracking-wide text-black">
@@ -23,7 +23,7 @@ export default function HomePage() {
                 <Avatar src="/img/home-avatar-3.png" />
               </AvatarGroup>
             </h1>
-            <p className="text-gray font-medium leading-[170%]">
+            <p className="font-medium leading-[170%] text-gray">
               Kami berfokus untuk memberikan tempat ujian yang disesuaikan
               dengan kebutuhan. Sumber soal-soal yang relevan, serta komunitas
               yang suportif, dan peluang untuk mengasah kemampuan berfikirmu.
@@ -35,7 +35,7 @@ export default function HomePage() {
               variant="solid"
               color="secondary"
               endContent={<ArrowRight weight="bold" size={16} />}
-              onClick={() => router.push("/cbt")}
+              onClick={() => router.push("/dashboard")}
               className="px-4 font-bold"
             >
               Halaman Dashboard

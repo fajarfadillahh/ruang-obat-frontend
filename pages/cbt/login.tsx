@@ -99,16 +99,18 @@ export default function LoginPage() {
             </div>
 
             <div className="grid gap-4">
-              <Button variant="solid" color="secondary" className="font-bold">
+              <Button
+                variant="solid"
+                color="secondary"
+                onClick={() => (window.location.href = "/cbt")}
+                className="font-bold"
+              >
                 Masuk Sekarang
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">
                 Belum punya akun?{" "}
-                <Link
-                  href="/register"
-                  className="font-extrabold text-purple"
-                >
+                <Link href="/register" className="font-extrabold text-purple">
                   Daftar disini
                 </Link>
               </p>

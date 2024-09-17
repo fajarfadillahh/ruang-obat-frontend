@@ -150,7 +150,12 @@ export default function RegisterPage() {
             </div>
 
             <div className="grid gap-4">
-              <Button variant="solid" color="secondary" className="font-bold">
+              <Button
+                variant="solid"
+                color="secondary"
+                onClick={() => (window.location.href = "/cbt")}
+                className="font-bold"
+              >
                 Daftar Sekarang
               </Button>
 

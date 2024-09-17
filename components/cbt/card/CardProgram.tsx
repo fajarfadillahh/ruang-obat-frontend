@@ -1,19 +1,20 @@
+import { ProgramsType } from "@/types/programs.type";
 import { Chip } from "@nextui-org/react";
 import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
 import Link from "next/link";
 
-export default function CardProgram() {
+export default function CardProgram(program: ProgramsType) {
   return (
     <Link
-      href="/cbt/programs/1"
-      className="hover:bg-gray/10 border-gray/20 group flex items-start gap-4 rounded-xl border-2 bg-transparent p-6 hover:cursor-pointer"
+      href={`/programs/${program.id}`}
+      className="group flex items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10"
     >
       <BookBookmark weight="bold" size={32} className="text-purple" />
 
-      <div className="divide-gray/20 flex-1 divide-y-2 divide-dashed">
+      <div className="flex-1 divide-y-2 divide-dashed divide-gray/20">
         <div className="grid gap-3 pb-4">
-          <h4 className="group-hover:text-purple line-clamp-2 text-[18px] font-bold leading-[120%] -tracking-wide text-black">
-            Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
+          <h4 className="line-clamp-2 text-[18px] font-bold leading-[120%] -tracking-wide text-black group-hover:text-purple">
+            {program.title}
           </h4>
 
           <Chip
@@ -23,22 +24,26 @@ export default function CardProgram() {
             startContent={<Tag weight="bold" size={14} />}
             classNames={{
               base: "px-2 gap-1",
-              content: "font-bold",
+              content: "font-bold capitalize",
             }}
           >
-            Program Gratis
+            Program {program.program_type}
           </Chip>
         </div>
 
         <div className="flex items-center justify-between gap-2 pt-4">
-          <div className="text-gray inline-flex items-center gap-1">
+          <div className="inline-flex items-center gap-1 text-gray">
             <Notepad weight="bold" size={14} />
-            <p className="text-[12px] font-semibold">9 Modul Ujian</p>
+            <p className="text-[12px] font-semibold">
+              {program.amount_module} Modul Ujian
+            </p>
           </div>
 
-          <div className="text-gray inline-flex items-center gap-1">
+          <div className="inline-flex items-center gap-1 text-gray">
             <Users weight="bold" size={14} />
-            <p className="text-[12px] font-semibold">120 Mahasiswa/i</p>
+            <p className="text-[12px] font-semibold">
+              {program.amount_user} Mahasiswa/i
+            </p>
           </div>
         </div>
       </div>

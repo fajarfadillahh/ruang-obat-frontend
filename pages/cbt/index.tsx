@@ -1,3 +1,4 @@
+import { programs } from "@/_dummy/programs";
 import CardProgram from "@/components/cbt/card/CardProgram";
 import CbtLayout from "@/components/layout/cbt/CbtLayout";
 import { Input, Select, SelectItem } from "@nextui-org/react";
@@ -54,9 +55,9 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid grid-cols-3 gap-8">
-            <CardProgram />
-            <CardProgram />
-            <CardProgram />
+            {programs.map((program) => (
+              <CardProgram key={program.id} {...program} />
+            ))}
           </div>
         </div>
       </section>
