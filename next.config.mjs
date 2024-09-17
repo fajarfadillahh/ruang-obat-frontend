@@ -32,6 +32,10 @@ const nextConfig = {
         source: "/dashboard",
         destination: "/cbt",
       },
+      {
+        source: "/myprograms",
+        destination: "/cbt/myprograms",
+      },
     ];
   },
 };

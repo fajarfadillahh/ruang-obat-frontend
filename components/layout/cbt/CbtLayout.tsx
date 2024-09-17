@@ -113,7 +113,7 @@ export default function CbtLayout({
                   key="myprogram"
                   color="secondary"
                   startContent={<ClipboardText weight="bold" size={18} />}
-                  onClick={() => router.push("/myprogram")}
+                  onClick={() => router.push("/myprograms")}
                 >
                   Program Saya
                 </DropdownItem>
