@@ -49,7 +49,9 @@ export default function CbtLayout({
               <Button
                 variant="light"
                 startContent={<SignIn weight="bold" size={18} />}
-                onClick={() => router.push("/cbt/login")}
+                onClick={() =>
+                  window.open("https://cbt.ruangobat.id/login", "_blank")
+                }
                 className="px-4 font-bold text-black"
               >
                 Masuk
@@ -58,7 +60,9 @@ export default function CbtLayout({
               <Button
                 variant="solid"
                 color="secondary"
-                onClick={() => router.push("/cbt/register")}
+                onClick={() =>
+                  window.open("https://cbt.ruangobat.id/register", "_blank")
+                }
                 className="px-8 font-bold"
               >
                 Register
@@ -100,7 +104,7 @@ export default function CbtLayout({
                   key="dashboard"
                   color="secondary"
                   startContent={<House weight="bold" size={18} />}
-                  onClick={() => router.push("/cbt")}
+                  onClick={() => router.push("/")}
                 >
                   Beranda
                 </DropdownItem>
@@ -109,7 +113,7 @@ export default function CbtLayout({
                   key="myprogram"
                   color="secondary"
                   startContent={<ClipboardText weight="bold" size={18} />}
-                  onClick={() => router.push("/cbt/myprogram")}
+                  onClick={() => router.push("/myprogram")}
                 >
                   Program Saya
                 </DropdownItem>
@@ -124,7 +128,7 @@ export default function CbtLayout({
                     startContent={<SignOut weight="bold" size={18} />}
                     onClick={() => {
                       if (confirm("apakah anda yakin?")) {
-                        window.location.href = "/";
+                        window.location.href = "/login";
                       }
                     }}
                     className="text-danger-600"
