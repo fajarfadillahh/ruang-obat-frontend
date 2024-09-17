@@ -7,3 +7,7 @@
 ::-webkit-scrollbar {
   @apply hidden;
 }
+
+::selection {
+  @apply bg-purple text-white;
+}
