@@ -56,11 +56,11 @@ export default function StartTest() {
                 return (
                   <Link
                     key={i}
-                    href={`/cbt/tests/${id}/start?number=${i + 1}`}
+                    href={`/tests/${id}/start?number=${i + 1}`}
                     className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${
                       isActive
                         ? "bg-purple text-white"
-                        : "bg-gray/10 text-gray hover:bg-purple hover:text-white"
+                        : "bg-gray/10 text-gray hover:bg-gray/30"
                     }`}
                   >
                     {i + 1}
@@ -131,7 +131,7 @@ export default function StartTest() {
                 color="secondary"
                 onClick={() => {
                   if (confirm("Yakin dengan semua jawabanmu?")) {
-                    router.push(`/cbt/tests/${id}/finish?number=1`);
+                    router.push(`/tests/${id}/finish?number=1`);
                   }
                 }}
                 className="font-bold"
