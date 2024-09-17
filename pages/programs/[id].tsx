@@ -1,13 +1,13 @@
 import { tests } from "@/_dummy/tests";
 import ButtonBack from "@/components/button/ButtonBack";
-import CardTest from "@/components/cbt/card/CardTest";
-import CbtLayout from "@/components/layout/cbt/CbtLayout";
+import CardTest from "@/components/card/CardTest";
+import Layout from "@/components/wrapper/Layout";
 import { Button, Chip } from "@nextui-org/react";
 import { BookBookmark, Tag } from "@phosphor-icons/react";
 
 export default function DetailsProgram() {
   return (
-    <CbtLayout title="Details Program Page">
+    <Layout title="Details Program Page">
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 
@@ -57,6 +57,6 @@ export default function DetailsProgram() {
           </div>
         </div>
       </section>
-    </CbtLayout>
+    </Layout>
   );
 }

@@ -1,4 +1,4 @@
-import CbtLayout from "@/components/layout/cbt/CbtLayout";
+import Layout from "@/components/wrapper/Layout";
 import {
   Accordion,
   AccordionItem,
@@ -15,7 +15,7 @@ export default function ResultTest() {
   const { id } = router.query;
 
   return (
-    <CbtLayout title="Result Test Page">
+    <Layout title="Result Test Page">
       <section className="grid gap-8">
         <Button
           variant="light"
@@ -283,6 +283,6 @@ export default function ResultTest() {
           </div>
         </div>
       </section>
-    </CbtLayout>
+    </Layout>
   );
 }

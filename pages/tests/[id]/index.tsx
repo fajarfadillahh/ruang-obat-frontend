@@ -1,5 +1,5 @@
 import ButtonBack from "@/components/button/ButtonBack";
-import CbtLayout from "@/components/layout/cbt/CbtLayout";
+import Layout from "@/components/wrapper/Layout";
 import { Button, Chip } from "@nextui-org/react";
 import { ArrowRight, ClockCountdown } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ export default function DetailsTest() {
   const { id } = router.query;
 
   return (
-    <CbtLayout title="Details Test Page">
+    <Layout title="Details Test Page">
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 
@@ -89,6 +89,6 @@ export default function DetailsTest() {
           </div>
         </div>
       </section>
-    </CbtLayout>
+    </Layout>
   );
 }

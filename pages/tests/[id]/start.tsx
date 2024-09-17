@@ -1,4 +1,4 @@
-import CbtLayout from "@/components/layout/cbt/CbtLayout";
+import Layout from "@/components/wrapper/Layout";
 import { Button, Checkbox, cn, Radio, RadioGroup } from "@nextui-org/react";
 import { ArrowDown, ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -12,7 +12,7 @@ export default function StartTest() {
   const currentNumber = parseInt(router.query.number as string);
 
   return (
-    <CbtLayout title="Start Test Page">
+    <Layout title="Start Test Page">
       <section className="grid grid-cols-[260px_1fr_260px] items-start gap-4">
         <div className="grid h-[550px] divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/20 p-6">
           <div className="grid gap-4 pb-8">
@@ -136,7 +136,7 @@ export default function StartTest() {
                 }}
                 className="font-bold"
               >
-                Kumpulkan Jawaban 🚀
+                Kumpulkan Jawaban 🌟
               </Button>
             ) : (
               <>
@@ -217,6 +217,6 @@ export default function StartTest() {
           </div>
         </div>
       </section>
-    </CbtLayout>
+    </Layout>
   );
 }

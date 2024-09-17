@@ -153,7 +153,7 @@ export default function RegisterPage() {
               <Button
                 variant="solid"
                 color="secondary"
-                onClick={() => (window.location.href = "/cbt")}
+                onClick={() => (window.location.href = "/dashboard")}
                 className="font-bold"
               >
                 Daftar Sekarang
@@ -161,7 +161,7 @@ export default function RegisterPage() {
 
               <p className="text-center text-sm font-medium text-gray">
                 Sudah punya akun?{" "}
-                <Link href="/login" className="font-extrabold text-purple">
+                <Link href="/auth/login" className="font-extrabold text-purple">
                   Masuk disini
                 </Link>
               </p>

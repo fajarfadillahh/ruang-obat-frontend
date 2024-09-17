@@ -1,4 +1,4 @@
-import CbtLayout from "@/components/layout/cbt/CbtLayout";
+import Layout from "@/components/wrapper/Layout";
 import { Avatar, AvatarGroup, Button } from "@nextui-org/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import Image from "next/image";
@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter();
 
   return (
-    <CbtLayout title="Landing Page">
+    <Layout title="Landing Page">
       <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
         <div className="grid max-w-[580px] gap-10">
           <div className="grid gap-4">
@@ -59,6 +59,6 @@ export default function HomePage() {
           className="h-auto w-full justify-self-end"
         />
       </div>
-    </CbtLayout>
+    </Layout>
   );
 }

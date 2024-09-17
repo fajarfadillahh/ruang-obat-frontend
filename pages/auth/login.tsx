@@ -102,7 +102,7 @@ export default function LoginPage() {
               <Button
                 variant="solid"
                 color="secondary"
-                onClick={() => (window.location.href = "/cbt")}
+                onClick={() => (window.location.href = "/dashboard")}
                 className="font-bold"
               >
                 Masuk Sekarang
@@ -110,7 +110,10 @@ export default function LoginPage() {
 
               <p className="text-center text-sm font-medium text-gray">
                 Belum punya akun?{" "}
-                <Link href="/register" className="font-extrabold text-purple">
+                <Link
+                  href="/auth/register"
+                  className="font-extrabold text-purple"
+                >
                   Daftar disini
                 </Link>
               </p>

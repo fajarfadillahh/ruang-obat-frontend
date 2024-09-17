@@ -16,17 +16,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
 
-interface CbtLayoutProps {
+interface LayoutProps {
   title?: string;
   children: ReactNode;
   className?: string;
 }
 
-export default function CbtLayout({
-  title,
-  children,
-  className,
-}: CbtLayoutProps) {
+export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
 
   return (
@@ -50,7 +46,8 @@ export default function CbtLayout({
                 variant="light"
                 startContent={<SignIn weight="bold" size={18} />}
                 onClick={() =>
-                  window.open("https://cbt.ruangobat.id/login", "_blank")
+                  // window.open("https://cbt.ruangobat.id/auth/login", "_blank")
+                  window.open("/auth/login", "_blank")
                 }
                 className="px-4 font-bold text-black"
               >
@@ -61,7 +58,8 @@ export default function CbtLayout({
                 variant="solid"
                 color="secondary"
                 onClick={() =>
-                  window.open("https://cbt.ruangobat.id/register", "_blank")
+                  // window.open("https://cbt.ruangobat.id/auth/register", "_blank")
+                  window.open("/auth/register", "_blank")
                 }
                 className="px-8 font-bold"
               >
@@ -128,7 +126,7 @@ export default function CbtLayout({
                     startContent={<SignOut weight="bold" size={18} />}
                     onClick={() => {
                       if (confirm("apakah anda yakin?")) {
-                        window.location.href = "/login";
+                        window.location.href = "/";
                       }
                     }}
                     className="text-danger-600"
