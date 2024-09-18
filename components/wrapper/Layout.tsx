@@ -33,7 +33,10 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
       <div className="wfull mx-auto grid max-w-[1200px]">
         <Navbar className="items-center justify-between">
-          <Link href="/" className="inline-flex items-center gap-2">
+          <Link
+            href={router.pathname == "/" ? "/" : "/dashboard"}
+            className="inline-flex items-center gap-2"
+          >
             <LogoRuangobat className="h-auto w-[32px] text-gray/20" />
             <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
               Ruang Obat<span className="text-[#73C5FF]">.</span>
@@ -45,10 +48,16 @@ export default function Layout({ title, children, className }: LayoutProps) {
               <Button
                 variant="light"
                 startContent={<SignIn weight="bold" size={18} />}
-                onClick={() =>
-                  // window.open("https://cbt.ruangobat.id/auth/login", "_blank")
-                  window.open("/auth/login", "_blank")
-                }
+                onClick={() => {
+                  if (window.location.host == "localhost:3000") {
+                    router.push("/auth/login");
+                  } else {
+                    window.open(
+                      "https://cbt.ruangobat.id/auth/login",
+                      "_blank",
+                    );
+                  }
+                }}
                 className="px-4 font-bold text-black"
               >
                 Masuk
@@ -57,10 +66,16 @@ export default function Layout({ title, children, className }: LayoutProps) {
               <Button
                 variant="solid"
                 color="secondary"
-                onClick={() =>
-                  // window.open("https://cbt.ruangobat.id/auth/register", "_blank")
-                  window.open("/auth/register", "_blank")
-                }
+                onClick={() => {
+                  if (window.location.host == "localhost:3000") {
+                    router.push("/auth/register");
+                  } else {
+                    window.open(
+                      "https://cbt.ruangobat.id/auth/register",
+                      "_blank",
+                    );
+                  }
+                }}
                 className="px-8 font-bold"
               >
                 Register
@@ -102,7 +117,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   key="dashboard"
                   color="secondary"
                   startContent={<House weight="bold" size={18} />}
-                  onClick={() => router.push("/")}
+                  onClick={() => router.push("/dashboard")}
                 >
                   Beranda
                 </DropdownItem>
@@ -126,7 +141,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     startContent={<SignOut weight="bold" size={18} />}
                     onClick={() => {
                       if (confirm("apakah anda yakin?")) {
-                        window.location.href = "/";
+                        window.location.href = "/auth/login";
                       }
                     }}
                     className="text-danger-600"

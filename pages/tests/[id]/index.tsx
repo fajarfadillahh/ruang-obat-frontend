@@ -81,7 +81,10 @@ export default function DetailsTest() {
               variant="solid"
               color="secondary"
               endContent={<ArrowRight weight="bold" size={18} />}
-              onClick={() => router.push(`/tests/${id}/start?number=1`)}
+              onClick={() => {
+                document.documentElement.requestFullscreen();
+                router.push(`/tests/${id}/start?number=1`);
+              }}
               className="px-4 font-bold"
             >
               Mulai Ujian

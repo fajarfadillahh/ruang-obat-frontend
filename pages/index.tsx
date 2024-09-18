@@ -35,7 +35,13 @@ export default function HomePage() {
               variant="solid"
               color="secondary"
               endContent={<ArrowRight weight="bold" size={16} />}
-              onClick={() => router.push("/dashboard")}
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/dashboard");
+                } else {
+                  window.open("https://cbt.ruangobat.id/dashboard", "_blank");
+                }
+              }}
               className="px-4 font-bold"
             >
               Halaman Dashboard
@@ -44,6 +50,13 @@ export default function HomePage() {
             <Button
               variant="bordered"
               className="border-black px-4 font-bold text-black"
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/dashboard");
+                } else {
+                  window.open("https://cbt.ruangobat.id/auth/register", "_blank");
+                }
+              }}
             >
               Mulai Ujian Sekarang!
             </Button>
