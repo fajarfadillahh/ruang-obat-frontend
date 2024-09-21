@@ -27,77 +27,97 @@ export default function ResultTest() {
         </Button>
 
         <div className="grid grid-cols-[260px_1fr_260px] items-start gap-4">
-          <div className="grid h-[550px] divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/20 p-6">
-            <div className="grid gap-4 pb-8">
-              <h4 className="text-sm font-semibold text-black">
-                Keterangan Warna:
-              </h4>
+          <div className="sticky left-0 top-28 h-[550px] rounded-xl border-2 border-gray/20 p-6">
+            <div className="grid divide-y-2 divide-dashed divide-gray/20">
+              <div className="grid gap-4 pb-8">
+                <h4 className="text-sm font-semibold text-black">
+                  Keterangan Warna:
+                </h4>
 
-              <div className="grid gap-2">
-                <div className="inline-flex items-center gap-2">
-                  <div className="size-6 rounded-full bg-success" />
-                  <p className="text-[12px] font-semibold text-black">
-                    Jawaban Benar
-                  </p>
-                </div>
+                <div className="grid gap-2">
+                  <div className="inline-flex items-center gap-2">
+                    <div className="size-6 rounded-full bg-success" />
+                    <p className="text-[12px] font-semibold text-black">
+                      Jawaban Benar
+                    </p>
+                  </div>
 
-                <div className="inline-flex items-center gap-2">
-                  <div className="size-6 rounded-full bg-danger" />
-                  <p className="text-[12px] font-semibold text-black">
-                    Jawaban Salah
-                  </p>
+                  <div className="inline-flex items-center gap-2">
+                    <div className="size-6 rounded-full bg-danger" />
+                    <p className="text-[12px] font-semibold text-black">
+                      Jawaban Salah
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="grid gap-4 pt-8">
-              <h4 className="text-sm font-semibold text-black">
-                Daftar Pertanyaan:
-              </h4>
+              <div className="grid gap-4 overflow-hidden pt-8">
+                <h4 className="text-sm font-semibold text-black">
+                  Daftar Pertanyaan:
+                </h4>
 
-              <div className="grid h-full max-h-[230px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide">
-                {Array.from({ length: 100 }, (_, i) => {
-                  const randomAnswer = Math.floor(Math.random() * 3);
-                  let answerClass = "";
+                <div className="grid h-full max-h-[230px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide">
+                  {Array.from({ length: 100 }, (_, i) => {
+                    const randomAnswer = Math.floor(Math.random() * 3);
+                    let answerClass = "";
 
-                  if (randomAnswer === 0) {
-                    answerClass = "bg-danger text-white";
-                  } else {
-                    answerClass = "bg-success text-white";
-                  }
+                    if (randomAnswer === 0) {
+                      answerClass = "bg-danger text-white";
+                    } else {
+                      answerClass = "bg-success text-white";
+                    }
 
-                  return (
-                    <Link
-                      key={i}
-                      href={`/tests/${id}/finish?number=${i + 1}`}
-                      className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${answerClass}`}
-                    >
-                      {i + 1}
-                    </Link>
-                  );
-                })}
-              </div>
+                    return (
+                      <Link
+                        key={i}
+                        href={`/tests/${id}/finish?number=${i + 1}`}
+                        className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${answerClass}`}
+                      >
+                        {i + 1}
+                      </Link>
+                    );
+                  })}
+                </div>
 
-              <div className="inline-flex items-center gap-1 pt-2 italic text-gray/80">
-                <p className="text-[10px] font-semibold">Scroll ke bawah</p>
-                <ArrowDown
-                  weight="bold"
-                  size={10}
-                  className="animate-bounce italic"
-                />
+                <div className="inline-flex items-center gap-1 pt-2 italic text-gray/80">
+                  <p className="text-[10px] font-semibold">Scroll ke bawah</p>
+                  <ArrowDown
+                    weight="bold"
+                    size={10}
+                    className="animate-bounce italic"
+                  />
+                </div>
               </div>
             </div>
           </div>
 
           <div className="min-h-max rounded-xl border-2 border-gray/20 p-6">
-            <div className="grid gap-6">
+            <div className="grid gap-6 overflow-y-scroll">
               <h4 className="text-[18px] font-extrabold text-purple">No. 1</h4>
 
               <p className="font-semibold leading-[170%] text-black">
                 Seorang pasien laki-laki berusia 50 tahun datang ke rumah sakit
                 dengan diagnosa kanker prostat. Setelah dilakukan pemeriksaan,
                 pasien direkomendasikan terapi menggunakan Hidroksiurea yang
-                akan dilakukan selama beberapa siklus.
+                akan dilakukan selama beberapa siklus. Seorang pasien laki-laki
+                berusia 50 tahun datang ke rumah sakit dengan diagnosa kanker
+                prostat. Setelah dilakukan pemeriksaan, pasien direkomendasikan
+                terapi menggunakan Hidroksiurea yang akan dilakukan selama
+                beberapa siklus. Seorang pasien laki-laki berusia 50 tahun
+                datang ke rumah sakit dengan diagnosa kanker prostat. Setelah
+                dilakukan pemeriksaan, pasien direkomendasikan terapi
+                menggunakan Hidroksiurea yang akan dilakukan selama beberapa
+                siklus.
+                <br />
+                <br />
+                Seorang pasien laki-laki berusia 50 tahun datang ke rumah sakit
+                dengan diagnosa kanker prostat. Setelah dilakukan pemeriksaan,
+                pasien direkomendasikan terapi menggunakan Hidroksiurea yang
+                akan dilakukan selama beberapa siklus. Seorang pasien laki-laki
+                berusia 50 tahun datang ke rumah sakit dengan diagnosa kanker
+                prostat. Setelah dilakukan pemeriksaan, pasien direkomendasikan
+                terapi menggunakan Hidroksiurea yang akan dilakukan selama
+                beberapa siklus.
                 <br />
                 <br />
                 Pada fase manakah agen tersebut bekerja?
@@ -182,7 +202,7 @@ export default function ResultTest() {
             </div>
           </div>
 
-          <div className="h-[550px] rounded-xl border-2 border-gray/20 p-6">
+          <div className="sticky right-0 top-28 h-[550px] rounded-xl border-2 border-gray/20 p-6">
             <div className="grid gap-8">
               <h4 className="text-[18px] font-bold text-black">Hasil Ujian:</h4>
 
