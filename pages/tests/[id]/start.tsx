@@ -1,6 +1,18 @@
 import Layout from "@/components/wrapper/Layout";
-import { Button, Checkbox, cn, Radio, RadioGroup } from "@nextui-org/react";
-import { ArrowDown, ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import {
+  Button,
+  Checkbox,
+  Chip,
+  cn,
+  Radio,
+  RadioGroup,
+} from "@nextui-org/react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  ArrowRight,
+  CheckCircle,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -164,13 +176,13 @@ export default function StartTest() {
 
         <div className="h-[550px] rounded-xl border-2 border-gray/20 p-6">
           <div className="grid divide-y-2 divide-dashed divide-gray/20">
-            <div className="grid gap-2 pb-8">
+            <div className="grid gap-2 pb-6">
               <h4 className="text-sm font-semibold text-black">
                 Data Peserta:
               </h4>
 
               <div>
-                <h4 className="text-[18px] font-bold -tracking-wide text-purple">
+                <h4 className="font-bold -tracking-wide text-purple">
                   Fajar Fadillah Agustian
                 </h4>
                 <p className="text-[12px] font-semibold text-gray">
@@ -179,14 +191,14 @@ export default function StartTest() {
               </div>
             </div>
 
-            <div className="grid py-8">
+            <div className="grid py-6">
               <h4 className="text-sm font-semibold text-black">Sisa Waktu:</h4>
-              <h4 className="text-[38px] font-extrabold -tracking-wide text-purple">
+              <h4 className="text-[28px] font-extrabold -tracking-wide text-purple">
                 01:23:45
               </h4>
             </div>
 
-            <div className="grid gap-4 pt-8">
+            <div className="grid gap-4 py-6">
               <h4 className="text-sm font-semibold text-black">
                 Penyelesaian Soal:
               </h4>
@@ -213,6 +225,25 @@ export default function StartTest() {
                   <p className="font-extrabold text-purple">25</p>
                 </li>
               </ul>
+            </div>
+
+            <div className="grid gap-4 pt-6">
+              <h4 className="text-sm font-semibold text-black">
+                Status Jaringan:
+              </h4>
+
+              <Chip
+                variant="flat"
+                color="success"
+                size="sm"
+                startContent={<CheckCircle weight="fill" size={16} />}
+                classNames={{
+                  base: "gap-1 px-2",
+                  content: "font-bold",
+                }}
+              >
+                Jaringan Bagus
+              </Chip>
             </div>
           </div>
         </div>
