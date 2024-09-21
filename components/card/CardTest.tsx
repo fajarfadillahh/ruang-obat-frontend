@@ -21,7 +21,7 @@ export default function CardTest(test: TestsType) {
               <span className="text-[12px] font-medium text-gray">
                 Tanggal Mulai:
               </span>
-              <h1 className="text-sm font-bold text-black">
+              <h1 className="text-sm font-semibold text-black">
                 {test.start_test}
               </h1>
             </div>
@@ -30,14 +30,16 @@ export default function CardTest(test: TestsType) {
               <span className="text-[12px] font-medium text-gray">
                 Tanggal Selesai:
               </span>
-              <h1 className="text-sm font-bold text-black">{test.end_test}</h1>
+              <h1 className="text-sm font-semibold text-black">
+                {test.end_test}
+              </h1>
             </div>
 
             <div className="grid gap-[2px]">
               <span className="text-[12px] font-medium text-gray">
                 Durasi Pengerjaan:
               </span>
-              <h1 className="text-sm font-bold text-black">
+              <h1 className="text-sm font-semibold text-black">
                 {test.duration_test} Menit
               </h1>
             </div>
@@ -46,13 +48,14 @@ export default function CardTest(test: TestsType) {
               <span className="text-[12px] font-medium text-gray">
                 Status Program:
               </span>
+
               <Chip
                 variant="flat"
                 color="default"
                 startContent={<ClockCountdown weight="bold" size={18} />}
                 classNames={{
                   base: "px-3 gap-1",
-                  content: "font-bold capitalize",
+                  content: "font-semibold capitalize",
                 }}
               >
                 {test.status_test}
