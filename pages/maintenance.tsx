@@ -2,18 +2,15 @@ import Layout from "@/components/wrapper/Layout";
 import { Button } from "@nextui-org/react";
 import { ArrowClockwise } from "@phosphor-icons/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
-export default function ServerErrorPage() {
-  const router = useRouter();
-
+export default function MaintenancePage() {
   return (
     <Layout title="Server Error Page">
       <section className="flex flex-col items-center justify-center gap-8 pt-8">
         <Image
           priority
-          src="/img/500-img.svg"
-          alt="500 img"
+          src="/img/maintenance-img.svg"
+          alt="maintenance img"
           width={1000}
           height={500}
           className="h-auto w-[400px]"
@@ -22,12 +19,12 @@ export default function ServerErrorPage() {
         <div className="grid justify-center gap-6">
           <div className="text-center">
             <h1 className="mb-2 text-[32px] font-bold -tracking-wide text-black">
-              Sebentar, ada yang salah disini
+              Server sedang dalam perbaikan
             </h1>
-            <p className="mx-auto max-w-[620px] font-medium leading-[170%] text-gray">
-              Sepertinya ada kendala teknis di server kami. Tim kami sedang
-              bekerja keras untuk memperbaikinya. Silakan coba beberapa saat
-              lagi.
+            <p className="mx-auto max-w-[650px] font-medium leading-[170%] text-gray">
+              Kami sedang memberi sentuhan ajaib di balik layar. Website
+              sementara dalam proses perbaikan untuk layanan yang lebih baik.
+              Jangan khawatir, kita bakal balik lagi dalam waktu dekat!
             </p>
           </div>
 
