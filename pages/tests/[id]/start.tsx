@@ -29,9 +29,9 @@ export default function StartTest() {
         <title>Start Test Page</title>
       </Head>
 
-      <main className="mx-auto flex min-h-screen w-full max-w-[1440px] items-center px-6">
-        <section className="grid grid-cols-[260px_1fr_260px] items-start gap-4 py-16">
-          <div className="sticky left-0 top-16 h-[600px] rounded-xl border-2 border-gray/20 p-6">
+      <main className="mx-auto h-screen w-full max-w-[1440px] px-6">
+        <section className="grid grid-cols-[260px_1fr_260px] items-start gap-4 py-12">
+          <div className="h-[600px] rounded-xl border-2 border-gray/20 p-6">
             <div className="grid divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-4 pb-8">
                 <h4 className="text-sm font-semibold text-black">
@@ -77,8 +77,8 @@ export default function StartTest() {
                         href={`/tests/${id}/start?number=${i + 1}`}
                         className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${
                           isActive
-                            ? "bg-purple text-white"
-                            : "bg-gray/10 text-gray hover:bg-gray/30"
+                            ? "bg-gray/30 text-gray"
+                            : "bg-gray/10 text-gray hover:bg-gray/20"
                         }`}
                       >
                         {i + 1}
@@ -99,32 +99,14 @@ export default function StartTest() {
             </div>
           </div>
 
-          <div className="grid gap-6 overflow-y-scroll">
-            <div className="min-h-[550px] rounded-xl border-2 border-gray/20 p-6">
-              <div className="grid gap-6">
-                <h4 className="text-[18px] font-extrabold text-purple">
-                  No. 1
-                </h4>
+          <div className="grid gap-6">
+            <div className="h-[600px] overflow-y-scroll rounded-xl border-2 border-gray/20">
+              <div className="sticky left-0 top-0 bg-white p-6 text-[18px] font-extrabold text-purple">
+                No. 1
+              </div>
 
+              <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
                 <p className="font-semibold leading-[170%] text-black">
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  <br />
-                  <br />
                   Seorang pasien laki-laki berusia 50 tahun datang ke rumah
                   sakit dengan diagnosa kanker prostat. Setelah dilakukan
                   pemeriksaan, pasien direkomendasikan terapi menggunakan
@@ -205,7 +187,7 @@ export default function StartTest() {
             </div>
           </div>
 
-          <div className="sticky right-0 top-16 h-[600px] rounded-xl border-2 border-gray/20 p-6">
+          <div className="h-[600px] rounded-xl border-2 border-gray/20 p-6">
             <div className="grid divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-2 pb-8">
                 <h4 className="text-sm font-semibold text-black">
