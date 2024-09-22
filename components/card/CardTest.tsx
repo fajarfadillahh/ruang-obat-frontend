@@ -46,7 +46,7 @@ export default function CardTest(test: TestsType) {
 
             <div className="grid gap-[2px]">
               <span className="text-[12px] font-medium text-gray">
-                Status Program:
+                Status Ujian:
               </span>
 
               <Chip

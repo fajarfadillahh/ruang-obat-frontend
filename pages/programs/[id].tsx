@@ -49,10 +49,12 @@ export default function DetailsProgram() {
               Daftar Ujian 📋
             </h4>
 
-            <div className="grid gap-2">
+            <div className="relative grid gap-2">
               {tests.map((test) => (
                 <CardTest key={test.id} {...test} />
               ))}
+
+              {/* <div className="absolute left-0 top-0 z-10 h-full w-full rounded-xl bg-black/10 backdrop-blur-sm" /> */}
             </div>
           </div>
         </div>
