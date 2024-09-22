@@ -23,7 +23,7 @@ export default function ResultTest() {
           onClick={() => (window.location.href = `/tests/${id}`)}
           className="w-max px-4 font-bold text-black"
         >
-          Kembali ke halaman detail
+          Kembali Ke Halaman Detail
         </Button>
 
         <div className="grid grid-cols-[260px_1fr_260px] items-start gap-4">
