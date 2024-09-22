@@ -1,13 +1,20 @@
 import { ProgramsType } from "@/types/programs.type";
-import { Chip } from "@nextui-org/react";
-import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
+import { formatRupiah } from "@/utils/formatRupiah";
+import { Chip, Tooltip } from "@nextui-org/react";
+import {
+  BookBookmark,
+  Notepad,
+  SealCheck,
+  Tag,
+  Users,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function CardProgram(program: ProgramsType) {
   return (
     <Link
       href={`/programs/${program.id}`}
-      className="group flex items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10"
+      className="group relative flex items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10"
     >
       <BookBookmark weight="bold" size={32} className="text-purple" />
 
@@ -17,18 +24,24 @@ export default function CardProgram(program: ProgramsType) {
             {program.title}
           </h4>
 
-          <Chip
-            variant="flat"
-            size="sm"
-            color="default"
-            startContent={<Tag weight="bold" size={14} />}
-            classNames={{
-              base: "px-2 gap-1",
-              content: "font-bold capitalize",
-            }}
-          >
-            Program {program.program_type}
-          </Chip>
+          {program.program_type === "free" ? (
+            <Chip
+              variant="flat"
+              size="sm"
+              color="default"
+              startContent={<Tag weight="bold" size={14} />}
+              classNames={{
+                base: "px-2 gap-1",
+                content: "font-bold capitalize",
+              }}
+            >
+              Program Gratis
+            </Chip>
+          ) : (
+            <div className="text-sm font-bold text-purple">
+              {formatRupiah(program.price_program)}
+            </div>
+          )}
         </div>
 
         <div className="flex items-center justify-between gap-2 pt-4">
@@ -47,6 +60,21 @@ export default function CardProgram(program: ProgramsType) {
           </div>
         </div>
       </div>
+
+      {program.program_type === "free" ? (
+        <Tooltip
+          content="Program Telah Di Ikuti."
+          classNames={{
+            content: "max-w-[350px] font-semibold text-black",
+          }}
+        >
+          <SealCheck
+            weight="fill"
+            size={24}
+            className="absolute right-4 top-4 text-success"
+          />
+        </Tooltip>
+      ) : null}
     </Link>
   );
 }
