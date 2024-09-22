@@ -1,8 +1,9 @@
 import { tests } from "@/_dummy/tests";
 import ButtonBack from "@/components/button/ButtonBack";
 import CardTest from "@/components/card/CardTest";
+import ModalInputAccessKey from "@/components/modal/ModalInputAccessKey";
 import Layout from "@/components/wrapper/Layout";
-import { Button, Chip } from "@nextui-org/react";
+import { Chip } from "@nextui-org/react";
 import { BookBookmark, Tag } from "@phosphor-icons/react";
 
 export default function DetailsProgram() {
@@ -33,13 +34,7 @@ export default function DetailsProgram() {
                   Program Gratis
                 </Chip>
 
-                <Button
-                  variant="solid"
-                  color="secondary"
-                  className="px-12 font-bold"
-                >
-                  Ikuti Program
-                </Button>
+                <ModalInputAccessKey />
               </div>
             </div>
           </div>
