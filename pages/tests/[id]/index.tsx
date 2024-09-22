@@ -61,7 +61,7 @@ export default function DetailsTest() {
           <div className="grid gap-8">
             <div className="grid gap-1">
               <span className="text-sm font-medium text-gray">
-                Status Program:
+                Status Ujian:
               </span>
 
               <Chip
