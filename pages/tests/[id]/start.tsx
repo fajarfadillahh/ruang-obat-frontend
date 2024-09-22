@@ -111,10 +111,6 @@ export default function StartTest() {
                   sakit dengan diagnosa kanker prostat. Setelah dilakukan
                   pemeriksaan, pasien direkomendasikan terapi menggunakan
                   Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
                   <br />
                   <br />
                   Pada fase manakah agen tersebut bekerja?
