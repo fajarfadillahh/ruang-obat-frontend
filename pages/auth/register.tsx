@@ -1,5 +1,5 @@
 import { quotes } from "@/utils/quotes";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import {
   Buildings,
   EnvelopeSimple,
@@ -7,6 +7,7 @@ import {
   Phone,
   Quotes,
   User,
+  Users,
 } from "@phosphor-icons/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -119,6 +120,22 @@ export default function RegisterPage() {
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
               />
+
+              <Select
+                aria-label="select gender"
+                variant="flat"
+                startContent={
+                  <Users weight="bold" size={18} className="text-gray" />
+                }
+                labelPlacement="outside"
+                placeholder="Jenis Kelamin"
+                classNames={{
+                  value: "font-semibold text-gray",
+                }}
+              >
+                <SelectItem key="male">Laki-Laki</SelectItem>
+                <SelectItem key="female">Perempuan</SelectItem>
+              </Select>
 
               <Input
                 type="text"
