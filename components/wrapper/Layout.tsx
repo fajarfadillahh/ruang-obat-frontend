@@ -89,7 +89,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     isBordered
                     showFallback
                     size="sm"
-                    src="/img/avatar.svg"
+                    src="/img/avatar-male.svg"
                     classNames={{
                       base: "ring-purple bg-purple/20",
                       icon: "text-purple",
