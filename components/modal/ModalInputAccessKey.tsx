@@ -18,8 +18,9 @@ export default function ModalInputAccessKey() {
       <Button
         variant="solid"
         color="secondary"
+        size="sm"
         onPress={onOpen}
-        className="px-12 font-bold"
+        className="px-6 font-bold"
       >
         Ikuti Program
       </Button>

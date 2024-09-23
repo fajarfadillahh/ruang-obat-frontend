@@ -4,7 +4,7 @@ import CardTest from "@/components/card/CardTest";
 import ModalInputAccessKey from "@/components/modal/ModalInputAccessKey";
 import Layout from "@/components/wrapper/Layout";
 import { Chip } from "@nextui-org/react";
-import { BookBookmark, Tag } from "@phosphor-icons/react";
+import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
 
 export default function DetailsProgram() {
   return (
@@ -13,30 +13,42 @@ export default function DetailsProgram() {
         <ButtonBack />
 
         <div className="grid divide-y-2 divide-dashed divide-gray/20">
-          <div className="flex items-start gap-6 pb-8">
-            <BookBookmark weight="bold" size={56} className="text-purple" />
+          <div className="flex items-start justify-between gap-4 pb-8 pr-6">
+            <div className="flex items-start gap-6">
+              <BookBookmark weight="bold" size={48} className="text-purple" />
 
-            <div className="grid gap-6">
-              <h4 className="max-w-[700px] text-[28px] font-bold leading-[120%] -tracking-wide text-black">
-                Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
-              </h4>
+              <div className="grid flex-1 gap-4">
+                <h4 className="max-w-[700px] text-[28px] font-bold leading-[120%] -tracking-wide text-black">
+                  Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
+                </h4>
 
-              <div className="flex items-start gap-12">
-                <Chip
-                  variant="flat"
-                  color="default"
-                  startContent={<Tag weight="bold" size={18} />}
-                  classNames={{
-                    base: "px-4 gap-1",
-                    content: "font-bold",
-                  }}
-                >
-                  Program Gratis
-                </Chip>
+                <div className="flex items-center gap-10">
+                  <Chip
+                    variant="flat"
+                    color="default"
+                    startContent={<Tag weight="bold" size={18} />}
+                    classNames={{
+                      base: "px-3 gap-1",
+                      content: "font-bold",
+                    }}
+                  >
+                    Gratis
+                  </Chip>
 
-                <ModalInputAccessKey />
+                  <div className="inline-flex items-center gap-1 text-gray">
+                    <Notepad weight="bold" size={18} />
+                    <p className="text-sm font-semibold">9 Modul Ujian</p>
+                  </div>
+
+                  <div className="inline-flex items-center gap-1 text-gray">
+                    <Users weight="bold" size={18} />
+                    <p className="text-sm font-semibold">1.2K Mahasiswa/i</p>
+                  </div>
+                </div>
               </div>
             </div>
+
+            <ModalInputAccessKey />
           </div>
 
           <div className="grid gap-4 pt-8">
