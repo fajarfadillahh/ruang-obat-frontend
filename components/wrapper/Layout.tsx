@@ -126,7 +126,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   key="myprogram"
                   color="secondary"
                   startContent={<ClipboardText weight="bold" size={18} />}
-                  onClick={() => router.push("/myprograms")}
+                  onClick={() => router.push("/my/programs")}
                 >
                   Program Saya
                 </DropdownItem>
