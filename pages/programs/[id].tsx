@@ -8,7 +8,7 @@ import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
 
 export default function DetailsProgram() {
   return (
-    <Layout title="Details Program Page">
+    <Layout title={`Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024`}>
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 

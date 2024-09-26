@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter();
 
   return (
-    <Layout title="Ruangobat.id">
+    <Layout title="Rumah Ujian Para Mahasiswa Farmasi">
       <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
         <div className="grid max-w-[580px] gap-10">
           <div className="grid gap-4">
