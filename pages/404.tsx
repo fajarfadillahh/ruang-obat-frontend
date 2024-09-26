@@ -8,7 +8,7 @@ export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <Layout title="Not Found Page">
+    <Layout title="Ooppss, Halaman Tidak Ditemukan">
       <section className="flex flex-col items-center justify-center gap-8 pt-8">
         <Image
           priority
@@ -22,7 +22,7 @@ export default function NotFoundPage() {
         <div className="grid justify-center gap-6">
           <div className="text-center">
             <h1 className="mb-2 text-[32px] font-bold -tracking-wide text-black">
-              Ooppss, halaman tidak ditemukan
+              Ooppss, Halaman Tidak Ditemukan
             </h1>
             <p className="mx-auto max-w-[620px] font-medium leading-[170%] text-gray">
               Sepertinya halaman yang anda cari tidak tersedia atau sudah

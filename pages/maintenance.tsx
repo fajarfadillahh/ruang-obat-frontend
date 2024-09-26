@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function MaintenancePage() {
   return (
-    <Layout title="Server Error Page">
+    <Layout title="Server Sedang Dalam Masa Pemeliharaan">
       <section className="flex flex-col items-center justify-center gap-8 pt-8">
         <Image
           priority
@@ -19,11 +19,11 @@ export default function MaintenancePage() {
         <div className="grid justify-center gap-6">
           <div className="text-center">
             <h1 className="mb-2 text-[32px] font-bold -tracking-wide text-black">
-              Server sedang dalam perbaikan
+              Server Sedang Dalam Masa Pemeliharaan
             </h1>
             <p className="mx-auto max-w-[650px] font-medium leading-[170%] text-gray">
               Kami sedang memberi sentuhan ajaib di balik layar. Website
-              sementara dalam proses perbaikan untuk layanan yang lebih baik.
+              sementara dalam proses pemeliharaan untuk layanan yang lebih baik.
               Jangan khawatir, kita bakal balik lagi dalam waktu dekat!
             </p>
           </div>
