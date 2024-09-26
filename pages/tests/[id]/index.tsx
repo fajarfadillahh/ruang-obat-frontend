@@ -9,7 +9,7 @@ export default function DetailsTest() {
   const { id } = router.query;
 
   return (
-    <Layout title="Details Test Page">
+    <Layout title={`Tryout Internal Ruangobat Part 1`}>
       <section className="grid gap-8 pt-8">
         <ButtonBack />
 

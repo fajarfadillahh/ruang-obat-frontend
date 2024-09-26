@@ -15,7 +15,7 @@ export default function ResultTest() {
   const { id } = router.query;
 
   return (
-    <Layout title="Result Test Page">
+    <Layout title="Hasil Ujian">
       <section className="grid gap-8">
         <Button
           variant="light"
