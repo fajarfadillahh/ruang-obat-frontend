@@ -11,7 +11,7 @@ export default function DashboardPage() {
   ];
 
   return (
-    <Layout title="Dashboard">
+    <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Anda">
       <section className="grid gap-6 pt-8">
         <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
           Daftar Program 📋

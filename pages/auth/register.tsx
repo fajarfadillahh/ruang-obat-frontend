@@ -29,7 +29,7 @@ export default function RegisterPage() {
   return (
     <>
       <Head>
-        <title>Register | Rumah Ujian Para Mahasiswa Farmasi</title>
+        <title>Daftar Akun Untuk Mulai Belajar | Ruangobat.id</title>
         <meta
           name="description"
           content="Ruangobat adalah platform ujian online yang dirancang khusus untuk mahasiswa farmasi. Dapatkan pengalaman belajar dan ujian yang interaktif dengan berbagai soal terupdate sesuai kurikulum terkini. Uji kemampuan, tingkatkan pemahaman, dan siap menghadapi ujian farmasi dengan percaya diri. Belajar farmasi jadi lebih efektif dan terstruktur hanya di Ruangobat!"
@@ -40,7 +40,7 @@ export default function RegisterPage() {
         />
         <meta
           property="og:title"
-          content="Register | Rumah Ujian Para Mahasiswa Farmasi"
+          content="Daftar Akun Untuk Mulai Belajar | Ruangobat.id"
         />
         <meta
           property="og:description"

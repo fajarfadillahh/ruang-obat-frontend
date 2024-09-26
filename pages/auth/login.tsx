@@ -21,7 +21,7 @@ export default function LoginPage() {
   return (
     <>
       <Head>
-        <title>Login | Rumah Ujian Para Mahasiswa Farmasi</title>
+        <title>Login Untuk Mulai Belajar | Ruangobat.id</title>
         <meta
           name="description"
           content="Ruangobat adalah platform ujian online yang dirancang khusus untuk mahasiswa farmasi. Dapatkan pengalaman belajar dan ujian yang interaktif dengan berbagai soal terupdate sesuai kurikulum terkini. Uji kemampuan, tingkatkan pemahaman, dan siap menghadapi ujian farmasi dengan percaya diri. Belajar farmasi jadi lebih efektif dan terstruktur hanya di Ruangobat!"
@@ -32,7 +32,7 @@ export default function LoginPage() {
         />
         <meta
           property="og:title"
-          content="Login | Rumah Ujian Para Mahasiswa Farmasi"
+          content="Login Untuk Mulai Belajar | Ruangobat.id"
         />
         <meta
           property="og:description"
