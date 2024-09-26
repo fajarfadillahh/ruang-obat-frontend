@@ -4,7 +4,7 @@ import Layout from "@/components/wrapper/Layout";
 
 export default function MyProgramsPage() {
   return (
-    <Layout title="My Programs Page">
+    <Layout title="Program Saya">
       <section className="grid gap-6 pt-8">
         <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
           Program Saya 📋
