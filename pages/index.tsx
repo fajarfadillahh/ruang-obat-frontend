@@ -8,7 +8,7 @@ export default function HomePage() {
   const router = useRouter();
 
   return (
-    <Layout title="Landing Page">
+    <Layout title="Ruangobat.id">
       <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
         <div className="grid max-w-[580px] gap-10">
           <div className="grid gap-4">
@@ -54,7 +54,10 @@ export default function HomePage() {
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
                 } else {
-                  window.open("https://cbt.ruangobat.id/auth/register", "_blank");
+                  window.open(
+                    "https://cbt.ruangobat.id/auth/register",
+                    "_blank",
+                  );
                 }
               }}
             >

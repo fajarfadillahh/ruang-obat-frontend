@@ -28,7 +28,23 @@ export default function Layout({ title, children, className }: LayoutProps) {
   return (
     <>
       <Head>
-        <title>{title}</title>
+        <title>{`${title} | Rumah Ujian Para Mahasiswa Farmasi`}</title>
+        <meta
+          name="description"
+          content="Ruangobat adalah platform ujian online yang dirancang khusus untuk mahasiswa farmasi. Dapatkan pengalaman belajar dan ujian yang interaktif dengan berbagai soal terupdate sesuai kurikulum terkini. Uji kemampuan, tingkatkan pemahaman, dan siap menghadapi ujian farmasi dengan percaya diri. Belajar farmasi jadi lebih efektif dan terstruktur hanya di Ruangobat!"
+        />
+        <meta
+          name="keywords"
+          content="ruangobat, ruangobat.id, ruangobat ujian, ruangobat ujian online, ruangobat farmasi, ruangobat tryout, ruangobat tes, ujian online farmasi, ujian online ruangobat, platform ujian mahasiswa farmasi, belajar farmasi online, tryout farmasi online, tes farmasi online, latihan soal farmasi, simulasi ujian farmasi, platform belajar farmasi, ujian online farmasi terpercaya"
+        />
+        <meta
+          property="og:title"
+          content={`${title} | Rumah Ujian Para Mahasiswa Farmasi`}
+        />
+        <meta
+          property="og:description"
+          content="Ruangobat adalah platform ujian online yang dirancang khusus untuk mahasiswa farmasi. Dapatkan pengalaman belajar dan ujian yang interaktif dengan berbagai soal terupdate sesuai kurikulum terkini. Uji kemampuan, tingkatkan pemahaman, dan siap menghadapi ujian farmasi dengan percaya diri. Belajar farmasi jadi lebih efektif dan terstruktur hanya di Ruangobat!"
+        />
       </Head>
 
       <div className="mx-auto grid w-full max-w-[1200px]">
