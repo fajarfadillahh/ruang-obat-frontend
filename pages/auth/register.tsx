@@ -80,8 +80,8 @@ export default function RegisterPage() {
         />
       </Head>
 
-      <main className="grid h-screen grid-cols-[1fr_550px]">
-        <div className="flex items-center justify-center bg-default-100 px-20">
+      <main className="grid h-screen xl:grid-cols-[1fr_550px]">
+        <div className="hidden items-center justify-center bg-default-100 px-20 xl:flex">
           <div className="relative grid gap-16">
             <Quotes
               weight="fill"
@@ -109,11 +109,11 @@ export default function RegisterPage() {
           </div>
         </div>
 
-        <div className="flex flex-col justify-between gap-4 px-16 py-10">
+        <div className="mx-auto flex max-w-[400px] flex-col justify-between gap-4 px-6 py-10 xl:max-w-none xl:px-16">
           <div></div>
 
           <div className="grid gap-8">
-            <div>
+            <div className="text-center xl:text-left">
               <h1 className="text-[32px] font-bold -tracking-wide text-black">
                 Ayo kita mulai 🚀
               </h1>
