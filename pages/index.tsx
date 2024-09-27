@@ -9,15 +9,15 @@ export default function HomePage() {
 
   return (
     <Layout title="Rumah Ujian Para Mahasiswa Farmasi">
-      <div className="relative grid grid-cols-[1fr_480px] items-center gap-4">
-        <div className="grid max-w-[580px] gap-10">
+      <div className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_450px] xl:gap-4">
+        <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
           <div className="grid gap-4">
             <p className="font-medium text-gray">
               👋 Selamat datang di Ruang Obat
             </p>
-            <h1 className="text-[72px] font-black leading-[100%] -tracking-wide text-black">
+            <h1 className="text-[48px] font-black leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[72px]">
               Rumah Ujian Para Mahasiswa Farmasi{" "}
-              <AvatarGroup size="lg" className="inline-flex">
+              <AvatarGroup size="lg" className="hidden lg:inline-flex">
                 <Avatar src="/img/home-avatar-1.png" />
                 <Avatar src="/img/home-avatar-2.png" />
                 <Avatar src="/img/home-avatar-3.png" />
@@ -30,7 +30,7 @@ export default function HomePage() {
             </p>
           </div>
 
-          <div className="inline-flex items-center gap-4">
+          <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
             <Button
               variant="solid"
               color="secondary"
@@ -72,7 +72,7 @@ export default function HomePage() {
           alt="home img"
           width={396}
           height={512}
-          className="h-auto w-full justify-self-end"
+          className="h-auto w-full justify-self-center xl:justify-self-end"
         />
       </div>
     </Layout>

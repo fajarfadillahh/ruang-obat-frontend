@@ -44,15 +44,15 @@ export default function Layout({ title, children, className }: LayoutProps) {
         />
       </Head>
 
-      <div className="mx-auto grid w-full max-w-[1200px]">
+      <div className="mx-auto grid w-full max-w-[1200px] px-6">
         <Navbar className="items-center justify-between">
           <Link
             href={router.pathname == "/" ? "/" : "/dashboard"}
             className="inline-flex items-center gap-2"
           >
-            <LogoRuangobat className="h-auto w-[32px] text-gray/20" />
-            <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
-              Ruang Obat<span className="text-[#73C5FF]">.</span>
+            <LogoRuangobat className="h-auto w-8 text-gray/20" />
+            <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
+              Ruang Obat<span className="text-purple">.</span>
             </h1>
           </Link>
 
