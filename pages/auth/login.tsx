@@ -1,3 +1,4 @@
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
 import { EnvelopeSimple, Lock, Quotes } from "@phosphor-icons/react";
@@ -7,8 +8,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function LoginPage() {
+  const [input, setInput] = useState({});
   const [client, setClient] = useState(false);
+  const [loading, setLoading] = useState(false);
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+  function handleLogin() {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      window.location.href = "/dashboard";
+    }, 3000);
+  }
 
   useEffect(() => {
     setClient(true);
@@ -86,6 +98,13 @@ export default function LoginPage() {
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Alamat Email"
+                name="email"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <EnvelopeSimple
                     weight="bold"
@@ -104,6 +123,14 @@ export default function LoginPage() {
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Kata Sandi"
+                name="password"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+                onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -116,12 +143,14 @@ export default function LoginPage() {
 
             <div className="grid gap-4">
               <Button
+                isLoading={loading}
+                isDisabled={Object.keys(input).length < 2 || loading}
                 variant="solid"
                 color="secondary"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={handleLogin}
                 className="font-bold"
               >
-                Masuk Sekarang
+                {loading ? "Tunggu Sebentar..." : "Masuk Sekarang"}
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">

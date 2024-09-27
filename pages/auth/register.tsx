@@ -1,3 +1,4 @@
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import {
@@ -15,8 +16,19 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function RegisterPage() {
+  const [input, setInput] = useState({});
   const [client, setClient] = useState(false);
+  const [loading, setLoading] = useState(false);
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+  function handleRegister() {
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      window.location.href = "/dashboard";
+    }, 3000);
+  }
 
   useEffect(() => {
     setClient(true);
@@ -92,11 +104,18 @@ export default function RegisterPage() {
               <Input
                 type="text"
                 variant="flat"
+                labelPlacement="outside"
+                placeholder="Nama Lengkap"
+                name="name"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <User weight="bold" size={18} className="text-gray" />
                 }
-                labelPlacement="outside"
-                placeholder="Nama Lengkap"
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -106,9 +125,15 @@ export default function RegisterPage() {
               <Input
                 type="email"
                 variant="flat"
-                color="default"
                 labelPlacement="outside"
                 placeholder="Alamat Email"
+                name="email"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <EnvelopeSimple
                     weight="bold"
@@ -126,11 +151,18 @@ export default function RegisterPage() {
                 type="text"
                 inputMode="numeric"
                 variant="flat"
+                labelPlacement="outside"
+                placeholder="No. Telpon"
+                name="no_telp"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <Phone weight="bold" size={18} className="text-gray" />
                 }
-                labelPlacement="outside"
-                placeholder="No. Telpon"
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -140,11 +172,18 @@ export default function RegisterPage() {
               <Select
                 aria-label="select gender"
                 variant="flat"
+                labelPlacement="outside"
+                placeholder="Jenis Kelamin"
+                name="gender"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <Users weight="bold" size={18} className="text-gray" />
                 }
-                labelPlacement="outside"
-                placeholder="Jenis Kelamin"
                 classNames={{
                   value: "font-semibold text-gray",
                 }}
@@ -156,11 +195,18 @@ export default function RegisterPage() {
               <Input
                 type="text"
                 variant="flat"
+                labelPlacement="outside"
+                placeholder="Asal Kampus"
+                name="university"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 startContent={
                   <Buildings weight="bold" size={18} className="text-gray" />
                 }
-                labelPlacement="outside"
-                placeholder="Asal Kampus"
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -170,11 +216,19 @@ export default function RegisterPage() {
               <Input
                 type="password"
                 variant="flat"
+                labelPlacement="outside"
+                placeholder="Kata Sandi"
+                name="password"
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
+                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
-                labelPlacement="outside"
-                placeholder="Kata Sandi"
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -184,12 +238,14 @@ export default function RegisterPage() {
 
             <div className="grid gap-4">
               <Button
+                isLoading={loading}
+                isDisabled={Object.keys(input).length < 6}
                 variant="solid"
                 color="secondary"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={handleRegister}
                 className="font-bold"
               >
-                Daftar Sekarang
+                {loading ? "Tunggu Sebentar..." : "Daftar Sekarang"}
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">
