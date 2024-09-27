@@ -7,8 +7,16 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
+type InputType = {
+  email: string;
+  password: string;
+};
+
 export default function LoginPage() {
-  const [input, setInput] = useState({});
+  const [input, setInput] = useState<InputType>({
+    email: "",
+    password: "",
+  });
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
@@ -20,6 +28,10 @@ export default function LoginPage() {
       setLoading(false);
       window.location.href = "/dashboard";
     }, 3000);
+  }
+
+  function isFormEmpty() {
+    return Object.values(input).every((value) => value.trim() !== "");
   }
 
   useEffect(() => {
@@ -144,7 +156,7 @@ export default function LoginPage() {
             <div className="grid gap-4">
               <Button
                 isLoading={loading}
-                isDisabled={Object.keys(input).length < 2 || loading}
+                isDisabled={!isFormEmpty() || loading}
                 variant="solid"
                 color="secondary"
                 onClick={handleLogin}
