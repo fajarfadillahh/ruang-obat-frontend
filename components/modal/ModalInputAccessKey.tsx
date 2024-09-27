@@ -40,7 +40,7 @@ export default function ModalInputAccessKey() {
 
               <ModalBody>
                 <div className="grid gap-6">
-                  <p className="text-medium leading-[170%] text-gray">
+                  <p className="text-sm font-medium leading-[170%] text-gray">
                     Akses fitur ini hanya diperuntukkan bagi pengguna yang telah
                     membayar program ini. Silakan masukkan kode akses yang telah
                     diberikan oleh admin pada kolom di bawah ini.
