@@ -279,8 +279,19 @@ export default function RegisterPage() {
 
           <p className="mx-auto max-w-[360px] text-center text-[12px] font-medium text-gray">
             Dengan melanjutkan, anda menyetujui{" "}
-            <span className="text-black underline">Ketentuan Layanan</span> dan{" "}
-            <span className="text-black underline">Kebijakan Privasi</span>{" "}
+            <Link
+              href="/company/terms"
+              className="font-bold text-black underline"
+            >
+              Ketentuan Layanan
+            </Link>{" "}
+            dan{" "}
+            <Link
+              href="/company/privacy"
+              className="font-bold text-black underline"
+            >
+              Kebijakan Privasi
+            </Link>{" "}
             Ruangobat
           </p>
         </div>
