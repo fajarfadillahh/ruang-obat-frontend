@@ -101,7 +101,7 @@ export default function StartTest() {
                   Daftar Pertanyaan:
                 </h4>
 
-                <div className="grid h-full max-h-[230px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide">
+                <div className="grid h-full max-h-[450px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide xl:max-h-[230px]">
                   {Array.from({ length: totalTests }, (_, i) => {
                     const isActive = currentNumber === i + 1;
 

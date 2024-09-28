@@ -6,17 +6,37 @@ import {
   Radio,
   RadioGroup,
 } from "@nextui-org/react";
-import { ArrowDown, ArrowLeft } from "@phosphor-icons/react";
+import {
+  ArrowDown,
+  ArrowLeft,
+  CaretDoubleLeft,
+  CaretDoubleRight,
+} from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function ResultTest() {
   const router = useRouter();
   const { id } = router.query;
+  const [contentOpen, setContentOpen] = useState<{
+    left: boolean;
+    right: boolean;
+  }>({
+    left: false,
+    right: false,
+  });
+
+  const toggleContentOpen = (id: "left" | "right") => {
+    setContentOpen((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
 
   return (
     <Layout title="Hasil Ujian">
-      <section className="grid gap-8">
+      <section className="relative grid gap-8">
         <Button
           variant="light"
           startContent={<ArrowLeft weight="bold" size={16} />}
@@ -26,8 +46,12 @@ export default function ResultTest() {
           Kembali Ke Halaman Detail
         </Button>
 
-        <div className="grid grid-cols-[260px_1fr_260px] items-start gap-4">
-          <div className="h-[550px] rounded-xl border-2 border-gray/20 p-6">
+        <div className="xl:grid xl:grid-cols-[260px_1fr_260px] xl:items-start xl:gap-4">
+          <div
+            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+              contentOpen.left ? "left-0" : "-left-[260px]"
+            }`}
+          >
             <div className="grid divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-4 pb-8">
                 <h4 className="text-sm font-semibold text-black">
@@ -56,7 +80,7 @@ export default function ResultTest() {
                   Daftar Pertanyaan:
                 </h4>
 
-                <div className="grid h-full max-h-[230px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide">
+                <div className="grid h-full max-h-[450px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide xl:max-h-[230px]">
                   {Array.from({ length: 100 }, (_, i) => {
                     const randomAnswer = Math.floor(Math.random() * 3);
                     let answerClass = "";
@@ -89,9 +113,23 @@ export default function ResultTest() {
                 </div>
               </div>
             </div>
+
+            <div className="absolute -right-12 top-44 flex size-12 items-center justify-end rounded-r-full bg-white p-2 shadow-[4px_0_8px_rgba(0,0,0,0.1)] xl:hidden">
+              <Button
+                isIconOnly
+                variant="flat"
+                color="secondary"
+                size="sm"
+                radius="full"
+                onClick={() => toggleContentOpen("left")}
+                className={`transition-all duration-300 ${contentOpen.left ? "rotate-180" : "rotate-0"}`}
+              >
+                <CaretDoubleRight weight="bold" size={18} />
+              </Button>
+            </div>
           </div>
 
-          <div className="h-[550px] overflow-y-scroll rounded-xl border-2 border-gray/20">
+          <div className="mx-auto h-[550px] max-w-[748px] overflow-y-scroll rounded-xl border-2 border-gray/20 xl:max-w-none">
             <div className="sticky left-0 top-0 bg-white p-6 text-[18px] font-extrabold text-purple">
               No. 1
             </div>
@@ -186,7 +224,11 @@ export default function ResultTest() {
             </div>
           </div>
 
-          <div className="h-[550px] rounded-xl border-2 border-gray/20 p-6">
+          <div
+            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+              contentOpen.right ? "right-0" : "-right-[260px]"
+            }`}
+          >
             <div className="grid gap-8">
               <h4 className="text-[18px] font-bold text-black">Hasil Ujian:</h4>
 
@@ -220,6 +262,20 @@ export default function ResultTest() {
                   </div>
                 </div>
               </div>
+            </div>
+
+            <div className="absolute -left-12 top-44 flex size-12 items-center justify-end rounded-l-full bg-white p-2 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] xl:hidden">
+              <Button
+                isIconOnly
+                variant="flat"
+                color="secondary"
+                size="sm"
+                radius="full"
+                onClick={() => toggleContentOpen("right")}
+                className={`transition-all duration-300 ${contentOpen.right ? "rotate-180" : "rotate-0"}`}
+              >
+                <CaretDoubleLeft weight="bold" size={18} />
+              </Button>
             </div>
           </div>
         </div>
