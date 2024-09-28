@@ -10,15 +10,32 @@ import {
   ArrowDown,
   ArrowLeft,
   ArrowRight,
+  CaretDoubleLeft,
   CheckCircle,
 } from "@phosphor-icons/react";
+import { CaretDoubleRight } from "@phosphor-icons/react/dist/ssr";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function StartTest() {
   const router = useRouter();
   const { id } = router.query;
+  const [contentOpen, setContentOpen] = useState<{
+    left: boolean;
+    right: boolean;
+  }>({
+    left: false,
+    right: false,
+  });
+
+  const toggleContentOpen = (id: "left" | "right") => {
+    setContentOpen((prevState) => ({
+      ...prevState,
+      [id]: !prevState[id],
+    }));
+  };
 
   const totalTests: number = 100;
   const currentNumber = parseInt(router.query.number as string);
@@ -42,9 +59,13 @@ export default function StartTest() {
         />
       </Head>
 
-      <main className="mx-auto h-screen w-full max-w-[1440px] px-6">
-        <section className="grid grid-cols-[260px_1fr_260px] items-start gap-4 py-12">
-          <div className="h-[600px] rounded-xl border-2 border-gray/20 p-6">
+      <main className="relative mx-auto h-screen w-full max-w-[1440px] px-6">
+        <section className="py-12 xl:grid xl:grid-cols-[260px_1fr_260px] xl:items-start xl:gap-4">
+          <div
+            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+              contentOpen.left ? "left-0" : "-left-[260px]"
+            }`}
+          >
             <div className="grid divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-4 pb-8">
                 <h4 className="text-sm font-semibold text-black">
@@ -110,9 +131,23 @@ export default function StartTest() {
                 </div>
               </div>
             </div>
+
+            <div className="absolute -right-12 top-8 flex size-12 items-center justify-end rounded-r-full bg-white p-2 shadow-[4px_0_8px_rgba(0,0,0,0.1)] xl:hidden">
+              <Button
+                isIconOnly
+                variant="flat"
+                color="secondary"
+                size="sm"
+                radius="full"
+                onClick={() => toggleContentOpen("left")}
+                className={`transition-all duration-300 ${contentOpen.left ? "rotate-180" : "rotate-0"}`}
+              >
+                <CaretDoubleRight weight="bold" size={18} />
+              </Button>
+            </div>
           </div>
 
-          <div className="grid gap-6">
+          <div className="mx-auto grid max-w-[748px] gap-6 xl:max-w-none">
             <div className="h-[600px] overflow-y-scroll rounded-xl border-2 border-gray/20">
               <div className="sticky left-0 top-0 bg-white p-6 text-[18px] font-extrabold text-purple">
                 No. 1
@@ -196,7 +231,11 @@ export default function StartTest() {
             </div>
           </div>
 
-          <div className="h-[600px] rounded-xl border-2 border-gray/20 p-6">
+          <div
+            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+              contentOpen.right ? "right-0" : "-right-[260px]"
+            }`}
+          >
             <div className="grid divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-2 pb-8">
                 <h4 className="text-sm font-semibold text-black">
@@ -269,6 +308,20 @@ export default function StartTest() {
                   Jaringan Bagus
                 </Chip>
               </div>
+            </div>
+
+            <div className="absolute -left-12 top-8 flex size-12 items-center justify-end rounded-l-full bg-white p-2 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] xl:hidden">
+              <Button
+                isIconOnly
+                variant="flat"
+                color="secondary"
+                size="sm"
+                radius="full"
+                onClick={() => toggleContentOpen("right")}
+                className={`transition-all duration-300 ${contentOpen.right ? "rotate-180" : "rotate-0"}`}
+              >
+                <CaretDoubleLeft weight="bold" size={18} />
+              </Button>
             </div>
           </div>
         </section>
