@@ -3,7 +3,7 @@ import CardProgram from "@/components/card/CardProgram";
 import Layout from "@/components/wrapper/Layout";
 import { formatDayWithoutTime } from "@/utils/formatDate";
 import { Input, Select, SelectItem } from "@nextui-org/react";
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 
 export default function DashboardPage() {
@@ -27,8 +27,8 @@ export default function DashboardPage() {
 
   return (
     <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Anda">
-      <section className="grid gap-6 pt-8">
-        <div className="flex items-center justify-between gap-2">
+      <section className="mx-auto grid gap-6 pt-8 md:max-w-[770px] xl:max-w-none">
+        <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center sm:gap-2">
           <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
             Daftar Program 📋
           </h1>
@@ -62,7 +62,10 @@ export default function DashboardPage() {
             <Select
               aria-label="filter program"
               variant="flat"
-              placeholder="Filter Program"
+              placeholder="Filter"
+              startContent={
+                <Funnel weight="bold" size={18} className="text-black" />
+              }
               labelPlacement="outside"
               classNames={{
                 base: "w-[200px]",
@@ -74,7 +77,7 @@ export default function DashboardPage() {
             </Select>
           </div>
 
-          <div className="grid grid-cols-3 gap-8">
+          <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
             {programs.map((program) => (
               <CardProgram key={program.id} {...program} />
             ))}

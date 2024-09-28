@@ -44,7 +44,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
         />
       </Head>
 
-      <div className="mx-auto grid w-full max-w-[1200px] px-6">
+      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
         <Navbar className="items-center justify-between">
           <Link
             href={router.pathname == "/" ? "/" : "/dashboard"}
