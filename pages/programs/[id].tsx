@@ -13,16 +13,16 @@ export default function DetailsProgram() {
         <ButtonBack />
 
         <div className="grid divide-y-2 divide-dashed divide-gray/20">
-          <div className="flex items-start justify-between gap-4 pb-8 pr-6">
+          <div className="grid gap-10 pb-8 sm:grid-cols-[1fr_max-content] sm:items-start md:pr-6">
             <div className="flex items-start gap-6">
               <BookBookmark weight="bold" size={48} className="text-purple" />
 
               <div className="grid flex-1 gap-4">
-                <h4 className="max-w-[700px] text-[28px] font-bold leading-[120%] -tracking-wide text-black">
+                <h4 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
                   Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
                 </h4>
 
-                <div className="flex items-center gap-10">
+                <div className="flex flex-wrap items-center gap-4 lg:gap-10">
                   <Chip
                     variant="flat"
                     color="default"

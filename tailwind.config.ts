@@ -19,6 +19,7 @@ const config: Config = {
     },
     extend: {
       screens: {
+        xs: "481px",
         sm: "641px",
         md: "769px",
         lg: "1025px",

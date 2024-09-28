@@ -7,16 +7,16 @@ export default function CardTest(test: TestsType) {
   const router = useRouter();
 
   return (
-    <div className="group flex items-center justify-between gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:bg-gray/10">
-      <div className="inline-flex flex-1 items-start gap-3">
+    <div className="group grid gap-6 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:bg-gray/10 md:grid-cols-[1fr_max-content] md:items-center">
+      <div className="flex flex-1 items-start gap-3">
         <ClipboardText weight="bold" size={28} className="text-purple" />
 
-        <div className="grid gap-6">
+        <div className="grid flex-1 gap-6">
           <h4 className="line-clamp-2 max-w-[620px] text-[20px] font-bold leading-[120%] -tracking-wide text-black group-hover:text-purple">
             {test.title}
           </h4>
 
-          <div className="inline-flex items-start gap-6">
+          <div className="grid items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:inline-flex lg:gap-6">
             <div className="grid gap-[2px]">
               <span className="text-[12px] font-medium text-gray">
                 Tanggal Mulai:
@@ -70,7 +70,7 @@ export default function CardTest(test: TestsType) {
         size="sm"
         color="secondary"
         onClick={() => router.push(`/tests/${test.id}`)}
-        className="px-6 font-bold"
+        className="w-full font-bold md:w-max md:px-6"
       >
         Lihat Ujian
       </Button>

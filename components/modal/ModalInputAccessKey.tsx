@@ -20,7 +20,7 @@ export default function ModalInputAccessKey() {
         color="secondary"
         size="sm"
         onPress={onOpen}
-        className="px-6 font-bold"
+        className="w-full font-bold sm:w-max sm:px-6"
       >
         Ikuti Program
       </Button>
@@ -30,6 +30,7 @@ export default function ModalInputAccessKey() {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         size="lg"
+        placement="center"
       >
         <ModalContent>
           {(onClose) => (
