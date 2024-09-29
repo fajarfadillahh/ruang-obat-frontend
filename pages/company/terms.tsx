@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function TermsPage() {
   return (
     <Layout title="Ketentuan Layanan">
-      <section className="mx-auto grid max-w-[700px] gap-6 pt-8">
+      <section className="mx-auto grid max-w-[700px] gap-6">
         <h1 className="text-[28px] font-extrabold text-black">
           Ketentuan Layanan 📋
         </h1>

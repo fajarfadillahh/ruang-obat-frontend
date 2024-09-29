@@ -4,7 +4,7 @@ import Link from "next/link";
 export default function PrivacyPage() {
   return (
     <Layout title="Kebijakan Privasi">
-      <section className="mx-auto grid max-w-[700px] gap-6 pt-8">
+      <section className="mx-auto grid max-w-[700px] gap-6">
         <h1 className="text-[28px] font-extrabold text-black">
           Kebijakan Privasi 📋
         </h1>

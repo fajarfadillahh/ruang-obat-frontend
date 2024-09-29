@@ -130,7 +130,7 @@ export default function ResultTest() {
           </div>
 
           <div className="mx-auto h-[550px] max-w-[748px] overflow-y-scroll rounded-xl border-2 border-gray/20 xl:max-w-none">
-            <div className="sticky left-0 top-0 bg-white p-6 text-[18px] font-extrabold text-purple">
+            <div className="sticky left-0 top-0 z-40 bg-white p-6 text-[18px] font-extrabold text-purple">
               No. 1
             </div>
 

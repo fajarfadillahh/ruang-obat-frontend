@@ -27,8 +27,8 @@ export default function DashboardPage() {
 
   return (
     <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Anda">
-      <section className="mx-auto grid gap-6 pt-8 md:max-w-[770px] xl:max-w-none">
-        <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-center sm:gap-2">
+      <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
+        <div className="flex flex-col justify-between gap-1 sm:flex-row sm:items-end sm:gap-2">
           <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
             Daftar Program 📋
           </h1>

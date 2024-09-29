@@ -167,7 +167,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
           )}
         </Navbar>
 
-        <main className={`${className} min-h-[calc(100vh-96px)] py-6`}>
+        <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           {children}
         </main>
 

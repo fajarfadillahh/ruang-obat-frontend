@@ -5,7 +5,7 @@ import Layout from "@/components/wrapper/Layout";
 export default function MyProgramsPage() {
   return (
     <Layout title="Program Saya">
-      <section className="mx-auto grid gap-6 pt-8 md:max-w-[770px] xl:max-w-none">
+      <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
         <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
           Program Saya 📋
         </h1>

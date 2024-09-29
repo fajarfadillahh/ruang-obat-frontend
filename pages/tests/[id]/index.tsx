@@ -10,7 +10,7 @@ export default function DetailsTest() {
 
   return (
     <Layout title={`Tryout Internal Ruangobat Part 1`}>
-      <section className="grid gap-8 pt-8">
+      <section className="grid gap-8">
         <ButtonBack />
 
         <div className="grid items-end justify-center gap-10 lg:grid-cols-[1fr_300px] lg:justify-between lg:gap-4">

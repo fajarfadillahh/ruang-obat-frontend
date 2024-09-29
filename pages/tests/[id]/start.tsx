@@ -149,7 +149,7 @@ export default function StartTest() {
 
           <div className="mx-auto grid max-w-[748px] gap-6 xl:max-w-none">
             <div className="h-[600px] overflow-y-scroll rounded-xl border-2 border-gray/20">
-              <div className="sticky left-0 top-0 bg-white p-6 text-[18px] font-extrabold text-purple">
+              <div className="sticky left-0 top-0 z-40 bg-white p-6 text-[18px] font-extrabold text-purple">
                 No. 1
               </div>
 
