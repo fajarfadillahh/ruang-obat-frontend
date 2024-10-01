@@ -16,12 +16,12 @@ export default function NotFoundPage() {
           alt="404 img"
           width={1000}
           height={500}
-          className="h-auto w-[400px]"
+          className="h-auto w-[420px]"
         />
 
         <div className="grid justify-center gap-6">
           <div className="text-center">
-            <h1 className="mb-2 text-[32px] font-bold -tracking-wide text-black">
+            <h1 className="mb-2 text-[38px] font-black leading-[120%] -tracking-wide text-black">
               Ooppss, Halaman Tidak Ditemukan
             </h1>
             <p className="mx-auto max-w-[620px] font-medium leading-[170%] text-gray">

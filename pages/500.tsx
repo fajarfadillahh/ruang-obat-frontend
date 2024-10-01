@@ -8,7 +8,7 @@ export default function ServerErrorPage() {
   const router = useRouter();
 
   return (
-    <Layout title="Sebentar, Sepertinya Server Error">
+    <Layout title="Hmmm, Server Sepertinya Error">
       <section className="flex flex-col items-center justify-center gap-8 pt-8">
         <Image
           priority
@@ -16,15 +16,15 @@ export default function ServerErrorPage() {
           alt="500 img"
           width={1000}
           height={500}
-          className="h-auto w-[400px]"
+          className="h-auto w-[450px]"
         />
 
         <div className="grid justify-center gap-6">
           <div className="text-center">
-            <h1 className="mb-2 text-[32px] font-bold -tracking-wide text-black">
-              Sebentar, Sepertinya Server Error
+            <h1 className="mb-2 text-[38px] font-black leading-[120%] -tracking-wide text-black">
+              Hmmm, Server Sepertinya Error
             </h1>
-            <p className="mx-auto max-w-[620px] font-medium leading-[170%] text-gray">
+            <p className="mx-auto max-w-[580px] font-medium leading-[170%] text-gray">
               Sepertinya ada kendala teknis di server kami. Tim kami sedang
               bekerja keras untuk memperbaikinya. Silakan coba beberapa saat
               lagi.
