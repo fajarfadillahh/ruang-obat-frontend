@@ -1,8 +1,9 @@
 export type ProgramsType = {
-  id: number | string;
+  program_id: string;
   title: string;
-  program_type: "free" | "paid";
-  price_program: number;
-  amount_module: number;
-  amount_user: number;
+  type: "free" | "paid";
+  price: number;
+  total_tests: number;
+  total_users: number;
+  participated: boolean;
 };

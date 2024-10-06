@@ -1,8 +1,10 @@
 import "@/styles/globals.css";
+import { fetcher } from "@/utils/fetcher";
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
+import { SWRConfig } from "swr";
 
 export default function App({
   Component,
@@ -20,7 +22,14 @@ export default function App({
         }}
       />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
-        <Component {...pageProps} />
+        <SWRConfig
+          value={{
+            fetcher,
+            revalidateOnFocus: false,
+          }}
+        >
+          <Component {...pageProps} />
+        </SWRConfig>
       </SessionProvider>
     </NextUIProvider>
   );

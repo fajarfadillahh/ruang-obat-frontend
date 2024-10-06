@@ -1,14 +1,34 @@
-import { tests } from "@/_dummy/tests";
 import ButtonBack from "@/components/button/ButtonBack";
 import CardTest from "@/components/card/CardTest";
+import Loading from "@/components/Loading";
+import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
 import ModalInputAccessKey from "@/components/modal/ModalInputAccessKey";
 import Layout from "@/components/wrapper/Layout";
+import { SuccessResponse } from "@/types/global.type";
+import { ProgramsType } from "@/types/programs.type";
+import { formatRupiah } from "@/utils/formatRupiah";
 import { Chip } from "@nextui-org/react";
 import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { ParsedUrlQuery } from "querystring";
+import useSWR from "swr";
 
-export default function DetailsProgram() {
+export default function DetailsProgram({
+  token,
+  params,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const { data, isLoading } = useSWR<SuccessResponse<ProgramResponse>>({
+    url: `/programs/${params.id}`,
+    method: "GET",
+    token,
+  });
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
-    <Layout title={`Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024`}>
+    <Layout title={data?.data.title}>
       <section className="grid gap-8">
         <ButtonBack />
 
@@ -19,7 +39,7 @@ export default function DetailsProgram() {
 
               <div className="grid flex-1 gap-4">
                 <h4 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
-                  Kelas Ruangobat Tatap Muka: Mandiri Agustus 2024
+                  {data?.data.title}
                 </h4>
 
                 <div className="flex flex-wrap items-center gap-4 lg:gap-10">
@@ -32,23 +52,35 @@ export default function DetailsProgram() {
                       content: "font-bold",
                     }}
                   >
-                    Gratis
+                    {data?.data.type == "free"
+                      ? "Gratis"
+                      : formatRupiah(data?.data.price as number)}
                   </Chip>
 
                   <div className="inline-flex items-center gap-1 text-gray">
                     <Notepad weight="bold" size={18} />
-                    <p className="text-sm font-semibold">9 Modul Ujian</p>
+                    <p className="text-sm font-semibold">
+                      {data?.data.total_tests} Ujian
+                    </p>
                   </div>
 
                   <div className="inline-flex items-center gap-1 text-gray">
                     <Users weight="bold" size={18} />
-                    <p className="text-sm font-semibold">1.2K Mahasiswa/i</p>
+                    <p className="text-sm font-semibold">
+                      {data?.data.total_users} Mahasiswa/i
+                    </p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <ModalInputAccessKey />
+            {!data?.data.participated ? (
+              data?.data.type == "free" ? (
+                <ModalFreeAccess />
+              ) : (
+                <ModalInputAccessKey />
+              )
+            ) : null}
           </div>
 
           <div className="grid gap-4 pt-8">
@@ -57,8 +89,11 @@ export default function DetailsProgram() {
             </h4>
 
             <div className="relative grid gap-2">
-              {tests.map((test) => (
-                <CardTest key={test.id} {...test} />
+              {data?.data.tests.map((test) => (
+                <CardTest
+                  key={test.test_id}
+                  {...{ ...test, participated: data.data.participated }}
+                />
               ))}
 
               {/* <div className="absolute left-0 top-0 z-10 h-full w-full rounded-xl bg-black/10 backdrop-blur-sm" /> */}
@@ -69,3 +104,28 @@ export default function DetailsProgram() {
     </Layout>
   );
 }
+
+type ProgramResponse = ProgramsType & {
+  tests: {
+    test_id: string;
+    title: string;
+    start: string;
+    end: string;
+    duration: number;
+    is_active: boolean;
+    has_result: boolean;
+    status: string;
+  }[];
+};
+
+export const getServerSideProps: GetServerSideProps<{
+  token: string;
+  params: ParsedUrlQuery;
+}> = async ({ req, params }) => {
+  return {
+    props: {
+      token: req.headers["access_token"] as string,
+      params: params as ParsedUrlQuery,
+    },
+  };
+};

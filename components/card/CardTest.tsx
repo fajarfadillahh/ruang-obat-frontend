@@ -1,9 +1,9 @@
-import { TestsType } from "@/types/tests.type";
+import { formatDateWithoutTime } from "@/utils/formatDate";
 import { Button, Chip } from "@nextui-org/react";
-import { ClipboardText, ClockCountdown } from "@phosphor-icons/react";
+import { ClipboardText, ClockCountdown, Lock } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
-export default function CardTest(test: TestsType) {
+export default function CardTest(test: CardTest) {
   const router = useRouter();
 
   return (
@@ -22,7 +22,7 @@ export default function CardTest(test: TestsType) {
                 Tanggal Mulai:
               </span>
               <h1 className="text-sm font-semibold text-black">
-                {test.start_test}
+                {formatDateWithoutTime(test.start)}
               </h1>
             </div>
 
@@ -31,7 +31,7 @@ export default function CardTest(test: TestsType) {
                 Tanggal Selesai:
               </span>
               <h1 className="text-sm font-semibold text-black">
-                {test.end_test}
+                {formatDateWithoutTime(test.end)}
               </h1>
             </div>
 
@@ -40,7 +40,7 @@ export default function CardTest(test: TestsType) {
                 Durasi Pengerjaan:
               </span>
               <h1 className="text-sm font-semibold text-black">
-                {test.duration_test} Menit
+                {test.duration} Menit
               </h1>
             </div>
 
@@ -58,7 +58,7 @@ export default function CardTest(test: TestsType) {
                   content: "font-semibold capitalize",
                 }}
               >
-                {test.status_test}
+                {test.status}
               </Chip>
             </div>
           </div>
@@ -69,11 +69,24 @@ export default function CardTest(test: TestsType) {
         variant="solid"
         size="sm"
         color="secondary"
-        onClick={() => router.push(`/tests/${test.id}`)}
+        onClick={() => router.push(`/tests/${test.test_id}`)}
         className="w-full font-bold md:w-max md:px-6"
+        isDisabled={!test.participated}
       >
-        Lihat Ujian
+        {!test.participated ? <Lock weight="bold" size={18} /> : "Lihat Ujian"}
       </Button>
     </div>
   );
 }
+
+type CardTest = {
+  test_id: string;
+  title: string;
+  start: string;
+  end: string;
+  duration: number;
+  is_active: boolean;
+  has_result: boolean;
+  status: string;
+  participated: boolean;
+};

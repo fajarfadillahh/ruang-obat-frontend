@@ -13,7 +13,7 @@ import Link from "next/link";
 export default function CardProgram(program: ProgramsType) {
   return (
     <Link
-      href={`/programs/${program.id}`}
+      href={`/programs/${program.program_id}`}
       className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10 xl:max-w-none"
     >
       <BookBookmark weight="bold" size={32} className="text-purple" />
@@ -24,7 +24,7 @@ export default function CardProgram(program: ProgramsType) {
             {program.title}
           </h4>
 
-          {program.program_type === "free" ? (
+          {program.type === "free" ? (
             <Chip
               variant="flat"
               size="sm"
@@ -35,11 +35,11 @@ export default function CardProgram(program: ProgramsType) {
                 content: "font-bold capitalize",
               }}
             >
-              Program Gratis
+              Gratis
             </Chip>
           ) : (
             <div className="text-sm font-bold text-purple">
-              {formatRupiah(program.price_program)}
+              {formatRupiah(program.price)}
             </div>
           )}
         </div>
@@ -48,22 +48,22 @@ export default function CardProgram(program: ProgramsType) {
           <div className="inline-flex items-center gap-1 text-gray">
             <Notepad weight="bold" size={14} />
             <p className="text-[12px] font-semibold">
-              {program.amount_module} Modul Ujian
+              {program.total_tests} Ujian
             </p>
           </div>
 
           <div className="inline-flex items-center gap-1 text-gray">
             <Users weight="bold" size={14} />
             <p className="text-[12px] font-semibold">
-              {program.amount_user} Mahasiswa/i
+              {program.total_users} Mahasiswa/i
             </p>
           </div>
         </div>
       </div>
 
-      {program.program_type === "free" ? (
+      {program.participated ? (
         <Tooltip
-          content="Program Telah Di Ikuti."
+          content="Program Telah DiIkuti"
           classNames={{
             content: "max-w-[350px] font-semibold text-black",
           }}

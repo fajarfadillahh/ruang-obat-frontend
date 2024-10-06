@@ -1,28 +1,40 @@
-import { programs } from "@/_dummy/programs";
 import CardProgram from "@/components/card/CardProgram";
+import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
-import { formatDayWithoutTime } from "@/utils/formatDate";
+import { SuccessResponse } from "@/types/global.type";
+import { ProgramsType } from "@/types/programs.type";
 import { Input, Select, SelectItem } from "@nextui-org/react";
 import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
+import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { useDebounce } from "use-debounce";
 
-export default function DashboardPage() {
-  const [time, setTime] = useState(new Date());
-  const [client, setClient] = useState(false);
-  const formatTime = (num: any) => String(num).padStart(2, "0");
+export default function DashboardPage({
+  token,
+  query,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+  const [search, setSearch] = useState(query.q ? query.q : "");
+  const [searchValue] = useDebounce(search, 800);
+  const { data, isLoading } = useSWR<SuccessResponse<ProgramsResponse>>({
+    url: getUrl(query),
+    method: "GET",
+    token,
+  });
 
   useEffect(() => {
-    setClient(true);
+    if (searchValue) {
+      router.push({ query: { q: searchValue } });
+    } else {
+      router.push("/dashboard");
+    }
+  }, [searchValue]);
 
-    const interval = setInterval(() => {
-      setTime(new Date());
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  if (!client) {
-    return;
+  if (isLoading) {
+    return <Loading />;
   }
 
   return (
@@ -32,16 +44,12 @@ export default function DashboardPage() {
           <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
             Daftar Program 📋
           </h1>
-
-          <p className="text-sm font-semibold text-black">
-            {formatDayWithoutTime(new Date())}{" "}
-            {`${formatTime(time.getHours())}:${formatTime(time.getMinutes())}`}
-          </p>
         </div>
 
         <div className="grid gap-4">
           <div className="flex items-center justify-between gap-4">
             <Input
+              defaultValue={query.q as string}
               type="text"
               variant="flat"
               labelPlacement="outside"
@@ -57,9 +65,11 @@ export default function DashboardPage() {
                 input:
                   "font-semibold placeholder:font-semibold placeholder:text-gray",
               }}
+              onChange={(e) => setSearch(e.target.value)}
             />
 
             <Select
+              selectedKeys={[query.type as string]}
               aria-label="filter program"
               variant="flat"
               placeholder="Filter"
@@ -71,6 +81,13 @@ export default function DashboardPage() {
                 base: "w-[200px]",
                 value: "font-semibold text-black",
               }}
+              onChange={(e) => {
+                if (e.target.value) {
+                  router.push({ query: { type: e.target.value } });
+                } else {
+                  router.push("/dashboard");
+                }
+              }}
             >
               <SelectItem key="free">Gratis</SelectItem>
               <SelectItem key="paid">Berbayar</SelectItem>
@@ -78,8 +95,8 @@ export default function DashboardPage() {
           </div>
 
           <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-            {programs.map((program) => (
-              <CardProgram key={program.id} {...program} />
+            {data?.data.programs.map((program) => (
+              <CardProgram key={program.program_id} {...program} />
             ))}
           </div>
         </div>
@@ -87,3 +104,34 @@ export default function DashboardPage() {
     </Layout>
   );
 }
+
+type ProgramsResponse = {
+  programs: ProgramsType[];
+  page: number;
+  total_programs: number;
+  total_pages: number;
+};
+
+function getUrl(query: ParsedUrlQuery) {
+  if (query.type) {
+    return `/programs?type=${query.type}&page=${query.page ? query.page : 1}`;
+  }
+
+  if (query.q) {
+    return `/programs?q=${query.q}&page=${query.page ? query.page : 1}`;
+  }
+
+  return `/programs?page=${query.page ? query.page : 1}`;
+}
+
+export const getServerSideProps: GetServerSideProps<{
+  token: string;
+  query: ParsedUrlQuery;
+}> = async ({ req, query }) => {
+  return {
+    props: {
+      token: req.headers["access_token"] as string,
+      query,
+    },
+  };
+};
