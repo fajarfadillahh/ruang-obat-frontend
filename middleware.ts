@@ -9,6 +9,10 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
+  if(pathname === "/"){
+    return NextResponse.next()
+  }
+
   if (pathname.startsWith("/auth")) {
     if (!token) {
       return NextResponse.next();
