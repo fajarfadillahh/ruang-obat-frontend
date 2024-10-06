@@ -1,4 +1,3 @@
-import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import {
@@ -24,6 +23,8 @@ type InputType = {
   password: string;
 };
 
+const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
 export default function RegisterPage() {
   const [input, setInput] = useState<InputType>({
     fullname: "",
@@ -35,7 +36,6 @@ export default function RegisterPage() {
   });
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
   function handleRegister() {
     setLoading(true);
@@ -122,6 +122,7 @@ export default function RegisterPage() {
 
             <div className="grid gap-2">
               <Input
+                autoComplete="off"
                 type="text"
                 variant="flat"
                 labelPlacement="outside"
@@ -143,6 +144,7 @@ export default function RegisterPage() {
               />
 
               <Input
+                autoComplete="off"
                 type="email"
                 variant="flat"
                 labelPlacement="outside"
@@ -168,6 +170,7 @@ export default function RegisterPage() {
               />
 
               <Input
+                autoComplete="off"
                 type="text"
                 inputMode="numeric"
                 variant="flat"
@@ -208,11 +211,12 @@ export default function RegisterPage() {
                   value: "font-semibold text-gray",
                 }}
               >
-                <SelectItem key="male">Laki-Laki</SelectItem>
-                <SelectItem key="female">Perempuan</SelectItem>
+                <SelectItem key="M">Laki-Laki</SelectItem>
+                <SelectItem key="F">Perempuan</SelectItem>
               </Select>
 
               <Input
+                autoComplete="off"
                 type="text"
                 variant="flat"
                 labelPlacement="outside"
@@ -234,6 +238,7 @@ export default function RegisterPage() {
               />
 
               <Input
+                autoComplete="off"
                 type="password"
                 variant="flat"
                 labelPlacement="outside"
@@ -245,7 +250,6 @@ export default function RegisterPage() {
                     [e.target.name]: e.target.value,
                   })
                 }
-                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }

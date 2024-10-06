@@ -11,6 +11,7 @@ import {
   DropdownTrigger,
 } from "@nextui-org/react";
 import { ClipboardText, House, SignIn, SignOut } from "@phosphor-icons/react";
+import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -24,6 +25,7 @@ interface LayoutProps {
 
 export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   return (
     <>
@@ -111,10 +113,10 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
                   <div>
                     <h6 className="text-sm font-bold text-black">
-                      Fajar Fadillah Agustian
+                      {status == "authenticated" ? session.user.fullname : null}
                     </h6>
                     <p className="text-[12px] font-semibold uppercase text-gray">
-                      ROUFFA125638
+                      {status == "authenticated" ? session.user.user_id : null}
                     </p>
                   </div>
                 </div>
@@ -154,7 +156,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     startContent={<SignOut weight="bold" size={18} />}
                     onClick={() => {
                       if (confirm("apakah anda yakin?")) {
-                        window.location.href = "/auth/login";
+                        signOut();
                       }
                     }}
                     className="text-danger-600"

@@ -1,9 +1,13 @@
 import "@/styles/globals.css";
 import { NextUIProvider } from "@nextui-org/react";
+import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   return (
     <NextUIProvider>
       <Toaster
@@ -15,7 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
           },
         }}
       />
-      <Component {...pageProps} />
+      <SessionProvider session={session} refetchOnWindowFocus={false}>
+        <Component {...pageProps} />
+      </SessionProvider>
     </NextUIProvider>
   );
 }

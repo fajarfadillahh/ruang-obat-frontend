@@ -1,16 +1,20 @@
-import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
 import { EnvelopeSimple, Lock, Quotes } from "@phosphor-icons/react";
+import { signIn } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type InputType = {
   email: string;
   password: string;
 };
+
+const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
 export default function LoginPage() {
   const [input, setInput] = useState<InputType>({
@@ -19,15 +23,26 @@ export default function LoginPage() {
   });
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
-  const quote = quotes[Math.floor(Math.random() * quotes.length)];
+  const router = useRouter();
 
-  function handleLogin() {
+  async function handleLogin() {
     setLoading(true);
 
-    setTimeout(() => {
+    const response = await signIn("credentials", {
+      ...input,
+      redirect: false,
+    });
+
+    if (response?.error) {
       setLoading(false);
-      window.location.href = "/dashboard";
-    }, 3000);
+      const { error } = JSON.parse(response?.error);
+
+      toast.error(error.message);
+    }
+
+    if (response?.ok) {
+      return router.push("/dashboard");
+    }
   }
 
   function isFormEmpty() {
@@ -93,9 +108,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-[400px] flex-col justify-between gap-4 px-6 py-10 xl:max-w-none xl:px-16">
-          <div></div>
-
+        <div className="mx-auto flex max-w-[400px] flex-col justify-center gap-4 px-6 py-10 xl:max-w-none xl:px-16">
           <div className="grid gap-8">
             <div className="text-center xl:text-left">
               <h1 className="text-[32px] font-bold -tracking-wide text-black">
@@ -128,6 +141,7 @@ export default function LoginPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                autoComplete="off"
               />
 
               <Input
@@ -142,7 +156,6 @@ export default function LoginPage() {
                     [e.target.name]: e.target.value,
                   })
                 }
-                onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -150,6 +163,7 @@ export default function LoginPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                autoComplete="off"
               />
             </div>
 
@@ -176,24 +190,6 @@ export default function LoginPage() {
               </p>
             </div>
           </div>
-
-          <p className="mx-auto max-w-[360px] text-center text-[12px] font-medium text-gray">
-            Dengan melanjutkan, anda menyetujui{" "}
-            <Link
-              href="/company/terms"
-              className="font-bold text-black underline"
-            >
-              Ketentuan Layanan
-            </Link>{" "}
-            dan{" "}
-            <Link
-              href="/company/privacy"
-              className="font-bold text-black underline"
-            >
-              Kebijakan Privasi
-            </Link>{" "}
-            Ruangobat
-          </p>
         </div>
       </main>
     </>
