@@ -31,6 +31,7 @@ export default function LoginPage() {
     const response = await signIn("credentials", {
       ...input,
       redirect: false,
+      user_agent: navigator.userAgent,
     });
 
     if (response?.error) {

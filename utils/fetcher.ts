@@ -5,9 +5,16 @@ type FetcherParams = {
   method: "GET" | "POST" | "PATCH" | "DELETE";
   data?: unknown;
   token?: string;
+  user_agent?: string;
 };
 
-export async function fetcher({ url, method, data, token }: FetcherParams) {
+export async function fetcher({
+  url,
+  method,
+  data,
+  token,
+  user_agent,
+}: FetcherParams) {
   const prefix = process.env.NEXT_PUBLIC_MODE == "dev" ? "dev" : "api";
 
   const options = {
@@ -23,6 +30,14 @@ export async function fetcher({ url, method, data, token }: FetcherParams) {
     Object.assign(options, {
       headers: {
         Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  if (user_agent) {
+    Object.assign(options, {
+      headers: {
+        "User-Agent": user_agent,
       },
     });
   }

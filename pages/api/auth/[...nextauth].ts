@@ -23,6 +23,7 @@ export const authOptions: NextAuthOptions = {
       credentials: {
         email: { label: "email" },
         password: { label: "password" },
+        user_agent: { label: "user_agent" },
       },
       async authorize(credentials, req) {
         try {
@@ -30,6 +31,7 @@ export const authOptions: NextAuthOptions = {
             url: "/auth/login/users",
             method: "POST",
             data: credentials,
+            user_agent: credentials?.user_agent,
           });
 
           return response.data;
