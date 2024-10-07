@@ -105,7 +105,7 @@ export default function DetailsTest({
               endContent={<ArrowRight weight="bold" size={18} />}
               onClick={() => {
                 document.documentElement.requestFullscreen();
-                router.push(`/tests/${data?.data.test_id}/start?number=1`);
+                router.push(`/tests/${data?.data.test_id}/start`);
               }}
               className="px-4 font-bold"
             >

@@ -1,3 +1,5 @@
+import Loading from "@/components/Loading";
+import { SuccessResponse } from "@/types/global.type";
 import {
   Button,
   Checkbox,
@@ -14,14 +16,29 @@ import {
   CheckCircle,
 } from "@phosphor-icons/react";
 import { CaretDoubleRight } from "@phosphor-icons/react/dist/ssr";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { ParsedUrlQuery } from "querystring";
+import { useEffect, useState } from "react";
+import Countdown from "react-countdown";
+import useSWR from "swr";
 
-export default function StartTest() {
+export default function StartTest({
+  token,
+  params,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const { id } = router.query;
+  const { data, isLoading } = useSWR<SuccessResponse<StartTestResponse>>({
+    url: `/tests/${params.id}/start`,
+    method: "GET",
+    token,
+  });
+  const [number, setNumber] = useState(1);
+  const [questions, setQuestions] = useState<Question[]>([]);
+
   const [contentOpen, setContentOpen] = useState<{
     left: boolean;
     right: boolean;
@@ -29,6 +46,7 @@ export default function StartTest() {
     left: false,
     right: false,
   });
+  const { data: session, status } = useSession();
 
   const toggleContentOpen = (id: "left" | "right") => {
     setContentOpen((prevState) => ({
@@ -37,8 +55,24 @@ export default function StartTest() {
     }));
   };
 
-  const totalTests: number = 100;
-  const currentNumber = parseInt(router.query.number as string);
+  useEffect(() => {
+    if (data) {
+      const cache = localStorage.getItem("test");
+
+      if (cache) {
+        setQuestions(JSON.parse(cache) as Question[]);
+      } else {
+        setQuestions(data.data.questions);
+        localStorage.setItem("test", JSON.stringify(data.data.questions));
+      }
+    }
+  }, [data]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
+
+  const question = questions.find((question) => question.number == number);
 
   return (
     <>
@@ -102,20 +136,24 @@ export default function StartTest() {
                 </h4>
 
                 <div className="grid h-full max-h-[450px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide xl:max-h-[230px]">
-                  {Array.from({ length: totalTests }, (_, i) => {
-                    const isActive = currentNumber === i + 1;
-
+                  {questions.map((question) => {
                     return (
                       <Link
-                        key={i}
-                        href={`/tests/${id}/start?number=${i + 1}`}
+                        key={question.question_id}
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setNumber(question.number);
+                        }}
                         className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${
-                          isActive
-                            ? "bg-gray/30 text-gray"
-                            : "bg-gray/10 text-gray hover:bg-gray/20"
+                          question.number == number
+                            ? !question.user_answer && !question.is_hesitant
+                              ? "bg-gray/30 text-gray"
+                              : getColor(question)
+                            : getColor(question)
                         }`}
                       >
-                        {i + 1}
+                        {question.number}
                       </Link>
                     );
                   })}
@@ -150,35 +188,54 @@ export default function StartTest() {
           <div className="mx-auto grid max-w-[748px] gap-6 xl:max-w-none">
             <div className="h-[600px] overflow-y-scroll rounded-xl border-2 border-gray/20">
               <div className="sticky left-0 top-0 z-40 bg-white p-6 text-[18px] font-extrabold text-purple">
-                No. 1
+                No. {number}
               </div>
 
               <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
                 <p className="font-semibold leading-[170%] text-black">
-                  Seorang pasien laki-laki berusia 50 tahun datang ke rumah
-                  sakit dengan diagnosa kanker prostat. Setelah dilakukan
-                  pemeriksaan, pasien direkomendasikan terapi menggunakan
-                  Hidroksiurea yang akan dilakukan selama beberapa siklus.
-                  <br />
-                  <br />
-                  Pada fase manakah agen tersebut bekerja?
+                  {question?.text}
                 </p>
 
                 <RadioGroup
+                  value={question?.user_answer}
                   aria-label="select the answer"
                   color="secondary"
                   classNames={{
                     base: "font-semibold text-black",
                   }}
+                  onChange={(e) => {
+                    setQuestions((prev) => {
+                      if (prev.length) {
+                        const index = prev.findIndex(
+                          (question) => question.number == number,
+                        );
+
+                        if (index != -1) {
+                          prev[index] = {
+                            ...prev[index],
+                            user_answer: e.target.value,
+                          };
+
+                          return [...prev];
+                        }
+                      }
+
+                      return [...prev];
+                    });
+                    localStorage.setItem("test", JSON.stringify(questions));
+                  }}
                 >
-                  <Radio value="fase-s">Fase S</Radio>
-                  <Radio value="fase-g1">Fase G1</Radio>
-                  <Radio value="fase-g2">Fase G2</Radio>
-                  <Radio value="fase-m">Fase M</Radio>
-                  <Radio value="fase-non-spesifik">Fase non-spesifik</Radio>
+                  {question?.options.map((option) => {
+                    return (
+                      <Radio value={option.option_id} key={option.option_id}>
+                        {option.text}
+                      </Radio>
+                    );
+                  })}
                 </RadioGroup>
 
                 <Checkbox
+                  isSelected={question?.is_hesitant}
                   color="warning"
                   classNames={{
                     base: cn(
@@ -187,6 +244,27 @@ export default function StartTest() {
                       "data-[selected=true]:border-warning data-[selected=true]:bg-warning/20",
                     ),
                   }}
+                  onValueChange={(e) => {
+                    setQuestions((prev) => {
+                      if (prev.length) {
+                        const index = prev.findIndex(
+                          (question) => question.number == number,
+                        );
+
+                        if (index != -1) {
+                          prev[index] = {
+                            ...prev[index],
+                            is_hesitant: e,
+                          };
+
+                          return [...prev];
+                        }
+                      }
+
+                      return [...prev];
+                    });
+                    localStorage.setItem("test", JSON.stringify(questions));
+                  }}
                 >
                   Ragu-ragu
                 </Checkbox>
@@ -194,16 +272,23 @@ export default function StartTest() {
             </div>
 
             <div className="inline-flex items-center gap-4 justify-self-center">
-              {currentNumber === totalTests ? (
+              {number - 1 === questions.length - 1 ? (
                 <Button
                   variant="solid"
                   color="secondary"
                   onClick={() => {
                     if (confirm("Yakin dengan semua jawabanmu?")) {
-                      router.push(`/tests/${id}/finish?number=1`);
+                      localStorage.removeItem("test");
+                      router.push(`/tests/${params.id}/finish?number=1`);
                     }
                   }}
                   className="font-bold"
+                  isDisabled={Boolean(
+                    questions.filter(
+                      (question) =>
+                        !question.user_answer || question.is_hesitant,
+                    ).length,
+                  )}
                 >
                   Kumpulkan Jawaban 🌟
                 </Button>
@@ -214,6 +299,10 @@ export default function StartTest() {
                     color="default"
                     startContent={<ArrowLeft weight="bold" size={16} />}
                     className="font-bold"
+                    onClick={() => {
+                      setNumber((prev) => prev - 1);
+                    }}
+                    isDisabled={number <= 1}
                   >
                     Sebelumnya
                   </Button>
@@ -223,8 +312,12 @@ export default function StartTest() {
                     color="secondary"
                     endContent={<ArrowRight weight="bold" size={16} />}
                     className="font-bold"
+                    isDisabled={number >= questions.length}
+                    onClick={() => {
+                      setNumber((prev) => prev + 1);
+                    }}
                   >
-                    Selanjutanya
+                    Selanjutnya
                   </Button>
                 </>
               )}
@@ -244,10 +337,10 @@ export default function StartTest() {
 
                 <div>
                   <h4 className="font-bold -tracking-wide text-purple">
-                    Fajar Fadillah Agustian
+                    {status == "authenticated" ? session.user.fullname : ""}
                   </h4>
                   <p className="text-[12px] font-semibold text-gray">
-                    ROUFFA125638
+                    {status == "authenticated" ? session.user.user_id : ""}
                   </p>
                 </div>
               </div>
@@ -257,7 +350,23 @@ export default function StartTest() {
                   Sisa Waktu:
                 </h4>
                 <h4 className="text-[28px] font-extrabold -tracking-wide text-purple">
-                  01:23:45
+                  <Countdown
+                    date={new Date(data?.data.end_time as string)}
+                    renderer={(props) => {
+                      return (
+                        <span>
+                          {props.hours < 10 ? `0${props.hours}` : props.hours}:
+                          {props.minutes < 10
+                            ? `0${props.minutes}`
+                            : props.minutes}
+                          :
+                          {props.seconds < 10
+                            ? `0${props.seconds}`
+                            : props.seconds}
+                        </span>
+                      );
+                    }}
+                  />
                 </h4>
               </div>
 
@@ -270,22 +379,41 @@ export default function StartTest() {
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Jumlah Soal</p>
                     <div>:</div>
-                    <p className="font-extrabold text-purple">100</p>
+                    <p className="font-extrabold text-purple">
+                      {data?.data.total_questions}
+                    </p>
                   </li>
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Sudah dijawab</p>
                     <div>:</div>
-                    <p className="font-extrabold text-purple">50</p>
+                    <p className="font-extrabold text-purple">
+                      {
+                        questions.filter((question) => question.user_answer)
+                          .length
+                      }
+                    </p>
                   </li>
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Ragu-ragu</p>
                     <div>:</div>
-                    <p className="font-extrabold text-purple">25</p>
+                    <p className="font-extrabold text-purple">
+                      {
+                        questions.filter((question) => question.is_hesitant)
+                          .length
+                      }
+                    </p>
                   </li>
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Belum dijawab</p>
                     <div>:</div>
-                    <p className="font-extrabold text-purple">25</p>
+                    <p className="font-extrabold text-purple">
+                      {
+                        questions.filter(
+                          (question) =>
+                            !question.user_answer || question.is_hesitant,
+                        ).length
+                      }
+                    </p>
                   </li>
                 </ul>
               </div>
@@ -329,3 +457,57 @@ export default function StartTest() {
     </>
   );
 }
+
+type Question = {
+  number: number;
+  question_id: string;
+  text: string;
+  url?: string;
+  type?: "text" | "video" | "image";
+  options: {
+    text: string;
+    option_id: string;
+  }[];
+  user_answer: string;
+  is_hesitant: boolean;
+};
+
+type StartTestResponse = {
+  questions: Question[];
+  total_questions: number;
+  end_time: string;
+};
+
+function getColor({
+  user_answer,
+  is_hesitant,
+}: {
+  user_answer: string;
+  is_hesitant: boolean;
+}) {
+  if (user_answer) {
+    if (is_hesitant) {
+      return "bg-yellow-500 text-white";
+    } else {
+      return "bg-purple text-white";
+    }
+  } else {
+    if (is_hesitant) {
+      return "bg-yellow-500 text-white";
+    } else {
+      return "bg-gray/10 text-gray hover:bg-gray/20";
+    }
+  }
+}
+
+export const getServerSideProps: GetServerSideProps<{
+  token: string;
+  params: ParsedUrlQuery;
+}> = async ({ req, params }) => {
+  return {
+    props: {
+      token: req.headers["access_token"] as string,
+      params: params as ParsedUrlQuery,
+    },
+  };
+};
