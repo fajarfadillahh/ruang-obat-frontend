@@ -17,7 +17,7 @@ export default function DetailsProgram({
   token,
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data, isLoading } = useSWR<SuccessResponse<ProgramResponse>>({
+  const { data, isLoading, mutate } = useSWR<SuccessResponse<ProgramResponse>>({
     url: `/programs/${params.id}`,
     method: "GET",
     token,
@@ -76,9 +76,23 @@ export default function DetailsProgram({
 
             {!data?.data.participated ? (
               data?.data.type == "free" ? (
-                <ModalFreeAccess />
+                <ModalFreeAccess
+                  {...{
+                    token,
+                    program_id: data.data.program_id,
+                    mutate,
+                    type: data.data.type,
+                  }}
+                />
               ) : (
-                <ModalInputAccessKey />
+                <ModalInputAccessKey
+                  {...{
+                    token,
+                    program_id: data?.data.program_id as string,
+                    mutate,
+                    type: data?.data.type as "free" | "paid",
+                  }}
+                />
               )
             ) : null}
           </div>

@@ -1,3 +1,5 @@
+import { fetcher } from "@/utils/fetcher";
+import { getError } from "@/utils/getError";
 import {
   Button,
   Modal,
@@ -8,9 +10,49 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { ArrowRight } from "@phosphor-icons/react";
+import { useState } from "react";
+import toast from "react-hot-toast";
+import { KeyedMutator } from "swr";
 
-export default function ModalFreeAccess() {
+type ModalFreeAccessProps = {
+  token: string;
+  program_id: string;
+  mutate: KeyedMutator<any>;
+  type: "free" | "paid";
+};
+
+export default function ModalFreeAccess({
+  token,
+  program_id,
+  mutate,
+  type,
+}: ModalFreeAccessProps) {
+  const [loading, setLoading] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+  async function handleFollowFree() {
+    setLoading(true);
+    try {
+      await fetcher({
+        url: "/programs/follow",
+        method: "POST",
+        token,
+        data: {
+          program_id,
+          type,
+        },
+      });
+
+      setLoading(false);
+      mutate();
+      toast.success("Berhasil mengikuti program");
+    } catch (error: any) {
+      setLoading(false);
+      console.log(error);
+
+      toast.error(getError(error));
+    }
+  }
 
   return (
     <>
@@ -20,6 +62,8 @@ export default function ModalFreeAccess() {
         size="sm"
         onPress={onOpen}
         className="w-full font-bold sm:w-max sm:px-6"
+        isLoading={loading}
+        isDisabled={loading}
       >
         Ikuti Program
       </Button>
@@ -59,9 +103,11 @@ export default function ModalFreeAccess() {
 
                 <Button
                   color="secondary"
-                  onPress={onClose}
                   endContent={<ArrowRight weight="bold" size={18} />}
                   className="font-bold"
+                  onClick={handleFollowFree}
+                  isDisabled={loading}
+                  isLoading={loading}
                 >
                   Ikuti Sekarang
                 </Button>
