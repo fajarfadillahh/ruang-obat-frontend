@@ -1,6 +1,8 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
+import { fetcher } from "@/utils/fetcher";
+import { getError } from "@/utils/getError";
 import {
   Avatar,
   Button,
@@ -16,6 +18,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode } from "react";
+import toast from "react-hot-toast";
 
 interface LayoutProps {
   title?: string;
@@ -26,6 +29,23 @@ interface LayoutProps {
 export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
   const { data: session, status } = useSession();
+
+  async function handleSignOut() {
+    if (confirm("apakah anda yakin?")) {
+      try {
+        await fetcher({
+          url: "/auth/session",
+          method: "DELETE",
+          token: session?.user.access_token,
+        });
+
+        signOut();
+      } catch (error) {
+        console.log(error);
+        toast.error(getError(error));
+      }
+    }
+  }
 
   return (
     <>
@@ -154,11 +174,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     key="logout"
                     color="danger"
                     startContent={<SignOut weight="bold" size={18} />}
-                    onClick={() => {
-                      if (confirm("apakah anda yakin?")) {
-                        signOut();
-                      }
-                    }}
+                    onClick={handleSignOut}
                     className="text-danger-600"
                   >
                     Keluar
