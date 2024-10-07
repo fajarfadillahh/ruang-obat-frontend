@@ -9,10 +9,6 @@ export async function middleware(request: NextRequest) {
 
   const pathname = request.nextUrl.pathname;
 
-  if(pathname === "/"){
-    return NextResponse.next()
-  }
-
   if (pathname.startsWith("/auth")) {
     if (!token) {
       return NextResponse.next();
@@ -34,6 +30,9 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|company).*)",
+    "/dashboard/:path*",
+    "/my/:path*",
+    "/programs/:path*",
+    "/tests/:path*",
   ],
 };
