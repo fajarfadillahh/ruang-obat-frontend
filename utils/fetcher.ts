@@ -6,6 +6,7 @@ type FetcherParams = {
   data?: unknown;
   token?: string;
   user_agent?: string;
+  file?: boolean;
 };
 
 export async function fetcher({
@@ -14,6 +15,7 @@ export async function fetcher({
   data,
   token,
   user_agent,
+  file,
 }: FetcherParams) {
   const prefix = process.env.NEXT_PUBLIC_MODE == "dev" ? "dev" : "api";
 
@@ -24,6 +26,14 @@ export async function fetcher({
 
   if (data) {
     Object.assign(options, { data });
+  }
+
+  if (file) {
+    Object.assign(options, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+    });
   }
 
   if (token) {
