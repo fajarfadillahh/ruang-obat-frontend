@@ -10,13 +10,12 @@ import useSWR from "swr";
 export default function MyProgramsPage({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data, error, isLoading } = useSWR<SuccessResponse<ProgramsType[]>>({
+  const { data, isLoading } = useSWR<SuccessResponse<ProgramsType[]>>({
     url: "/my/programs",
     method: "GET",
     token,
   });
 
-  console.log(data);
   if (isLoading) {
     return <Loading />;
   }

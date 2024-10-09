@@ -81,7 +81,6 @@ export default function DetailsProgram({
                     token,
                     program_id: data.data.program_id,
                     mutate,
-                    type: data.data.type,
                   }}
                 />
               ) : (
@@ -90,7 +89,6 @@ export default function DetailsProgram({
                     token,
                     program_id: data?.data.program_id as string,
                     mutate,
-                    type: data?.data.type as "free" | "paid",
                   }}
                 />
               )

@@ -19,14 +19,12 @@ type ModalInputAccessKey = {
   token: string;
   program_id: string;
   mutate: KeyedMutator<any>;
-  type: "free" | "paid";
 };
 
 export default function ModalInputAccessKey({
   token,
   program_id,
   mutate,
-  type,
 }: ModalInputAccessKey) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [code, setCode] = useState("");
@@ -44,7 +42,6 @@ export default function ModalInputAccessKey({
         token,
         data: {
           program_id,
-          type,
           code,
         },
       });
