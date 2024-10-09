@@ -12,7 +12,13 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { ClipboardText, House, SignIn, SignOut } from "@phosphor-icons/react";
+import {
+  ClipboardText,
+  House,
+  Medal,
+  SignIn,
+  SignOut,
+} from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -164,6 +170,15 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   onClick={() => router.push("/my/programs")}
                 >
                   Program Saya
+                </DropdownItem>
+
+                <DropdownItem
+                  key="myprogram"
+                  color="secondary"
+                  startContent={<Medal weight="bold" size={18} />}
+                  onClick={() => router.push("/my/tests")}
+                >
+                  Ujian Saya
                 </DropdownItem>
 
                 <DropdownSection
