@@ -1,3 +1,6 @@
+import { capitalize } from "@/utils/capitalize";
+import { fetcher } from "@/utils/fetcher";
+import { getError } from "@/utils/getError";
 import { quotes } from "@/utils/quotes";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import {
@@ -9,15 +12,18 @@ import {
   User,
   Users,
 } from "@phosphor-icons/react";
+import { signIn } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 type InputType = {
   fullname: string;
   email: string;
-  no_telp: string;
+  phone_number: string;
   gender: string;
   university: string;
   password: string;
@@ -29,21 +35,71 @@ export default function RegisterPage() {
   const [input, setInput] = useState<InputType>({
     fullname: "",
     email: "",
-    no_telp: "",
+    phone_number: "",
     gender: "",
     university: "",
     password: "",
   });
+  const [errors, setErrors] = useState<any>();
+
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
-  function handleRegister() {
+  async function handleRegister() {
     setLoading(true);
 
-    setTimeout(() => {
+    try {
+      await fetcher({
+        url: "/auth/register/users",
+        method: "POST",
+        data: input,
+      });
+
+      const response = await signIn("credentials", {
+        email: input.email,
+        password: input.password,
+        user_agent: navigator.userAgent,
+        redirect: false,
+      });
+
+      if (response?.error) {
+        setLoading(false);
+        const { error } = JSON.parse(response?.error);
+
+        toast.error(error.message);
+      }
+
+      if (response?.ok) {
+        setLoading(false);
+        setInput({
+          fullname: "",
+          email: "",
+          phone_number: "",
+          gender: "",
+          university: "",
+          password: "",
+        });
+
+        toast.success("Registrasi berhasil");
+        return router.push("/dashboard");
+      }
+    } catch (error: any) {
       setLoading(false);
-      window.location.href = "/dashboard";
-    }, 3000);
+      console.log(error);
+
+      if (error.status_code >= 500) {
+        toast.error(getError(error));
+      } else if (error.status_code >= 400 && error.status_code <= 499) {
+        if (error.error.name === "ZodError") {
+          setErrors(getError(error));
+        } else {
+          toast.error(getError(error));
+        }
+      } else {
+        toast.error(getError(error));
+      }
+    }
   }
 
   function isFormEmpty() {
@@ -122,6 +178,7 @@ export default function RegisterPage() {
 
             <div className="grid gap-2">
               <Input
+                value={input.fullname}
                 autoComplete="off"
                 type="text"
                 variant="flat"
@@ -131,7 +188,7 @@ export default function RegisterPage() {
                 onChange={(e) =>
                   setInput({
                     ...input,
-                    [e.target.name]: e.target.value,
+                    [e.target.name]: capitalize(e.target.value),
                   })
                 }
                 startContent={
@@ -144,18 +201,47 @@ export default function RegisterPage() {
               />
 
               <Input
+                value={input.email}
                 autoComplete="off"
                 type="email"
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Alamat Email"
                 name="email"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                onChange={(e) => {
+                  const email = e.target.value;
+                  if (!email) {
+                    setErrors({
+                      ...errors,
+                      email: null,
+                    });
+
+                    setInput({
+                      ...input,
+                      email: email.toLowerCase(),
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: email.toLowerCase(),
+                    });
+
+                    const emailRegex =
+                      /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+                    if (emailRegex.test(email.toLowerCase())) {
+                      setErrors({
+                        ...errors,
+                        email: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        email: "Email tidak valid",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <EnvelopeSimple
                     weight="bold"
@@ -167,22 +253,52 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={errors ? (errors.email ? true : false) : undefined}
+                errorMessage={
+                  errors ? (errors.email ? errors.email : null) : null
+                }
               />
 
               <Input
+                value={input.phone_number}
                 autoComplete="off"
                 type="text"
                 inputMode="numeric"
                 variant="flat"
                 labelPlacement="outside"
-                placeholder="No. Telpon"
-                name="no_telp"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: e.target.value,
-                  })
-                }
+                placeholder="Nomor Telpon"
+                name="phone_number"
+                onChange={(e) => {
+                  if (!e.target.value) {
+                    setInput({
+                      ...input,
+                      [e.target.name]: e.target.value,
+                    });
+
+                    setErrors({
+                      ...errors,
+                      phone_number: null,
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: e.target.value,
+                    });
+
+                    const phoneNumberRegex = /^(?:\+62|62|0)8[1-9][0-9]{6,9}$/;
+                    if (phoneNumberRegex.test(e.target.value)) {
+                      setErrors({
+                        ...errors,
+                        phone_number: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        phone_number: "Nomor telepon tidak valid",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <Phone weight="bold" size={18} className="text-gray" />
                 }
@@ -190,9 +306,20 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.phone_number ? true : false) : undefined
+                }
+                errorMessage={
+                  errors
+                    ? errors.phone_number
+                      ? errors.phone_number
+                      : null
+                    : null
+                }
               />
 
               <Select
+                selectedKeys={[input.gender]}
                 aria-label="select gender"
                 variant="flat"
                 labelPlacement="outside"
@@ -216,6 +343,7 @@ export default function RegisterPage() {
               </Select>
 
               <Input
+                value={input.university}
                 autoComplete="off"
                 type="text"
                 variant="flat"
@@ -225,7 +353,7 @@ export default function RegisterPage() {
                 onChange={(e) =>
                   setInput({
                     ...input,
-                    [e.target.name]: e.target.value,
+                    [e.target.name]: capitalize(e.target.value),
                   })
                 }
                 startContent={
@@ -238,18 +366,31 @@ export default function RegisterPage() {
               />
 
               <Input
+                value={input.password}
                 autoComplete="off"
                 type="password"
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Kata Sandi"
                 name="password"
-                onChange={(e) =>
+                onChange={(e) => {
                   setInput({
                     ...input,
                     [e.target.name]: e.target.value,
-                  })
-                }
+                  });
+
+                  if (e.target.value.length < 8) {
+                    setErrors({
+                      ...errors,
+                      password: "Minimal 8 karakter",
+                    });
+                  } else {
+                    setErrors({
+                      ...errors,
+                      password: null,
+                    });
+                  }
+                }}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -257,13 +398,23 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.password ? true : false) : undefined
+                }
+                errorMessage={
+                  errors ? (errors.password ? errors.password : null) : null
+                }
               />
             </div>
 
             <div className="grid gap-4">
               <Button
                 isLoading={loading}
-                isDisabled={!isFormEmpty() || loading}
+                isDisabled={
+                  !isFormEmpty() ||
+                  loading ||
+                  !Object.values(errors).every((value) => value == null)
+                }
                 variant="solid"
                 color="secondary"
                 onClick={handleRegister}
