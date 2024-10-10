@@ -6,6 +6,7 @@ declare module "next-auth/jwt" {
     fullname: string;
     user_id: string;
     access_token: string;
+    expired: string;
   }
 }
 
@@ -14,6 +15,7 @@ declare module "next-auth" {
     fullname: string;
     user_id: string;
     access_token: string;
+    expired: string;
     id?: string;
   }
 
@@ -22,6 +24,7 @@ declare module "next-auth" {
       fullname: string;
       user_id: string;
       access_token: string;
+      expired: string;
     };
   }
 }

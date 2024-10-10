@@ -7,6 +7,7 @@ type UserLogin = {
   user_id: string;
   fullname: string;
   access_token: string;
+  expired: string;
 };
 
 export const authOptions: NextAuthOptions = {
@@ -47,15 +48,16 @@ export const authOptions: NextAuthOptions = {
         token.user_id = user.user_id;
         token.fullname = user.fullname;
         token.access_token = user.access_token;
+        token.expired = user.expired;
       }
       return token;
     },
 
     session({ session, token }) {
-      console.log("session has been executed");
       session.user.user_id = token.user_id;
       session.user.fullname = token.fullname;
       session.user.access_token = token.access_token;
+      session.user.expired = token.expired;
       return session;
     },
   },

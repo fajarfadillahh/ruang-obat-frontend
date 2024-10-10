@@ -1,3 +1,4 @@
+import SessionChecker from "@/components/SessionChecker";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { NextUIProvider } from "@nextui-org/react";
@@ -24,6 +25,7 @@ export default function App({
       />
       <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
+        <SessionChecker />
         <SWRConfig
           value={{
             fetcher,
