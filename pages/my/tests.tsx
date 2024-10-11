@@ -3,13 +3,18 @@ import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { MyTestType } from "@/types/tests.type";
+import { Button } from "@nextui-org/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import useSWR from "swr";
 
 export default function MyTestsPage({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
+
   const { data, isLoading } = useSWR<SuccessResponse<MyTestType[]>>({
     url: "/my/tests",
     method: "GET",
@@ -20,8 +25,6 @@ export default function MyTestsPage({
     return <Loading />;
   }
 
-  console.log(data);
-
   return (
     <Layout title="Ujian Saya">
       <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
@@ -29,11 +32,41 @@ export default function MyTestsPage({
           Ujian Saya 📋
         </h1>
 
-        <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-          {data?.data.map((test) => (
-            <CardMyTest key={test.test_id} {...test} />
-          ))}
-        </div>
+        {data?.data.length === 0 ? (
+          <div className="grid gap-8 pt-12">
+            <Image
+              priority
+              src="/img/no-data-img.svg"
+              alt="no data img"
+              width={1000}
+              height={500}
+              className="h-[150px] w-auto justify-self-center"
+            />
+
+            <div className="grid justify-items-center gap-3 text-center">
+              <p className="font-medium leading-[170%] text-gray">
+                Kamu belum memiliki ujian
+              </p>
+              <Button
+                variant="solid"
+                color="secondary"
+                size="sm"
+                onClick={() => {
+                  router.push("/dashboard");
+                }}
+                className="w-max px-4 font-bold"
+              >
+                Halaman Dashboard
+              </Button>
+            </div>
+          </div>
+        ) : (
+          <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+            {data?.data.map((test) => (
+              <CardMyTest key={test.test_id} {...test} />
+            ))}
+          </div>
+        )}
       </section>
     </Layout>
   );
