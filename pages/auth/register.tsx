@@ -1,6 +1,7 @@
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input, Select, SelectItem } from "@nextui-org/react";
 import {
@@ -391,6 +392,7 @@ export default function RegisterPage() {
                     });
                   }
                 }}
+                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -410,11 +412,7 @@ export default function RegisterPage() {
             <div className="grid gap-4">
               <Button
                 isLoading={loading}
-                isDisabled={
-                  !isFormEmpty() ||
-                  loading ||
-                  !Object.values(errors).every((value) => value == null)
-                }
+                isDisabled={!isFormEmpty() || loading}
                 variant="solid"
                 color="secondary"
                 onClick={handleRegister}

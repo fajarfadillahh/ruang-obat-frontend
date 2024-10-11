@@ -1,3 +1,4 @@
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
 import { EnvelopeSimple, Lock, Quotes } from "@phosphor-icons/react";
@@ -157,6 +158,7 @@ export default function LoginPage() {
                     [e.target.name]: e.target.value,
                   })
                 }
+                onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
