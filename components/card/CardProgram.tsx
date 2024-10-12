@@ -14,7 +14,7 @@ export default function CardProgram(program: ProgramsType) {
   return (
     <Link
       href={`/programs/${program.program_id}`}
-      className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10 xl:max-w-none"
+      className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:cursor-pointer hover:border-purple hover:bg-purple/10 xl:max-w-none"
     >
       <BookBookmark weight="bold" size={32} className="text-purple" />
 
