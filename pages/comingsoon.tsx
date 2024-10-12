@@ -58,12 +58,12 @@ export default function ComingSoonPage({
                 </h1>
               )}
               <p className="font-medium leading-[170%] text-gray">
-                Kita lagi siapin full access yang bakal available di tanggal{" "}
-                <span className="font-black text-purple">1 November 2024</span>{" "}
-                sebentar lagi, so hang tight!
-                <br />
-                Mulai di tanggal itu, semua program-program gratis sudah bisa
-                diakses.
+                Kita lagi siapin full access yang bakalan ready di tanggal{" "}
+                <span className="font-black text-purple">1 November 2024</span>,
+                jadi stay tuned ya!
+              </p>
+              <p className="font-medium leading-[170%] text-gray">
+                Mulai dari tanggal itu, semua program udah bisa diakses.
               </p>
             </div>
 
