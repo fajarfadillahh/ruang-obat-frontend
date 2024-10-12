@@ -7,7 +7,7 @@ export default function CardMyTest(test: MyTestType) {
   return (
     <Link
       href={`/tests/${test.test_id}/finish`}
-      className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:cursor-pointer hover:bg-gray/10 xl:max-w-none"
+      className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:cursor-pointer hover:border-purple hover:bg-purple/10 xl:max-w-none"
     >
       <Medal weight="bold" size={32} className="text-purple" />
 
@@ -18,14 +18,14 @@ export default function CardMyTest(test: MyTestType) {
           </h4>
         </div>
 
-        <div className="flex items-center justify-between gap-2 pt-4">
-          <div className="inline-flex items-center gap-1 text-gray">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
+          <div className="inline-flex items-center gap-1 text-[18] text-black">
             🏆
-            <p className="text-[12px] font-semibold">{test.score}</p>
+            <p className="font-bold">{test.score}</p>
           </div>
 
-          <div className="inline-flex items-center gap-1 text-gray">
-            <CalendarCheck weight="bold" size={14} />
+          <div className="inline-flex items-start gap-1 text-gray">
+            <CalendarCheck weight="bold" size={16} />
             <p className="text-[12px] font-semibold">
               {formatDate(test.created_at)}
             </p>
