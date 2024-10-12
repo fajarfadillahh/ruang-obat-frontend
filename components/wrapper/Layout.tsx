@@ -151,7 +151,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
               <DropdownMenu
                 aria-label="profile actions"
                 itemClasses={{
-                  base: "text-black",
+                  title: "font-semibold",
                 }}
               >
                 <DropdownItem

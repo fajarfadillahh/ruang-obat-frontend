@@ -27,6 +27,8 @@ export default function DetailsProgram({
     return <Loading />;
   }
 
+  console.log(data);
+
   return (
     <Layout title={data?.data.title}>
       <section className="grid gap-8">
@@ -43,30 +45,36 @@ export default function DetailsProgram({
                 </h4>
 
                 <div className="flex flex-wrap items-center gap-4 lg:gap-10">
-                  <Chip
-                    variant="flat"
-                    color="default"
-                    startContent={<Tag weight="bold" size={18} />}
-                    classNames={{
-                      base: "px-3 gap-1",
-                      content: "font-bold",
-                    }}
-                  >
-                    {data?.data.type == "free"
-                      ? "Gratis"
-                      : formatRupiah(data?.data.price as number)}
-                  </Chip>
+                  {data?.data.type == "free" ? (
+                    <Chip
+                      variant="flat"
+                      color="default"
+                      startContent={
+                        <Tag weight="bold" size={18} className="text-black" />
+                      }
+                      classNames={{
+                        base: "px-3 gap-1",
+                        content: "font-bold text-black",
+                      }}
+                    >
+                      Gratis
+                    </Chip>
+                  ) : (
+                    <h5 className="text-xl font-extrabold text-purple">
+                      {formatRupiah(data?.data.price as number)}
+                    </h5>
+                  )}
 
                   <div className="inline-flex items-center gap-1 text-gray">
                     <Notepad weight="bold" size={18} />
-                    <p className="text-sm font-semibold">
+                    <p className="text-sm font-bold">
                       {data?.data.total_tests} Ujian
                     </p>
                   </div>
 
                   <div className="inline-flex items-center gap-1 text-gray">
                     <Users weight="bold" size={18} />
-                    <p className="text-sm font-semibold">
+                    <p className="text-sm font-bold">
                       {data?.data.total_users} Mahasiswa/i
                     </p>
                   </div>
