@@ -33,6 +33,10 @@ export default function DashboardPage({
     }
   }, [searchValue]);
 
+  const filteredPrograms = data?.data.programs.filter((program) =>
+    program.title.toLowerCase().includes(`${searchValue}`),
+  );
+
   if (isLoading) {
     return <Loading />;
   }
@@ -77,6 +81,11 @@ export default function DashboardPage({
                 <Funnel weight="bold" size={18} className="text-black" />
               }
               labelPlacement="outside"
+              listboxProps={{
+                itemClasses: {
+                  title: "font-semibold text-black",
+                },
+              }}
               classNames={{
                 base: "w-[200px]",
                 value: "font-semibold text-black",
@@ -94,11 +103,20 @@ export default function DashboardPage({
             </Select>
           </div>
 
-          <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
-            {data?.data.programs.map((program) => (
-              <CardProgram key={program.program_id} {...program} />
-            ))}
-          </div>
+          {searchValue && filteredPrograms?.length === 0 ? (
+            <div className="flex items-center justify-center gap-2 pt-16">
+              <MagnifyingGlass weight="bold" size={20} className="text-gray" />
+              <p className="font-semibold capitalize text-gray">
+                Program tidak ditemukan!
+              </p>
+            </div>
+          ) : (
+            <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+              {data?.data.programs.map((program) => (
+                <CardProgram key={program.program_id} {...program} />
+              ))}
+            </div>
+          )}
         </div>
       </section>
     </Layout>
