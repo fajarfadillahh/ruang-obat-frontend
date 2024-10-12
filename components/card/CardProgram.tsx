@@ -44,7 +44,7 @@ export default function CardProgram(program: ProgramsType) {
           )}
         </div>
 
-        <div className="flex items-center justify-between gap-2 pt-4">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
           <div className="inline-flex items-center gap-1 text-gray">
             <Notepad weight="bold" size={14} />
             <p className="text-[12px] font-semibold">
