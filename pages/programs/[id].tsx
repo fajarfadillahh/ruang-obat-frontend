@@ -27,8 +27,6 @@ export default function DetailsProgram({
     return <Loading />;
   }
 
-  console.log(data);
-
   return (
     <Layout title={data?.data.title}>
       <section className="grid gap-8">
@@ -115,8 +113,6 @@ export default function DetailsProgram({
                   {...{ ...test, participated: data.data.participated }}
                 />
               ))}
-
-              {/* <div className="absolute left-0 top-0 z-10 h-full w-full rounded-xl bg-black/10 backdrop-blur-sm" /> */}
             </div>
           </div>
         </div>

@@ -6,4 +6,5 @@ export type ProgramsType = {
   total_tests: number;
   total_users: number;
   participated: boolean;
+  is_approved: boolean | null;
 };

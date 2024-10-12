@@ -1,13 +1,13 @@
 import { formatDateWithoutTime } from "@/utils/formatDate";
 import { Button, Chip } from "@nextui-org/react";
-import { ClipboardText, ClockCountdown, Lock } from "@phosphor-icons/react";
+import { ClipboardText, HourglassLow, Lock } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 export default function CardTest(test: CardTest) {
   const router = useRouter();
 
   return (
-    <div className="group grid gap-6 rounded-xl border-2 border-gray/20 bg-transparent p-6 hover:bg-gray/10 md:grid-cols-[1fr_max-content] md:items-center">
+    <div className="group grid gap-6 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:border-purple hover:bg-purple/10 md:grid-cols-[1fr_max-content] md:items-center">
       <div className="flex flex-1 items-start gap-3">
         <ClipboardText weight="bold" size={28} className="text-purple" />
 
@@ -51,10 +51,10 @@ export default function CardTest(test: CardTest) {
 
               <Chip
                 variant="flat"
-                color="default"
-                startContent={<ClockCountdown weight="bold" size={18} />}
+                color="warning"
+                startContent={<HourglassLow weight="fill" size={18} />}
                 classNames={{
-                  base: "px-3 gap-1",
+                  base: "px-2",
                   content: "font-semibold capitalize",
                 }}
               >
