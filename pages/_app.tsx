@@ -1,6 +1,7 @@
 import SessionChecker from "@/components/SessionChecker";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
 import type { AppProps } from "next/app";
@@ -35,6 +36,7 @@ export default function App({
           <Component {...pageProps} />
         </SWRConfig>
       </SessionProvider>
+      <GoogleAnalytics gaId="G-QPX13ESQJV" />
     </NextUIProvider>
   );
 }
