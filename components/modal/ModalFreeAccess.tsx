@@ -97,9 +97,9 @@ export default function ModalFreeAccess({
               </ModalHeader>
 
               <ModalBody>
-                <div className="grid gap-6">
-                  <p className="text-sm font-medium leading-[170%] text-gray">
-                    Untuk mengikuti program gratis ini, kamu harus mengikuti
+                <div className="grid gap-4">
+                  <p className="max-w-[400px] text-sm font-medium leading-[170%] text-gray">
+                    Untuk mengikuti program gratis ini, kamu harus memenuhi
                     persyaratan untuk upload bukti{" "}
                     <span className="font-extrabold">follow</span>,{" "}
                     <span className="font-extrabold">comment</span>, dan{" "}
@@ -116,100 +116,109 @@ export default function ModalFreeAccess({
                       ruangobat.id
                     </span>
                   </p>
-                </div>
-                <div className="flex items-center justify-between gap-2">
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <label className="relative inline-block">
-                      <input
-                        type="file"
-                        className="absolute inset-0 cursor-pointer opacity-0"
-                        onChange={(e) => {
-                          if (e.target.files) {
-                            setFollowFile(e.target.files[0]);
-                          } else {
-                            setFollowFile(null);
-                          }
-                        }}
-                      />
-                      <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-14 text-gray-500">
-                        <span className="overflow-y-scroll text-sm">
-                          {followFile ? (
-                            <CheckCircle
-                              size={30}
-                              className="text-success"
-                              weight="fill"
-                            />
-                          ) : (
-                            <Plus size={30} weight="bold" />
-                          )}
-                        </span>
-                      </div>
-                    </label>
-                    <p className="text-sm font-medium leading-[170%] text-gray">
-                      Follow
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <label className="relative inline-block">
-                      <input
-                        type="file"
-                        className="absolute inset-0 cursor-pointer opacity-0"
-                        onChange={(e) => {
-                          if (e.target.files) {
-                            setCommentFile(e.target.files[0]);
-                          } else {
-                            setCommentFile(null);
-                          }
-                        }}
-                      />
-                      <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-14 text-gray-500">
-                        <span className="text-sm">
-                          {commentFile ? (
-                            <CheckCircle
-                              size={30}
-                              className="text-success"
-                              weight="fill"
-                            />
-                          ) : (
-                            <Plus size={30} weight="bold" />
-                          )}
-                        </span>
-                      </div>
-                    </label>
-                    <p className="text-sm font-medium leading-[170%] text-gray">
-                      Comment
-                    </p>
-                  </div>
-                  <div className="flex flex-col items-center justify-center gap-2">
-                    <label className="relative inline-block">
-                      <input
-                        type="file"
-                        className="absolute inset-0 cursor-pointer opacity-0"
-                        onChange={(e) => {
-                          if (e.target.files) {
-                            setShareFile(e.target.files[0]);
-                          } else {
-                            setShareFile(null);
-                          }
-                        }}
-                      />
-                      <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray-400 p-14 text-gray-500">
-                        <span className="text-sm">
-                          {shareFile ? (
-                            <CheckCircle
-                              size={30}
-                              className="text-success"
-                              weight="fill"
-                            />
-                          ) : (
-                            <Plus size={30} weight="bold" />
-                          )}
-                        </span>
-                      </div>
-                    </label>
-                    <p className="text-sm font-medium leading-[170%] text-gray">
-                      Share
-                    </p>
+
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <label className="relative inline-block">
+                        <input
+                          type="file"
+                          className="absolute inset-0 cursor-pointer opacity-0"
+                          onChange={(e) => {
+                            if (e.target.files) {
+                              setFollowFile(e.target.files[0]);
+                            } else {
+                              setFollowFile(null);
+                            }
+                          }}
+                        />
+
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                          <span className="overflow-y-scroll text-sm">
+                            {followFile ? (
+                              <CheckCircle
+                                size={30}
+                                className="text-success"
+                                weight="fill"
+                              />
+                            ) : (
+                              <Plus size={30} weight="bold" />
+                            )}
+                          </span>
+                        </div>
+                      </label>
+
+                      <p className="text-sm font-medium leading-[170%] text-gray">
+                        Follow
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <label className="relative inline-block">
+                        <input
+                          type="file"
+                          className="absolute inset-0 cursor-pointer opacity-0"
+                          onChange={(e) => {
+                            if (e.target.files) {
+                              setCommentFile(e.target.files[0]);
+                            } else {
+                              setCommentFile(null);
+                            }
+                          }}
+                        />
+
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                          <span className="text-sm">
+                            {commentFile ? (
+                              <CheckCircle
+                                size={30}
+                                className="text-success"
+                                weight="fill"
+                              />
+                            ) : (
+                              <Plus size={30} weight="bold" />
+                            )}
+                          </span>
+                        </div>
+                      </label>
+
+                      <p className="text-sm font-medium leading-[170%] text-gray">
+                        Comment
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-center justify-center gap-2">
+                      <label className="relative inline-block">
+                        <input
+                          type="file"
+                          className="absolute inset-0 cursor-pointer opacity-0"
+                          onChange={(e) => {
+                            if (e.target.files) {
+                              setShareFile(e.target.files[0]);
+                            } else {
+                              setShareFile(null);
+                            }
+                          }}
+                        />
+
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                          <span className="text-sm">
+                            {shareFile ? (
+                              <CheckCircle
+                                size={30}
+                                className="text-success"
+                                weight="fill"
+                              />
+                            ) : (
+                              <Plus size={30} weight="bold" />
+                            )}
+                          </span>
+                        </div>
+                      </label>
+
+                      <p className="text-sm font-medium leading-[170%] text-gray">
+                        Share
+                      </p>
+                    </div>
                   </div>
                 </div>
               </ModalBody>

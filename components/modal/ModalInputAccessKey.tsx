@@ -111,11 +111,11 @@ export default function ModalInputAccessKey({
                   </p>
 
                   <Input
-                    value={code}
                     isRequired
+                    value={code}
                     type="text"
                     variant="flat"
-                    label="Kode Akses"
+                    placeholder="Masukan Kode"
                     labelPlacement="outside"
                     classNames={{
                       input:
