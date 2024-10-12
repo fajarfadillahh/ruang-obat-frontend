@@ -45,7 +45,7 @@ export default function MyTestsPage({
 
             <div className="grid justify-items-center gap-3 text-center">
               <p className="font-medium leading-[170%] text-gray">
-                Kamu belum memiliki ujian
+                Kamu belum mengikuti ujian
               </p>
               <Button
                 variant="solid"
