@@ -53,7 +53,7 @@ export default function ModalFreeAccess({
       setCommentFile(null);
       setShareFile(null);
       mutate();
-      toast.success("Berhasil mengikuti program");
+      toast.success("Berhasil upload persyaratan");
     } catch (error: any) {
       setLoading(false);
       console.log(error);
