@@ -34,5 +34,6 @@ export const config = {
     "/my/:path*",
     "/programs/:path*",
     "/tests/:path*",
+    "/comingsoon",
   ],
 };
