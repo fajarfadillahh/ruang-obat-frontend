@@ -3,7 +3,7 @@ import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { ProgramsType } from "@/types/programs.type";
-import { Input, Select, SelectItem } from "@nextui-org/react";
+import { Input, Pagination, Select, SelectItem } from "@nextui-org/react";
 import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
@@ -117,6 +117,26 @@ export default function DashboardPage({
               ))}
             </div>
           )}
+
+          {data?.data.programs.length ? (
+            <Pagination
+              isCompact
+              showControls
+              page={data?.data.page as number}
+              total={data?.data.total_pages as number}
+              onChange={(e) => {
+                router.push({
+                  query: {
+                    page: e,
+                  },
+                });
+              }}
+              className="justify-self-center"
+              classNames={{
+                cursor: "bg-purple text-white",
+              }}
+            />
+          ) : null}
         </div>
       </section>
     </Layout>
