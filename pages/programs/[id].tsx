@@ -8,7 +8,13 @@ import { SuccessResponse } from "@/types/global.type";
 import { ProgramsType } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Button, Chip } from "@nextui-org/react";
-import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
+import {
+  BookBookmark,
+  CheckCircle,
+  Notepad,
+  Tag,
+  Users,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
 import useSWR from "swr";
@@ -110,6 +116,15 @@ export default function DetailsProgram({
               >
                 Menunggu Approve
               </Button>
+            ) : null}
+
+            {data?.data.is_approved == true ? (
+              <div className="inline-flex items-center gap-1">
+                <CheckCircle weight="fill" size={18} className="text-success" />
+                <p className="text-sm font-semibold capitalize text-black">
+                  Program telah diikuti
+                </p>
+              </div>
             ) : null}
           </div>
 
