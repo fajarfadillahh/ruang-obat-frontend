@@ -37,7 +37,7 @@ export default function ModalInputAccessKey({
 
     try {
       await fetcher({
-        url: "/programs/follow",
+        url: "/programs/follow/paid",
         method: "POST",
         token,
         data: {

@@ -71,9 +71,9 @@ export default function CardTest(test: CardTest) {
         color="secondary"
         onClick={() => router.push(`/tests/${test.test_id}`)}
         className="w-full font-bold md:w-max md:px-6"
-        isDisabled={!test.participated}
+        isDisabled={!test.is_approved}
       >
-        {!test.participated ? <Lock weight="bold" size={18} /> : "Lihat Ujian"}
+        {!test.is_approved ? <Lock weight="bold" size={18} /> : "Lihat Ujian"}
       </Button>
     </div>
   );
@@ -88,5 +88,5 @@ type CardTest = {
   is_active: boolean;
   has_result: boolean;
   status: string;
-  participated: boolean;
+  is_approved: boolean | null;
 };

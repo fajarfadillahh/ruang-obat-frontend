@@ -7,7 +7,7 @@ import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { ProgramsType } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Chip } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import { BookBookmark, Notepad, Tag, Users } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
@@ -80,7 +80,7 @@ export default function DetailsProgram({
               </div>
             </div>
 
-            {!data?.data.participated ? (
+            {data?.data.is_approved == null ? (
               data?.data.type == "free" ? (
                 <ModalFreeAccess
                   {...{
@@ -99,6 +99,18 @@ export default function DetailsProgram({
                 />
               )
             ) : null}
+
+            {data?.data.is_approved == false ? (
+              <Button
+                variant="solid"
+                color="secondary"
+                size="sm"
+                className="w-full font-bold sm:w-max sm:px-6"
+                isDisabled={true}
+              >
+                Menunggu Approve
+              </Button>
+            ) : null}
           </div>
 
           <div className="grid gap-4 pt-8">
@@ -110,7 +122,7 @@ export default function DetailsProgram({
               {data?.data.tests.map((test) => (
                 <CardTest
                   key={test.test_id}
-                  {...{ ...test, participated: data.data.participated }}
+                  {...{ ...test, is_approved: data.data.is_approved }}
                 />
               ))}
             </div>

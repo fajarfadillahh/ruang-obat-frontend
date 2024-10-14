@@ -40,9 +40,8 @@ export default function Layout({ title, children, className }: LayoutProps) {
     if (confirm("apakah anda yakin?")) {
       try {
         await fetcher({
-          url: "/auth/session",
+          url: `/auth/session/${session?.user.user_id}`,
           method: "DELETE",
-          token: session?.user.access_token,
         });
 
         signOut();
@@ -130,7 +129,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     isBordered
                     showFallback
                     size="sm"
-                    src="/img/avatar-male.svg"
+                    src={`${status == "authenticated" ? (session.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
                     classNames={{
                       base: "ring-purple bg-purple/20",
                       icon: "text-purple",

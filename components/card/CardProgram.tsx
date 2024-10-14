@@ -3,6 +3,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { Chip, Tooltip } from "@nextui-org/react";
 import {
   BookBookmark,
+  Clock,
   Notepad,
   SealCheck,
   Tag,
@@ -61,9 +62,9 @@ export default function CardProgram(program: ProgramsType) {
         </div>
       </div>
 
-      {program.participated ? (
+      {program.is_approved == true ? (
         <Tooltip
-          content="Program Telah DiIkuti"
+          content="Program Telah Diikuti"
           classNames={{
             content: "max-w-[350px] font-semibold text-black",
           }}
@@ -72,6 +73,19 @@ export default function CardProgram(program: ProgramsType) {
             weight="fill"
             size={24}
             className="absolute right-4 top-4 text-success"
+          />
+        </Tooltip>
+      ) : program.is_approved == false ? (
+        <Tooltip
+          content="Menunggu Approve"
+          classNames={{
+            content: "max-w-[350px] font-semibold text-black",
+          }}
+        >
+          <Clock
+            weight="fill"
+            size={24}
+            className="absolute right-4 top-4 text-warning"
           />
         </Tooltip>
       ) : null}

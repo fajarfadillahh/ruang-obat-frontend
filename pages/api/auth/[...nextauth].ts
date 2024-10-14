@@ -8,6 +8,7 @@ type UserLogin = {
   fullname: string;
   access_token: string;
   expired: string;
+  gender: "M" | "F";
 };
 
 export const authOptions: NextAuthOptions = {
@@ -49,6 +50,7 @@ export const authOptions: NextAuthOptions = {
         token.fullname = user.fullname;
         token.access_token = user.access_token;
         token.expired = user.expired;
+        token.gender = user.gender;
       }
       return token;
     },
@@ -58,6 +60,7 @@ export const authOptions: NextAuthOptions = {
       session.user.fullname = token.fullname;
       session.user.access_token = token.access_token;
       session.user.expired = token.expired;
+      session.user.gender = token.gender;
       return session;
     },
   },

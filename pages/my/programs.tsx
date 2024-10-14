@@ -45,7 +45,7 @@ export default function MyProgramsPage({
 
             <div className="grid justify-items-center gap-3 text-center">
               <p className="font-medium leading-[170%] text-gray">
-                Kamu belum memiliki program
+                Kamu belum mengikuti program
               </p>
               <Button
                 variant="solid"

@@ -83,6 +83,14 @@ export default function RegisterPage() {
         });
 
         toast.success("Registrasi berhasil");
+
+        const now = new Date();
+        const soon = new Date(1730394000000);
+
+        if (now < soon) {
+          return router.push("/comingsoon?from=register");
+        }
+
         return router.push("/dashboard");
       }
     } catch (error: any) {
