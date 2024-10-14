@@ -35,35 +35,19 @@ export default function ComingSoonPage({
             </div>
 
             <div className="grid gap-3">
-              {query.from == "register" ? (
-                <h1 className="text-[30px] font-black capitalize leading-[120%] -tracking-wide text-black lg:text-[42px]">
-                  Selamat{" "}
-                  <span className="text-purple">
-                    {session.status == "authenticated"
-                      ? session.data?.user.fullname
-                      : ""}
-                    ,
-                  </span>{" "}
-                  akun kamu berhasil dibuat! 👏
-                </h1>
-              ) : (
-                <h1 className="text-[30px] font-black capitalize leading-[120%] -tracking-wide text-black lg:text-[42px]">
-                  Welcome back{" "}
-                  <span className="text-purple">
-                    {session.status == "authenticated"
-                      ? session.data?.user.fullname
-                      : ""}
-                  </span>
-                  👏
-                </h1>
-              )}
+              <h1 className="text-[30px] font-black capitalize leading-[120%] -tracking-wide text-black lg:text-[42px]">
+                Selamat datang di website RuangObat,{" "}
+                <span className="text-purple">
+                  {session.status == "authenticated"
+                    ? session.data?.user.fullname
+                    : ""}
+                </span>{" "}
+                🙌
+              </h1>
               <p className="font-medium leading-[170%] text-gray">
-                Kita lagi siapin full access yang bakalan ready di tanggal{" "}
-                <span className="font-black text-purple">1 November 2024</span>,
-                jadi stay tuned ya!
-              </p>
-              <p className="font-medium leading-[170%] text-gray">
-                Mulai dari tanggal itu, semua program udah bisa diakses.
+                Akun Ruang Ujian kamu sudah siap untuk diakses, selamat
+                mengerjakan ujian Try Out UKMPPAI. Semangat meraih gelar
+                Apotekermu sudah di depan mata, jangan menyerah ya! 🙌
               </p>
             </div>
 
