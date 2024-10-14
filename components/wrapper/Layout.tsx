@@ -79,7 +79,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
           >
             <LogoRuangobat className="h-auto w-8 text-gray/20" />
             <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
-              Ruang Obat<span className="text-purple">.</span>
+              RuangObat<span className="text-purple">.</span>
             </h1>
           </Link>
 
