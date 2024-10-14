@@ -36,6 +36,21 @@ export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
   const { data: session, status } = useSession();
 
+  const formatName = (name: string): string => {
+    const parts: string[] = name.split(" ");
+    let result: string;
+
+    if (parts.length === 1) {
+      result = parts[0];
+    } else if (parts.length === 2) {
+      result = `${parts[0]} ${parts[1].charAt(0)}.`;
+    } else {
+      result = `${parts[0]} ${parts[1].charAt(0)}. ${parts[2].charAt(0)}.`;
+    }
+
+    return result;
+  };
+
   async function handleSignOut() {
     if (confirm("apakah anda yakin?")) {
       try {
@@ -138,7 +153,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
                   <div>
                     <h6 className="text-sm font-bold text-black">
-                      {status == "authenticated" ? session.user.fullname : null}
+                      {status == "authenticated"
+                        ? formatName(session.user.fullname)
+                        : null}
                     </h6>
                     <p className="text-[12px] font-semibold uppercase text-gray">
                       {status == "authenticated" ? session.user.user_id : null}
