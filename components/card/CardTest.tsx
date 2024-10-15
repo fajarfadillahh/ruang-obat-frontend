@@ -3,6 +3,7 @@ import { Button, Chip } from "@nextui-org/react";
 import {
   CheckCircle,
   ClipboardText,
+  ClockCountdown,
   HourglassLow,
   Lock,
   Prohibit,
@@ -75,11 +76,25 @@ export default function CardTest(test: CardTest) {
               <div className="inline-flex items-center gap-2">
                 <Chip
                   variant="flat"
-                  color="warning"
+                  color={
+                    test.status === "Belum dimulai"
+                      ? "default"
+                      : test.status === "Berlangsung"
+                        ? "warning"
+                        : "success"
+                  }
                   size="sm"
-                  startContent={<HourglassLow weight="fill" size={18} />}
+                  startContent={
+                    test.status === "Belum dimulai" ? (
+                      <ClockCountdown weight="bold" size={16} />
+                    ) : test.status === "Berlangsung" ? (
+                      <HourglassLow weight="fill" size={16} />
+                    ) : (
+                      <CheckCircle weight="fill" size={16} />
+                    )
+                  }
                   classNames={{
-                    base: "px-2",
+                    base: "px-2 gap-1",
                     content: "font-semibold capitalize",
                   }}
                 >
