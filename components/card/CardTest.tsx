@@ -127,7 +127,13 @@ export default function CardTest(test: CardTest) {
         variant="solid"
         size="sm"
         color={!test.is_active ? "danger" : "secondary"}
-        onClick={() => router.push(`/tests/${test.test_id}`)}
+        onClick={() =>
+          router.push(
+            !test.has_result
+              ? `/tests/${test.test_id}`
+              : `/tests/${test.test_id}/finish`,
+          )
+        }
         className="w-full font-bold md:w-max md:px-6"
         isDisabled={getButtonProps(test).isDisabled}
       >
