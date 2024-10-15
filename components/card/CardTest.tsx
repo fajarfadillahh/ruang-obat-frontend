@@ -7,12 +7,41 @@ import {
   HourglassLow,
   Lock,
   Prohibit,
-  XCircle,
 } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 export default function CardTest(test: CardTest) {
   const router = useRouter();
+
+  function getButtonProps(test: CardTest) {
+    let isDisabled = false;
+    let buttonText: string | JSX.Element = "";
+
+    if (test.is_approved === null || !test.is_approved) {
+      isDisabled = true;
+      buttonText = <Lock weight="bold" size={18} />;
+    } else if (test.is_approved && test.status === "Belum dimulai") {
+      isDisabled = true;
+      buttonText = <Lock weight="bold" size={18} />;
+    } else if (test.is_approved && test.status === "Berlangsung") {
+      isDisabled = false;
+      buttonText = "Lihat Ujian";
+
+      if (test.has_result) {
+        buttonText = "Lihat Hasil";
+      }
+    } else if (test.is_approved && test.status === "Berakhir") {
+      if (test.has_result) {
+        isDisabled = false;
+        buttonText = "Lihat Hasil";
+      } else {
+        isDisabled = true;
+        buttonText = "Tidak Mengerjakan";
+      }
+    }
+
+    return { isDisabled, buttonText };
+  }
 
   return (
     <div
@@ -73,53 +102,32 @@ export default function CardTest(test: CardTest) {
                 Status Ujian:
               </span>
 
-              <div className="inline-flex items-center gap-2">
-                <Chip
-                  variant="flat"
-                  color={
-                    test.status === "Belum dimulai"
-                      ? "default"
-                      : test.status === "Berlangsung"
-                        ? "warning"
-                        : "success"
-                  }
-                  size="sm"
-                  startContent={
-                    test.status === "Belum dimulai" ? (
-                      <ClockCountdown weight="bold" size={16} />
-                    ) : test.status === "Berlangsung" ? (
-                      <HourglassLow weight="fill" size={16} />
-                    ) : (
-                      <CheckCircle weight="fill" size={16} />
-                    )
-                  }
-                  classNames={{
-                    base: "px-2 gap-1",
-                    content: "font-semibold capitalize",
-                  }}
-                >
-                  {test.status}
-                </Chip>
-
-                <Chip
-                  variant="flat"
-                  color={test.is_active ? "success" : "danger"}
-                  size="sm"
-                  startContent={
-                    test.is_active ? (
-                      <CheckCircle weight="fill" size={16} />
-                    ) : (
-                      <XCircle weight="fill" size={16} />
-                    )
-                  }
-                  classNames={{
-                    base: "px-2 gap-1",
-                    content: "font-semibold capitalize",
-                  }}
-                >
-                  {test.is_active ? "Aktif" : "Tidak Aktif"}
-                </Chip>
-              </div>
+              <Chip
+                variant="flat"
+                color={
+                  test.status === "Belum dimulai"
+                    ? "danger"
+                    : test.status === "Berlangsung"
+                      ? "warning"
+                      : "success"
+                }
+                size="sm"
+                startContent={
+                  test.status === "Belum dimulai" ? (
+                    <ClockCountdown weight="bold" size={16} />
+                  ) : test.status === "Berlangsung" ? (
+                    <HourglassLow weight="fill" size={16} />
+                  ) : (
+                    <CheckCircle weight="fill" size={16} />
+                  )
+                }
+                classNames={{
+                  base: "px-2 gap-1",
+                  content: "font-semibold capitalize",
+                }}
+              >
+                {test.status}
+              </Chip>
             </div>
           </div>
         </div>
@@ -131,9 +139,9 @@ export default function CardTest(test: CardTest) {
         color={!test.is_active ? "danger" : "secondary"}
         onClick={() => router.push(`/tests/${test.test_id}`)}
         className="w-full font-bold md:w-max md:px-6"
-        isDisabled={!test.is_approved || !test.is_active}
+        isDisabled={getButtonProps(test).isDisabled}
       >
-        {!test.is_approved ? <Lock weight="bold" size={18} /> : "Lihat Ujian"}
+        {getButtonProps(test).buttonText}
       </Button>
     </div>
   );

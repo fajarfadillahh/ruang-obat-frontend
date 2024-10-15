@@ -85,7 +85,7 @@ export default function HomePage() {
 
         <Image
           priority
-          src="/img/home-img.png"
+          src="/img/landing-page-img.png"
           alt="home img"
           width={396}
           height={512}
