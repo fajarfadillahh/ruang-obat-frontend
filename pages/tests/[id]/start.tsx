@@ -102,13 +102,13 @@ export default function StartTest({
       </Head>
 
       <main className="relative mx-auto h-screen w-full max-w-[1440px] px-6">
-        <section className="py-12 xl:grid xl:grid-cols-[260px_1fr_260px] xl:items-start xl:gap-4">
+        <section className="py-12 xl:flex xl:items-start xl:gap-4">
           <div
-            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+            className={`fixed top-0 z-20 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
               contentOpen.left ? "left-0" : "-left-[260px]"
             }`}
           >
-            <div className="grid divide-y-2 divide-dashed divide-gray/20">
+            <div className="grid max-w-full grid-rows-[max-content_1fr] items-start divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-4 pb-8">
                 <h4 className="text-sm font-semibold text-black">
                   Keterangan Warna:
@@ -193,9 +193,9 @@ export default function StartTest({
             </div>
           </div>
 
-          <div className="mx-auto grid max-w-[748px] gap-6 xl:max-w-none">
+          <div className="mx-auto grid max-w-[700px] gap-6 xl:max-w-none xl:flex-1">
             <div className="h-[600px] overflow-y-scroll rounded-xl border-2 border-gray/20">
-              <div className="sticky left-0 top-0 z-40 bg-white p-6 text-[18px] font-extrabold text-purple">
+              <div className="sticky left-0 top-0 z-10 bg-white p-6 text-[18px] font-extrabold text-purple">
                 No. {number}
               </div>
 
@@ -333,17 +333,17 @@ export default function StartTest({
           </div>
 
           <div
-            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+            className={`fixed top-0 z-20 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[600px] xl:rounded-xl xl:border-2 xl:shadow-none ${
               contentOpen.right ? "right-0" : "-right-[260px]"
             }`}
           >
-            <div className="grid divide-y-2 divide-dashed divide-gray/20">
+            <div className="grid w-full divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-2 pb-8">
                 <h4 className="text-sm font-semibold text-black">
                   Data Peserta:
                 </h4>
 
-                <div>
+                <div className="grid">
                   <h4 className="font-bold -tracking-wide text-purple">
                     {status == "authenticated" ? session.user.fullname : ""}
                   </h4>
@@ -357,6 +357,7 @@ export default function StartTest({
                 <h4 className="text-sm font-semibold text-black">
                   Sisa Waktu:
                 </h4>
+
                 <h4 className="text-[28px] font-extrabold -tracking-wide text-purple">
                   <Countdown
                     date={new Date(data?.data.end_time as string)}
@@ -426,7 +427,7 @@ export default function StartTest({
                 </ul>
               </div>
 
-              <div className="grid gap-4 pt-8">
+              <div className="grid gap-3 pt-8">
                 <h4 className="text-sm font-semibold text-black">
                   Status Jaringan:
                 </h4>

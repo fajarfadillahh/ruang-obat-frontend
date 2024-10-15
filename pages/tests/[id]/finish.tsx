@@ -46,13 +46,13 @@ export default function ResultTest() {
           Kembali Ke Halaman Detail
         </Button>
 
-        <div className="xl:grid xl:grid-cols-[260px_1fr_260px] xl:items-start xl:gap-4">
+        <div className="xl:flex xl:items-start xl:gap-4">
           <div
-            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+            className={`fixed top-0 z-20 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
               contentOpen.left ? "left-0" : "-left-[260px]"
             }`}
           >
-            <div className="grid divide-y-2 divide-dashed divide-gray/20">
+            <div className="grid max-w-full grid-rows-[max-content_1fr] items-start divide-y-2 divide-dashed divide-gray/20">
               <div className="grid gap-4 pb-8">
                 <h4 className="text-sm font-semibold text-black">
                   Keterangan Warna:
@@ -129,8 +129,8 @@ export default function ResultTest() {
             </div>
           </div>
 
-          <div className="mx-auto h-[550px] max-w-[748px] overflow-y-scroll rounded-xl border-2 border-gray/20 xl:max-w-none">
-            <div className="sticky left-0 top-0 z-40 bg-white p-6 text-[18px] font-extrabold text-purple">
+          <div className="mx-auto h-[550px] max-w-[700px] overflow-y-scroll rounded-xl border-2 border-gray/20 xl:max-w-none xl:flex-1">
+            <div className="sticky left-0 top-0 z-10 bg-white p-6 text-[18px] font-extrabold text-purple">
               No. 1
             </div>
 
@@ -225,11 +225,11 @@ export default function ResultTest() {
           </div>
 
           <div
-            className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
+            className={`fixed top-0 z-20 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[-4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
               contentOpen.right ? "right-0" : "-right-[260px]"
             }`}
           >
-            <div className="grid gap-8">
+            <div className="grid w-full gap-8">
               <h4 className="text-[18px] font-bold text-black">Hasil Ujian:</h4>
 
               <div className="grid divide-y-2 divide-dashed divide-gray/20">
