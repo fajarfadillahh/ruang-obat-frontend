@@ -18,7 +18,7 @@ export default function HomePage() {
   }
 
   return (
-    <Layout title="Rumah Ujian Para Mahasiswa Farmasi">
+    <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
       <div className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
         <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
           <div className="grid gap-4">
