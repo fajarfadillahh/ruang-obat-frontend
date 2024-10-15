@@ -117,7 +117,7 @@ export default function ModalFreeAccess({
                     </span>
                   </p>
 
-                  <div className="flex items-center justify-between gap-2">
+                  <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-between">
                     <div className="flex flex-col items-center justify-center gap-2">
                       <label className="relative inline-block">
                         <input
@@ -132,7 +132,7 @@ export default function ModalFreeAccess({
                           }}
                         />
 
-                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
                           <span className="overflow-y-scroll text-sm">
                             {followFile ? (
                               <CheckCircle
@@ -166,7 +166,7 @@ export default function ModalFreeAccess({
                           }}
                         />
 
-                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
                           <span className="text-sm">
                             {commentFile ? (
                               <CheckCircle
@@ -200,7 +200,7 @@ export default function ModalFreeAccess({
                           }}
                         />
 
-                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-14 text-gray/50">
+                        <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
                           <span className="text-sm">
                             {shareFile ? (
                               <CheckCircle
