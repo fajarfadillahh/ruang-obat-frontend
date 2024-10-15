@@ -17,27 +17,17 @@ export default function CardTest(test: CardTest) {
     let isDisabled = false;
     let buttonText: string | JSX.Element = "";
 
-    if (test.is_approved === null || !test.is_approved) {
-      isDisabled = true;
-      buttonText = <Lock weight="bold" size={18} />;
-    } else if (test.is_approved && test.status === "Belum dimulai") {
-      isDisabled = true;
-      buttonText = <Lock weight="bold" size={18} />;
-    } else if (test.is_approved && test.status === "Berlangsung") {
-      isDisabled = false;
-      buttonText = "Lihat Ujian";
+    const lockIcon = <Lock weight="bold" size={18} />;
 
-      if (test.has_result) {
-        buttonText = "Lihat Hasil";
-      }
-    } else if (test.is_approved && test.status === "Berakhir") {
-      if (test.has_result) {
-        isDisabled = false;
-        buttonText = "Lihat Hasil";
-      } else {
-        isDisabled = true;
-        buttonText = "Tidak Mengerjakan";
-      }
+    if (!test.is_approved || test.status === "Belum dimulai") {
+      isDisabled = true;
+      buttonText = lockIcon;
+    } else if (test.status === "Berlangsung") {
+      isDisabled = false;
+      buttonText = test.has_result ? "Lihat Hasil" : "Lihat Ujian";
+    } else if (test.status === "Berakhir") {
+      isDisabled = !test.has_result;
+      buttonText = test.has_result ? "Lihat Hasil" : "Tidak Mengerjakan";
     }
 
     return { isDisabled, buttonText };
