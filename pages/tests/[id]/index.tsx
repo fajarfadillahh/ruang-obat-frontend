@@ -4,7 +4,12 @@ import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { formatDateWithoutTime } from "@/utils/formatDate";
 import { Button, Chip } from "@nextui-org/react";
-import { ArrowRight, ClockCountdown } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  CheckCircle,
+  ClockCountdown,
+  HourglassLow,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -88,11 +93,25 @@ export default function DetailsTest({
 
               <Chip
                 variant="flat"
-                color="default"
-                startContent={<ClockCountdown weight="bold" size={18} />}
+                color={
+                  data?.data.status === "Belum dimulai"
+                    ? "danger"
+                    : data?.data.status === "Berlangsung"
+                      ? "warning"
+                      : "success"
+                }
+                startContent={
+                  data?.data.status === "Belum dimulai" ? (
+                    <ClockCountdown weight="bold" size={16} />
+                  ) : data?.data.status === "Berlangsung" ? (
+                    <HourglassLow weight="fill" size={16} />
+                  ) : (
+                    <CheckCircle weight="fill" size={16} />
+                  )
+                }
                 classNames={{
-                  base: "px-3 gap-1",
-                  content: "font-semibold",
+                  base: "px-2 gap-1",
+                  content: "font-semibold capitalize",
                 }}
               >
                 {data?.data.status}
