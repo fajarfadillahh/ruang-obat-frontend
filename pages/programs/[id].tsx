@@ -7,22 +7,34 @@ import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { ProgramsType } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Button, Chip } from "@nextui-org/react";
+import {
+  Button,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
 import {
   BookBookmark,
   CheckCircle,
   Notepad,
   Tag,
   Users,
+  WhatsappLogo,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
+import { useState } from "react";
 import useSWR from "swr";
 
 export default function DetailsProgram({
   token,
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data, isLoading, mutate } = useSWR<SuccessResponse<ProgramResponse>>({
     url: `/programs/${params.id}`,
     method: "GET",
@@ -35,7 +47,7 @@ export default function DetailsProgram({
 
   return (
     <Layout title={data?.data.title}>
-      <section className="grid gap-8">
+      <section className="grid gap-8 pb-16">
         <ButtonBack />
 
         <div className="grid divide-y-2 divide-dashed divide-gray/20">
@@ -143,6 +155,69 @@ export default function DetailsProgram({
             </div>
           </div>
         </div>
+
+        {data?.data.is_approved == true ? (
+          <>
+            <Button
+              variant="solid"
+              startContent={
+                <WhatsappLogo weight="bold" size={18} className="text-white" />
+              }
+              onPress={() => setIsModalOpen(true)}
+              className="fixed bottom-[70px] right-5 bg-success font-bold text-white md:right-16 xl:bottom-24 xl:right-24"
+            >
+              Join Grup WhatsApp!
+            </Button>
+
+            <Modal
+              isDismissable={false}
+              isOpen={isModalOpen}
+              onOpenChange={() => setIsModalOpen(false)}
+              size="sm"
+              placement="center"
+            >
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                      Join Grup WhatsApp
+                    </ModalHeader>
+
+                    <ModalBody>
+                      <div className="grid gap-6">
+                        <p className="text-sm font-medium leading-[170%] text-gray">
+                          Yuk gabung grup WhatsApp kita! Scan QR Code ini untuk
+                          langsung ikut bergabung sekarang juga. See you there
+                          👋
+                        </p>
+
+                        <Image
+                          priority
+                          src="/img/qr-code-join.jpeg"
+                          alt="qrcode image"
+                          width={1000}
+                          height={1000}
+                          className="aspect-square rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
+                        />
+                      </div>
+                    </ModalBody>
+
+                    <ModalFooter>
+                      <Button
+                        color="danger"
+                        variant="light"
+                        onPress={onClose}
+                        className="font-bold"
+                      >
+                        Tutup
+                      </Button>
+                    </ModalFooter>
+                  </>
+                )}
+              </ModalContent>
+            </Modal>
+          </>
+        ) : null}
       </section>
     </Layout>
   );
