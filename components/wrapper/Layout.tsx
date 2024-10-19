@@ -11,9 +11,12 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownTrigger,
+  useDisclosure,
 } from "@nextui-org/react";
 import {
+  ChatCircleText,
   ClipboardText,
+  Headset,
   House,
   Medal,
   SignIn,
@@ -34,6 +37,16 @@ interface LayoutProps {
 
 export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
+  const {
+    isOpen: isFeedbackOpen,
+    onOpen: onFeedbackOpen,
+    onClose: onFeedbackClose,
+  } = useDisclosure();
+  const {
+    isOpen: isHelpOpen,
+    onOpen: onHelpOpen,
+    onClose: onHelpClose,
+  } = useDisclosure();
   const { data: session, status } = useSession();
 
   const formatName = (name: string): string => {
@@ -145,82 +158,104 @@ export default function Layout({ title, children, className }: LayoutProps) {
               </Button>
             </div>
           ) : (
-            <Dropdown>
-              <DropdownTrigger>
-                <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
-                  <Avatar
-                    isBordered
-                    showFallback
-                    size="sm"
-                    src={`${status == "authenticated" ? (session.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
-                    classNames={{
-                      base: "ring-purple bg-purple/20",
-                      icon: "text-purple",
-                    }}
-                  />
+            <>
+              <Dropdown>
+                <DropdownTrigger>
+                  <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
+                    <Avatar
+                      isBordered
+                      showFallback
+                      size="sm"
+                      src={`${status == "authenticated" ? (session.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                      classNames={{
+                        base: "ring-purple bg-purple/20",
+                        icon: "text-purple",
+                      }}
+                    />
 
-                  <div>
-                    <h6 className="text-sm font-bold text-black">
-                      {status == "authenticated"
-                        ? formatName(session.user.fullname)
-                        : null}
-                    </h6>
-                    <p className="text-[12px] font-semibold uppercase text-gray">
-                      {status == "authenticated" ? session.user.user_id : null}
-                    </p>
+                    <div>
+                      <h6 className="text-sm font-bold text-black">
+                        {status == "authenticated"
+                          ? formatName(session.user.fullname)
+                          : null}
+                      </h6>
+                      <p className="text-[12px] font-semibold uppercase text-gray">
+                        {status == "authenticated"
+                          ? session.user.user_id
+                          : null}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </DropdownTrigger>
+                </DropdownTrigger>
 
-              <DropdownMenu
-                aria-label="profile actions"
-                itemClasses={{
-                  title: "font-semibold",
-                }}
-              >
-                <DropdownItem
-                  key="dashboard"
-                  color="secondary"
-                  startContent={<House weight="bold" size={18} />}
-                  onClick={() => router.push("/dashboard")}
-                >
-                  Beranda
-                </DropdownItem>
-
-                <DropdownItem
-                  key="myprogram"
-                  color="secondary"
-                  startContent={<ClipboardText weight="bold" size={18} />}
-                  onClick={() => router.push("/my/programs")}
-                >
-                  Program Saya
-                </DropdownItem>
-
-                <DropdownItem
-                  key="myprogram"
-                  color="secondary"
-                  startContent={<Medal weight="bold" size={18} />}
-                  onClick={() => router.push("/my/tests")}
-                >
-                  Ujian Saya
-                </DropdownItem>
-
-                <DropdownSection
-                  aria-label="danger zone section"
-                  title="Anda Yakin?"
+                <DropdownMenu
+                  aria-label="profile actions"
+                  itemClasses={{
+                    title: "font-semibold",
+                  }}
                 >
                   <DropdownItem
-                    key="logout"
-                    color="danger"
-                    startContent={<SignOut weight="bold" size={18} />}
-                    onClick={handleSignOut}
-                    className="text-danger-600"
+                    key="dashboard"
+                    color="secondary"
+                    startContent={<House weight="bold" size={18} />}
+                    onClick={() => router.push("/dashboard")}
                   >
-                    Keluar
+                    Beranda
                   </DropdownItem>
-                </DropdownSection>
-              </DropdownMenu>
-            </Dropdown>
+
+                  <DropdownItem
+                    key="myprogram"
+                    color="secondary"
+                    startContent={<ClipboardText weight="bold" size={18} />}
+                    onClick={() => router.push("/my/programs")}
+                  >
+                    Program Saya
+                  </DropdownItem>
+
+                  <DropdownItem
+                    key="mytest"
+                    color="secondary"
+                    startContent={<Medal weight="bold" size={18} />}
+                    onClick={() => router.push("/my/tests")}
+                  >
+                    Ujian Saya
+                  </DropdownItem>
+
+                  <DropdownItem
+                    key="feedback"
+                    color="secondary"
+                    startContent={<ChatCircleText weight="bold" size={18} />}
+                    onClick={onFeedbackOpen}
+                  >
+                    Feedback
+                  </DropdownItem>
+
+                  <DropdownItem
+                    key="help"
+                    color="secondary"
+                    startContent={<Headset weight="bold" size={18} />}
+                    onClick={onHelpOpen}
+                  >
+                    Bantuan
+                  </DropdownItem>
+
+                  <DropdownSection
+                    aria-label="danger zone section"
+                    title="Anda Yakin?"
+                  >
+                    <DropdownItem
+                      key="logout"
+                      color="danger"
+                      startContent={<SignOut weight="bold" size={18} />}
+                      onClick={handleSignOut}
+                      className="text-danger-600"
+                    >
+                      Keluar
+                    </DropdownItem>
+                  </DropdownSection>
+                </DropdownMenu>
+              </Dropdown>
+            </>
           )}
         </Navbar>
 
