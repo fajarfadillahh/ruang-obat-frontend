@@ -30,7 +30,7 @@ export default function ComingSoonPage({
             <div className="inline-flex items-center gap-2">
               <LogoRuangobat className="h-auto w-10 text-gray/20" />
               <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
-                Ruang Obat<span className="text-purple">.</span>
+                RuangObat<span className="text-purple">.</span>
               </h1>
             </div>
 
@@ -59,7 +59,7 @@ export default function ComingSoonPage({
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
                 } else {
-                  window.open("https://cbt.ruangobat.id/dashboard", "_blank");
+                  router.push("https://cbt.ruangobat.id/dashboard");
                 }
               }}
               className="w-max px-4 font-bold"
