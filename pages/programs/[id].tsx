@@ -193,7 +193,7 @@ export default function DetailsProgram({
 
                         <Image
                           priority
-                          src="/img/qr-code-join.jpeg"
+                          src={data.data.qr_code}
                           alt="qrcode image"
                           width={1000}
                           height={1000}
