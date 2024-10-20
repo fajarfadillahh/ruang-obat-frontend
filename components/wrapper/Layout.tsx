@@ -121,7 +121,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
             </h1>
           </Link>
 
-          {router.pathname == "/" ? (
+          {status == "unauthenticated" ? (
             <div className="inline-flex items-center gap-1">
               <Button
                 variant="light"
@@ -130,10 +130,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   if (window.location.host == "localhost:3000") {
                     router.push("/auth/login");
                   } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/login",
-                      "_blank",
-                    );
+                    router.push("https://cbt.ruangobat.id/auth/login");
                   }
                 }}
                 className="px-4 font-bold text-black"
@@ -148,10 +145,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   if (window.location.host == "localhost:3000") {
                     router.push("/auth/register");
                   } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/register",
-                      "_blank",
-                    );
+                    router.push("https://cbt.ruangobat.id/auth/register");
                   }
                 }}
                 className="px-8 font-bold"

@@ -56,7 +56,7 @@ export default function HomePage() {
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
                 } else {
-                  window.open("https://cbt.ruangobat.id/dashboard", "_blank");
+                  router.push("https://cbt.ruangobat.id/dashboard");
                 }
               }}
               className="px-4 font-bold"
@@ -71,10 +71,7 @@ export default function HomePage() {
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
                 } else {
-                  window.open(
-                    "https://cbt.ruangobat.id/auth/register",
-                    "_blank",
-                  );
+                  router.push("https://cbt.ruangobat.id/auth/register");
                 }
               }}
             >
