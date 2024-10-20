@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
+import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import Navbar from "@/components/Navbar";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { fetcher } from "@/utils/fetcher";
@@ -256,6 +257,11 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   </DropdownSection>
                 </DropdownMenu>
               </Dropdown>
+
+              <ModalSendFeedback
+                isOpen={isFeedbackOpen}
+                onClose={onFeedbackClose}
+              />
 
               <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
             </>
