@@ -302,7 +302,7 @@ export default function RegisterPage() {
                       [e.target.name]: e.target.value,
                     });
 
-                    const phoneNumberRegex = /^(?:\+62|62|0)8[1-9][0-9]{6,9}$/;
+                    const phoneNumberRegex = /^(?:\+62|62|0)8[1-9][0-9]{7,11}$/;
                     if (phoneNumberRegex.test(e.target.value)) {
                       setErrors({
                         ...errors,
