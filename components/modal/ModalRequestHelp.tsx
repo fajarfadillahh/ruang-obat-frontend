@@ -8,6 +8,8 @@ import {
   Textarea,
 } from "@nextui-org/react";
 import { WhatsappLogo } from "@phosphor-icons/react";
+import { useSession } from "next-auth/react";
+import { useState } from "react";
 
 type ModalRequestHelpProps = {
   isOpen: boolean;
@@ -18,6 +20,9 @@ export default function ModalRequestHelp({
   isOpen,
   onClose,
 }: ModalRequestHelpProps) {
+  const { data: session, status } = useSession();
+  const [trouble, setTrouble] = useState("");
+
   return (
     <Modal
       isDismissable={false}
@@ -25,6 +30,9 @@ export default function ModalRequestHelp({
       onOpenChange={onClose}
       size="md"
       placement="center"
+      onClose={() => {
+        setTrouble("");
+      }}
     >
       <ModalContent>
         {(onClose) => (
@@ -50,6 +58,7 @@ export default function ModalRequestHelp({
                     input:
                       "font-semibold placeholder:font-normal placeholder:text-default-600",
                   }}
+                  onChange={(e) => setTrouble(e.target.value)}
                 />
               </div>
             </ModalBody>
@@ -58,7 +67,10 @@ export default function ModalRequestHelp({
               <Button
                 color="danger"
                 variant="light"
-                onPress={onClose}
+                onClick={() => {
+                  onClose();
+                  setTrouble("");
+                }}
                 className="font-bold"
               >
                 Tutup
@@ -69,6 +81,22 @@ export default function ModalRequestHelp({
                 variant="solid"
                 startContent={<WhatsappLogo weight="bold" size={18} />}
                 className="font-bold"
+                isDisabled={!trouble}
+                onClick={() => {
+                  const fullname =
+                    status == "authenticated" ? session.user.fullname : "";
+                  const userID =
+                    status == "authenticated" ? session.user.user_id : "";
+                  const template = `Hallo kak saya ${fullname} dengan UserID ${userID}, ${trouble}`;
+                  const adminPhone = "6282289509438";
+
+                  window.open(
+                    `https://api.whatsapp.com/send?phone=${adminPhone}&text=${encodeURIComponent(template)}`,
+                    "_blank",
+                  );
+                  setTrouble("");
+                  onClose();
+                }}
               >
                 Kirim Sekarang
               </Button>
