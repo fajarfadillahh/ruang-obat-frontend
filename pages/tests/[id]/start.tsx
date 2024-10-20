@@ -1,5 +1,7 @@
 import Loading from "@/components/Loading";
 import { SuccessResponse } from "@/types/global.type";
+import { fetcher } from "@/utils/fetcher";
+import { getError } from "@/utils/getError";
 import {
   Button,
   Checkbox,
@@ -24,6 +26,7 @@ import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
+import toast from "react-hot-toast";
 import useSWR from "swr";
 
 export default function StartTest({
@@ -38,6 +41,7 @@ export default function StartTest({
   });
   const [number, setNumber] = useState(1);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const [loading, setLoading] = useState(false);
 
   const [contentOpen, setContentOpen] = useState<{
     left: boolean;
@@ -73,6 +77,38 @@ export default function StartTest({
   }
 
   const question = questions.find((question) => question.number == number);
+
+  async function handleSaveTest() {
+    setLoading(true);
+    try {
+      const mappingQuestions = questions.map((item) => {
+        return {
+          number: item.number,
+          question_id: item.question_id,
+          user_answer: item.user_answer,
+        };
+      });
+
+      await fetcher({
+        url: "/tests/finish",
+        method: "POST",
+        data: {
+          test_id: params.id,
+          questions: mappingQuestions,
+        },
+        token,
+      });
+
+      toast.success("Berhasil mengumpulkan ujian");
+      router.push("/my/tests");
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+
+      console.log(error);
+      toast.error(getError(error));
+    }
+  }
 
   return (
     <>
@@ -286,17 +322,15 @@ export default function StartTest({
                   color="secondary"
                   onClick={() => {
                     if (confirm("Yakin dengan semua jawabanmu?")) {
-                      localStorage.removeItem("test");
-                      router.push(`/tests/${params.id}/finish?number=1`);
+                      handleSaveTest();
                     }
                   }}
                   className="font-bold"
                   isDisabled={Boolean(
-                    questions.filter(
-                      (question) =>
-                        !question.user_answer || question.is_hesitant,
-                    ).length,
+                    questions.filter((question) => !question.user_answer)
+                      .length,
                   )}
+                  isLoading={loading}
                 >
                   Kumpulkan Jawaban 🌟
                 </Button>
@@ -375,6 +409,7 @@ export default function StartTest({
                         </span>
                       );
                     }}
+                    onComplete={handleSaveTest}
                   />
                 </h4>
               </div>
@@ -417,10 +452,8 @@ export default function StartTest({
                     <div>:</div>
                     <p className="font-extrabold text-purple">
                       {
-                        questions.filter(
-                          (question) =>
-                            !question.user_answer || question.is_hesitant,
-                        ).length
+                        questions.filter((question) => !question.user_answer)
+                          .length
                       }
                     </p>
                   </li>
