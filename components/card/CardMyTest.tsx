@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function CardMyTest(test: MyTestType) {
   return (
     <Link
-      href={`/tests/${test.test_id}/finish`}
+      href={`/results/${test.result_id}`}
       className="group relative flex max-w-[380px] items-start gap-4 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:cursor-pointer hover:border-purple hover:bg-purple/10 xl:max-w-none"
     >
       <Medal weight="bold" size={32} className="text-purple" />
