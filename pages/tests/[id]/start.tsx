@@ -101,6 +101,7 @@ export default function StartTest({
 
       toast.success("Berhasil mengumpulkan ujian");
       router.push("/my/tests");
+      localStorage.removeItem("test");
       setLoading(false);
     } catch (error) {
       setLoading(false);

@@ -107,10 +107,18 @@ export default function ResultTest({
                   {data?.data.questions.map((question) => {
                     let answerClass = "";
 
-                    if (!question.is_correct) {
-                      answerClass = "bg-danger text-white";
+                    if (question.is_correct) {
+                      if (question.number == number) {
+                        answerClass = "bg-green-700 text-white";
+                      } else {
+                        answerClass = "bg-success text-white";
+                      }
                     } else {
-                      answerClass = "bg-success text-white";
+                      if (question.number == number) {
+                        answerClass = "bg-red-700 text-white";
+                      } else {
+                        answerClass = "bg-danger text-white";
+                      }
                     }
 
                     return (
