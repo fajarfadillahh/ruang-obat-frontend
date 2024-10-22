@@ -2,11 +2,8 @@ import Layout from "@/components/wrapper/Layout";
 import { Button } from "@nextui-org/react";
 import { ArrowClockwise } from "@phosphor-icons/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 export default function ServerErrorPage() {
-  const router = useRouter();
-
   return (
     <Layout title="Hmmm, Server Sepertinya Error">
       <section className="flex flex-col items-center justify-center gap-8 pt-8">

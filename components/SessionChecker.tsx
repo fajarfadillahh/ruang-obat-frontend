@@ -7,84 +7,59 @@ import { useEffect } from "react";
 export default function SessionChecker() {
   const router = useRouter();
 
-  useEffect(() => {
-    window.onfocus = async () => {
-      if (!router.pathname.startsWith("/auth")) {
-        try {
-          const session = await getSession();
-          const current = new Date();
-          const expired = new Date(session?.user.expired as string);
+  async function checkSession() {
+    try {
+      const session = await getSession();
+      if (!session) return signOut();
 
-          if (session) {
-            const responseFromBackend = (await fetcher({
-              url: `/auth/session/check`,
-              method: "GET",
-              token: session.user.access_token,
-            })) as SuccessResponse<{ message: string; session_id: string }>;
+      const current = new Date();
+      const expired = new Date(session.user.expired as string);
 
-            if (responseFromBackend.success) {
-              if (current > expired) {
-                await fetcher({
-                  url: `/auth/session/${session?.user.user_id}`,
-                  method: "DELETE",
-                });
-
-                signOut();
-              }
-            }
-          } else {
-            signOut();
-          }
-        } catch (error: any) {
-          console.log(error);
-
-          if (error.status_code == 404) {
-            signOut();
-          }
-        }
+      if (current > expired) {
+        await fetcher({
+          url: `/auth/session/${session.user.user_id}`,
+          method: "DELETE",
+        });
+        return signOut();
       }
-    };
-  }, [router]);
 
-  useEffect(() => {
-    checkSession();
+      const responseFromBackend = (await fetcher({
+        url: `/auth/session/check`,
+        method: "GET",
+        token: session.user.access_token,
+      })) as SuccessResponse<{ message: string; session_id: string }>;
 
-    async function checkSession() {
-      if (!router.pathname.startsWith("/auth")) {
-        try {
-          const session = await getSession();
-          const current = new Date();
-          const expired = new Date(session?.user.expired as string);
-
-          if (session) {
-            const responseFromBackend = (await fetcher({
-              url: `/auth/session/check`,
-              method: "GET",
-              token: session.user.access_token,
-            })) as SuccessResponse<{ message: string; session_id: string }>;
-
-            if (responseFromBackend.success) {
-              if (current > expired) {
-                await fetcher({
-                  url: `/auth/session/${session?.user.user_id}`,
-                  method: "DELETE",
-                });
-
-                signOut();
-              }
-            }
-          } else {
-            signOut();
-          }
-        } catch (error: any) {
-          console.log(error);
-
-          if (error.status_code == 404) {
-            signOut();
-          }
-        }
+      if (!responseFromBackend.success) {
+        return signOut();
+      }
+    } catch (error: any) {
+      console.log(error);
+      if (error.status_code === 404) {
+        signOut();
       }
     }
+  }
+
+  useEffect(() => {
+    const handleFocus = async () => {
+      if (!router.pathname.startsWith("/auth") && router.pathname !== "/") {
+        await checkSession();
+      }
+    };
+
+    const checkRouter = async () => {
+      if (!router.pathname.startsWith("/auth") && router.pathname !== "/") {
+        await checkSession();
+      }
+    };
+
+    window.onfocus = handleFocus;
+
+    checkRouter();
+
+    return () => {
+      window.onfocus = null;
+    };
   }, [router]);
 
   return null;

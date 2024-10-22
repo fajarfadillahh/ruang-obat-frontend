@@ -123,7 +123,7 @@ export default function TermsPage() {
                   </strong>{" "}
                   Ruangobat.id tidak bertanggung jawab atas segala kerugian atau
                   kerusakan yang timbul akibat penggunaan layanan kami. Layanan
-                  kami disediakan "apa adanya" tanpa jaminan apa pun.
+                  kami disediakan {`"apa adanya"`} tanpa jaminan apa pun.
                 </li>
 
                 <li>
