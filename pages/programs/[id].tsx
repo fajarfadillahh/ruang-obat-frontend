@@ -197,7 +197,7 @@ export default function DetailsProgram({
                           alt="qrcode image"
                           width={1000}
                           height={1000}
-                          className="aspect-square rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
+                          className="aspect-square size-fit rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
                         />
                       </div>
                     </ModalBody>
