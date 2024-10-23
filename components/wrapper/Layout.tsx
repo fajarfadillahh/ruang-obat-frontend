@@ -139,7 +139,10 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   if (window.location.host == "localhost:3000") {
                     router.push("/auth/login");
                   } else {
-                    router.push("https://cbt.ruangobat.id/auth/login");
+                    window.open(
+                      "https://cbt.ruangobat.id/auth/login",
+                      "_blank",
+                    );
                   }
                 }}
                 className="px-4 font-bold text-black"
@@ -154,7 +157,10 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   if (window.location.host == "localhost:3000") {
                     router.push("/auth/register");
                   } else {
-                    router.push("https://cbt.ruangobat.id/auth/register");
+                    window.open(
+                      "https://cbt.ruangobat.id/auth/register",
+                      "_blank",
+                    );
                   }
                 }}
                 className="px-8 font-bold"
