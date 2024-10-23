@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import Navbar from "@/components/Navbar";
@@ -28,7 +29,7 @@ import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import toast from "react-hot-toast";
 
 interface LayoutProps {
@@ -49,7 +50,13 @@ export default function Layout({ title, children, className }: LayoutProps) {
     onOpen: onHelpOpen,
     onClose: onHelpClose,
   } = useDisclosure();
+  const {
+    isOpen: isLogoutOpen,
+    onOpen: onLogoutOpen,
+    onClose: onLogoutClose,
+  } = useDisclosure();
   const { data: session, status } = useSession();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const formatName = (name: string): string => {
     const parts: string[] = name.split(" ");
@@ -67,18 +74,20 @@ export default function Layout({ title, children, className }: LayoutProps) {
   };
 
   async function handleSignOut() {
-    if (confirm("apakah anda yakin?")) {
-      try {
-        await fetcher({
-          url: `/auth/session/${session?.user.user_id}`,
-          method: "DELETE",
-        });
+    setLoading(true);
 
-        signOut();
-      } catch (error) {
-        console.log(error);
-        toast.error(getError(error));
-      }
+    try {
+      await fetcher({
+        url: `/auth/session/${session?.user.user_id}`,
+        method: "DELETE",
+      });
+
+      signOut();
+      toast.success("Berhasil Logout");
+    } catch (error) {
+      setLoading(false);
+      console.log(error);
+      toast.error(getError(error));
     }
   }
 
@@ -243,7 +252,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                       key="logout"
                       color="danger"
                       startContent={<SignOut weight="bold" size={18} />}
-                      onClick={handleSignOut}
+                      onClick={onLogoutOpen}
                       className="text-danger-600"
                     >
                       Keluar
@@ -258,6 +267,16 @@ export default function Layout({ title, children, className }: LayoutProps) {
               />
 
               <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
+
+              <ModalConfirm
+                btnText="Logout Sekarang"
+                header="Pemberitahuan"
+                text="Apakah Anda Yakin Ingin Logout?"
+                loading={loading}
+                isOpen={isLogoutOpen}
+                onClose={onLogoutClose}
+                handleAction={handleSignOut}
+              />
             </>
           )}
         </Navbar>
