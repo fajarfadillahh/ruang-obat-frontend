@@ -1,4 +1,5 @@
 import Loading from "@/components/Loading";
+import ModalConfirm from "@/components/modal/ModalConfirm";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
@@ -9,6 +10,7 @@ import {
   cn,
   Radio,
   RadioGroup,
+  useDisclosure,
 } from "@nextui-org/react";
 import {
   ArrowDown,
@@ -41,6 +43,11 @@ export default function StartTest({
   });
   const [number, setNumber] = useState(1);
   const [questions, setQuestions] = useState<Question[]>([]);
+  const {
+    isOpen: isSaveTestOpen,
+    onOpen: onSaveTestOpen,
+    onClose: onSaveTestClose,
+  } = useDisclosure();
   const [loading, setLoading] = useState(false);
 
   const [contentOpen, setContentOpen] = useState<{
@@ -318,23 +325,30 @@ export default function StartTest({
 
             <div className="inline-flex items-center gap-4 justify-self-center">
               {number - 1 === questions.length - 1 ? (
-                <Button
-                  variant="solid"
-                  color="secondary"
-                  onClick={() => {
-                    if (confirm("Yakin dengan semua jawabanmu?")) {
-                      handleSaveTest();
-                    }
-                  }}
-                  className="font-bold"
-                  isDisabled={Boolean(
-                    questions.filter((question) => !question.user_answer)
-                      .length,
-                  )}
-                  isLoading={loading}
-                >
-                  Kumpulkan Jawaban 🌟
-                </Button>
+                <>
+                  <Button
+                    variant="solid"
+                    color="secondary"
+                    onClick={onSaveTestOpen}
+                    className="font-bold"
+                    isDisabled={Boolean(
+                      questions.filter((question) => !question.user_answer)
+                        .length,
+                    )}
+                  >
+                    Kumpulkan Jawaban 🌟
+                  </Button>
+
+                  <ModalConfirm
+                    btnText="Kumpulkan Sekarang"
+                    header="Pemberitahuan"
+                    text="Yakin Dengan Semua Jawaban Anda?"
+                    loading={loading}
+                    isOpen={isSaveTestOpen}
+                    onClose={onSaveTestClose}
+                    handleAction={handleSaveTest}
+                  />
+                </>
               ) : (
                 <>
                   <Button
