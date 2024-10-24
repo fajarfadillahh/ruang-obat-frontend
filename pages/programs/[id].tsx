@@ -10,6 +10,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
   Chip,
+  Link,
   Modal,
   ModalBody,
   ModalContent,
@@ -186,9 +187,16 @@ export default function DetailsProgram({
                     <ModalBody>
                       <div className="grid gap-6">
                         <p className="text-sm font-medium leading-[170%] text-gray">
-                          Yuk gabung grup WhatsApp kita! Scan QR Code ini untuk
-                          langsung ikut bergabung sekarang juga. See you there
-                          👋
+                          Klik link dibawah ini atau scan QR Code untuk join
+                          grup kita guyss! 👋
+                          <br />
+                          <Link
+                            href="#"
+                            target="_blank"
+                            className="w-max text-sm font-semibold leading-[170%] text-purple underline"
+                          >
+                            Link Join Grup!
+                          </Link>
                         </p>
 
                         <Image
@@ -197,7 +205,7 @@ export default function DetailsProgram({
                           alt="qrcode image"
                           width={1000}
                           height={1000}
-                          className="aspect-square size-fit rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
+                          className="aspect-square size-64 justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
                         />
                       </div>
                     </ModalBody>
