@@ -232,28 +232,42 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     Ujian Saya
                   </DropdownItem>
 
-                  <DropdownItem
-                    key="feedback"
-                    color="secondary"
-                    startContent={<ChatCircleText weight="bold" size={18} />}
-                    onClick={onFeedbackOpen}
+                  <DropdownSection
+                    aria-label="support section"
+                    title="Support & Masukan"
                   >
-                    Feedback
-                  </DropdownItem>
+                    <DropdownItem
+                      key="feedback"
+                      color="secondary"
+                      startContent={<ChatCircleText weight="bold" size={18} />}
+                      onClick={onFeedbackOpen}
+                    >
+                      Feedback
+                    </DropdownItem>
 
-                  <DropdownItem
-                    key="help"
-                    color="secondary"
-                    startContent={<Headset weight="bold" size={18} />}
-                    onClick={onHelpOpen}
-                  >
-                    Bantuan
-                  </DropdownItem>
+                    <DropdownItem
+                      key="help"
+                      color="secondary"
+                      startContent={<Headset weight="bold" size={18} />}
+                      onClick={onHelpOpen}
+                    >
+                      Bantuan
+                    </DropdownItem>
+                  </DropdownSection>
 
                   <DropdownSection
-                    aria-label="danger zone section"
+                    aria-label="account & settings section"
                     title="Anda Yakin?"
                   >
+                    {/* <DropdownItem
+                      key="profile"
+                      color="secondary"
+                      startContent={<UserCircle weight="bold" size={18} />}
+                      onClick={() => router.push("/my/profile")}
+                    >
+                      Profil Saya
+                    </DropdownItem> */}
+
                     <DropdownItem
                       key="logout"
                       color="danger"
