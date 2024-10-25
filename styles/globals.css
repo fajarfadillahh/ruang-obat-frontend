@@ -11,3 +11,13 @@
 ::selection {
   @apply bg-purple text-white;
 }
+
+ul {
+  @apply list-outside list-disc pl-8;
+}
+ol {
+  @apply list-outside list-decimal pl-8;
+}
+li {
+  @apply list-outside;
+}

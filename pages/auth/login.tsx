@@ -215,12 +215,12 @@ export default function LoginPage() {
                 autoComplete="off"
               />
 
-              <div
+              {/* <div
                 className="justify-self-end text-sm font-semibold text-purple hover:cursor-pointer hover:underline"
                 onClick={onForgotPasswordOpen}
               >
                 Lupa Sandi?
-              </div>
+              </div> */}
 
               <Modal
                 isDismissable={false}

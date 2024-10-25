@@ -244,9 +244,10 @@ export default function StartTest({
               </div>
 
               <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
-                <p className="font-semibold leading-[170%] text-black">
-                  {question?.text}
-                </p>
+                <p
+                  className="list-outside text-[16px] font-semibold leading-[170%] text-black"
+                  dangerouslySetInnerHTML={{ __html: question?.text as string }}
+                />
 
                 <RadioGroup
                   value={question?.user_answer}
