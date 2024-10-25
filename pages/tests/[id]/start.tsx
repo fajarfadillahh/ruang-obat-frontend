@@ -212,7 +212,9 @@ export default function StartTest({
                 </div>
 
                 <div className="inline-flex items-center gap-1 pt-2 italic text-gray/80">
-                  <p className="text-[10px] font-semibold">Scroll ke bawah</p>
+                  <p className="text-[12px] font-semibold">
+                    Scroll ke bawah pada nomor
+                  </p>
                   <ArrowDown
                     weight="bold"
                     size={10}
