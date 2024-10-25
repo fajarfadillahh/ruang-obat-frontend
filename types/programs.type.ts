@@ -7,4 +7,5 @@ export type ProgramsType = {
   total_users: number;
   is_approved: boolean | null;
   qr_code: string;
+  url_qr_code: string;
 };

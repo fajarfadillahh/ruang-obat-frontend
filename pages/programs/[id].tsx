@@ -46,6 +46,8 @@ export default function DetailsProgram({
     return <Loading />;
   }
 
+  console.log(data);
+
   return (
     <Layout title={data?.data.title}>
       <section className="grid gap-8 pb-16">
@@ -191,7 +193,7 @@ export default function DetailsProgram({
                           grup kita guyss! 👋
                           <br />
                           <Link
-                            href="#"
+                            href={`${data.data.url_qr_code}`}
                             target="_blank"
                             className="w-max text-sm font-semibold leading-[170%] text-purple underline"
                           >
