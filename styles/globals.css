@@ -12,12 +12,12 @@
   @apply bg-purple text-white;
 }
 
-ul {
+.preventive-list ul {
   @apply list-outside list-disc pl-8;
 }
-ol {
+.preventive-list ol {
   @apply list-outside list-decimal pl-8;
 }
-li {
+.preventive-list li {
   @apply list-outside;
 }
