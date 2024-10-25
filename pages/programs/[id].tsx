@@ -191,8 +191,11 @@ export default function DetailsProgram({
                           grup kita guyss! 👋
                           <br />
                           <Link
-                            href={`${data.data.url_qr_code}`}
-                            target="_blank"
+                            href={"#"}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              window.open(`${data.data.url_qr_code}`, "_blank");
+                            }}
                             className="w-max text-sm font-semibold leading-[170%] text-purple underline"
                           >
                             Link Join Grup!
