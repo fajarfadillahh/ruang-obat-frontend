@@ -46,8 +46,6 @@ export default function DetailsProgram({
     return <Loading />;
   }
 
-  console.log(data);
-
   return (
     <Layout title={data?.data.title}>
       <section className="grid gap-8 pb-16">

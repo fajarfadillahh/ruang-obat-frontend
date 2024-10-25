@@ -3,6 +3,7 @@ import ModalConfirm from "@/components/modal/ModalConfirm";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
+import useNetworkStatus from "@/utils/useNetworkStatus";
 import {
   Button,
   Checkbox,
@@ -18,6 +19,7 @@ import {
   ArrowRight,
   CaretDoubleLeft,
   CheckCircle,
+  WarningCircle,
 } from "@phosphor-icons/react";
 import { CaretDoubleRight } from "@phosphor-icons/react/dist/ssr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -58,6 +60,7 @@ export default function StartTest({
     right: false,
   });
   const { data: session, status } = useSession();
+  const isOnline = useNetworkStatus();
 
   const toggleContentOpen = (id: "left" | "right") => {
     setContentOpen((prevState) => ({
@@ -68,13 +71,16 @@ export default function StartTest({
 
   useEffect(() => {
     if (data) {
-      const cache = localStorage.getItem("test");
+      const cache = localStorage.getItem(params.id as string);
 
       if (cache) {
         setQuestions(JSON.parse(cache) as Question[]);
       } else {
         setQuestions(data.data.questions);
-        localStorage.setItem("test", JSON.stringify(data.data.questions));
+        localStorage.setItem(
+          params.id as string,
+          JSON.stringify(data.data.questions),
+        );
       }
     }
   }, [data]);
@@ -108,7 +114,7 @@ export default function StartTest({
 
       toast.success("Berhasil mengumpulkan ujian");
       router.push("/my/tests");
-      localStorage.removeItem("test");
+      localStorage.removeItem(params.id as string);
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -277,7 +283,10 @@ export default function StartTest({
 
                       return [...prev];
                     });
-                    localStorage.setItem("test", JSON.stringify(questions));
+                    localStorage.setItem(
+                      params.id as string,
+                      JSON.stringify(questions),
+                    );
                   }}
                 >
                   {question?.options.map((option) => {
@@ -318,7 +327,10 @@ export default function StartTest({
 
                       return [...prev];
                     });
-                    localStorage.setItem("test", JSON.stringify(questions));
+                    localStorage.setItem(
+                      params.id as string,
+                      JSON.stringify(questions),
+                    );
                   }}
                 >
                   Ragu-ragu
@@ -485,15 +497,21 @@ export default function StartTest({
 
                 <Chip
                   variant="flat"
-                  color="success"
+                  color={isOnline ? "success" : "danger"}
                   size="sm"
-                  startContent={<CheckCircle weight="fill" size={16} />}
+                  startContent={
+                    isOnline ? (
+                      <CheckCircle weight="fill" size={16} />
+                    ) : (
+                      <WarningCircle weight="fill" size={16} />
+                    )
+                  }
                   classNames={{
                     base: "gap-1 px-2",
                     content: "font-bold",
                   }}
                 >
-                  Jaringan Bagus
+                  {isOnline ? "Aktif" : "Mati"}
                 </Chip>
               </div>
             </div>

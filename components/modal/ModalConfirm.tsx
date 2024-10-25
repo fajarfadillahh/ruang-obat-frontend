@@ -49,7 +49,7 @@ export default function ModalConfirm({
             <Button
               color="danger"
               variant="light"
-              onClick={() => onClose}
+              onClick={onClose}
               className="font-bold"
             >
               Tutup
