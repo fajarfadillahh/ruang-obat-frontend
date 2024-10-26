@@ -1,11 +1,13 @@
 import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
-import { FloppyDisk, PencilLine } from "@phosphor-icons/react";
+import { fetcher } from "@/utils/fetcher";
+import { Button, Input, Select, SelectItem, Snippet } from "@nextui-org/react";
+import { Check, Copy, FloppyDisk } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import useSWR from "swr";
 
 export default function MyProfilePage({
@@ -20,6 +22,34 @@ export default function MyProfilePage({
   );
 
   const [userData, setUserData] = useState<UserDataResponse | null>(null);
+  const [isDisabled, setIsDisabled] = useState<boolean>(true);
+
+  useEffect(() => {
+    if (data && data?.data) {
+      setUserData(data?.data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    if (userData && data?.data) {
+      const hasChanged = Object.keys(data.data).some(
+        (key) =>
+          key !== "email" &&
+          data.data[key as keyof UserDataResponse] !==
+            userData[key as keyof UserDataResponse],
+      );
+
+      const allFieldsFilled = Object.keys(userData).every((key) => {
+        return (
+          key === "user_id" ||
+          key === "email" ||
+          userData[key as keyof UserDataResponse] !== ""
+        );
+      });
+
+      setIsDisabled(!hasChanged || !allFieldsFilled);
+    }
+  }, [userData, data]);
 
   function handleChange(field: keyof UserDataResponse, value: string) {
     if (userData) {
@@ -27,6 +57,30 @@ export default function MyProfilePage({
         ...prevData!,
         [field]: value,
       }));
+    }
+  }
+
+  async function handleSave() {
+    const data = {
+      fullname: userData?.fullname,
+      phone_number: userData?.phone_number,
+      university: userData?.university,
+      gender: userData?.gender,
+    };
+
+    try {
+      await fetcher({
+        url: "/my/profile",
+        method: "PATCH",
+        data: data,
+        token,
+      });
+
+      toast.success("Profil Anda Berhasil Diperbarui");
+      mutate();
+    } catch (error) {
+      toast.error("Terjadi Kesalahan, Silakan Coba Lagi");
+      console.log(error);
     }
   }
 
@@ -55,13 +109,26 @@ export default function MyProfilePage({
               className="size-[100px] rounded-full border-3 border-purple bg-purple/10 object-cover object-center p-1"
             />
 
-            <div className="space-y-1">
+            <div>
               <h4 className="text-[20px] font-bold text-black">
                 {data?.data.fullname}
               </h4>
-              <p className="text-sm font-medium text-gray">
+              <Snippet
+                symbol=""
+                copyIcon={
+                  <Copy weight="regular" size={16} className="text-black" />
+                }
+                checkIcon={
+                  <Check weight="regular" size={16} className="text-black" />
+                }
+                className="w-max"
+                classNames={{
+                  base: "text-black bg-transparent border-none p-0",
+                  pre: "font-medium text-black font-sans text-[14px]",
+                }}
+              >
                 {data?.data.user_id}
-              </p>
+              </Snippet>
               <p className="text-sm font-medium text-gray">
                 {data?.data.university}
               </p>
@@ -75,10 +142,12 @@ export default function MyProfilePage({
               </h4>
 
               <Button
+                isDisabled={isDisabled}
                 variant="solid"
                 color="secondary"
                 size="sm"
                 startContent={<FloppyDisk weight="bold" size={18} />}
+                onClick={handleSave}
                 className="font-bold"
               >
                 Simpan Perubahan
@@ -91,7 +160,8 @@ export default function MyProfilePage({
                 variant="flat"
                 label="Nama Lengkap"
                 labelPlacement="outside"
-                value={data?.data.fullname}
+                placeholder="Nama Lengkap Anda"
+                value={userData?.fullname}
                 onChange={(e) => handleChange("fullname", e.target.value)}
                 classNames={{
                   input:
@@ -103,8 +173,9 @@ export default function MyProfilePage({
                 aria-label="select gender"
                 variant="flat"
                 labelPlacement="outside"
-                placeholder="Jenis Kelamin"
-                defaultSelectedKeys={data?.data.gender}
+                label="Jenis Kelamin"
+                placeholder="Jenis Kelamin Anda"
+                selectedKeys={userData?.gender}
                 onChange={(e) => handleChange("gender", e.target.value)}
                 classNames={{
                   value: "font-semibold text-gray",
@@ -119,7 +190,8 @@ export default function MyProfilePage({
                 variant="flat"
                 label="Asal Kampus"
                 labelPlacement="outside"
-                value={data?.data.university}
+                placeholder="Asal Kampus Anda"
+                value={userData?.university}
                 onChange={(e) => handleChange("university", e.target.value)}
                 classNames={{
                   input:
@@ -132,7 +204,8 @@ export default function MyProfilePage({
                 variant="flat"
                 label="No. Telpon"
                 labelPlacement="outside"
-                value={data?.data.phone_number}
+                placeholder="Nomor Telpon Anda"
+                value={userData?.phone_number}
                 onChange={(e) => handleChange("phone_number", e.target.value)}
                 classNames={{
                   input:
@@ -142,7 +215,7 @@ export default function MyProfilePage({
             </div>
           </div>
 
-          <div className="flex items-center justify-between gap-4 pt-8">
+          {/* <div className="flex items-center justify-between gap-4 pt-8">
             <h4 className="text-[20px] font-bold text-black">
               Ubah Kata Sandi
             </h4>
@@ -156,7 +229,7 @@ export default function MyProfilePage({
             >
               Ubah Kata Sandi
             </Button>
-          </div>
+          </div> */}
         </div>
       </section>
     </Layout>

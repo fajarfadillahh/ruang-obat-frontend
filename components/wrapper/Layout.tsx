@@ -258,7 +258,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
                   <DropdownSection
                     aria-label="account & settings section"
-                    title="Anda Yakin?"
+                    title="Akun & Pengaturan"
                   >
                     <DropdownItem
                       key="profile"
