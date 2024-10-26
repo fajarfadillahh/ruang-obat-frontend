@@ -24,6 +24,7 @@ import {
   Medal,
   SignIn,
   SignOut,
+  UserCircle,
 } from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
@@ -259,14 +260,14 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     aria-label="account & settings section"
                     title="Anda Yakin?"
                   >
-                    {/* <DropdownItem
+                    <DropdownItem
                       key="profile"
                       color="secondary"
                       startContent={<UserCircle weight="bold" size={18} />}
                       onClick={() => router.push("/my/profile")}
                     >
                       Profil Saya
-                    </DropdownItem> */}
+                    </DropdownItem>
 
                     <DropdownItem
                       key="logout"
