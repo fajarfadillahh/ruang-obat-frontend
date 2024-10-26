@@ -3,7 +3,9 @@ import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import Navbar from "@/components/Navbar";
+import { UserDataResponse } from "@/pages/my/profile";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
+import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
 import {
@@ -32,6 +34,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { ReactNode, useState } from "react";
 import toast from "react-hot-toast";
+import useSWR from "swr";
 
 interface LayoutProps {
   title?: string;
@@ -41,6 +44,13 @@ interface LayoutProps {
 
 export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
+  const { data: token, status } = useSession();
+  const { data: user } = useSWR<SuccessResponse<UserDataResponse>>({
+    url: "/my/profile",
+    method: "GET",
+    token: token?.user.access_token,
+  });
+
   const {
     isOpen: isFeedbackOpen,
     onOpen: onFeedbackOpen,
@@ -56,7 +66,6 @@ export default function Layout({ title, children, className }: LayoutProps) {
     onOpen: onLogoutOpen,
     onClose: onLogoutClose,
   } = useDisclosure();
-  const { data: session, status } = useSession();
   const [loading, setLoading] = useState<boolean>(false);
 
   const formatName = (name: string): string => {
@@ -79,7 +88,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
     try {
       await fetcher({
-        url: `/auth/session/${session?.user.user_id}`,
+        url: `/auth/session/${user?.data.user_id}`,
         method: "DELETE",
       });
 
@@ -178,7 +187,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                       isBordered
                       showFallback
                       size="sm"
-                      src={`${status == "authenticated" ? (session.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                      src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
                       classNames={{
                         base: "ring-purple bg-purple/20",
                         icon: "text-purple",
@@ -188,13 +197,13 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <div>
                       <h6 className="text-sm font-bold text-black">
                         {status == "authenticated"
-                          ? formatName(session.user.fullname)
+                          ? formatName(
+                              user?.data.fullname ? user?.data.fullname : "",
+                            )
                           : null}
                       </h6>
                       <p className="text-[12px] font-semibold uppercase text-gray">
-                        {status == "authenticated"
-                          ? session.user.user_id
-                          : null}
+                        {status == "authenticated" ? user?.data.user_id : null}
                       </p>
                     </div>
                   </div>

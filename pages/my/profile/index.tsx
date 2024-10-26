@@ -2,6 +2,7 @@ import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
+import { formatDate } from "@/utils/formatDate";
 import { Button, Input, Select, SelectItem, Snippet } from "@nextui-org/react";
 import { Check, Copy, FloppyDisk } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -110,7 +111,7 @@ export default function MyProfilePage({
             />
 
             <div>
-              <h4 className="text-[20px] font-bold text-black">
+              <h4 className="text-[20px] font-bold leading-[120%] text-black">
                 {data?.data.fullname}
               </h4>
               <Snippet
@@ -136,8 +137,8 @@ export default function MyProfilePage({
           </div>
 
           <div className="grid gap-4 py-8">
-            <div className="flex items-center justify-between gap-4">
-              <h4 className="text-[20px] font-bold text-black">
+            <div className="flex items-center justify-between">
+              <h4 className="text-[20px] font-bold leading-[120%] text-black">
                 Informasi Personal
               </h4>
 
@@ -154,7 +155,7 @@ export default function MyProfilePage({
               </Button>
             </div>
 
-            <div className="grid max-w-[800px] gap-y-6 sm:grid-cols-2 sm:grid-rows-3 sm:gap-x-2">
+            <div className="grid max-w-[800px] gap-y-6 sm:grid-cols-2 sm:gap-x-2">
               <Input
                 type="text"
                 variant="flat"
@@ -213,10 +214,14 @@ export default function MyProfilePage({
                 }}
               />
             </div>
+
+            <p className="mt-4 text-sm font-medium text-gray">
+              Akun dibuat pada: {formatDate(data?.data.created_at as string)}
+            </p>
           </div>
 
-          {/* <div className="flex items-center justify-between gap-4 pt-8">
-            <h4 className="text-[20px] font-bold text-black">
+          {/* <div className="flex items-center justify-between pt-8">
+            <h4 className="text-[20px] leading-[120%] font-bold text-black">
               Ubah Kata Sandi
             </h4>
 
@@ -236,7 +241,7 @@ export default function MyProfilePage({
   );
 }
 
-type UserDataResponse = {
+export type UserDataResponse = {
   user_id: string;
   email: string;
   fullname: string;
