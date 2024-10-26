@@ -131,7 +131,7 @@ export default function CardTest(test: CardTest) {
           router.push(
             !test.has_result
               ? `/tests/${test.test_id}`
-              : `/tests/${test.test_id}/finish`,
+              : `/results/${test.test_id}`,
           )
         }
         className="w-full font-bold md:w-max md:px-6"
