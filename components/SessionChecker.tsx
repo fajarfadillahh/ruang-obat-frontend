@@ -42,13 +42,21 @@ export default function SessionChecker() {
 
   useEffect(() => {
     const handleFocus = async () => {
-      if (!router.pathname.startsWith("/auth") && router.pathname !== "/") {
+      if (
+        !router.pathname.startsWith("/auth") &&
+        router.pathname !== "/" &&
+        router.pathname !== "/reset"
+      ) {
         await checkSession();
       }
     };
 
     const checkRouter = async () => {
-      if (!router.pathname.startsWith("/auth") && router.pathname !== "/") {
+      if (
+        !router.pathname.startsWith("/auth") &&
+        router.pathname !== "/" &&
+        router.pathname !== "/reset"
+      ) {
         await checkSession();
       }
     };

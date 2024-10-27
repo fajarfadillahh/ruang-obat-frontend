@@ -1,15 +1,7 @@
+import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
 import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { EnvelopeSimple, Lock, Quotes } from "@phosphor-icons/react";
 import { signIn } from "next-auth/react";
 import Head from "next/head";
@@ -31,21 +23,10 @@ export default function LoginPage() {
     email: "",
     password: "",
   });
-  const [inputForget, setInputForget] = useState<{
-    email: string;
-    otp: number;
-  }>({
-    email: "",
-    otp: 0,
-  });
+
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-  const {
-    isOpen: isForgotPasswordOpen,
-    onOpen: onForgotPasswordOpen,
-    onClose: onForgotPasswordClose,
-  } = useDisclosure();
 
   async function handleLogin() {
     setLoading(true);
@@ -73,16 +54,6 @@ export default function LoginPage() {
 
       return router.push("/dashboard");
     }
-  }
-
-  function handleGetOTP() {
-    toast.success("Email Anda Terdaftar, Cek Email Untuk Melihat Kode OTP!", {
-      duration: 6000,
-    });
-  }
-
-  function handleForgetPassword() {
-    console.log(inputForget);
   }
 
   function isFormEmpty() {
@@ -215,125 +186,7 @@ export default function LoginPage() {
                 autoComplete="off"
               />
 
-              {/* <div
-                className="justify-self-end text-sm font-semibold text-purple hover:cursor-pointer hover:underline"
-                onClick={onForgotPasswordOpen}
-              >
-                Lupa Sandi?
-              </div> */}
-
-              <Modal
-                isDismissable={false}
-                isOpen={isForgotPasswordOpen}
-                onOpenChange={onForgotPasswordClose}
-                size="lg"
-                placement="center"
-              >
-                <ModalContent>
-                  {(onClose) => (
-                    <>
-                      <ModalHeader className="flex flex-col gap-1 font-bold text-black">
-                        Lupa Sandi?
-                      </ModalHeader>
-
-                      <ModalBody>
-                        <div className="grid gap-6">
-                          <p className="text-sm font-medium leading-[170%] text-gray">
-                            Masukan alamat email yang sebelumnya anda gunakan
-                            untuk membuat akun di RuangObat.id
-                          </p>
-
-                          <div className="grid gap-2">
-                            <div className="flex gap-2">
-                              <Input
-                                type="email"
-                                variant="flat"
-                                labelPlacement="outside"
-                                placeholder="Alamat Email"
-                                startContent={
-                                  <EnvelopeSimple
-                                    weight="bold"
-                                    size={18}
-                                    className="text-gray"
-                                  />
-                                }
-                                name="email"
-                                onChange={(e) =>
-                                  setInputForget({
-                                    ...inputForget,
-                                    email: e.target.value,
-                                  })
-                                }
-                                classNames={{
-                                  input:
-                                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                                }}
-                                className="flex-1"
-                                autoComplete="off"
-                              />
-
-                              <Button
-                                color="secondary"
-                                variant="flat"
-                                onClick={handleGetOTP}
-                                className="font-semibold"
-                              >
-                                Dapatkan OTP
-                              </Button>
-                            </div>
-
-                            <Input
-                              type="number"
-                              variant="flat"
-                              labelPlacement="outside"
-                              placeholder="Kode OTP"
-                              startContent={
-                                <Lock
-                                  weight="bold"
-                                  size={18}
-                                  className="text-gray"
-                                />
-                              }
-                              name="otp"
-                              onChange={(e) =>
-                                setInputForget({
-                                  ...inputForget,
-                                  otp: Number(e.target.value),
-                                })
-                              }
-                              classNames={{
-                                input:
-                                  "font-semibold placeholder:font-semibold placeholder:text-gray",
-                              }}
-                              autoComplete="off"
-                            />
-                          </div>
-                        </div>
-                      </ModalBody>
-
-                      <ModalFooter>
-                        <Button
-                          color="danger"
-                          variant="light"
-                          onClick={onClose}
-                          className="font-bold"
-                        >
-                          Tutup
-                        </Button>
-
-                        <Button
-                          color="secondary"
-                          variant="solid"
-                          onClick={handleForgetPassword}
-                          className="font-bold"
-                        >
-                          Verifikasi Email
-                        </Button>
-                      </ModalFooter>
-                    </>
-                  )}
-                </ModalContent>
-              </Modal>
+              <ModalForgotPassword />
             </div>
 
             <div className="grid gap-4">
