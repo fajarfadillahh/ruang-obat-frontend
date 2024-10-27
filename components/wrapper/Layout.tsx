@@ -224,50 +224,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     Beranda
                   </DropdownItem>
 
-                  <DropdownItem
-                    key="myprogram"
-                    color="secondary"
-                    startContent={<ClipboardText weight="bold" size={18} />}
-                    onClick={() => router.push("/my/programs")}
-                  >
-                    Program Saya
-                  </DropdownItem>
-
-                  <DropdownItem
-                    key="mytest"
-                    color="secondary"
-                    startContent={<Medal weight="bold" size={18} />}
-                    onClick={() => router.push("/my/tests")}
-                  >
-                    Ujian Saya
-                  </DropdownItem>
-
-                  <DropdownSection
-                    aria-label="support section"
-                    title="Support & Masukan"
-                  >
-                    <DropdownItem
-                      key="feedback"
-                      color="secondary"
-                      startContent={<ChatCircleText weight="bold" size={18} />}
-                      onClick={onFeedbackOpen}
-                    >
-                      Feedback
-                    </DropdownItem>
-
-                    <DropdownItem
-                      key="help"
-                      color="secondary"
-                      startContent={<Headset weight="bold" size={18} />}
-                      onClick={onHelpOpen}
-                    >
-                      Bantuan
-                    </DropdownItem>
-                  </DropdownSection>
-
                   <DropdownSection
                     aria-label="account & settings section"
-                    title="Akun & Pengaturan"
+                    title="Akun & Info"
                   >
                     <DropdownItem
                       key="profile"
@@ -279,15 +238,56 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     </DropdownItem>
 
                     <DropdownItem
-                      key="logout"
-                      color="danger"
-                      startContent={<SignOut weight="bold" size={18} />}
-                      onClick={onLogoutOpen}
-                      className="text-danger-600"
+                      key="myprogram"
+                      color="secondary"
+                      startContent={<ClipboardText weight="bold" size={18} />}
+                      onClick={() => router.push("/my/programs")}
                     >
-                      Keluar
+                      Program Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="mytest"
+                      color="secondary"
+                      startContent={<Medal weight="bold" size={18} />}
+                      onClick={() => router.push("/my/tests")}
+                    >
+                      Ujian Saya
                     </DropdownItem>
                   </DropdownSection>
+
+                  <DropdownSection
+                    aria-label="support section"
+                    title="Support & Feedback"
+                  >
+                    <DropdownItem
+                      key="help"
+                      color="secondary"
+                      startContent={<Headset weight="bold" size={18} />}
+                      onClick={onHelpOpen}
+                    >
+                      Bantuan
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="feedback"
+                      color="secondary"
+                      startContent={<ChatCircleText weight="bold" size={18} />}
+                      onClick={onFeedbackOpen}
+                    >
+                      Feedback
+                    </DropdownItem>
+                  </DropdownSection>
+
+                  <DropdownItem
+                    key="logout"
+                    color="danger"
+                    startContent={<SignOut weight="bold" size={18} />}
+                    onClick={onLogoutOpen}
+                    className="text-danger-600"
+                  >
+                    Keluar
+                  </DropdownItem>
                 </DropdownMenu>
               </Dropdown>
 

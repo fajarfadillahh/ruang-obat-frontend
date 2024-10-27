@@ -365,7 +365,7 @@ export default function RegisterPage() {
                 type="text"
                 variant="flat"
                 labelPlacement="outside"
-                placeholder="Asal Kampus"
+                placeholder="Asal Kampus (nama lengkap)"
                 name="university"
                 onChange={(e) =>
                   setInput({

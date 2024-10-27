@@ -1,8 +1,10 @@
 import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
+import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate } from "@/utils/formatDate";
+import { getError } from "@/utils/getError";
 import { Button, Input, Select, SelectItem, Snippet } from "@nextui-org/react";
 import { Check, Copy, FloppyDisk } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -24,6 +26,7 @@ export default function MyProfilePage({
 
   const [userData, setUserData] = useState<UserDataResponse | null>(null);
   const [isDisabled, setIsDisabled] = useState<boolean>(true);
+  const [errors, setErrors] = useState<any>();
 
   useEffect(() => {
     if (data && data?.data) {
@@ -79,9 +82,20 @@ export default function MyProfilePage({
 
       toast.success("Profil Anda Berhasil Diperbarui");
       mutate();
-    } catch (error) {
-      toast.error("Terjadi Kesalahan, Silakan Coba Lagi");
+    } catch (error: any) {
       console.log(error);
+
+      if (error.status_code >= 500) {
+        toast.error(getError(error));
+      } else if (error.status_code >= 400 && error.status_code <= 499) {
+        if (error.error.name === "ZodError") {
+          setErrors(getError(error));
+        } else {
+          toast.error(getError(error));
+        }
+      } else {
+        toast.error(getError(error));
+      }
     }
   }
 
@@ -163,7 +177,9 @@ export default function MyProfilePage({
                 labelPlacement="outside"
                 placeholder="Nama Lengkap Anda"
                 value={userData?.fullname}
-                onChange={(e) => handleChange("fullname", e.target.value)}
+                onChange={(e) =>
+                  handleChange("fullname", capitalize(e.target.value))
+                }
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -191,9 +207,11 @@ export default function MyProfilePage({
                 variant="flat"
                 label="Asal Kampus"
                 labelPlacement="outside"
-                placeholder="Asal Kampus Anda"
+                placeholder="Asal Kampus (nama lengkap)"
                 value={userData?.university}
-                onChange={(e) => handleChange("university", e.target.value)}
+                onChange={(e) =>
+                  handleChange("university", capitalize(e.target.value))
+                }
                 classNames={{
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
@@ -212,6 +230,16 @@ export default function MyProfilePage({
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.phone_number ? true : false) : undefined
+                }
+                errorMessage={
+                  errors
+                    ? errors.phone_number
+                      ? errors.phone_number
+                      : null
+                    : null
+                }
               />
             </div>
 
