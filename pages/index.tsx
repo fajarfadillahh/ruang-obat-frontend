@@ -1,6 +1,11 @@
 import Layout from "@/components/wrapper/Layout";
 import { Avatar, AvatarGroup, Button } from "@nextui-org/react";
-import { ArrowRight } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  ClipboardText,
+  GraduationCap,
+  RocketLaunch,
+} from "@phosphor-icons/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
@@ -19,7 +24,7 @@ export default function HomePage() {
 
   return (
     <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
-      <div className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
+      <section className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
         <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
           <div className="grid gap-4">
             <p className="font-medium text-gray">
@@ -91,7 +96,57 @@ export default function HomePage() {
           height={512}
           className="h-auto w-full justify-self-center xl:justify-self-end"
         />
-      </div>
+      </section>
+
+      <section className="grid gap-8 pb-[70px] pt-[76px]">
+        <h1 className="text-center text-[32px] font-black text-black">
+          Kenapa Pilih RuangObat?
+        </h1>
+
+        <div className="flex items-center justify-center gap-16">
+          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
+            <GraduationCap weight="bold" size={72} className="text-purple" />
+
+            <div className="grid gap-3">
+              <h4 className="text-[24px] font-black leading-[120%] text-black">
+                Program Menarik dan Lengkap
+              </h4>
+              <p className="font-medium leading-[170%] text-gray">
+                Beragam pilihan program farmasi mulai dari mata kuliah, riset,
+                hingga persiapan apoteker. Semua tersedia di satu tempat!
+              </p>
+            </div>
+          </div>
+
+          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
+            <ClipboardText weight="bold" size={72} className="text-purple" />
+
+            <div className="grid gap-3">
+              <h4 className="text-[24px] font-black leading-[120%] text-black">
+                Soal Ujian yang Up-to-Date
+              </h4>
+              <p className="font-medium leading-[170%] text-gray">
+                Soal-soal ujian terbaru yang sesuai blueprint terkini, membuat
+                persiapan makin maksimal dengan kualitas terbaik!
+              </p>
+            </div>
+          </div>
+
+          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
+            <RocketLaunch weight="bold" size={72} className="text-purple" />
+
+            <div className="grid gap-3">
+              <h4 className="text-[24px] font-black leading-[120%] text-black">
+                Website Nyaman dan Responsif
+              </h4>
+              <p className="font-medium leading-[170%] text-gray">
+                Akses belajar nyaman dengan website yang responsif. Bisa diakses
+                kapan aja, di mana aja, dan tanpa hambatan!
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </Layout>
   );
 }
