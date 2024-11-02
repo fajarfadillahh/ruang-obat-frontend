@@ -151,12 +151,12 @@ export default function HomePage() {
         />
       </section>
 
-      <section className="grid gap-8 pb-[70px] pt-[76px]">
+      <section className="mx-auto grid max-w-[600px] gap-8 pb-[70px] pt-[76px] lg:max-w-[700px] xl:max-w-none">
         <h1 className="text-center text-[32px] font-black text-black">
           Kenapa Pilih RuangObat?
         </h1>
 
-        <div className="flex items-center justify-center gap-16">
+        <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-16">
           {data.reasons.map((item) => (
             <div key={item.id} className="grid w-[290px] gap-5 px-6 py-[42px]">
               {item.icon}
@@ -174,7 +174,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="grid gap-8 py-[70px]">
+      <section className="mx-auto grid max-w-[600px] gap-8 py-[70px] lg:max-w-[700px] xl:max-w-none">
         <div className="grid gap-2">
           <h1 className="text-center text-[32px] font-black text-black">
             Program Unggulan RuangObat
@@ -185,9 +185,12 @@ export default function HomePage() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+        <div className="grid justify-center gap-4 xl:grid-cols-2 xl:gap-y-6">
           {data.programs.map((item) => (
-            <div key={item.program_id} className="flex items-center gap-4 p-6">
+            <div
+              key={item.program_id}
+              className="grid max-w-[592px] items-center gap-4 p-6 xl:flex"
+            >
               {item.icon}
 
               <div className="grid flex-1 gap-2">
