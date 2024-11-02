@@ -33,6 +33,7 @@ const nextConfig = {
       "@phosphor-icons/react",
       "react-hot-toast",
       "framer-motion",
+      "swiper",
     ],
   },
 };
