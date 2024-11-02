@@ -4,11 +4,64 @@ import {
   ArrowRight,
   ClipboardText,
   GraduationCap,
+  Notebook,
+  PencilRuler,
+  Pill,
   RocketLaunch,
+  Target,
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+
+const data = {
+  reasons: [
+    {
+      id: 1,
+      title: "Program Menarik dan Lengkap",
+      icon: <GraduationCap weight="bold" size={72} className="text-purple" />,
+      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat!",
+    },
+    {
+      id: 2,
+      title: "Soal Ujian yang Up-to-Date",
+      icon: <ClipboardText weight="bold" size={72} className="text-purple" />,
+      text: "Soal-soal ujian terbaru yang sesuai blueprint terkini, membuat persiapan makin maksimal dengan kualitas terbaik!",
+    },
+    {
+      id: 3,
+      title: "Website Nyaman dan Responsif",
+      icon: <RocketLaunch weight="bold" size={72} className="text-purple" />,
+      text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan!",
+    },
+  ],
+  programs: [
+    {
+      program_id: 1,
+      title: "Kelas Mata Kulish & Praktikum",
+      icon: <PencilRuler weight="bold" size={96} className="text-purple" />,
+      text: "Dapatkan pemahaman mendalam tentang mata kuliah farmasi sekaligus pengalaman praktikum yang aplikatif.",
+    },
+    {
+      program_id: 2,
+      title: "Kelas Masuk Apoteker & OSCE",
+      icon: <Pill weight="bold" size={96} className="text-purple" />,
+      text: "Persiapkan diri kamu untuk ujian masuk Apoteker dan OSCE dengan latihan intensif di kelas ini.",
+    },
+    {
+      program_id: 3,
+      title: "Kelas Skripsi dan Riset",
+      icon: <Notebook weight="bold" size={96} className="text-purple" />,
+      text: "Butuh bimbingan buat skripsi atau riset? Di kelas ini, kamu bakal dipandu langsung oleh para mentor.",
+    },
+    {
+      program_id: 4,
+      title: "TryOut UKMPPAI",
+      icon: <Target weight="bold" size={96} className="text-purple" />,
+      text: "Rangkaian soal didesain sesuai blueprint terbaru untuk menguji kesiapan kamu dalam menghadapi ujian.",
+    },
+  ],
+};
 
 export default function HomePage() {
   const router = useRouter();
@@ -104,47 +157,49 @@ export default function HomePage() {
         </h1>
 
         <div className="flex items-center justify-center gap-16">
-          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
-            <GraduationCap weight="bold" size={72} className="text-purple" />
+          {data.reasons.map((item) => (
+            <div key={item.id} className="grid w-[290px] gap-5 px-6 py-[42px]">
+              {item.icon}
 
-            <div className="grid gap-3">
-              <h4 className="text-[24px] font-black leading-[120%] text-black">
-                Program Menarik dan Lengkap
-              </h4>
-              <p className="font-medium leading-[170%] text-gray">
-                Beragam pilihan program farmasi mulai dari mata kuliah, riset,
-                hingga persiapan apoteker. Semua tersedia di satu tempat!
-              </p>
+              <div className="grid gap-2">
+                <h4 className="max-w-[220px] text-[24px] font-black leading-[120%] text-black">
+                  {item.title}
+                </h4>
+                <p className="font-medium leading-[170%] text-gray">
+                  {item.text}
+                </p>
+              </div>
             </div>
-          </div>
+          ))}
+        </div>
+      </section>
 
-          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
-            <ClipboardText weight="bold" size={72} className="text-purple" />
+      <section className="grid gap-8 py-[70px]">
+        <div className="grid gap-2">
+          <h1 className="text-center text-[32px] font-black text-black">
+            Program Unggulan RuangObat
+          </h1>
+          <p className="mx-auto max-w-[500px] text-center font-medium leading-[170%] text-gray">
+            Explore berbagai program unggulan yang dirancang khusus buat
+            mahasiswa farmasi. Pilih program sesuai kebutuhanmu!
+          </p>
+        </div>
 
-            <div className="grid gap-3">
-              <h4 className="text-[24px] font-black leading-[120%] text-black">
-                Soal Ujian yang Up-to-Date
-              </h4>
-              <p className="font-medium leading-[170%] text-gray">
-                Soal-soal ujian terbaru yang sesuai blueprint terkini, membuat
-                persiapan makin maksimal dengan kualitas terbaik!
-              </p>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-6">
+          {data.programs.map((item) => (
+            <div key={item.program_id} className="flex items-center gap-4 p-6">
+              {item.icon}
+
+              <div className="grid flex-1 gap-2">
+                <h4 className="text-[24px] font-black leading-[120%] text-black">
+                  {item.title}
+                </h4>
+                <p className="max-w-[430px] font-medium leading-[170%] text-gray">
+                  {item.text}
+                </p>
+              </div>
             </div>
-          </div>
-
-          <div className="grid w-[290px] gap-5 px-6 py-[42px]">
-            <RocketLaunch weight="bold" size={72} className="text-purple" />
-
-            <div className="grid gap-3">
-              <h4 className="text-[24px] font-black leading-[120%] text-black">
-                Website Nyaman dan Responsif
-              </h4>
-              <p className="font-medium leading-[170%] text-gray">
-                Akses belajar nyaman dengan website yang responsif. Bisa diakses
-                kapan aja, di mana aja, dan tanpa hambatan!
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </section>
     </Layout>
