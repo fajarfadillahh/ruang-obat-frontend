@@ -439,7 +439,7 @@ export default function StartTest({
                         </span>
                       );
                     }}
-                    onComplete={handleSaveTest}
+                    // onComplete={handleSaveTest}
                   />
                 </h4>
               </div>
