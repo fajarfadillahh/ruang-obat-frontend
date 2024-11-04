@@ -1,10 +1,21 @@
 import Layout from "@/components/wrapper/Layout";
-import { Avatar, AvatarGroup, Button } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Avatar,
+  AvatarGroup,
+  Button,
+} from "@nextui-org/react";
 import {
   ArrowRight,
   ClipboardText,
+  CloudSun,
+  DeviceMobileSpeaker,
+  Gift,
   GraduationCap,
+  Headset,
   Notebook,
+  NotePencil,
   PencilRuler,
   Pill,
   RocketLaunch,
@@ -138,6 +149,52 @@ const data = {
       image: "/img/mentors/kak-tiya-teknologi-formulasi-dan-kimia.webp",
       name: "Kak Tiya",
       mentor_title: "Mentor Teknologi Formulasi dan Kimia",
+    },
+  ],
+  faqs: [
+    {
+      id: 1,
+      title: "Apa itu RuangObat?",
+      text: "RuangObat adalah platform belajar online khusus mahasiswa farmasi yang menyediakan berbagai program belajar, mulai dari mata kuliah, persiapan ujian masuk apoteker, hingga tryout UKMPPAI. Semua program disusun untuk membantu kamu sukses dalam pendidikan farmasi.",
+      icon: <Pill weight="bold" size={24} className="text-black" />,
+    },
+    {
+      id: 2,
+      title: "Bagaimana cara mendaftar di RuangObat?",
+      text: "Kamu cukup buat akun di ruangobat.id/auth/register, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
+      icon: <NotePencil weight="bold" size={24} className="text-black" />,
+    },
+    {
+      id: 3,
+      title: "Apakah ada program yang gratis di RuangObat?",
+      text: "Iya, RuangObat menyediakan beberapa program gratis dengan syarat tertentu, seperti upload bukti follow, share, dan komen di media sosial kita. Detailnya bisa cek di halaman program gratis.",
+      icon: <Gift weight="bold" size={24} className="text-black" />,
+    },
+    {
+      id: 4,
+      title: "Bagaimana cara mengikuti tryout di RuangObat?",
+      text: "Kamu bisa ikut tryout UKMPPAI di program khusus yang sudah disediakan. Cukup pilih program tryout, daftar, dan ikuti soal-soal tryout yang sesuai standar terbaru.",
+      icon: <Target weight="bold" size={24} className="text-black" />,
+    },
+    {
+      id: 5,
+      title: "Apakah materi ujian bisa diakses kapan saja?",
+      text: "Bisa banget! Materi di RuangObat tersedia selama 24/7 , jadi kamu bisa belajar kapan aja sesuai jadwal dan ritme belajar lo sendiri.",
+      icon: <CloudSun weight="bold" size={24} className="text-black" />,
+    },
+    {
+      id: 6,
+      title: "Apakah saya bisa mengakses program dari device lain?",
+      text: "RuangObat punya sistem login 1 device untuk keamanan. Kalau kamu login di device lain, maka sesi akan muncul notifikasi 'Session Anda Sedang Aktif'. Jadi, anda harus logout terlebih dahulu pada device sebelumnya.",
+      icon: (
+        <DeviceMobileSpeaker weight="bold" size={24} className="text-black" />
+      ),
+    },
+    {
+      id: 7,
+      title: "Siapa yang bisa saya hubungi jika ada kendala?",
+      text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support RuangObat via nomor WhatsApp. Tim kami siap bantu kamu dengan cepat dan ramah.",
+      icon: <Headset weight="bold" size={24} className="text-black" />,
     },
   ],
 };
@@ -337,6 +394,68 @@ export default function HomePage() {
             ))}
           </Swiper>
         </div>
+      </section>
+
+      <section className="grid gap-8 py-[70px]">
+        <h1 className="text-center text-[32px] font-black text-black">
+          Yang Paling Banyak Ditanyakan
+        </h1>
+
+        <Accordion
+          motionProps={{
+            variants: {
+              enter: {
+                y: 0,
+                opacity: 1,
+                height: "auto",
+                transition: {
+                  height: {
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 30,
+                    duration: 1,
+                  },
+                  opacity: {
+                    easings: "ease",
+                    duration: 1,
+                  },
+                },
+              },
+              exit: {
+                y: -10,
+                opacity: 0,
+                height: 0,
+                transition: {
+                  height: {
+                    easings: "ease",
+                    duration: 0.25,
+                  },
+                  opacity: {
+                    easings: "ease",
+                    duration: 0.3,
+                  },
+                },
+              },
+            },
+          }}
+          defaultExpandedKeys={["1"]}
+          className="mx-auto max-w-[950px]"
+        >
+          {data.faqs.map((item) => (
+            <AccordionItem
+              key={item.id}
+              title={item.title}
+              startContent={item.icon}
+              classNames={{
+                title: "text-[18px] text-black font-bold xs:text-[20px]",
+                indicator: "text-black",
+                content: "text-gray leading-[170%] font-medium pb-8",
+              }}
+            >
+              {item.text}
+            </AccordionItem>
+          ))}
+        </Accordion>
       </section>
     </Layout>
   );
