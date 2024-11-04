@@ -13,6 +13,11 @@ import {
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 const data = {
   reasons: [
@@ -59,6 +64,80 @@ const data = {
       title: "TryOut UKMPPAI",
       icon: <Target weight="bold" size={96} className="text-purple" />,
       text: "Rangkaian soal didesain sesuai blueprint terbaru untuk menguji kesiapan kamu dalam menghadapi ujian.",
+    },
+  ],
+  mentors: [
+    {
+      id: 1,
+      image: "/img/mentors/kak-asma-farmakologi-dan-toksikologi.webp",
+      name: "Kak Asma",
+      mentor_title: "Mentor Farmakologi dan Toksikologi",
+    },
+    {
+      id: 2,
+      image: "/img/mentors/kak-aurel-farmasi-klinis.webp",
+      name: "Kak Aurel",
+      mentor_title: "Mentor Farmasi Klinis",
+    },
+    {
+      id: 3,
+      image: "/img/mentors/kak-azka-teknologi-farmasi.webp",
+      name: "Kak Azka",
+      mentor_title: "Mentor Teknologi Farmasi",
+    },
+    {
+      id: 4,
+      image: "/img/mentors/kak-daffa-kimia-farmasi.webp",
+      name: "Kak Daffa",
+      mentor_title: "Mentor Kimia Farmasi",
+    },
+    {
+      id: 5,
+      image: "/img/mentors/kak-dellia-formulasi.webp",
+      name: "Kak Dellia",
+      mentor_title: "Mentor Formulasi",
+    },
+    {
+      id: 6,
+      image: "/img/mentors/kak-dhea-spss.webp",
+      name: "Kak Dhea",
+      mentor_title: "Mentor SPSS",
+    },
+    {
+      id: 7,
+      image: "/img/mentors/kak-disel-riset-sains-dan-teknologi.webp",
+      name: "Kak Disel",
+      mentor_title: "Mentor Riset Sains dan Teknologi",
+    },
+    {
+      id: 8,
+      image: "/img/mentors/kak-fasha-teknologi-farmasi.webp",
+      name: "Kak Fasha",
+      mentor_title: "Mentor Teknologi Farmasi",
+    },
+    {
+      id: 9,
+      image: "/img/mentors/kak-friska-klinis.webp",
+      name: "Kak Friska",
+      mentor_title: "Mentor Klinis",
+    },
+    {
+      id: 10,
+      image: "/img/mentors/kak-nanda-farmasi-klinis.webp",
+      name: "Kak Nanda",
+      mentor_title: "Mentor Farmasi Klinis",
+    },
+    {
+      id: 11,
+      image: "/img/mentors/kak-pradhini-farmakologi-dan-toksikologi.webp",
+      name: "Kak Pradhini",
+      mentor_title: "Mentor Farmakologi dan Toksikologi",
+    },
+    {
+      id: 12,
+      image: "/img/mentors/kak-tiya-teknologi-formulasi-dan-kimia.webp",
+      name: "Kak Tiya",
+      mentor_title: "Mentor Teknologi Formulasi dan Kimia",
     },
   ],
 };
@@ -203,6 +282,60 @@ export default function HomePage() {
               </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="grid gap-8 py-[70px]">
+        <div className="grid gap-2">
+          <h1 className="text-center text-[32px] font-black text-black">
+            Ayo, Kenalan Dengan Mentor RuangObat
+          </h1>
+          <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
+            RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
+            kamu mencapai target belajar. Dari praktisi, peneliti, sampai
+            Apoteker senior, semuanya ada di sini!
+          </p>
+        </div>
+
+        <div className="mentor-container overflow-hidden">
+          <Swiper
+            loop={true}
+            slidesPerView={"auto"}
+            spaceBetween={24}
+            autoplay={{
+              delay: 3000,
+              disableOnInteraction: false,
+            }}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination, Autoplay]}
+          >
+            {data.mentors.map((item) => (
+              <SwiperSlide
+                key={item.id}
+                className="grid max-w-[320px] overflow-hidden rounded-xl border-2 border-gray/20 bg-white p-6 xs:max-w-[350px]"
+              >
+                <Image
+                  src={`${item.image}`}
+                  alt={`image ${item.name}`}
+                  width={500}
+                  height={500}
+                  className="aspect-square rounded-xl"
+                  priority
+                />
+
+                <div className="mt-8 grid flex-1 gap-1">
+                  <h4 className="text-[20px] font-black leading-[120%] text-black">
+                    {item.name}
+                  </h4>
+                  <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                    {item.mentor_title}
+                  </p>
+                </div>
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
       </section>
     </Layout>
