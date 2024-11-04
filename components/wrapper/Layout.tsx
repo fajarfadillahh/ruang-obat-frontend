@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
@@ -314,7 +315,11 @@ export default function Layout({ title, children, className }: LayoutProps) {
           {children}
         </main>
 
-        {/* <Footer /> */}
+        {(window.location.host === "localhost:3000" &&
+          router.pathname === "/") ||
+        window.location.host === "ruangobat.id" ? null : (
+          <Footer />
+        )}
       </div>
     </>
   );

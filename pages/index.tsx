@@ -12,16 +12,21 @@ import {
   CloudSun,
   DeviceMobileSpeaker,
   Gift,
+  Globe,
   GraduationCap,
   Headset,
+  InstagramLogo,
   Notebook,
   NotePencil,
   PencilRuler,
   Pill,
   RocketLaunch,
   Target,
+  TiktokLogo,
+  WhatsappLogo,
 } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -161,7 +166,7 @@ const data = {
     {
       id: 2,
       title: "Bagaimana cara mendaftar di RuangObat?",
-      text: "Kamu cukup buat akun di ruangobat.id/auth/register, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
+      text: "Klik tombol regiter dipojok kanan atas untuk membuat Akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
       icon: <NotePencil weight="bold" size={24} className="text-black" />,
     },
     {
@@ -212,55 +217,274 @@ export default function HomePage() {
   }
 
   return (
-    <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
-      <section className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
-        <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
-          <div className="grid gap-4">
-            <p className="font-medium text-gray">
-              👋 Selamat datang di RuangObat
-            </p>
-            <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
-              Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
-              <AvatarGroup size="lg" className="hidden lg:inline-flex">
-                <Avatar src="/img/home-avatar-1.png" />
-                <Avatar src="/img/home-avatar-2.png" />
-                <Avatar src="/img/home-avatar-3.png" />
-              </AvatarGroup>
+    <>
+      <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
+        <section className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
+          <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
+            <div className="grid gap-4">
+              <p className="font-medium text-gray">
+                👋 Selamat datang di RuangObat
+              </p>
+              <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
+                Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
+                <AvatarGroup size="lg" className="hidden lg:inline-flex">
+                  <Avatar src="/img/home-avatar-1.png" />
+                  <Avatar src="/img/home-avatar-2.png" />
+                  <Avatar src="/img/home-avatar-3.png" />
+                </AvatarGroup>
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                RuangObat merupakan platform belajar farmasi private No.1 di
+                Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak
+                program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas
+                Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut
+                UKMPPAI.
+              </p>
+              <p className="font-medium leading-[170%] text-gray">
+                Di website RuangObat kalian akan dapat mengakses berbagai
+                program. Mari raih gelar sarjana dan apotekermu bersama
+                RuangObat #bimbelfarmasi #cukupdisiniaja.
+              </p>
+            </div>
+
+            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+              <Button
+                variant="solid"
+                color="secondary"
+                endContent={<ArrowRight weight="bold" size={16} />}
+                onClick={() => {
+                  if (window.location.host == "localhost:3000") {
+                    router.push("/dashboard");
+                  } else {
+                    window.open("https://cbt.ruangobat.id/dashboard", "_blank");
+                  }
+                }}
+                className="px-4 font-bold"
+              >
+                Halaman Dashboard
+              </Button>
+
+              <Button
+                variant="bordered"
+                className="border-black px-4 font-bold text-black"
+                onClick={() => {
+                  if (window.location.host == "localhost:3000") {
+                    router.push("/dashboard");
+                  } else {
+                    window.open(
+                      "https://cbt.ruangobat.id/auth/register",
+                      "_blank",
+                    );
+                  }
+                }}
+              >
+                Mulai Ujian Sekarang!
+              </Button>
+            </div>
+          </div>
+
+          <Image
+            priority
+            src="/img/landing-page-img.png"
+            alt="home img"
+            width={396}
+            height={512}
+            className="h-auto w-full justify-self-center xl:justify-self-end"
+          />
+        </section>
+
+        <section className="mx-auto grid max-w-[600px] gap-8 pb-[70px] pt-[76px] lg:max-w-[700px] xl:max-w-none">
+          <h1 className="text-center text-[32px] font-black text-black">
+            Kenapa Pilih RuangObat?
+          </h1>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-16">
+            {data.reasons.map((item) => (
+              <div
+                key={item.id}
+                className="grid w-[290px] gap-5 px-6 py-[42px]"
+              >
+                {item.icon}
+
+                <div className="grid gap-2">
+                  <h4 className="max-w-[220px] text-[24px] font-black leading-[120%] text-black">
+                    {item.title}
+                  </h4>
+                  <p className="font-medium leading-[170%] text-gray">
+                    {item.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mx-auto grid max-w-[600px] gap-8 py-[70px] lg:max-w-[700px] xl:max-w-none">
+          <div className="grid gap-2">
+            <h1 className="text-center text-[32px] font-black text-black">
+              Program Unggulan RuangObat
             </h1>
-            <p className="font-medium leading-[170%] text-gray">
-              RuangObat merupakan platform belajar farmasi private No.1 di
-              Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak
-              program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas
-              Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut
-              UKMPPAI.
-            </p>
-            <p className="font-medium leading-[170%] text-gray">
-              Di website RuangObat kalian akan dapat mengakses berbagai program.
-              Mari raih gelar sarjana dan apotekermu bersama RuangObat
-              #bimbelfarmasi #cukupdisiniaja.
+            <p className="mx-auto max-w-[500px] text-center font-medium leading-[170%] text-gray">
+              Explore berbagai program unggulan yang dirancang khusus buat
+              mahasiswa farmasi. Pilih program sesuai kebutuhanmu!
             </p>
           </div>
 
-          <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+          <div className="grid justify-center gap-4 xl:grid-cols-2 xl:gap-y-6">
+            {data.programs.map((item) => (
+              <div
+                key={item.program_id}
+                className="grid max-w-[592px] items-center gap-4 p-6 xl:flex"
+              >
+                {item.icon}
+
+                <div className="grid flex-1 gap-2">
+                  <h4 className="text-[24px] font-black leading-[120%] text-black">
+                    {item.title}
+                  </h4>
+                  <p className="max-w-[430px] font-medium leading-[170%] text-gray">
+                    {item.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="grid gap-8 py-[70px]">
+          <div className="grid gap-2">
+            <h1 className="text-center text-[32px] font-black text-black">
+              Ayo, Kenalan Dengan Mentor RuangObat
+            </h1>
+            <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
+              RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
+              kamu mencapai target belajar. Dari praktisi, peneliti, sampai
+              Apoteker senior, semuanya ada di sini!
+            </p>
+          </div>
+
+          <div className="mentor-container overflow-hidden">
+            <Swiper
+              loop={true}
+              slidesPerView={"auto"}
+              spaceBetween={24}
+              autoplay={{
+                delay: 3000,
+                disableOnInteraction: false,
+              }}
+              pagination={{
+                clickable: true,
+              }}
+              modules={[Pagination, Autoplay]}
+            >
+              {data.mentors.map((item) => (
+                <SwiperSlide
+                  key={item.id}
+                  className="grid max-w-[320px] overflow-hidden rounded-xl border-2 border-gray/20 bg-white p-6 xs:max-w-[350px]"
+                >
+                  <Image
+                    src={`${item.image}`}
+                    alt={`image ${item.name}`}
+                    width={500}
+                    height={500}
+                    className="aspect-square rounded-xl"
+                    priority
+                  />
+
+                  <div className="mt-8 grid flex-1 gap-1">
+                    <h4 className="text-[20px] font-black leading-[120%] text-black">
+                      {item.name}
+                    </h4>
+                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                      {item.mentor_title}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+
+        <section className="grid gap-8 py-[70px]">
+          <h1 className="text-center text-[32px] font-black text-black">
+            Yang Paling Banyak Ditanyakan
+          </h1>
+
+          <Accordion
+            motionProps={{
+              variants: {
+                enter: {
+                  y: 0,
+                  opacity: 1,
+                  height: "auto",
+                  transition: {
+                    height: {
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 30,
+                      duration: 1,
+                    },
+                    opacity: {
+                      easings: "ease",
+                      duration: 1,
+                    },
+                  },
+                },
+                exit: {
+                  y: -10,
+                  opacity: 0,
+                  height: 0,
+                  transition: {
+                    height: {
+                      easings: "ease",
+                      duration: 0.25,
+                    },
+                    opacity: {
+                      easings: "ease",
+                      duration: 0.3,
+                    },
+                  },
+                },
+              },
+            }}
+            defaultExpandedKeys={["1"]}
+            className="mx-auto max-w-[950px]"
+          >
+            {data.faqs.map((item) => (
+              <AccordionItem
+                key={item.id}
+                title={item.title}
+                startContent={item.icon}
+                classNames={{
+                  title: "text-[18px] text-black font-bold xs:text-[20px]",
+                  indicator: "text-black",
+                  content: "text-gray leading-[170%] font-medium pb-8",
+                }}
+              >
+                {item.text}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+
+        <section className="py-[70px]">
+          <div className="mx-auto grid max-w-[950px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16">
+            <div className="grid gap-2">
+              <h1 className="text-center text-[28px] font-black text-black">
+                Siap Mulai Perjalanan Belajar Bersama RuangObat?
+              </h1>
+              <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
+                Gabung sekarang dan raih kesempatan belajar farmasi dengan
+                materi lengkap, mentor berpengalaman, dan akses penuh ke
+                berbagai program unggulan. Buka pintu kesuksesan karier farmasi
+                kamu di sini!
+              </p>
+            </div>
+
             <Button
               variant="solid"
               color="secondary"
               endContent={<ArrowRight weight="bold" size={16} />}
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/dashboard");
-                } else {
-                  window.open("https://cbt.ruangobat.id/dashboard", "_blank");
-                }
-              }}
-              className="px-4 font-bold"
-            >
-              Halaman Dashboard
-            </Button>
-
-            <Button
-              variant="bordered"
-              className="border-black px-4 font-bold text-black"
               onClick={() => {
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
@@ -271,223 +495,70 @@ export default function HomePage() {
                   );
                 }
               }}
+              className="w-max justify-self-center px-4 font-bold"
             >
-              Mulai Ujian Sekarang!
+              Daftar Sekarang!
             </Button>
           </div>
-        </div>
+        </section>
+      </Layout>
 
-        <Image
-          priority
-          src="/img/landing-page-img.png"
-          alt="home img"
-          width={396}
-          height={512}
-          className="h-auto w-full justify-self-center xl:justify-self-end"
-        />
-      </section>
-
-      <section className="mx-auto grid max-w-[600px] gap-8 pb-[70px] pt-[76px] lg:max-w-[700px] xl:max-w-none">
-        <h1 className="text-center text-[32px] font-black text-black">
-          Kenapa Pilih RuangObat?
-        </h1>
-
-        <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-16">
-          {data.reasons.map((item) => (
-            <div key={item.id} className="grid w-[290px] gap-5 px-6 py-[42px]">
-              {item.icon}
-
-              <div className="grid gap-2">
-                <h4 className="max-w-[220px] text-[24px] font-black leading-[120%] text-black">
-                  {item.title}
-                </h4>
-                <p className="font-medium leading-[170%] text-gray">
-                  {item.text}
-                </p>
-              </div>
+      <footer className="grid overflow-hidden bg-purple">
+        <div className="mx-auto h-full w-full max-w-[1200px] px-6">
+          <div className="grid gap-16 py-[140px] sm:flex sm:items-center">
+            <div className="grid grid-cols-2 grid-rows-3 gap-4 sm:gap-x-16 sm:gap-y-6">
+              {[
+                ["Beranda", "#"],
+                ["Tentang Kami", "#"],
+                ["Kontak Kami", "#"],
+                ["Ketentuan Layanan", "#"],
+                ["Kebijakan Privasi", "#"],
+                ["Karir", "#"],
+              ].map(([text, link], index) => (
+                <Link
+                  key={index}
+                  href={`${link}`}
+                  className="text-[18px] font-medium text-white hover:underline"
+                >
+                  {text}
+                </Link>
+              ))}
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="mx-auto grid max-w-[600px] gap-8 py-[70px] lg:max-w-[700px] xl:max-w-none">
-        <div className="grid gap-2">
-          <h1 className="text-center text-[32px] font-black text-black">
-            Program Unggulan RuangObat
-          </h1>
-          <p className="mx-auto max-w-[500px] text-center font-medium leading-[170%] text-gray">
-            Explore berbagai program unggulan yang dirancang khusus buat
-            mahasiswa farmasi. Pilih program sesuai kebutuhanmu!
-          </p>
-        </div>
+            <div className="hidden h-1 w-full flex-1 bg-white/20 md:flex" />
 
-        <div className="grid justify-center gap-4 xl:grid-cols-2 xl:gap-y-6">
-          {data.programs.map((item) => (
-            <div
-              key={item.program_id}
-              className="grid max-w-[592px] items-center gap-4 p-6 xl:flex"
-            >
-              {item.icon}
-
-              <div className="grid flex-1 gap-2">
-                <h4 className="text-[24px] font-black leading-[120%] text-black">
-                  {item.title}
-                </h4>
-                <p className="max-w-[430px] font-medium leading-[170%] text-gray">
-                  {item.text}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      <section className="grid gap-8 py-[70px]">
-        <div className="grid gap-2">
-          <h1 className="text-center text-[32px] font-black text-black">
-            Ayo, Kenalan Dengan Mentor RuangObat
-          </h1>
-          <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
-            RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
-            kamu mencapai target belajar. Dari praktisi, peneliti, sampai
-            Apoteker senior, semuanya ada di sini!
-          </p>
-        </div>
-
-        <div className="mentor-container overflow-hidden">
-          <Swiper
-            loop={true}
-            slidesPerView={"auto"}
-            spaceBetween={24}
-            autoplay={{
-              delay: 3000,
-              disableOnInteraction: false,
-            }}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Pagination, Autoplay]}
-          >
-            {data.mentors.map((item) => (
-              <SwiperSlide
-                key={item.id}
-                className="grid max-w-[320px] overflow-hidden rounded-xl border-2 border-gray/20 bg-white p-6 xs:max-w-[350px]"
+            <div className="flex items-center gap-8">
+              <Link
+                href="https://www.instagram.com/ruangobat.id/"
+                target="_blank"
               >
-                <Image
-                  src={`${item.image}`}
-                  alt={`image ${item.name}`}
-                  width={500}
-                  height={500}
-                  className="aspect-square rounded-xl"
-                  priority
-                />
+                <InstagramLogo weight="bold" size={28} className="text-white" />
+              </Link>
 
-                <div className="mt-8 grid flex-1 gap-1">
-                  <h4 className="text-[20px] font-black leading-[120%] text-black">
-                    {item.name}
-                  </h4>
-                  <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                    {item.mentor_title}
-                  </p>
-                </div>
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      </section>
+              <Link href="#" target="_blank">
+                <WhatsappLogo weight="bold" size={28} className="text-white" />
+              </Link>
 
-      <section className="grid gap-8 py-[70px]">
-        <h1 className="text-center text-[32px] font-black text-black">
-          Yang Paling Banyak Ditanyakan
-        </h1>
+              <Link href="https://ruangobat.id/" target="_blank">
+                <Globe weight="bold" size={28} className="text-white" />
+              </Link>
 
-        <Accordion
-          motionProps={{
-            variants: {
-              enter: {
-                y: 0,
-                opacity: 1,
-                height: "auto",
-                transition: {
-                  height: {
-                    type: "spring",
-                    stiffness: 500,
-                    damping: 30,
-                    duration: 1,
-                  },
-                  opacity: {
-                    easings: "ease",
-                    duration: 1,
-                  },
-                },
-              },
-              exit: {
-                y: -10,
-                opacity: 0,
-                height: 0,
-                transition: {
-                  height: {
-                    easings: "ease",
-                    duration: 0.25,
-                  },
-                  opacity: {
-                    easings: "ease",
-                    duration: 0.3,
-                  },
-                },
-              },
-            },
-          }}
-          defaultExpandedKeys={["1"]}
-          className="mx-auto max-w-[950px]"
-        >
-          {data.faqs.map((item) => (
-            <AccordionItem
-              key={item.id}
-              title={item.title}
-              startContent={item.icon}
-              classNames={{
-                title: "text-[18px] text-black font-bold xs:text-[20px]",
-                indicator: "text-black",
-                content: "text-gray leading-[170%] font-medium pb-8",
-              }}
-            >
-              {item.text}
-            </AccordionItem>
-          ))}
-        </Accordion>
-      </section>
-
-      <section className="py-[70px]">
-        <div className="mx-auto grid max-w-[950px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16">
-          <div className="grid gap-2">
-            <h1 className="text-center text-[28px] font-black text-black">
-              Siap Mulai Perjalanan Belajar Bersama RuangObat?
-            </h1>
-            <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
-              Gabung sekarang dan raih kesempatan belajar farmasi dengan materi
-              lengkap, mentor berpengalaman, dan akses penuh ke berbagai program
-              unggulan. Buka pintu kesuksesan karier farmasi kamu di sini!
-            </p>
+              <Link href="https://www.tiktok.com/@ruangobat.id" target="_blank">
+                <TiktokLogo weight="fill" size={28} className="text-white" />
+              </Link>
+            </div>
           </div>
 
-          <Button
-            variant="solid"
-            color="secondary"
-            endContent={<ArrowRight weight="bold" size={16} />}
-            onClick={() => {
-              if (window.location.host == "localhost:3000") {
-                router.push("/dashboard");
-              } else {
-                window.open("https://cbt.ruangobat.id/auth/register", "_blank");
-              }
-            }}
-            className="w-max justify-self-center px-4 font-bold"
-          >
-            Daftar Sekarang!
-          </Button>
+          <p className="z-30 pb-8 text-center font-medium capitalize text-white xl:relative xl:-mb-20 xl:pb-0">
+            &copy; PT. Pharmacy Cone Group 2024 | seluruh hak cipta dilindungi
+            undang-undang.
+          </p>
         </div>
-      </section>
-    </Layout>
+
+        <h1 className="hidden select-none justify-self-center text-center text-[240px] font-black -tracking-[0.5rem] text-white/20 xl:flex">
+          RuangObat.
+        </h1>
+      </footer>
+    </>
   );
 }
