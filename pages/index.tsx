@@ -457,6 +457,37 @@ export default function HomePage() {
           ))}
         </Accordion>
       </section>
+
+      <section className="py-[70px]">
+        <div className="mx-auto grid max-w-[950px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16">
+          <div className="grid gap-2">
+            <h1 className="text-center text-[28px] font-black text-black">
+              Siap Mulai Perjalanan Belajar Bersama RuangObat?
+            </h1>
+            <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
+              Gabung sekarang dan raih kesempatan belajar farmasi dengan materi
+              lengkap, mentor berpengalaman, dan akses penuh ke berbagai program
+              unggulan. Buka pintu kesuksesan karier farmasi kamu di sini!
+            </p>
+          </div>
+
+          <Button
+            variant="solid"
+            color="secondary"
+            endContent={<ArrowRight weight="bold" size={16} />}
+            onClick={() => {
+              if (window.location.host == "localhost:3000") {
+                router.push("/dashboard");
+              } else {
+                window.open("https://cbt.ruangobat.id/auth/register", "_blank");
+              }
+            }}
+            className="w-max justify-self-center px-4 font-bold"
+          >
+            Daftar Sekarang!
+          </Button>
+        </div>
+      </section>
     </Layout>
   );
 }
