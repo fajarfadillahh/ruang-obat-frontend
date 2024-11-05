@@ -21,3 +21,13 @@
 .preventive-list li {
   @apply list-outside;
 }
+
+.mentor-container .swiper-pagination {
+  @apply static mx-auto pt-4 transition-all xs:pt-8;
+}
+.mentor-container .swiper-pagination-bullet {
+  @apply transition-all;
+}
+.mentor-container .swiper-pagination-bullet-active {
+  @apply h-2 w-6 rounded-full !bg-purple;
+}

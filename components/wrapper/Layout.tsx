@@ -315,7 +315,11 @@ export default function Layout({ title, children, className }: LayoutProps) {
           {children}
         </main>
 
-        <Footer />
+        {(window.location.host === "localhost:3000" &&
+          router.pathname === "/") ||
+        window.location.host === "ruangobat.id" ? null : (
+          <Footer />
+        )}
       </div>
     </>
   );

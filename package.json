@@ -21,6 +21,7 @@
     "react-countdown": "^2.3.6",
     "react-dom": "^18",
     "react-hot-toast": "^2.4.1",
+    "swiper": "^11.1.14",
     "swr": "^2.2.5",
     "use-debounce": "^10.0.3"
   },

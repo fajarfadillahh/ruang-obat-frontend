@@ -45,7 +45,9 @@ export default function SessionChecker() {
       if (
         !router.pathname.startsWith("/auth") &&
         router.pathname !== "/" &&
-        router.pathname !== "/reset"
+        router.pathname !== "/reset" &&
+        !router.pathname.startsWith("/tests") &&
+        !router.pathname.startsWith("/company")
       ) {
         await checkSession();
       }
@@ -55,7 +57,9 @@ export default function SessionChecker() {
       if (
         !router.pathname.startsWith("/auth") &&
         router.pathname !== "/" &&
-        router.pathname !== "/reset"
+        router.pathname !== "/reset" &&
+        !router.pathname.startsWith("/tests") &&
+        !router.pathname.startsWith("/company")
       ) {
         await checkSession();
       }

@@ -46,7 +46,7 @@ export default function LoginPage() {
 
     if (response?.ok) {
       const now = new Date();
-      const soon = new Date(1730394000000);
+      const soon = new Date(1732985999000);
 
       if (now < soon) {
         return router.push("/comingsoon?from=login");
