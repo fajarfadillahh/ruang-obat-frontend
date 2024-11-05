@@ -89,18 +89,33 @@ export default function StartTest({
     return <Loading />;
   }
 
-  const question = questions.find((question) => question.number == number);
+  const question = questions.length
+    ? questions.find((question) => question.number == number)
+    : {
+        text: "",
+        user_answer: "",
+        options: [{ option_id: "", text: "" }],
+        is_hesitant: false,
+      };
 
   async function handleSaveTest() {
     setLoading(true);
     try {
-      const mappingQuestions = questions.map((item) => {
-        return {
-          number: item.number,
-          question_id: item.question_id,
-          user_answer: item.user_answer,
-        };
-      });
+      const mappingQuestions = [];
+
+      const cache = localStorage.getItem(params.id as string);
+
+      if (cache) {
+        const parsing = JSON.parse(cache) as Question[];
+
+        for (const item of parsing) {
+          mappingQuestions.push({
+            number: item.number,
+            question_id: item.question_id,
+            user_answer: item.user_answer,
+          });
+        }
+      }
 
       await fetcher({
         url: "/tests/finish",
@@ -112,9 +127,11 @@ export default function StartTest({
         token,
       });
 
-      toast.success("Berhasil mengumpulkan ujian");
-      router.push("/my/tests");
+      toast.success("Berhasil mengumpulkan ujian", {
+        duration: 3000,
+      });
       localStorage.removeItem(params.id as string);
+      window.location.href = "/my/tests";
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -194,27 +211,29 @@ export default function StartTest({
                 </h4>
 
                 <div className="grid h-full max-h-[450px] grid-cols-5 justify-items-center gap-2 overflow-y-scroll scrollbar-hide xl:max-h-[230px]">
-                  {questions.map((question) => {
-                    return (
-                      <Link
-                        key={question.question_id}
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          setNumber(question.number);
-                        }}
-                        className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${
-                          question.number == number
-                            ? !question.user_answer && !question.is_hesitant
-                              ? "bg-gray/30 text-gray"
-                              : getColor(question)
-                            : getColor(question)
-                        }`}
-                      >
-                        {question.number}
-                      </Link>
-                    );
-                  })}
+                  {questions.length
+                    ? questions.map((question) => {
+                        return (
+                          <Link
+                            key={question.question_id}
+                            href="#"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              setNumber(question.number);
+                            }}
+                            className={`inline-flex size-[34px] items-center justify-center rounded-lg text-[12px] font-bold ${
+                              question.number == number
+                                ? !question.user_answer && !question.is_hesitant
+                                  ? "bg-gray/30 text-gray"
+                                  : getColor(question)
+                                : getColor(question)
+                            }`}
+                          >
+                            {question.number}
+                          </Link>
+                        );
+                      })
+                    : null}
                 </div>
 
                 <div className="inline-flex items-center gap-1 pt-2 italic text-gray/80">
@@ -439,7 +458,12 @@ export default function StartTest({
                         </span>
                       );
                     }}
-                    // onComplete={handleSaveTest}
+                    onComplete={() => {
+                      toast.success("Waktu telah habis", {
+                        duration: 1000,
+                      });
+                      handleSaveTest();
+                    }}
                   />
                 </h4>
               </div>
@@ -461,30 +485,30 @@ export default function StartTest({
                     <p className="w-[100px]">Sudah dijawab</p>
                     <div>:</div>
                     <p className="font-extrabold text-purple">
-                      {
-                        questions.filter((question) => question.user_answer)
-                          .length
-                      }
+                      {questions.length
+                        ? questions.filter((question) => question.user_answer)
+                            .length
+                        : null}
                     </p>
                   </li>
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Ragu-ragu</p>
                     <div>:</div>
                     <p className="font-extrabold text-purple">
-                      {
-                        questions.filter((question) => question.is_hesitant)
-                          .length
-                      }
+                      {questions.length
+                        ? questions.filter((question) => question.is_hesitant)
+                            .length
+                        : null}
                     </p>
                   </li>
                   <li className="flex items-center gap-2">
                     <p className="w-[100px]">Belum dijawab</p>
                     <div>:</div>
                     <p className="font-extrabold text-purple">
-                      {
-                        questions.filter((question) => !question.user_answer)
-                          .length
-                      }
+                      {questions.length
+                        ? questions.filter((question) => !question.user_answer)
+                            .length
+                        : null}
                     </p>
                   </li>
                 </ul>
