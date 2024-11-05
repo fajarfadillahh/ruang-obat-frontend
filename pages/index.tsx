@@ -166,7 +166,7 @@ const data = {
     {
       id: 2,
       title: "Bagaimana cara mendaftar di RuangObat?",
-      text: "Klik tombol regiter dipojok kanan atas untuk membuat Akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
+      text: "Klik tombol register di pojok kanan atas untuk membuat akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
       icon: <NotePencil weight="bold" size={24} className="text-black" />,
     },
     {
@@ -184,7 +184,7 @@ const data = {
     {
       id: 5,
       title: "Apakah materi ujian bisa diakses kapan saja?",
-      text: "Bisa banget! Materi di RuangObat tersedia selama 24/7 , jadi kamu bisa belajar kapan aja sesuai jadwal dan ritme belajar lo sendiri.",
+      text: "Bisa banget! Materi di RuangObat tersedia selama 24/7, jadi kamu bisa belajar kapan aja sesuai jadwal dan ritme belajarmu.",
       icon: <CloudSun weight="bold" size={24} className="text-black" />,
     },
     {
@@ -198,7 +198,7 @@ const data = {
     {
       id: 7,
       title: "Siapa yang bisa saya hubungi jika ada kendala?",
-      text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support RuangObat via nomor WhatsApp. Tim kami siap bantu kamu dengan cepat dan ramah.",
+      text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support RuangObat via nomor WhatsApp.",
       icon: <Headset weight="bold" size={24} className="text-black" />,
     },
   ],
