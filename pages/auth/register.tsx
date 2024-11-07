@@ -1,3 +1,4 @@
+import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
@@ -45,6 +46,11 @@ export default function RegisterPage() {
     isOpen: isTermsPrivacyOpen,
     onOpen: onTermsPrivacyOpen,
     onClose: onTermsPrivacyClose,
+  } = useDisclosure();
+  const {
+    isOpen: isCodeVerificationOpen,
+    onOpen: onCodeVerificationOpen,
+    onClose: onCodeVerificationClose,
   } = useDisclosure();
   const [isSelected, setIsSelected] = useState(false);
   const [input, setInput] = useState<InputType>({
@@ -462,6 +468,11 @@ export default function RegisterPage() {
                   Ruangobat
                 </p>
               </div>
+
+              <ModalCodeVerification
+                isOpen={isCodeVerificationOpen}
+                onClose={onCodeVerificationClose}
+              />
 
               <ModalTermsPrivacy
                 isOpen={isTermsPrivacyOpen}
