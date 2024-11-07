@@ -1,11 +1,5 @@
 import Layout from "@/components/wrapper/Layout";
-import {
-  Accordion,
-  AccordionItem,
-  Avatar,
-  AvatarGroup,
-  Button,
-} from "@nextui-org/react";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import {
   ArrowRight,
   ClipboardText,
@@ -227,11 +221,32 @@ export default function HomePage() {
               </p>
               <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
                 Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
-                <AvatarGroup size="lg" className="hidden lg:inline-flex">
-                  <Avatar src="/img/home-avatar-1.png" />
-                  <Avatar src="/img/home-avatar-2.png" />
-                  <Avatar src="/img/home-avatar-3.png" />
-                </AvatarGroup>
+                <div className="inline-flex -space-x-3">
+                  <Image
+                    src="/img/home-avatar1.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                  <Image
+                    src="/img/home-avatar2.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                  <Image
+                    src="/img/home-avatar3.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                </div>
               </h1>
               <p className="font-medium leading-[170%] text-gray">
                 RuangObat merupakan platform belajar farmasi private No.1 di
@@ -285,7 +300,7 @@ export default function HomePage() {
 
           <Image
             priority
-            src="/img/landing-page-img.png"
+            src="/img/home-img.webp"
             alt="home img"
             width={396}
             height={512}
