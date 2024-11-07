@@ -59,7 +59,7 @@ const data = {
   programs: [
     {
       program_id: 1,
-      title: "Kelas Mata Kulish & Praktikum",
+      title: "Kelas Mata Kuliah & Praktikum",
       icon: <PencilRuler weight="bold" size={96} className="text-purple" />,
       text: "Dapatkan pemahaman mendalam tentang mata kuliah farmasi sekaligus pengalaman praktikum yang aplikatif.",
     },
