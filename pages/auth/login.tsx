@@ -130,10 +130,12 @@ export default function LoginPage() {
         <div className="mx-auto flex max-w-[400px] flex-col justify-center gap-4 px-6 py-10 xl:max-w-none xl:px-16">
           <div className="grid gap-8">
             <div className="text-center xl:text-left">
-              <h1 className="text-[32px] font-bold -tracking-wide text-black">
-                Selamat datang lagi 🙌
+              <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
+                Login ke akunmu 🙌
               </h1>
-              <p className="font-medium text-gray">Silakan masuk ke akunmu</p>
+              <p className="font-medium text-gray">
+                Sebelum belajar, silakan login dulu
+              </p>
             </div>
 
             <div className="grid gap-2">
@@ -205,7 +207,7 @@ export default function LoginPage() {
                 Belum punya akun?{" "}
                 <Link
                   href="/auth/register"
-                  className="font-extrabold text-purple"
+                  className="font-extrabold text-purple hover:underline"
                 >
                   Daftar disini
                 </Link>

@@ -203,10 +203,12 @@ export default function RegisterPage() {
 
           <div className="grid gap-8">
             <div className="text-center xl:text-left">
-              <h1 className="text-[32px] font-bold -tracking-wide text-black">
-                Ayo kita mulai 🚀
+              <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
+                Daftarkan akunmu 🚀
               </h1>
-              <p className="font-medium text-gray">Buat akunmu sekarang</p>
+              <p className="font-medium text-gray">
+                Ayo, bergabung dengan kita disini.
+              </p>
             </div>
 
             <div className="grid gap-2">
@@ -481,7 +483,10 @@ export default function RegisterPage() {
 
               <p className="text-center text-sm font-medium text-gray">
                 Sudah punya akun?{" "}
-                <Link href="/auth/login" className="font-extrabold text-purple">
+                <Link
+                  href="/auth/login"
+                  className="font-extrabold text-purple hover:underline"
+                >
                   Masuk disini
                 </Link>
               </p>
