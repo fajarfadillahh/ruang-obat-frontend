@@ -1,9 +1,17 @@
+import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
 import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Select,
+  SelectItem,
+  useDisclosure,
+} from "@nextui-org/react";
 import {
   Buildings,
   EnvelopeSimple,
@@ -33,6 +41,12 @@ type InputType = {
 const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
 export default function RegisterPage() {
+  const {
+    isOpen: isTermsPrivacyOpen,
+    onOpen: onTermsPrivacyOpen,
+    onClose: onTermsPrivacyClose,
+  } = useDisclosure();
+  const [isSelected, setIsSelected] = useState(false);
   const [input, setInput] = useState<InputType>({
     fullname: "",
     email: "",
@@ -112,7 +126,9 @@ export default function RegisterPage() {
   }
 
   function isFormEmpty() {
-    return Object.values(input).every((value) => value.trim() !== "");
+    return (
+      Object.values(input).every((value) => value.trim() !== "") && isSelected
+    );
   }
 
   useEffect(() => {
@@ -423,6 +439,32 @@ export default function RegisterPage() {
                   errors ? (errors.password ? errors.password : null) : null
                 }
               />
+
+              <div className="mt-1 flex items-start gap-1">
+                <Checkbox
+                  size="md"
+                  color="secondary"
+                  isSelected={isSelected}
+                  onValueChange={setIsSelected}
+                  onKeyDown={(e) => handleKeyDown(e, handleRegister)}
+                />
+
+                <p className="max-w-[300px] text-[12px] font-medium text-gray">
+                  Ya, saya menyetujui{" "}
+                  <span
+                    onClick={onTermsPrivacyOpen}
+                    className="font-bold text-black underline hover:cursor-pointer hover:text-purple"
+                  >
+                    Ketentuan Layanan dan Kebijakan Privasi
+                  </span>{" "}
+                  Ruangobat
+                </p>
+              </div>
+
+              <ModalTermsPrivacy
+                isOpen={isTermsPrivacyOpen}
+                onClose={onTermsPrivacyClose}
+              />
             </div>
 
             <div className="grid gap-4">
@@ -446,23 +488,7 @@ export default function RegisterPage() {
             </div>
           </div>
 
-          <p className="mx-auto max-w-[360px] text-center text-[12px] font-medium text-gray">
-            Dengan melanjutkan, anda menyetujui{" "}
-            <Link
-              href="/company/terms"
-              className="font-bold text-black underline"
-            >
-              Ketentuan Layanan
-            </Link>{" "}
-            dan{" "}
-            <Link
-              href="/company/privacy"
-              className="font-bold text-black underline"
-            >
-              Kebijakan Privasi
-            </Link>{" "}
-            Ruangobat
-          </p>
+          <div></div>
         </div>
       </main>
     </>
