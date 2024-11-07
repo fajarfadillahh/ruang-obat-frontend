@@ -217,7 +217,7 @@ export default function HomePage() {
   }
 
   return (
-    <>
+    <div className="scrollbar-default">
       <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
         <section className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
           <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
@@ -509,10 +509,10 @@ export default function HomePage() {
             <div className="grid grid-cols-2 grid-rows-3 gap-4 sm:gap-x-16 sm:gap-y-6">
               {[
                 ["Beranda", "#"],
-                ["Tentang Kami", "#"],
+                ["Kebijakan Privasi", "/company/privacy"],
                 ["Kontak Kami", "#"],
-                ["Ketentuan Layanan", "#"],
-                ["Kebijakan Privasi", "#"],
+                ["Ketentuan Layanan", "/company/terms"],
+                ["Tentang Kami", "#"],
                 ["Karir", "#"],
               ].map(([text, link], index) => (
                 <Link
@@ -559,6 +559,6 @@ export default function HomePage() {
           RuangObat.
         </h1>
       </footer>
-    </>
+    </div>
   );
 }
