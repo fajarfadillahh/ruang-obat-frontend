@@ -45,13 +45,6 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
-      const now = new Date();
-      const soon = new Date(1732985999000);
-
-      if (now < soon) {
-        return router.push("/comingsoon?from=login");
-      }
-
       return router.push("/dashboard");
     }
   }
@@ -209,7 +202,7 @@ export default function LoginPage() {
                   href="/auth/register"
                   className="font-extrabold text-purple hover:underline"
                 >
-                  Daftar disini
+                  Daftar di sini
                 </Link>
               </p>
             </div>
