@@ -4,7 +4,6 @@ import { SuccessResponse } from "@/types/global.type";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
-import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import {
   Button,
@@ -94,8 +93,10 @@ export default function RegisterPage() {
   }
 
   async function handleVerifyOtp() {
+    setLoading(true);
+
     try {
-      await fetcher({
+      const response: SuccessResponse<{ token: string }> = await fetcher({
         url: "/general/otp/verify",
         method: "POST",
         data: {
@@ -104,23 +105,24 @@ export default function RegisterPage() {
         },
       });
 
-      handleRegister();
+      handleRegister(response.data.token);
       setUserId("");
     } catch (error: any) {
       console.log(error);
-
+      setLoading(false);
       toast.error(getError(error));
     }
   }
 
-  async function handleRegister() {
-    setLoading(true);
-
+  async function handleRegister(token: string) {
     try {
       await fetcher({
         url: "/auth/register/users",
         method: "POST",
-        data: input,
+        data: {
+          ...input,
+          token,
+        },
       });
 
       const response = await signIn("credentials", {
@@ -542,7 +544,6 @@ export default function RegisterPage() {
                     });
                   }
                 }}
-                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -564,7 +565,6 @@ export default function RegisterPage() {
                   color="secondary"
                   isSelected={isSelected}
                   onValueChange={setIsSelected}
-                  onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 />
 
                 <p className="max-w-[300px] text-[12px] font-medium text-gray">
