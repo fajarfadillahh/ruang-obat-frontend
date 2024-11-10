@@ -9,7 +9,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import { ArrowRight, CheckCircle, Plus } from "@phosphor-icons/react";
+import { CheckCircle, Plus } from "@phosphor-icons/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { KeyedMutator } from "swr";
@@ -140,7 +140,7 @@ export default function ModalFreeAccess({
                           />
 
                           <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
-                            <span className="overflow-y-scroll text-sm">
+                            <span className="text-sm">
                               {followFile ? (
                                 <CheckCircle
                                   size={30}
@@ -250,7 +250,6 @@ export default function ModalFreeAccess({
 
                 <Button
                   color="secondary"
-                  endContent={<ArrowRight weight="bold" size={18} />}
                   className="font-bold"
                   onClick={handleFollowFree}
                   isDisabled={

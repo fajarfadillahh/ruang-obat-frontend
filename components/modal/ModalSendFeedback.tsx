@@ -9,7 +9,7 @@ import {
   ModalHeader,
   Textarea,
 } from "@nextui-org/react";
-import { ArrowRight, Star } from "@phosphor-icons/react";
+import { Star } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
@@ -134,7 +134,6 @@ export default function ModalSendFeedback({
               <Button
                 color="secondary"
                 variant="solid"
-                endContent={<ArrowRight weight="bold" size={18} />}
                 className="font-bold"
                 onClick={handleSaveFeedback}
                 isDisabled={!rating || !feedback}

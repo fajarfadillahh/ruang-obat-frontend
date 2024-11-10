@@ -290,7 +290,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
               <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
 
               <ModalConfirm
-                btnText="Logout Sekarang"
+                btnText="Logout"
                 header="Pemberitahuan"
                 text="Apakah Anda Yakin Ingin Logout?"
                 loading={loading}
