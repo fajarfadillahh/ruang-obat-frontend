@@ -15,7 +15,7 @@ type ModalConfirmType = {
   loading?: boolean;
   isOpen: boolean;
   onClose: () => void;
-  handleAction?(): Promise<void>;
+  handleAction?(): void;
 };
 
 export default function ModalConfirm({

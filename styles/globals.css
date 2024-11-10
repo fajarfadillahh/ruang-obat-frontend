@@ -5,7 +5,10 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  @apply hidden;
+  @apply rounded-full bg-purple/5;
+}
+::-webkit-scrollbar-thumb {
+  @apply w-1 rounded-full bg-purple/20 hover:bg-purple/40;
 }
 
 ::selection {
@@ -30,4 +33,19 @@
 }
 .mentor-container .swiper-pagination-bullet-active {
   @apply h-2 w-6 rounded-full !bg-purple;
+}
+
+.preventive-table table {
+  table-layout: auto;
+  width: 100%;
+  border-collapse: collapse;
+}
+.preventive-table table tr:first-child td {
+  font-weight: bold;
+  border: 2px solid black;
+  padding: 8px;
+}
+.preventive-table table td {
+  border: 2px solid black;
+  padding: 8px;
 }

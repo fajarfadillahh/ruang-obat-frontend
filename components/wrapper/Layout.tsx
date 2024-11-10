@@ -6,8 +6,6 @@ import Navbar from "@/components/Navbar";
 import { UserDataResponse } from "@/pages/my/profile";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
-import { fetcher } from "@/utils/fetcher";
-import { getError } from "@/utils/getError";
 import {
   Avatar,
   Button,
@@ -68,7 +66,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
   } = useDisclosure();
   const [loading, setLoading] = useState<boolean>(false);
 
-  const formatName = (name: string): string => {
+  function formatName(name: string): string {
     const parts: string[] = name.split(" ");
     let result: string;
 
@@ -81,24 +79,15 @@ export default function Layout({ title, children, className }: LayoutProps) {
     }
 
     return result;
-  };
+  }
 
-  async function handleSignOut() {
+  function handleSignOut() {
     setLoading(true);
+    toast.success("Berhasil Logout");
 
-    try {
-      await fetcher({
-        url: `/auth/session/${user?.data.user_id}`,
-        method: "DELETE",
-      });
-
+    setTimeout(() => {
       signOut();
-      toast.success("Berhasil Logout");
-    } catch (error) {
-      setLoading(false);
-      console.log(error);
-      toast.error(getError(error));
-    }
+    }, 300);
   }
 
   return (
@@ -140,7 +129,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
             </h1>
           </Link>
 
-          {status == "unauthenticated" ? (
+          {router.pathname == "/" ? (
             <div className="inline-flex items-center gap-1">
               <Button
                 variant="light"
@@ -178,7 +167,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
                 Register
               </Button>
             </div>
-          ) : (
+          ) : null}
+
+          {router.pathname !== "/" && status === "authenticated" ? (
             <>
               <Dropdown>
                 <DropdownTrigger>
@@ -299,7 +290,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
               <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
 
               <ModalConfirm
-                btnText="Logout Sekarang"
+                btnText="Logout"
                 header="Pemberitahuan"
                 text="Apakah Anda Yakin Ingin Logout?"
                 loading={loading}
@@ -308,18 +299,14 @@ export default function Layout({ title, children, className }: LayoutProps) {
                 handleAction={handleSignOut}
               />
             </>
-          )}
+          ) : null}
         </Navbar>
 
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           {children}
         </main>
 
-        {(window.location.host === "localhost:3000" &&
-          router.pathname === "/") ||
-        window.location.host === "ruangobat.id" ? null : (
-          <Footer />
-        )}
+        {router.pathname !== "/" ? <Footer /> : null}
       </div>
     </>
   );

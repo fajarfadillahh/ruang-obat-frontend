@@ -165,14 +165,14 @@ export default function ResultTest({
             </div>
           </div>
 
-          <div className="mx-auto h-[550px] max-w-[700px] overflow-y-scroll rounded-xl border-2 border-gray/20 xl:max-w-none xl:flex-1">
+          <div className="mx-auto h-[550px] max-w-[700px] overflow-y-scroll rounded-xl border-2 border-gray/20 scrollbar-hide xl:max-w-none xl:flex-1">
             <div className="sticky left-0 top-0 z-10 bg-white p-6 text-[18px] font-extrabold text-purple">
               No. {question?.number}
             </div>
 
             <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
               <p
-                className="preventive-list list-outside text-[16px] font-semibold leading-[170%] text-black"
+                className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
                 dangerouslySetInnerHTML={{ __html: question?.text as string }}
               />
 
@@ -229,6 +229,7 @@ export default function ResultTest({
                   }}
                 >
                   <div
+                    className="preventive-list preventive-table list-outside text-[16px] leading-[170%] text-black"
                     dangerouslySetInnerHTML={{
                       __html: question?.explanation as string,
                     }}

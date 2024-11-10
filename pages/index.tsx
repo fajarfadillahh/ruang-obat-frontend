@@ -1,16 +1,8 @@
 import Layout from "@/components/wrapper/Layout";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import {
-  Accordion,
-  AccordionItem,
-  Avatar,
-  AvatarGroup,
-  Button,
-} from "@nextui-org/react";
-import {
-  ArrowRight,
   ClipboardText,
   CloudSun,
-  DeviceMobileSpeaker,
   Gift,
   Globe,
   GraduationCap,
@@ -39,27 +31,27 @@ const data = {
   reasons: [
     {
       id: 1,
-      title: "Program Menarik dan Lengkap",
+      title: "Program Menarik & Lengkap",
       icon: <GraduationCap weight="bold" size={72} className="text-purple" />,
-      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat!",
+      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat.",
     },
     {
       id: 2,
       title: "Soal Ujian yang Up-to-Date",
       icon: <ClipboardText weight="bold" size={72} className="text-purple" />,
-      text: "Soal-soal ujian terbaru yang sesuai blueprint terkini, membuat persiapan makin maksimal dengan kualitas terbaik!",
+      text: "Soal-soal ujian terbaru yang sesuai blueprint terkini, membuat persiapan makin maksimal dengan kualitas terbaik.",
     },
     {
       id: 3,
-      title: "Website Nyaman dan Responsif",
+      title: "Website Nyaman & Responsif",
       icon: <RocketLaunch weight="bold" size={72} className="text-purple" />,
-      text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan!",
+      text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan.",
     },
   ],
   programs: [
     {
       program_id: 1,
-      title: "Kelas Mata Kulish & Praktikum",
+      title: "Kelas Mata Kuliah & Praktikum",
       icon: <PencilRuler weight="bold" size={96} className="text-purple" />,
       text: "Dapatkan pemahaman mendalam tentang mata kuliah farmasi sekaligus pengalaman praktikum yang aplikatif.",
     },
@@ -166,19 +158,19 @@ const data = {
     {
       id: 2,
       title: "Bagaimana cara mendaftar di RuangObat?",
-      text: "Klik tombol register di pojok kanan atas untuk membuat akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar!",
+      text: "Klik tombol register di pojok kanan atas untuk membuat akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar.",
       icon: <NotePencil weight="bold" size={24} className="text-black" />,
     },
     {
       id: 3,
       title: "Apakah ada program yang gratis di RuangObat?",
-      text: "Iya, RuangObat menyediakan beberapa program gratis dengan syarat tertentu, seperti upload bukti follow, share, dan komen di media sosial kita. Detailnya bisa cek di halaman program gratis.",
+      text: "Ya, RuangObat menyediakan beberapa program gratis dengan syarat tertentu, seperti upload bukti follow, share, dan komen di media sosial RuangObat. Detailnya bisa cek di halaman program gratis.",
       icon: <Gift weight="bold" size={24} className="text-black" />,
     },
     {
       id: 4,
       title: "Bagaimana cara mengikuti tryout di RuangObat?",
-      text: "Kamu bisa ikut tryout UKMPPAI di program khusus yang sudah disediakan. Cukup pilih program tryout, daftar, dan ikuti soal-soal tryout yang sesuai standar terbaru.",
+      text: "Kamu bisa ikut tryout UKMPPAI di program khusus yang sudah disediakan. Cukup pilih program tryout, ikuti instruksi, dan selamat kamu bisa mengerjakan soal-soal tryout yang sesuai dengan standar terbaru.",
       icon: <Target weight="bold" size={24} className="text-black" />,
     },
     {
@@ -189,14 +181,6 @@ const data = {
     },
     {
       id: 6,
-      title: "Apakah saya bisa mengakses program dari device lain?",
-      text: "RuangObat punya sistem login 1 device untuk keamanan. Kalau kamu login di device lain, maka sesi akan muncul notifikasi 'Session Anda Sedang Aktif'. Jadi, anda harus logout terlebih dahulu pada device sebelumnya.",
-      icon: (
-        <DeviceMobileSpeaker weight="bold" size={24} className="text-black" />
-      ),
-    },
-    {
-      id: 7,
       title: "Siapa yang bisa saya hubungi jika ada kendala?",
       text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support RuangObat via nomor WhatsApp.",
       icon: <Headset weight="bold" size={24} className="text-black" />,
@@ -227,11 +211,32 @@ export default function HomePage() {
               </p>
               <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
                 Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
-                <AvatarGroup size="lg" className="hidden lg:inline-flex">
-                  <Avatar src="/img/home-avatar-1.png" />
-                  <Avatar src="/img/home-avatar-2.png" />
-                  <Avatar src="/img/home-avatar-3.png" />
-                </AvatarGroup>
+                <div className="inline-flex -space-x-3">
+                  <Image
+                    src="/img/home-avatar1.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                  <Image
+                    src="/img/home-avatar2.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                  <Image
+                    src="/img/home-avatar3.webp"
+                    alt="avatar mentor img"
+                    width={100}
+                    height={100}
+                    className="size-10 rounded-full lg:size-14"
+                    priority
+                  />
+                </div>
               </h1>
               <p className="font-medium leading-[170%] text-gray">
                 RuangObat merupakan platform belajar farmasi private No.1 di
@@ -243,7 +248,9 @@ export default function HomePage() {
               <p className="font-medium leading-[170%] text-gray">
                 Di website RuangObat kalian akan dapat mengakses berbagai
                 program. Mari raih gelar sarjana dan apotekermu bersama
-                RuangObat #bimbelfarmasi #cukupdisiniaja.
+                RuangObat.
+                <br />
+                #bimbelfarmasi #cukupdisiniaja
               </p>
             </div>
 
@@ -251,7 +258,6 @@ export default function HomePage() {
               <Button
                 variant="solid"
                 color="secondary"
-                endContent={<ArrowRight weight="bold" size={16} />}
                 onClick={() => {
                   if (window.location.host == "localhost:3000") {
                     router.push("/dashboard");
@@ -285,7 +291,7 @@ export default function HomePage() {
 
           <Image
             priority
-            src="/img/landing-page-img.png"
+            src="/img/home-img.webp"
             alt="home img"
             width={396}
             height={512}
@@ -326,7 +332,7 @@ export default function HomePage() {
             </h1>
             <p className="mx-auto max-w-[500px] text-center font-medium leading-[170%] text-gray">
               Explore berbagai program unggulan yang dirancang khusus buat
-              mahasiswa farmasi. Pilih program sesuai kebutuhanmu!
+              mahasiswa farmasi. Pilih program sesuai kebutuhanmu.
             </p>
           </div>
 
@@ -359,7 +365,7 @@ export default function HomePage() {
             <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
               RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
               kamu mencapai target belajar. Dari praktisi, peneliti, sampai
-              Apoteker senior, semuanya ada di sini!
+              apoteker senior, semuanya ada di sini.
             </p>
           </div>
 
@@ -477,14 +483,13 @@ export default function HomePage() {
                 Gabung sekarang dan raih kesempatan belajar farmasi dengan
                 materi lengkap, mentor berpengalaman, dan akses penuh ke
                 berbagai program unggulan. Buka pintu kesuksesan karier farmasi
-                kamu di sini!
+                kamu di sini.
               </p>
             </div>
 
             <Button
               variant="solid"
               color="secondary"
-              endContent={<ArrowRight weight="bold" size={16} />}
               onClick={() => {
                 if (window.location.host == "localhost:3000") {
                   router.push("/dashboard");
@@ -509,11 +514,10 @@ export default function HomePage() {
             <div className="grid grid-cols-2 grid-rows-3 gap-4 sm:gap-x-16 sm:gap-y-6">
               {[
                 ["Beranda", "#"],
+                ["Kebijakan Privasi", "/company/privacy"],
+                ["Ketentuan Layanan", "/company/terms"],
                 ["Tentang Kami", "#"],
-                ["Kontak Kami", "#"],
-                ["Ketentuan Layanan", "#"],
-                ["Kebijakan Privasi", "#"],
-                ["Karir", "#"],
+                ["CBT", "https://cbt.ruangobat.id"],
               ].map(([text, link], index) => (
                 <Link
                   key={index}
@@ -535,7 +539,10 @@ export default function HomePage() {
                 <InstagramLogo weight="bold" size={28} className="text-white" />
               </Link>
 
-              <Link href="#" target="_blank">
+              <Link
+                href="https://api.whatsapp.com/send?phone=6289637015733"
+                target="_blank"
+              >
                 <WhatsappLogo weight="bold" size={28} className="text-white" />
               </Link>
 

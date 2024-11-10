@@ -34,7 +34,7 @@ export default function ModalForgotPassword() {
     try {
       const response: SuccessResponse<{ user_id: string; message: string }> =
         await fetcher({
-          url: "/general/email/send",
+          url: "/general/email/forgot",
           method: "POST",
           data: {
             email,

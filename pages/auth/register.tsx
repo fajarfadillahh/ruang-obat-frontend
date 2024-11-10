@@ -1,9 +1,18 @@
+import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
+import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
+import { SuccessResponse } from "@/types/global.type";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
-import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
-import { Button, Input, Select, SelectItem } from "@nextui-org/react";
+import {
+  Button,
+  Checkbox,
+  Input,
+  Select,
+  SelectItem,
+  useDisclosure,
+} from "@nextui-org/react";
 import {
   Buildings,
   EnvelopeSimple,
@@ -33,6 +42,17 @@ type InputType = {
 const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
 export default function RegisterPage() {
+  const {
+    isOpen: isTermsPrivacyOpen,
+    onOpen: onTermsPrivacyOpen,
+    onClose: onTermsPrivacyClose,
+  } = useDisclosure();
+  const {
+    isOpen: isCodeVerificationOpen,
+    onOpen: onCodeVerificationOpen,
+    onClose: onCodeVerificationClose,
+  } = useDisclosure();
+  const [isSelected, setIsSelected] = useState(false);
   const [input, setInput] = useState<InputType>({
     fullname: "",
     email: "",
@@ -45,16 +65,64 @@ export default function RegisterPage() {
 
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [code, setCode] = useState("");
   const router = useRouter();
 
-  async function handleRegister() {
+  async function handleCodeVerification() {
+    try {
+      const response: SuccessResponse<{ user_id: string; message: string }> =
+        await fetcher({
+          url: "/general/email/register",
+          method: "POST",
+          data: {
+            email: input.email,
+          },
+        });
+
+      toast.success("Berhasil mengirim OTP, cek pada inbox atau spam", {
+        duration: 3000,
+      });
+
+      setUserId(response.data.user_id);
+    } catch (error: any) {
+      console.log(error);
+      setUserId("");
+      toast.error(getError(error));
+    }
+  }
+
+  async function handleVerifyOtp() {
     setLoading(true);
 
+    try {
+      const response: SuccessResponse<{ token: string }> = await fetcher({
+        url: "/general/otp/verify",
+        method: "POST",
+        data: {
+          user_id: userId,
+          otp_code: code,
+        },
+      });
+
+      handleRegister(response.data.token);
+      setUserId("");
+    } catch (error: any) {
+      console.log(error);
+      setLoading(false);
+      toast.error(getError(error));
+    }
+  }
+
+  async function handleRegister(token: string) {
     try {
       await fetcher({
         url: "/auth/register/users",
         method: "POST",
-        data: input,
+        data: {
+          ...input,
+          token,
+        },
       });
 
       const response = await signIn("credentials", {
@@ -81,20 +149,16 @@ export default function RegisterPage() {
           university: "",
           password: "",
         });
+        onCodeVerificationClose();
+        setCode("");
 
         toast.success("Registrasi berhasil");
-
-        const now = new Date();
-        const soon = new Date(1732985999000);
-
-        if (now < soon) {
-          return router.push("/comingsoon?from=register");
-        }
-
-        return router.push("/dashboard");
+        return router.push("/welcome?from=register");
       }
     } catch (error: any) {
       setLoading(false);
+      onCodeVerificationClose();
+      setCode("");
       console.log(error);
 
       if (error.status_code >= 500) {
@@ -112,7 +176,9 @@ export default function RegisterPage() {
   }
 
   function isFormEmpty() {
-    return Object.values(input).every((value) => value.trim() !== "");
+    return (
+      Object.values(input).every((value) => value.trim() !== "") && isSelected
+    );
   }
 
   useEffect(() => {
@@ -187,10 +253,12 @@ export default function RegisterPage() {
 
           <div className="grid gap-8">
             <div className="text-center xl:text-left">
-              <h1 className="text-[32px] font-bold -tracking-wide text-black">
-                Ayo kita mulai 🚀
+              <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
+                Daftarkan akunmu 🚀
               </h1>
-              <p className="font-medium text-gray">Buat akunmu sekarang</p>
+              <p className="font-medium text-gray">
+                Ayo, bergabung dengan kita disini.
+              </p>
             </div>
 
             <div className="grid gap-2">
@@ -202,12 +270,38 @@ export default function RegisterPage() {
                 labelPlacement="outside"
                 placeholder="Nama Lengkap"
                 name="fullname"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: capitalize(e.target.value),
-                  })
-                }
+                onChange={(e) => {
+                  if (!e.target.value) {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    setErrors({
+                      ...errors,
+                      fullname: null,
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    const regexOnlyWordAndSpacing = /^[A-Za-z\s]+$/;
+
+                    if (regexOnlyWordAndSpacing.test(e.target.value)) {
+                      setErrors({
+                        ...errors,
+                        fullname: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        fullname: "Harus tanpa angka dan simbol",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <User weight="bold" size={18} className="text-gray" />
                 }
@@ -215,6 +309,12 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.fullname ? true : false) : undefined
+                }
+                errorMessage={
+                  errors ? (errors.fullname ? errors.fullname : null) : null
+                }
               />
 
               <Input
@@ -365,14 +465,44 @@ export default function RegisterPage() {
                 type="text"
                 variant="flat"
                 labelPlacement="outside"
-                placeholder="Asal Kampus (nama lengkap)"
+                placeholder="Asal Kampus"
                 name="university"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: capitalize(e.target.value),
-                  })
-                }
+                onChange={(e) => {
+                  if (!e.target.value) {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    setErrors({
+                      ...errors,
+                      university: null,
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    const regexOnlyWordAndSpacing = /^[A-Za-z0-9\s]+$/;
+                    const regexMin2Word = /\b\w+\b.*\b\w+\b/;
+
+                    if (
+                      regexOnlyWordAndSpacing.test(e.target.value) &&
+                      regexMin2Word.test(e.target.value)
+                    ) {
+                      setErrors({
+                        ...errors,
+                        university: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        university: "Minimal 2 kata dan tanpa simbol",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <Buildings weight="bold" size={18} className="text-gray" />
                 }
@@ -380,6 +510,12 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.university ? true : false) : undefined
+                }
+                errorMessage={
+                  errors ? (errors.university ? errors.university : null) : null
+                }
               />
 
               <Input
@@ -408,7 +544,6 @@ export default function RegisterPage() {
                     });
                   }
                 }}
-                onKeyDown={(e) => handleKeyDown(e, handleRegister)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
                 }
@@ -423,46 +558,73 @@ export default function RegisterPage() {
                   errors ? (errors.password ? errors.password : null) : null
                 }
               />
+
+              <div className="mt-1 flex items-start gap-1">
+                <Checkbox
+                  size="md"
+                  color="secondary"
+                  isSelected={isSelected}
+                  onValueChange={setIsSelected}
+                />
+
+                <p className="max-w-[300px] text-[12px] font-medium text-gray">
+                  Ya, saya menyetujui{" "}
+                  <span
+                    onClick={onTermsPrivacyOpen}
+                    className="font-bold text-black underline hover:cursor-pointer hover:text-purple"
+                  >
+                    Ketentuan Layanan dan Kebijakan Privasi
+                  </span>{" "}
+                  Ruangobat
+                </p>
+              </div>
+
+              <ModalCodeVerification
+                {...{
+                  isOpen: isCodeVerificationOpen,
+                  email: input.email,
+                  handleCodeVerification,
+                  handleVerifyOtp,
+                  loading,
+                  onClose: onCodeVerificationClose,
+                  code,
+                  setCode,
+                }}
+              />
+
+              <ModalTermsPrivacy
+                isOpen={isTermsPrivacyOpen}
+                onClose={onTermsPrivacyClose}
+              />
             </div>
 
             <div className="grid gap-4">
               <Button
-                isLoading={loading}
-                isDisabled={!isFormEmpty() || loading}
+                isDisabled={!isFormEmpty()}
                 variant="solid"
                 color="secondary"
-                onClick={handleRegister}
+                onClick={() => {
+                  handleCodeVerification();
+                  onCodeVerificationOpen();
+                }}
                 className="font-bold"
               >
-                {loading ? "Tunggu Sebentar..." : "Daftar Sekarang"}
+                Daftar Sekarang
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">
                 Sudah punya akun?{" "}
-                <Link href="/auth/login" className="font-extrabold text-purple">
-                  Masuk disini
+                <Link
+                  href="/auth/login"
+                  className="font-extrabold text-purple hover:underline"
+                >
+                  Masuk di sini
                 </Link>
               </p>
             </div>
           </div>
 
-          <p className="mx-auto max-w-[360px] text-center text-[12px] font-medium text-gray">
-            Dengan melanjutkan, anda menyetujui{" "}
-            <Link
-              href="/company/terms"
-              className="font-bold text-black underline"
-            >
-              Ketentuan Layanan
-            </Link>{" "}
-            dan{" "}
-            <Link
-              href="/company/privacy"
-              className="font-bold text-black underline"
-            >
-              Kebijakan Privasi
-            </Link>{" "}
-            Ruangobat
-          </p>
+          <div></div>
         </div>
       </main>
     </>

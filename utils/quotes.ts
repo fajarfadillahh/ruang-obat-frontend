@@ -34,4 +34,14 @@ export const quotes = [
     figure: "KH. Agus Salim",
     image: "/img/kh-agus-salim.jpg",
   },
+  {
+    quote: "Hanya dengan pendidikan kita bisa tumbuh menjadi suatu bangsa.",
+    figure: "Dewi Sartika",
+    image: "/img/dewi-sartika.jpg",
+  },
+  {
+    quote: "Habis gelap, terbitlah terang.",
+    figure: "R.A Kartini",
+    image: "/img/ra-kartini.jpg",
+  },
 ];

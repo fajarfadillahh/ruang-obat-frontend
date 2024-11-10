@@ -10,7 +10,6 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import { ArrowRight } from "@phosphor-icons/react";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { KeyedMutator } from "swr";
@@ -146,13 +145,12 @@ export default function ModalInputAccessKey({
 
                 <Button
                   color="secondary"
-                  endContent={<ArrowRight weight="bold" size={18} />}
                   className="font-bold"
                   onClick={handleFollowPaid}
                   isDisabled={loading || !code}
                   isLoading={loading}
                 >
-                  Ikuti Sekarang
+                  Submit
                 </Button>
               </ModalFooter>
             </>
