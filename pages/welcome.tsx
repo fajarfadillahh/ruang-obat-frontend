@@ -8,7 +8,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 
-export default function ComingSoonPage({
+export default function WelcomePage({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
@@ -36,7 +36,10 @@ export default function ComingSoonPage({
 
             <div className="grid gap-3">
               <h1 className="text-[30px] font-black capitalize leading-[120%] -tracking-wide text-black lg:text-[42px]">
-                Selamat datang di website RuangObat,{" "}
+                {query.from == "register"
+                  ? "Selamat datang di website RuangObat"
+                  : "Welcome Back"}
+                ,{" "}
                 <span className="text-purple">
                   {session.status == "authenticated"
                     ? session.data?.user.fullname
