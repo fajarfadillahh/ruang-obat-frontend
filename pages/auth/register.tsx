@@ -1,5 +1,6 @@
 import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
+import { SuccessResponse } from "@/types/global.type";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
@@ -65,7 +66,52 @@ export default function RegisterPage() {
 
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [code, setCode] = useState("");
   const router = useRouter();
+
+  async function handleCodeVerification() {
+    try {
+      const response: SuccessResponse<{ user_id: string; message: string }> =
+        await fetcher({
+          url: "/general/email/register",
+          method: "POST",
+          data: {
+            email: input.email,
+          },
+        });
+
+      toast.success("Berhasil mengirim OTP, cek pada inbox atau spam", {
+        duration: 3000,
+      });
+
+      setUserId(response.data.user_id);
+    } catch (error: any) {
+      console.log(error);
+      setUserId("");
+      toast.error(getError(error));
+    }
+  }
+
+  async function handleVerifyOtp() {
+    try {
+      await fetcher({
+        url: "/general/otp/verify",
+        method: "POST",
+        data: {
+          user_id: userId,
+          otp_code: code,
+        },
+      });
+
+      handleRegister();
+      setUserId("");
+    } catch (error: any) {
+      console.log(error);
+
+      toast.error(getError(error));
+    }
+  }
 
   async function handleRegister() {
     setLoading(true);
@@ -101,20 +147,16 @@ export default function RegisterPage() {
           university: "",
           password: "",
         });
+        onCodeVerificationClose();
+        setCode("");
 
         toast.success("Registrasi berhasil");
-
-        const now = new Date();
-        const soon = new Date(1732985999000);
-
-        if (now < soon) {
-          return router.push("/comingsoon?from=register");
-        }
-
-        return router.push("/dashboard");
+        return router.push("/welcome?from=register");
       }
     } catch (error: any) {
       setLoading(false);
+      onCodeVerificationClose();
+      setCode("");
       console.log(error);
 
       if (error.status_code >= 500) {
@@ -226,12 +268,38 @@ export default function RegisterPage() {
                 labelPlacement="outside"
                 placeholder="Nama Lengkap"
                 name="fullname"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: capitalize(e.target.value),
-                  })
-                }
+                onChange={(e) => {
+                  if (!e.target.value) {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    setErrors({
+                      ...errors,
+                      fullname: null,
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    const regexOnlyWordAndSpacing = /^[A-Za-z\s]+$/;
+
+                    if (regexOnlyWordAndSpacing.test(e.target.value)) {
+                      setErrors({
+                        ...errors,
+                        fullname: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        fullname: "Harus tanpa angka dan simbol",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <User weight="bold" size={18} className="text-gray" />
                 }
@@ -239,6 +307,12 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.fullname ? true : false) : undefined
+                }
+                errorMessage={
+                  errors ? (errors.fullname ? errors.fullname : null) : null
+                }
               />
 
               <Input
@@ -389,14 +463,44 @@ export default function RegisterPage() {
                 type="text"
                 variant="flat"
                 labelPlacement="outside"
-                placeholder="Asal Kampus (nama lengkap)"
+                placeholder="Asal Kampus"
                 name="university"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: capitalize(e.target.value),
-                  })
-                }
+                onChange={(e) => {
+                  if (!e.target.value) {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    setErrors({
+                      ...errors,
+                      university: null,
+                    });
+                  } else {
+                    setInput({
+                      ...input,
+                      [e.target.name]: capitalize(e.target.value),
+                    });
+
+                    const regexOnlyWordAndSpacing = /^[A-Za-z0-9\s]+$/;
+                    const regexMin2Word = /\b\w+\b.*\b\w+\b/;
+
+                    if (
+                      regexOnlyWordAndSpacing.test(e.target.value) &&
+                      regexMin2Word.test(e.target.value)
+                    ) {
+                      setErrors({
+                        ...errors,
+                        university: null,
+                      });
+                    } else {
+                      setErrors({
+                        ...errors,
+                        university: "Minimal 2 kata dan tanpa simbol",
+                      });
+                    }
+                  }
+                }}
                 startContent={
                   <Buildings weight="bold" size={18} className="text-gray" />
                 }
@@ -404,6 +508,12 @@ export default function RegisterPage() {
                   input:
                     "font-semibold placeholder:font-semibold placeholder:text-gray",
                 }}
+                isInvalid={
+                  errors ? (errors.university ? true : false) : undefined
+                }
+                errorMessage={
+                  errors ? (errors.university ? errors.university : null) : null
+                }
               />
 
               <Input
@@ -470,8 +580,16 @@ export default function RegisterPage() {
               </div>
 
               <ModalCodeVerification
-                isOpen={isCodeVerificationOpen}
-                onClose={onCodeVerificationClose}
+                {...{
+                  isOpen: isCodeVerificationOpen,
+                  email: input.email,
+                  handleCodeVerification,
+                  handleVerifyOtp,
+                  loading,
+                  onClose: onCodeVerificationClose,
+                  code,
+                  setCode,
+                }}
               />
 
               <ModalTermsPrivacy
@@ -482,14 +600,16 @@ export default function RegisterPage() {
 
             <div className="grid gap-4">
               <Button
-                isLoading={loading}
-                isDisabled={!isFormEmpty() || loading}
+                isDisabled={!isFormEmpty()}
                 variant="solid"
                 color="secondary"
-                onClick={handleRegister}
+                onClick={() => {
+                  handleCodeVerification();
+                  onCodeVerificationOpen();
+                }}
                 className="font-bold"
               >
-                {loading ? "Tunggu Sebentar..." : "Daftar Sekarang"}
+                Daftar Sekarang
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">
@@ -498,7 +618,7 @@ export default function RegisterPage() {
                   href="/auth/login"
                   className="font-extrabold text-purple hover:underline"
                 >
-                  Masuk disini
+                  Masuk di sini
                 </Link>
               </p>
             </div>

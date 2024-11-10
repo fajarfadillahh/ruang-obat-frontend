@@ -7,25 +7,37 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 
 type ModalCodeVerificationProps = {
   isOpen: boolean;
+  email: string;
+  handleCodeVerification: () => Promise<void>;
+  handleVerifyOtp: () => Promise<void>;
+  loading: boolean;
   onClose: () => void;
+  code: string;
+  setCode: Dispatch<SetStateAction<string>>;
 };
 
 export default function ModalCodeVerification({
   isOpen,
+  email,
+  handleCodeVerification,
+  handleVerifyOtp,
+  loading,
   onClose,
+  code,
+  setCode,
 }: ModalCodeVerificationProps) {
-  const [code, setCode] = useState("");
-
   return (
     <Modal
-      hideCloseButton
       isDismissable={false}
       isOpen={isOpen}
-      // onClose={onClose}
+      onClose={() => {
+        onClose();
+        setCode("");
+      }}
       size="lg"
       placement="center"
     >
@@ -41,9 +53,7 @@ export default function ModalCodeVerification({
                 </h1>
                 <p className="text-sm font-medium leading-[170%] text-gray">
                   Kami telah mengirim kode verifikasi ke{" "}
-                  <span className="font-bold text-purple">
-                    testing@gmail.com
-                  </span>
+                  <span className="font-bold text-purple">{email}</span>
                 </p>
               </div>
 
@@ -64,18 +74,23 @@ export default function ModalCodeVerification({
                 />
 
                 <Button
-                  isDisabled={!code}
+                  isLoading={loading}
+                  isDisabled={!code || loading || code.length > 6}
                   variant="solid"
                   color="secondary"
                   className="font-bold"
+                  onClick={handleVerifyOtp}
                 >
-                  Verifikasi Sekarang
+                  Submit
                 </Button>
               </div>
 
               <p className="border-t-2 border-dashed border-gray/20 pt-8 text-center text-sm font-medium leading-[170%] text-gray">
                 Tidak menerima kode?{" "}
-                <span className="font-bold text-purple hover:cursor-pointer hover:underline">
+                <span
+                  className="font-bold text-purple hover:cursor-pointer hover:underline"
+                  onClick={handleCodeVerification}
+                >
                   Kirim ulang
                 </span>
               </p>
