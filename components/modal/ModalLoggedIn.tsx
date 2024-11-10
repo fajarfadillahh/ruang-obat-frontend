@@ -58,7 +58,7 @@ export default function ModalLoggedIn({
               onPress={onClose}
               className="font-bold"
             >
-              Logout Sekarang
+              Logout
             </Button>
           </ModalFooter>
         </>

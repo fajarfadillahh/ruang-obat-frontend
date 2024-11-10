@@ -152,7 +152,7 @@ export default function ModalInputAccessKey({
                   isDisabled={loading || !code}
                   isLoading={loading}
                 >
-                  Ikuti Sekarang
+                  Submit
                 </Button>
               </ModalFooter>
             </>

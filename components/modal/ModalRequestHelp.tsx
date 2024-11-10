@@ -98,7 +98,7 @@ export default function ModalRequestHelp({
                   onClose();
                 }}
               >
-                Kirim Sekarang
+                Submit
               </Button>
             </ModalFooter>
           </>

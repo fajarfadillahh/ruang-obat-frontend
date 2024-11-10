@@ -140,7 +140,7 @@ export default function ModalSendFeedback({
                 isDisabled={!rating || !feedback}
                 isLoading={loading}
               >
-                Kirim Sekarang
+                Submit
               </Button>
             </ModalFooter>
           </>

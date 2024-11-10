@@ -258,7 +258,7 @@ export default function ModalFreeAccess({
                   }
                   isLoading={loading}
                 >
-                  Ikuti Sekarang
+                  Submit
                 </Button>
               </ModalFooter>
             </>
