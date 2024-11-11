@@ -10,10 +10,8 @@ export default function VideoComponent({ url }: VideoComponentProps) {
     <iframe
       allowFullScreen
       src={embedURL}
-      width={350}
-      height={270}
       title="Video Player"
-      className="border-0"
+      className="h-[300px] w-full max-w-[380px] border-0"
     />
   );
 }
