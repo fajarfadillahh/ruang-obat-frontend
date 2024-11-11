@@ -24,10 +24,10 @@ export default function CardTest(test: CardTest) {
       buttonText = lockIcon;
     } else if (test.status === "Berlangsung") {
       isDisabled = false;
-      buttonText = test.has_result ? "Lihat Hasil" : "Lihat Ujian";
+      buttonText = test.has_result ? "Jawaban Saya" : "Lihat Ujian";
     } else if (test.status === "Berakhir") {
       isDisabled = !test.has_result;
-      buttonText = test.has_result ? "Lihat Hasil" : "Tidak Mengerjakan";
+      buttonText = test.has_result ? "Jawaban Saya" : "Tidak Mengerjakan";
     }
 
     return { isDisabled, buttonText };
@@ -35,11 +35,7 @@ export default function CardTest(test: CardTest) {
 
   return (
     <div
-      className={`group grid gap-6 rounded-xl border-2 bg-transparent p-6 md:grid-cols-[1fr_max-content] md:items-center ${
-        test.is_active
-          ? "border-purple/10 hover:border-purple hover:bg-purple/10"
-          : "border-danger bg-danger/5 hover:bg-danger/10"
-      }`}
+      className={`hover:bg-purple/10" group grid gap-6 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:border-purple md:grid-cols-[1fr_max-content] md:items-center`}
     >
       <div className="flex flex-1 items-start gap-3">
         {test.is_active ? (
@@ -92,32 +88,49 @@ export default function CardTest(test: CardTest) {
                 Status Ujian:
               </span>
 
-              <Chip
-                variant="flat"
-                color={
-                  test.status === "Belum dimulai"
-                    ? "danger"
-                    : test.status === "Berlangsung"
-                      ? "warning"
-                      : "success"
-                }
-                size="sm"
-                startContent={
-                  test.status === "Belum dimulai" ? (
-                    <ClockCountdown weight="bold" size={16} />
-                  ) : test.status === "Berlangsung" ? (
-                    <HourglassLow weight="fill" size={16} />
-                  ) : (
-                    <CheckCircle weight="fill" size={16} />
-                  )
-                }
-                classNames={{
-                  base: "px-2 gap-1",
-                  content: "font-semibold capitalize",
-                }}
-              >
-                {test.status}
-              </Chip>
+              <div className="flex flex-wrap items-center gap-2">
+                <Chip
+                  variant="flat"
+                  color={
+                    test.status === "Belum dimulai"
+                      ? "danger"
+                      : test.status === "Berlangsung"
+                        ? "warning"
+                        : "success"
+                  }
+                  size="sm"
+                  startContent={
+                    test.status === "Belum dimulai" ? (
+                      <ClockCountdown weight="bold" size={16} />
+                    ) : test.status === "Berlangsung" ? (
+                      <HourglassLow weight="fill" size={16} />
+                    ) : (
+                      <CheckCircle weight="fill" size={16} />
+                    )
+                  }
+                  classNames={{
+                    base: "px-2 gap-1",
+                    content: "font-semibold capitalize",
+                  }}
+                >
+                  {test.status}
+                </Chip>
+
+                {test.has_result ? (
+                  <Chip
+                    variant="flat"
+                    color="success"
+                    size="sm"
+                    startContent={<CheckCircle weight="fill" size={16} />}
+                    classNames={{
+                      base: "px-2 gap-1",
+                      content: "font-semibold capitalize",
+                    }}
+                  >
+                    Sudah Mengerjakan
+                  </Chip>
+                ) : null}
+              </div>
             </div>
           </div>
         </div>
@@ -128,7 +141,11 @@ export default function CardTest(test: CardTest) {
         size="sm"
         color={!test.is_active ? "danger" : "secondary"}
         onClick={() =>
-          router.push(!test.has_result ? `/tests/${test.test_id}` : `/my/tests`)
+          router.push(
+            !test.has_result
+              ? `/tests/${test.test_id}`
+              : `/results/${test.result_id}`,
+          )
         }
         className="w-full font-bold md:w-max md:px-6"
         isDisabled={getButtonProps(test).isDisabled}
@@ -147,6 +164,7 @@ type CardTest = {
   duration: number;
   is_active: boolean;
   has_result: boolean;
+  result_id: string;
   status: string;
   is_approved: boolean | null;
 };

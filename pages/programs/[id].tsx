@@ -259,6 +259,7 @@ type ProgramResponse = ProgramsType & {
     duration: number;
     is_active: boolean;
     has_result: boolean;
+    result_id: string;
     status: string;
   }[];
 };
