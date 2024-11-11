@@ -1,5 +1,6 @@
 import Loading from "@/components/Loading";
 import ModalConfirm from "@/components/modal/ModalConfirm";
+import VideoComponent from "@/components/VideoComponent";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
@@ -28,7 +29,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import toast from "react-hot-toast";
 import useSWR from "swr";
@@ -96,6 +97,7 @@ export default function StartTest({
         user_answer: "",
         options: [{ option_id: "", text: "" }],
         is_hesitant: false,
+        type: "",
       };
 
   async function handleSaveTest() {
@@ -271,10 +273,18 @@ export default function StartTest({
               </div>
 
               <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
-                <p
-                  className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
-                  dangerouslySetInnerHTML={{ __html: question?.text as string }}
-                />
+                {question?.type == "video" ? (
+                  <Suspense fallback={<p>Loading video...</p>}>
+                    <VideoComponent url={question.text} />
+                  </Suspense>
+                ) : (
+                  <p
+                    className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
+                    dangerouslySetInnerHTML={{
+                      __html: question?.text as string,
+                    }}
+                  />
+                )}
 
                 <RadioGroup
                   value={question?.user_answer}
