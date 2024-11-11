@@ -1,4 +1,5 @@
 import Loading from "@/components/Loading";
+import VideoComponent from "@/components/VideoComponent";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { ResultType } from "@/types/results.type";
@@ -19,7 +20,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
+import { Suspense, useState } from "react";
 import useSWR from "swr";
 
 export default function ResultTest({
@@ -171,10 +172,16 @@ export default function ResultTest({
             </div>
 
             <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
-              <p
-                className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
-                dangerouslySetInnerHTML={{ __html: question?.text as string }}
-              />
+              {question?.type == "video" ? (
+                <Suspense fallback={<p>Loading video...</p>}>
+                  <VideoComponent url={question.text} />
+                </Suspense>
+              ) : (
+                <p
+                  className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
+                  dangerouslySetInnerHTML={{ __html: question?.text as string }}
+                />
+              )}
 
               <RadioGroup
                 aria-label="select the answer"
@@ -208,8 +215,8 @@ export default function ResultTest({
                               ? "text-success"
                               : question.user_answer == option.option_id
                                 ? "text-danger"
-                                : "text-default"
-                        } font-extrabold`,
+                                : "text-gray/80"
+                        } font-semibold`,
                       }}
                     >
                       {option.text}
