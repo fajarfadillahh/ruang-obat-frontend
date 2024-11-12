@@ -1,21 +1,41 @@
 import Loading from "@/components/Loading";
+import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate } from "@/utils/formatDate";
 import { getError } from "@/utils/getError";
-import { Button, Input, Select, SelectItem, Snippet } from "@nextui-org/react";
-import { Check, Copy, FloppyDisk } from "@phosphor-icons/react";
+import {
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Snippet,
+  Tooltip,
+  useDisclosure,
+} from "@nextui-org/react";
+import {
+  Check,
+  CheckCircle,
+  Copy,
+  FloppyDisk,
+  XCircle,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
 export default function MyProfilePage({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const {
+    isOpen: isCodeVerificationOpen,
+    onOpen: onCodeVerificationOpen,
+    onClose: onCodeVerificationClose,
+  } = useDisclosure();
   const { data, isLoading, mutate } = useSWR<SuccessResponse<UserDataResponse>>(
     {
       url: "/my/profile",
@@ -106,6 +126,46 @@ export default function MyProfilePage({
   return (
     <Layout title="Profil Saya">
       <section className="grid gap-8 pb-16">
+        {!data?.data.is_verified ? (
+          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-warning bg-warning/10 [padding:1rem_2rem]">
+            <p className="text-sm font-medium text-black">
+              <strong className="font-extrabold">
+                Email belum diverifikasi!
+              </strong>{" "}
+              Silakan verifikasi email anda sekarang!
+            </p>
+
+            <Button
+              variant="solid"
+              color="warning"
+              size="sm"
+              onClick={onCodeVerificationOpen}
+              className="font-bold"
+            >
+              Verifikasi Sekarang
+            </Button>
+
+            <ModalCodeVerification
+              email={""}
+              handleCodeVerification={function (): Promise<void> {
+                throw new Error("Function not implemented.");
+              }}
+              handleVerifyOtp={function (): Promise<void> {
+                throw new Error("Function not implemented.");
+              }}
+              loading={false}
+              code={""}
+              setCode={function (value: SetStateAction<string>): void {
+                throw new Error("Function not implemented.");
+              }}
+              {...{
+                isOpen: isCodeVerificationOpen,
+                onClose: onCodeVerificationClose,
+              }}
+            />
+          </div>
+        ) : null}
+
         <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
           Profil Saya 🧑
         </h1>
@@ -170,6 +230,53 @@ export default function MyProfilePage({
             </div>
 
             <div className="grid max-w-[800px] gap-y-6 sm:grid-cols-2 sm:gap-x-2">
+              <Input
+                readOnly
+                type="email"
+                variant="flat"
+                label="Alamat Email"
+                labelPlacement="outside"
+                placeholder="Alamat Email"
+                endContent={
+                  !data?.data.is_verified ? (
+                    <Tooltip
+                      content="Email Belum Diverifikasi"
+                      classNames={{
+                        content: "max-w-[350px] font-semibold text-black",
+                      }}
+                    >
+                      <XCircle
+                        weight="bold"
+                        size={20}
+                        className="text-danger"
+                      />
+                    </Tooltip>
+                  ) : (
+                    <Tooltip
+                      content="Email Terverifikasi"
+                      classNames={{
+                        content: "max-w-[350px] font-semibold text-black",
+                      }}
+                    >
+                      <CheckCircle
+                        weight="bold"
+                        size={20}
+                        className="text-success"
+                      />
+                    </Tooltip>
+                  )
+                }
+                value={userData?.email}
+                onChange={(e) =>
+                  handleChange("fullname", capitalize(e.target.value))
+                }
+                className="sm:col-span-2 sm:max-w-[396px]"
+                classNames={{
+                  input:
+                    "font-semibold placeholder:font-semibold placeholder:text-gray",
+                }}
+              />
+
               <Input
                 type="text"
                 variant="flat"
@@ -277,6 +384,7 @@ export type UserDataResponse = {
   gender: "M" | "F";
   university: string;
   created_at: string;
+  is_verified: boolean;
 };
 
 export const getServerSideProps: GetServerSideProps<{
