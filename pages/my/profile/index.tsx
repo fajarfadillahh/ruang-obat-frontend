@@ -1,5 +1,4 @@
 import Loading from "@/components/Loading";
-import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { capitalize } from "@/utils/capitalize";
@@ -24,7 +23,7 @@ import {
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
@@ -126,7 +125,7 @@ export default function MyProfilePage({
   return (
     <Layout title="Profil Saya">
       <section className="grid gap-8 pb-16">
-        {!data?.data.is_verified ? (
+        {/* {!data?.data.is_verified ? (
           <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-warning bg-warning/10 [padding:1rem_2rem]">
             <p className="text-sm font-medium text-black">
               <strong className="font-extrabold">
@@ -139,32 +138,13 @@ export default function MyProfilePage({
               variant="solid"
               color="warning"
               size="sm"
-              onClick={onCodeVerificationOpen}
+              onClick={() => alert("Fitur masih dalam tahap development")}
               className="font-bold"
             >
               Verifikasi Sekarang
             </Button>
-
-            <ModalCodeVerification
-              email={""}
-              handleCodeVerification={function (): Promise<void> {
-                throw new Error("Function not implemented.");
-              }}
-              handleVerifyOtp={function (): Promise<void> {
-                throw new Error("Function not implemented.");
-              }}
-              loading={false}
-              code={""}
-              setCode={function (value: SetStateAction<string>): void {
-                throw new Error("Function not implemented.");
-              }}
-              {...{
-                isOpen: isCodeVerificationOpen,
-                onClose: onCodeVerificationClose,
-              }}
-            />
           </div>
-        ) : null}
+        ) : null} */}
 
         <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
           Profil Saya 🧑
