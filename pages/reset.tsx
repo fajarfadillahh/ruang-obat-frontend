@@ -1,6 +1,7 @@
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import { Button, Input } from "@nextui-org/react";
 import { Lock } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -50,8 +51,8 @@ export default function ResetPasswordPage({
         <title>Reset Kata Sandi? | Ruangobat.id</title>
       </Head>
 
-      <main className="mx-auto flex min-h-screen w-full max-w-[1200px] items-center justify-center p-8">
-        <div className="grid w-[450px] gap-8">
+      <main className="flex h-screen w-full items-center justify-center bg-gray/5 px-6">
+        <div className="grid w-full max-w-[450px] justify-items-center gap-8 rounded-xl bg-white p-8 [box-shadow:4px_2px_16px_rgba(82,82,82,0.1)]">
           <div className="mb-4 inline-flex w-max items-center gap-2 justify-self-center">
             <LogoRuangobat className="h-auto w-8 text-gray/20" />
             <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
@@ -59,16 +60,16 @@ export default function ResetPasswordPage({
             </h1>
           </div>
 
-          <div className="grid text-center">
-            <h1 className="text-[30px] font-black capitalize leading-[120%] -tracking-wide text-black md:text-[38px]">
+          <div className="grid gap-1 text-center">
+            <h1 className="text-[28px] font-extrabold leading-[120%] text-black">
               Kata sandi baru
             </h1>
-            <p className="font-medium leading-[170%] text-gray">
-              Pastikan kata sandi baru kuat dan mudah diingat
+            <p className="text-sm font-medium leading-[170%] text-gray">
+              Pastikan kata sandi baru kuat dan mudah di ingat
             </p>
           </div>
 
-          <div className="grid gap-2">
+          <div className="grid w-full gap-2">
             <Input
               type={inputType}
               variant="flat"
@@ -78,6 +79,7 @@ export default function ResetPasswordPage({
               onChange={(e) => setPassword(e.target.value)}
               onFocus={() => setInputType("text")}
               onBlur={() => setInputType("password")}
+              onKeyDown={(e) => handleKeyDown(e, handleChangePassword)}
               startContent={
                 <Lock weight="bold" size={18} className="text-gray" />
               }
@@ -89,6 +91,7 @@ export default function ResetPasswordPage({
             />
 
             <Button
+              isLoading={loading}
               isDisabled={!Boolean(password) || loading}
               variant="solid"
               color="secondary"

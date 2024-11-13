@@ -1,6 +1,7 @@
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
+import { handleKeyDown } from "@/utils/handleKeyDown";
 import {
   Button,
   Input,
@@ -207,6 +208,7 @@ export default function ModalForgotPassword() {
                       }
                       name="otp"
                       onChange={(e) => setOtpCode(e.target.value)}
+                      onKeyDown={(e) => handleKeyDown(e, handleForgetPassword)}
                       classNames={{
                         input:
                           "font-semibold placeholder:font-semibold placeholder:text-gray",
