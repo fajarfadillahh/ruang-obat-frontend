@@ -29,6 +29,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
+import toast from "react-hot-toast";
 import useSWR from "swr";
 
 export default function DetailsProgram({
@@ -194,7 +195,14 @@ export default function DetailsProgram({
                             href={"#"}
                             onClick={(e) => {
                               e.preventDefault();
-                              window.open(`${data.data.url_qr_code}`, "_blank");
+                              if (data.data.url_qr_code) {
+                                window.open(
+                                  `${data.data.url_qr_code}`,
+                                  "_blank",
+                                );
+                              } else {
+                                toast.error("Maaf, Link Grup Tidak Tersedia!");
+                              }
                             }}
                             className="w-max text-sm font-semibold leading-[170%] text-purple underline"
                           >
@@ -202,14 +210,22 @@ export default function DetailsProgram({
                           </Link>
                         </p>
 
-                        <Image
-                          priority
-                          src={data.data.qr_code}
-                          alt="qrcode image"
-                          width={1000}
-                          height={1000}
-                          className="aspect-square size-64 justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
-                        />
+                        {data.data.qr_code ? (
+                          <Image
+                            priority
+                            src={data.data.qr_code}
+                            alt="qrcode image"
+                            width={1000}
+                            height={1000}
+                            className="aspect-square size-64 justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
+                          />
+                        ) : (
+                          <div className="flex aspect-square size-64 items-center justify-center justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1">
+                            <span className="text-sm font-semibold italic leading-[170%] text-gray">
+                              Gambar Tidak Tersedia!
+                            </span>
+                          </div>
+                        )}
                       </div>
                     </ModalBody>
 
@@ -243,6 +259,7 @@ type ProgramResponse = ProgramsType & {
     duration: number;
     is_active: boolean;
     has_result: boolean;
+    result_id: string;
     status: string;
   }[];
 };
