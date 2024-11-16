@@ -40,11 +40,17 @@ export default function DetailsTest({
   const router = useRouter();
   const [isSelected, setIsSelected] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>({
-    url: `/tests/${params.id}`,
-    method: "GET",
-    token,
-  });
+  const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
+    {
+      url: `/tests/${params.id}`,
+      method: "GET",
+      token,
+    },
+    {
+      refreshInterval: 4000,
+      revalidateOnFocus: true,
+    },
+  );
 
   const now = new Date();
   const expired = new Date(`${data?.data.end_time as string}`);
@@ -68,7 +74,7 @@ export default function DetailsTest({
         }
       }
 
-      await fetcher({
+      const response: SuccessResponse<{ result_id: string }> = await fetcher({
         url: "/tests/finish",
         method: "POST",
         data: {
@@ -82,7 +88,7 @@ export default function DetailsTest({
         duration: 3000,
       });
       localStorage.removeItem(params.id as string);
-      window.location.href = "/my/tests";
+      window.location.href = `/results/${response.data.result_id}`;
       setLoading(false);
     } catch (error) {
       setLoading(false);
@@ -213,21 +219,21 @@ export default function DetailsTest({
                           .
                         </li>
                         <li>
-                          Apabila Anda berpindah device saat sedang mengerjakan
-                          ujian, jawaban sebelumnya tidak akan terbawa karena
-                          tersimpan di device sebelumnya.
-                        </li>
-                        <li>
-                          Anda perlu meluangkan waktu sesuai durasi pengerjaan
+                          Anda harus meluangkan waktu sesuai durasi pengerjaan
                           yang tertera.
                         </li>
                         <li>
-                          Pastikan koneksi internet stabil agar ujian berjalan
-                          lancar dan menghindari gangguan teknis.
+                          Anda harus memastikan koneksi internet stabil agar
+                          ujian berjalan lancar dan menghindari gangguan teknis.
                         </li>
                         <li>
-                          Jika waktu ujian habis, ujian akan otomatis selesai,
-                          dan jawaban yang sudah tersimpan akan dikumpulkan.
+                          Jika anda berpindah device saat sedang mengerjakan
+                          ujian, jawaban pada device sebelumnya tidak akan
+                          terbawa karena jawaban tersimpan di device sebelumnya.
+                        </li>
+                        <li>
+                          Jika waktu ujian habis, jawaban yang sudah tersimpan
+                          harus dikumpulkan.
                         </li>
                         <li>
                           Apabila terjadi kendala teknis, harap segera melapor
