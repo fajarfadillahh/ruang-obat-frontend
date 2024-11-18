@@ -119,7 +119,7 @@ export default function StartTest({
         }
       }
 
-      await fetcher({
+      const response: SuccessResponse<{ result_id: string }> = await fetcher({
         url: "/tests/finish",
         method: "POST",
         data: {
@@ -133,7 +133,7 @@ export default function StartTest({
         duration: 3000,
       });
       localStorage.removeItem(params.id as string);
-      window.location.href = "/my/tests";
+      window.location.href = `/results/${response.data.result_id}`;
       setLoading(false);
     } catch (error) {
       setLoading(false);

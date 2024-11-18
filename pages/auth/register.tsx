@@ -257,7 +257,7 @@ export default function RegisterPage() {
                 Daftarkan akunmu 🚀
               </h1>
               <p className="font-medium text-gray">
-                Ayo, bergabung dengan kita disini.
+                Ayo, bergabung dengan kita di sini.
               </p>
             </div>
 
@@ -609,7 +609,7 @@ export default function RegisterPage() {
                 }}
                 className="font-bold"
               >
-                Daftar Sekarang
+                Daftar Akun
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">

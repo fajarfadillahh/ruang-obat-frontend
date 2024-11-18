@@ -63,7 +63,7 @@ const data = {
     },
     {
       program_id: 3,
-      title: "Kelas Skripsi dan Riset",
+      title: "Kelas Skripsi & Riset",
       icon: <Notebook weight="bold" size={96} className="text-purple" />,
       text: "Butuh bimbingan buat skripsi atau riset? Di kelas ini, kamu bakal dipandu langsung oleh para mentor.",
     },
@@ -151,38 +151,38 @@ const data = {
   faqs: [
     {
       id: 1,
-      title: "Apa itu RuangObat?",
-      text: "RuangObat adalah platform belajar online khusus mahasiswa farmasi yang menyediakan berbagai program belajar, mulai dari mata kuliah, persiapan ujian masuk apoteker, hingga tryout UKMPPAI. Semua program disusun untuk membantu kamu sukses dalam pendidikan farmasi.",
+      title: "Apa itu Ruang Obat?",
+      text: "Ruang Obat adalah tempat belajar online khusus mahasiswa farmasi yang menyediakan berbagai program belajar, mulai dari mata kuliah, persiapan ujian masuk apoteker, hingga tryout UKMPPAI. Semua program disusun untuk membantu kamu sukses dalam pendidikan farmasi.",
       icon: <Pill weight="bold" size={24} className="text-black" />,
     },
     {
       id: 2,
-      title: "Bagaimana cara mendaftar di RuangObat?",
+      title: "Bagaimana cara mendaftar di Ruang Obat?",
       text: "Klik tombol register di pojok kanan atas untuk membuat akun, pilih program yang sesuai kebutuhan, dan ikuti instruksi pendaftaran. Setelah daftar, kamu bisa langsung akses program dan mulai belajar.",
       icon: <NotePencil weight="bold" size={24} className="text-black" />,
     },
     {
       id: 3,
-      title: "Apakah ada program yang gratis di RuangObat?",
-      text: "Ya, RuangObat menyediakan beberapa program gratis dengan syarat tertentu, seperti upload bukti follow, share, dan komen di media sosial RuangObat. Detailnya bisa cek di halaman program gratis.",
+      title: "Apakah ada program yang gratis di Ruang Obat?",
+      text: "Ya, Ruang Obat menyediakan beberapa program gratis dengan syarat tertentu, seperti upload bukti follow, share, dan komen di media sosial Ruang Obat. Detailnya bisa cek di halaman program gratis.",
       icon: <Gift weight="bold" size={24} className="text-black" />,
     },
     {
       id: 4,
-      title: "Bagaimana cara mengikuti tryout di RuangObat?",
+      title: "Bagaimana cara mengikuti tryout di Ruang Obat?",
       text: "Kamu bisa ikut tryout UKMPPAI di program khusus yang sudah disediakan. Cukup pilih program tryout, ikuti instruksi, dan selamat kamu bisa mengerjakan soal-soal tryout yang sesuai dengan standar terbaru.",
       icon: <Target weight="bold" size={24} className="text-black" />,
     },
     {
       id: 5,
       title: "Apakah materi ujian bisa diakses kapan saja?",
-      text: "Bisa banget! Materi di RuangObat tersedia selama 24/7, jadi kamu bisa belajar kapan aja sesuai jadwal dan ritme belajarmu.",
+      text: "Bisa banget! Materi di Ruang Obat tersedia selama 24/7, jadi kamu bisa belajar kapan aja sesuai jadwal dan ritme belajarmu.",
       icon: <CloudSun weight="bold" size={24} className="text-black" />,
     },
     {
       id: 6,
       title: "Siapa yang bisa saya hubungi jika ada kendala?",
-      text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support RuangObat via nomor WhatsApp.",
+      text: "Jika kamu butuh bantuan, kamu bisa hubungi tim support Ruang Obat via nomor WhatsApp.",
       icon: <Headset weight="bold" size={24} className="text-black" />,
     },
   ],
@@ -207,7 +207,7 @@ export default function HomePage() {
           <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
             <div className="grid gap-4">
               <p className="font-medium text-gray">
-                👋 Selamat datang di RuangObat
+                👋 Selamat datang di Ruang Obat
               </p>
               <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
                 Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
@@ -239,16 +239,16 @@ export default function HomePage() {
                 </div>
               </h1>
               <p className="font-medium leading-[170%] text-gray">
-                RuangObat merupakan platform belajar farmasi private No.1 di
+                Ruang Obat merupakan tempat belajar farmasi private No.1 di
                 Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak
                 program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas
                 Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut
                 UKMPPAI.
               </p>
               <p className="font-medium leading-[170%] text-gray">
-                Di website RuangObat kalian akan dapat mengakses berbagai
-                program. Mari raih gelar sarjana dan apotekermu bersama
-                RuangObat.
+                Di website Ruang Obat kalian akan dapat mengakses berbagai
+                program. Mari raih gelar sarjana dan apotekermu bersama Ruang
+                Obat.
                 <br />
                 #bimbelfarmasi #cukupdisiniaja
               </p>
@@ -301,7 +301,7 @@ export default function HomePage() {
 
         <section className="mx-auto grid max-w-[600px] gap-8 pb-[70px] pt-[76px] lg:max-w-[700px] xl:max-w-none">
           <h1 className="text-center text-[32px] font-black text-black">
-            Kenapa Pilih RuangObat?
+            Kenapa Pilih Ruang Obat?
           </h1>
 
           <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-16">
@@ -328,7 +328,7 @@ export default function HomePage() {
         <section className="mx-auto grid max-w-[600px] gap-8 py-[70px] lg:max-w-[700px] xl:max-w-none">
           <div className="grid gap-2">
             <h1 className="text-center text-[32px] font-black text-black">
-              Program Unggulan RuangObat
+              Program Unggulan Ruang Obat
             </h1>
             <p className="mx-auto max-w-[500px] text-center font-medium leading-[170%] text-gray">
               Explore berbagai program unggulan yang dirancang khusus buat
@@ -360,12 +360,12 @@ export default function HomePage() {
         <section className="grid gap-8 py-[70px]">
           <div className="grid gap-2">
             <h1 className="text-center text-[32px] font-black text-black">
-              Ayo, Kenalan Dengan Mentor RuangObat
+              Ayo, Kenalan Dengan Mentor Ruang Obat
             </h1>
             <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
-              RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
-              kamu mencapai target belajar. Dari praktisi, peneliti, sampai
-              apoteker senior, semuanya ada di sini.
+              Ruang Obat memiliki mentor yang sangat berpengalaman dan siap
+              bantu kamu mencapai target belajar. Dari praktisi, peneliti,
+              sampai apoteker senior, semuanya ada di sini.
             </p>
           </div>
 
@@ -477,7 +477,7 @@ export default function HomePage() {
           <div className="mx-auto grid max-w-[950px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16">
             <div className="grid gap-2">
               <h1 className="text-center text-[28px] font-black text-black">
-                Siap Mulai Perjalanan Belajar Bersama RuangObat?
+                Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
               </h1>
               <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
                 Gabung sekarang dan raih kesempatan belajar farmasi dengan
