@@ -193,7 +193,7 @@ export default function LoginPage() {
                 onClick={handleLogin}
                 className="font-bold"
               >
-                {loading ? "Tunggu Sebentar..." : "Masuk Sekarang"}
+                {loading ? "Tunggu Sebentar..." : "Masuk Akun"}
               </Button>
 
               <p className="text-center text-sm font-medium text-gray">

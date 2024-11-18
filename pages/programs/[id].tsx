@@ -188,8 +188,8 @@ export default function DetailsProgram({
                     <ModalBody>
                       <div className="grid gap-6">
                         <p className="text-sm font-medium leading-[170%] text-gray">
-                          Klik link dibawah ini atau scan QR Code untuk join
-                          grup kita guyss! 👋
+                          Klik link di bawah ini atau scan QR Code untuk join di
+                          grup kita guys! 👋
                           <br />
                           <Link
                             href={"#"}

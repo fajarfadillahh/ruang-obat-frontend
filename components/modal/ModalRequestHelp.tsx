@@ -44,7 +44,7 @@ export default function ModalRequestHelp({
             <ModalBody>
               <div className="grid gap-6">
                 <p className="text-sm font-medium leading-[170%] text-gray">
-                  Butuh bantuan? Tuliskan kendalamu pada kolom dibawah ini agar
+                  Butuh bantuan? Tuliskan kendalamu pada kolom di bawah ini agar
                   kita tahu kendalamu apa.
                 </p>
 
