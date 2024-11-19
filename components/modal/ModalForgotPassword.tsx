@@ -30,7 +30,7 @@ export default function ModalForgotPassword() {
   } = useDisclosure();
 
   async function handleSendOtp() {
-    setTime(20);
+    setTime(60);
 
     try {
       const response: SuccessResponse<{ user_id: string; message: string }> =
@@ -42,7 +42,7 @@ export default function ModalForgotPassword() {
           },
         });
 
-      toast.success("Berhasil mengirim OTP, cek pada inbox atau spam", {
+      toast.success("OTP terkirim, cek inbox atau spam", {
         duration: 3000,
       });
 

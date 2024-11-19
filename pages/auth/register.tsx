@@ -62,12 +62,25 @@ export default function RegisterPage() {
     password: "",
   });
   const [errors, setErrors] = useState<any>();
+  const [time, setTime] = useState(0);
 
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [code, setCode] = useState("");
   const router = useRouter();
+
+  useEffect(() => {
+    if (time) {
+      const interval = setInterval(() => {
+        setTime(time - 1);
+      }, 1000);
+
+      return () => {
+        clearInterval(interval);
+      };
+    }
+  }, [time]);
 
   async function handleCodeVerification() {
     try {
@@ -80,7 +93,7 @@ export default function RegisterPage() {
           },
         });
 
-      toast.success("Berhasil mengirim OTP, cek pada inbox atau spam", {
+      toast.success("OTP terkirim, cek inbox atau spam", {
         duration: 3000,
       });
 
@@ -589,6 +602,8 @@ export default function RegisterPage() {
                   onClose: onCodeVerificationClose,
                   code,
                   setCode,
+                  time,
+                  setTime,
                 }}
               />
 
@@ -605,6 +620,7 @@ export default function RegisterPage() {
                 color="secondary"
                 onClick={() => {
                   handleCodeVerification();
+                  setTime(60);
                   onCodeVerificationOpen();
                 }}
                 className="font-bold"

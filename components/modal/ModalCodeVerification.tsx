@@ -18,6 +18,8 @@ type ModalCodeVerificationProps = {
   onClose: () => void;
   code: string;
   setCode: Dispatch<SetStateAction<string>>;
+  time: number;
+  setTime: Dispatch<SetStateAction<number>>;
 };
 
 export default function ModalCodeVerification({
@@ -29,6 +31,8 @@ export default function ModalCodeVerification({
   onClose,
   code,
   setCode,
+  time,
+  setTime,
 }: ModalCodeVerificationProps) {
   return (
     <Modal
@@ -54,6 +58,9 @@ export default function ModalCodeVerification({
                 <p className="text-sm font-medium leading-[170%] text-gray">
                   Kami telah mengirim kode verifikasi ke{" "}
                   <span className="font-bold text-purple">{email}</span>
+                </p>
+                <p className="text-sm font-medium leading-[170%] text-gray">
+                  silahkan cek inbox atau spam email anda
                 </p>
               </div>
 
@@ -87,12 +94,21 @@ export default function ModalCodeVerification({
 
               <p className="border-t-2 border-dashed border-gray/20 pt-8 text-center text-sm font-medium leading-[170%] text-gray">
                 Tidak menerima kode?{" "}
-                <span
-                  className="font-bold text-purple hover:cursor-pointer hover:underline"
-                  onClick={handleCodeVerification}
-                >
-                  Kirim ulang
-                </span>
+                {time ? (
+                  <span className="font-bold text-purple hover:cursor-pointer hover:underline">
+                    Kirim ulang dalam {time}
+                  </span>
+                ) : (
+                  <span
+                    className="font-bold text-purple hover:cursor-pointer hover:underline"
+                    onClick={() => {
+                      setTime(60);
+                      handleCodeVerification();
+                    }}
+                  >
+                    Kirim ulang
+                  </span>
+                )}
               </p>
             </div>
           </ModalBody>
