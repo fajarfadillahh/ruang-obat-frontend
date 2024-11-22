@@ -15,7 +15,7 @@ import {
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
@@ -40,6 +40,8 @@ export default function DetailsTest({
   const router = useRouter();
   const [isSelected, setIsSelected] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [expired, setExpired] = useState(false);
+
   const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
     {
       url: `/tests/${params.id}`,
@@ -51,9 +53,6 @@ export default function DetailsTest({
       revalidateOnFocus: true,
     },
   );
-
-  const now = new Date();
-  const expired = new Date(`${data?.data.end_time as string}`);
 
   async function handleSaveTest() {
     setLoading(true);
@@ -97,6 +96,25 @@ export default function DetailsTest({
       toast.error(getError(error));
     }
   }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (data?.data.end_time) {
+        const now = new Date();
+        const end_time = new Date(`${data?.data.end_time as string}`);
+
+        if (now < end_time) {
+          setExpired(false);
+        } else {
+          setExpired(true);
+        }
+      }
+    }, 1000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, [data]);
 
   if (isLoading) {
     return <Loading />;
@@ -318,7 +336,7 @@ export default function DetailsTest({
                   }
                   body={
                     <>
-                      {now < expired ? (
+                      {!expired ? (
                         <p className="text-sm font-medium leading-[170%] text-gray">
                           Sebelumnya anda sudah mengerjakan ujian ini, durasi
                           pengerjaannya sampai dengan{" "}
@@ -348,7 +366,7 @@ export default function DetailsTest({
                         Tutup
                       </Button>
 
-                      {now < expired ? (
+                      {!expired ? (
                         <Button
                           color="secondary"
                           variant="solid"
