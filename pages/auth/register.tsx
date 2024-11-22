@@ -16,6 +16,8 @@ import {
 import {
   Buildings,
   EnvelopeSimple,
+  Eye,
+  EyeSlash,
   Lock,
   Phone,
   Quotes,
@@ -68,6 +70,7 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
   const [userId, setUserId] = useState("");
   const [code, setCode] = useState("");
+  const [type, setType] = useState("password");
   const router = useRouter();
 
   useEffect(() => {
@@ -534,7 +537,7 @@ export default function RegisterPage() {
               <Input
                 value={input.password}
                 autoComplete="off"
-                type="password"
+                type={type}
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Kata Sandi"
@@ -559,6 +562,27 @@ export default function RegisterPage() {
                 }}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
+                }
+                endContent={
+                  <button
+                    onClick={() =>
+                      type == "password" ? setType("text") : setType("password")
+                    }
+                  >
+                    {type == "password" ? (
+                      <Eye
+                        weight="bold"
+                        size={18}
+                        className="cursor-pointer text-gray"
+                      />
+                    ) : (
+                      <EyeSlash
+                        weight="bold"
+                        size={18}
+                        className="cursor-pointer text-gray"
+                      />
+                    )}
+                  </button>
                 }
                 classNames={{
                   input:

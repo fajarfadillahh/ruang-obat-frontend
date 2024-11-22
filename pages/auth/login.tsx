@@ -2,7 +2,13 @@ import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
 import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
-import { EnvelopeSimple, Lock, Quotes } from "@phosphor-icons/react";
+import {
+  EnvelopeSimple,
+  Eye,
+  EyeSlash,
+  Lock,
+  Quotes,
+} from "@phosphor-icons/react";
 import { signIn } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
@@ -26,6 +32,7 @@ export default function LoginPage() {
 
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [type, setType] = useState("password");
   const router = useRouter();
 
   async function handleLogin() {
@@ -159,7 +166,7 @@ export default function LoginPage() {
               />
 
               <Input
-                type="password"
+                type={type}
                 variant="flat"
                 labelPlacement="outside"
                 placeholder="Kata Sandi"
@@ -173,6 +180,27 @@ export default function LoginPage() {
                 onKeyDown={(e) => handleKeyDown(e, handleLogin)}
                 startContent={
                   <Lock weight="bold" size={18} className="text-gray" />
+                }
+                endContent={
+                  <button
+                    onClick={() =>
+                      type == "password" ? setType("text") : setType("password")
+                    }
+                  >
+                    {type == "password" ? (
+                      <Eye
+                        weight="bold"
+                        size={18}
+                        className="cursor-pointer text-gray"
+                      />
+                    ) : (
+                      <EyeSlash
+                        weight="bold"
+                        size={18}
+                        className="cursor-pointer text-gray"
+                      />
+                    )}
+                  </button>
                 }
                 classNames={{
                   input:
