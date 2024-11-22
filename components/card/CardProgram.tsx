@@ -72,7 +72,7 @@ export default function CardProgram(program: ProgramsType) {
           <SealCheck
             weight="fill"
             size={24}
-            className="absolute right-4 top-4 text-success"
+            className="absolute right-2 top-2 text-success"
           />
         </Tooltip>
       ) : program.is_approved == false ? (
@@ -85,7 +85,7 @@ export default function CardProgram(program: ProgramsType) {
           <Clock
             weight="fill"
             size={24}
-            className="absolute right-4 top-4 text-warning"
+            className="absolute right-2 top-2 text-warning"
           />
         </Tooltip>
       ) : null}
