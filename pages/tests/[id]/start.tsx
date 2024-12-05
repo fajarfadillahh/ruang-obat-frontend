@@ -23,7 +23,7 @@ import {
   WarningCircle,
 } from "@phosphor-icons/react";
 import { CaretDoubleRight } from "@phosphor-icons/react/dist/ssr";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -570,6 +570,21 @@ export default function StartTest({
   );
 }
 
+type TestResponse = {
+  test_id: string;
+  title: string;
+  description: string;
+  start: string;
+  end: string;
+  duration: number;
+  is_active: boolean;
+  total_questions: number;
+  status: "Belum dimulai" | "Berlangsung" | "Berakhir";
+  end_time: string;
+  has_start: boolean;
+  has_result: string;
+};
+
 type Question = {
   number: number;
   question_id: string;
@@ -612,14 +627,59 @@ function getColor({
   }
 }
 
-export const getServerSideProps: GetServerSideProps<{
-  token: string;
-  params: ParsedUrlQuery;
-}> = async ({ req, params }) => {
-  return {
-    props: {
-      token: req.headers["access_token"] as string,
-      params: params as ParsedUrlQuery,
-    },
-  };
+export const getServerSideProps = async ({
+  req,
+  params,
+}: GetServerSidePropsContext) => {
+  const token = req.headers["access_token"] as string;
+
+  try {
+    const response: SuccessResponse<TestResponse> = await fetcher({
+      url: `/tests/${params?.id}`,
+      method: "GET",
+      token,
+    });
+
+    if (
+      response.data.status == "Belum dimulai" ||
+      response.data.status == "Berakhir"
+    ) {
+      return {
+        redirect: {
+          destination: `/dashboard`,
+        },
+      };
+    }
+
+    if (response.data.has_result) {
+      return {
+        redirect: {
+          destination: `/results/${response.data.has_result}`,
+        },
+      };
+    }
+
+    return {
+      props: {
+        token,
+        params: params as ParsedUrlQuery,
+      },
+    };
+  } catch (error: any) {
+    if (error.status_code >= 500) {
+      return {
+        redirect: {
+          destination: "/500",
+        },
+      };
+    }
+
+    if (error.status_code == 404) {
+      return {
+        redirect: {
+          destination: "/404",
+        },
+      };
+    }
+  }
 };

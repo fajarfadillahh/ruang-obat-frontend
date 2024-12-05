@@ -12,7 +12,7 @@ import {
   ClockCountdown,
   HourglassLow,
 } from "@phosphor-icons/react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
@@ -487,14 +487,51 @@ type TestResponse = {
   has_result: string;
 };
 
-export const getServerSideProps: GetServerSideProps<{
-  token: string;
-  params: ParsedUrlQuery;
-}> = async ({ req, params }) => {
-  return {
-    props: {
-      token: req.headers["access_token"] as string,
-      params: params as ParsedUrlQuery,
-    },
-  };
+export const getServerSideProps = async ({
+  req,
+  params,
+}: GetServerSidePropsContext) => {
+  const token = req.headers["access_token"] as string;
+
+  try {
+    const response: SuccessResponse<TestResponse> = await fetcher({
+      url: `/tests/${params?.id}`,
+      method: "GET",
+      token,
+    });
+
+    if (
+      response.data.status == "Belum dimulai" ||
+      response.data.status == "Berakhir"
+    ) {
+      return {
+        redirect: {
+          destination: `/dashboard`,
+        },
+      };
+    }
+
+    return {
+      props: {
+        token,
+        params: params as ParsedUrlQuery,
+      },
+    };
+  } catch (error: any) {
+    if (error.status_code >= 500) {
+      return {
+        redirect: {
+          destination: "/500",
+        },
+      };
+    }
+
+    if (error.status_code == 404) {
+      return {
+        redirect: {
+          destination: "/404",
+        },
+      };
+    }
+  }
 };
