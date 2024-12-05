@@ -192,30 +192,27 @@ export default function ResultTest({
                 value={question?.user_answer}
               >
                 {question?.options.map((option) => {
-                  console.log(question.user_answer == option.option_id);
                   return (
                     <Radio
                       key={option.option_id}
                       isDisabled={false}
                       value={option.option_id}
                       color={
-                        question.is_correct &&
-                        question.user_answer == option.option_id
+                        (question.is_correct &&
+                          question.user_answer == option.option_id) ||
+                        question.correct_option == option.option_id
                           ? "success"
-                          : question.correct_option == option.option_id
-                            ? "success"
-                            : "danger"
+                          : "danger"
                       }
                       classNames={{
                         label: `${
-                          question.is_correct &&
-                          question.user_answer == option.option_id
+                          (question.is_correct &&
+                            question.user_answer == option.option_id) ||
+                          question.correct_option == option.option_id
                             ? "text-success"
-                            : question.correct_option == option.option_id
-                              ? "text-success"
-                              : question.user_answer == option.option_id
-                                ? "text-danger"
-                                : "text-gray/80"
+                            : question.user_answer == option.option_id
+                              ? "text-danger"
+                              : "text-gray/80"
                         } font-semibold`,
                       }}
                     >
@@ -251,11 +248,20 @@ export default function ResultTest({
               contentOpen.right ? "right-0" : "-right-[260px]"
             }`}
           >
-            <div className="grid w-full gap-8">
+            <div className="grid w-full gap-4">
               <h4 className="text-[18px] font-bold text-black">Hasil Ujian:</h4>
 
-              <div className="grid divide-y-2 divide-dashed divide-gray/20">
-                <div className="grid gap-1 pb-8">
+              <div className="grid gap-4">
+                <div className="grid gap-1">
+                  <p className="text-[14px] font-medium text-gray">
+                    Kategori Nilai
+                  </p>
+                  <h4 className="text-[36px] font-extrabold text-black">
+                    🏅 {data?.data.score_category}
+                  </h4>
+                </div>
+
+                <div className="grid gap-1">
                   <p className="text-[14px] font-medium text-gray">
                     Nilai Anda
                   </p>
@@ -264,7 +270,7 @@ export default function ResultTest({
                   </h4>
                 </div>
 
-                <div className="grid gap-6 pt-8">
+                <div className="grid gap-6 pt-6">
                   <div className="grid gap-1">
                     <p className="text-[14px] font-medium text-gray">
                       Jawaban Benar

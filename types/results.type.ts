@@ -1,6 +1,7 @@
 export type ResultType = {
   result_id: string;
   score: number;
+  score_category: string;
   total_correct: number;
   total_incorrect: number;
   questions: {
