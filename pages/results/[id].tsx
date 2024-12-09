@@ -315,7 +315,7 @@ export default function ResultTest({
         </section>
       </Layout>
 
-      {/* <TemplateExportTest questions={data?.data} /> */}
+      {/* <TemplateExportTest data={data?.data} /> */}
     </>
   );
 }
