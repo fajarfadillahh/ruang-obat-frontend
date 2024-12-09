@@ -124,7 +124,7 @@ export default function HomePage() {
         {/* reasons */}
         <section className="mx-auto grid max-w-[600px] gap-8 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none">
           <h1 className="text-center text-[32px] font-black text-black">
-            Kenapa Pilih Ruang Obat?
+            Kenapa Harus Pilih Ruang Obat?
           </h1>
 
           <IconContext.Provider
@@ -377,7 +377,7 @@ export default function HomePage() {
                 <Link
                   key={index}
                   href={item.href as string}
-                  className="text-[18px] font-medium text-white hover:underline"
+                  className="w-max text-[18px] font-medium text-white hover:bg-pink-500 hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -393,12 +393,13 @@ export default function HomePage() {
                 className: "text-white",
               }}
             >
-              <div className="flex items-center gap-8">
+              <div className="flex items-center gap-6">
                 {siteConfig.footer.sosmed.map((item) => (
                   <Link
                     key={item.label}
                     href={item.href as string}
                     target="_blank"
+                    className="rounded-xl p-2 hover:bg-pink-500"
                   >
                     <item.icon />
                   </Link>

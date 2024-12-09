@@ -178,7 +178,7 @@ export const siteConfig = {
   ],
   footer: {
     copyright:
-      "PT. Pharmacy Cone Group 2024 | Hak cipta dilindungi undang-undang",
+      "PT. Pharmacy Cone Group 2024 | Hak cipta di lindungi undang-undang",
     menu: [
       {
         label: "Beranda",
