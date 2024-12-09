@@ -3,33 +3,22 @@ import CardTest from "@/components/card/CardTest";
 import Loading from "@/components/Loading";
 import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
 import ModalInputAccessKey from "@/components/modal/ModalInputAccessKey";
+import ModalJoinGroup from "@/components/modal/ModalJoinGroup";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
-import { ProgramsType } from "@/types/programs.type";
+import { DetailsProgramResponse } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
-import {
-  Button,
-  Chip,
-  Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import {
   BookBookmark,
   CheckCircle,
   Notepad,
   Tag,
   Users,
-  WhatsappLogo,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import { useState } from "react";
-import toast from "react-hot-toast";
 import useSWR from "swr";
 
 export default function DetailsProgram({
@@ -37,15 +26,15 @@ export default function DetailsProgram({
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
-  const { data, isLoading, mutate } = useSWR<SuccessResponse<ProgramResponse>>({
+  const { data, isLoading, mutate } = useSWR<
+    SuccessResponse<DetailsProgramResponse>
+  >({
     url: `/programs/${params.id}`,
     method: "GET",
     token,
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title={data?.data.title}>
@@ -100,8 +89,8 @@ export default function DetailsProgram({
               </div>
             </div>
 
-            {data?.data.is_approved == null ? (
-              data?.data.type == "free" ? (
+            {data?.data.is_approved == null &&
+              (data?.data.type == "free" ? (
                 <ModalFreeAccess
                   {...{
                     token,
@@ -117,12 +106,10 @@ export default function DetailsProgram({
                     mutate,
                   }}
                 />
-              )
-            ) : null}
+              ))}
 
-            {data?.data.is_approved == false ? (
+            {data?.data.is_approved === false && (
               <Button
-                variant="solid"
                 color="secondary"
                 size="sm"
                 className="w-full font-bold sm:w-max sm:px-6"
@@ -130,16 +117,16 @@ export default function DetailsProgram({
               >
                 Menunggu Approve
               </Button>
-            ) : null}
+            )}
 
-            {data?.data.is_approved == true ? (
+            {data?.data.is_approved && (
               <div className="inline-flex items-center gap-1">
                 <CheckCircle weight="fill" size={18} className="text-success" />
                 <p className="text-sm font-semibold capitalize text-black">
                   Program telah diikuti
                 </p>
               </div>
-            ) : null}
+            )}
           </div>
 
           <div className="grid gap-4 pt-8">
@@ -158,111 +145,11 @@ export default function DetailsProgram({
           </div>
         </div>
 
-        {data?.data.is_approved == true ? (
-          <>
-            <Button
-              variant="solid"
-              startContent={
-                <WhatsappLogo weight="bold" size={18} className="text-white" />
-              }
-              onPress={() => setIsModalOpen(true)}
-              className="fixed bottom-[70px] right-5 bg-success font-bold text-white md:right-16 xl:bottom-24 xl:right-24"
-            >
-              Join Grup WhatsApp!
-            </Button>
-
-            <Modal
-              isDismissable={false}
-              isOpen={isModalOpen}
-              onOpenChange={() => setIsModalOpen(false)}
-              size="sm"
-              placement="center"
-            >
-              <ModalContent>
-                {(onClose) => (
-                  <>
-                    <ModalHeader className="flex flex-col gap-1 font-bold text-black">
-                      Join Grup WhatsApp
-                    </ModalHeader>
-
-                    <ModalBody>
-                      <div className="grid gap-6">
-                        <p className="text-sm font-medium leading-[170%] text-gray">
-                          Klik link di bawah ini atau scan QR Code untuk join di
-                          grup kita guys! 👋
-                          <br />
-                          <Link
-                            href={"#"}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              if (data.data.url_qr_code) {
-                                window.open(
-                                  `${data.data.url_qr_code}`,
-                                  "_blank",
-                                );
-                              } else {
-                                toast.error("Maaf, Link Grup Tidak Tersedia!");
-                              }
-                            }}
-                            className="w-max text-sm font-semibold leading-[170%] text-purple underline"
-                          >
-                            Link Join Grup!
-                          </Link>
-                        </p>
-
-                        {data.data.qr_code ? (
-                          <Image
-                            priority
-                            src={data.data.qr_code}
-                            alt="qrcode image"
-                            width={1000}
-                            height={1000}
-                            className="aspect-square size-64 justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1"
-                          />
-                        ) : (
-                          <div className="flex aspect-square size-64 items-center justify-center justify-self-center rounded-xl border-2 border-dashed border-gray/30 bg-gray/10 object-cover object-center p-1">
-                            <span className="text-sm font-semibold italic leading-[170%] text-gray">
-                              Gambar Tidak Tersedia!
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </ModalBody>
-
-                    <ModalFooter>
-                      <Button
-                        color="danger"
-                        variant="light"
-                        onPress={onClose}
-                        className="font-bold"
-                      >
-                        Tutup
-                      </Button>
-                    </ModalFooter>
-                  </>
-                )}
-              </ModalContent>
-            </Modal>
-          </>
-        ) : null}
+        {data?.data.is_approved && <ModalJoinGroup {...data} />}
       </section>
     </Layout>
   );
 }
-
-type ProgramResponse = ProgramsType & {
-  tests: {
-    test_id: string;
-    title: string;
-    start: string;
-    end: string;
-    duration: number;
-    is_active: boolean;
-    has_result: boolean;
-    result_id: string;
-    status: string;
-  }[];
-};
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;

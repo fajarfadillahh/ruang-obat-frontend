@@ -65,7 +65,6 @@ export default function ModalFreeAccess({
   return (
     <>
       <Button
-        variant="solid"
         color="secondary"
         size="sm"
         onPress={onOpen}

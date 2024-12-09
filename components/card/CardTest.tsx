@@ -116,7 +116,7 @@ export default function CardTest(test: CardTest) {
                   {test.status}
                 </Chip>
 
-                {test.has_result ? (
+                {test.has_result && (
                   <Chip
                     variant="flat"
                     color="success"
@@ -129,7 +129,7 @@ export default function CardTest(test: CardTest) {
                   >
                     Sudah Mengerjakan
                   </Chip>
-                ) : null}
+                )}
               </div>
             </div>
           </div>
@@ -137,7 +137,6 @@ export default function CardTest(test: CardTest) {
       </div>
 
       <Button
-        variant="solid"
         size="sm"
         color={!test.is_active ? "danger" : "secondary"}
         onClick={() =>
