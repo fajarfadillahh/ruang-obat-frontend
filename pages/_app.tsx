@@ -1,4 +1,5 @@
 import SessionChecker from "@/components/SessionChecker";
+import { fontMono, fontSans } from "@/config/fonts";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -18,7 +19,7 @@ export default function App({
       <Toaster
         toastOptions={{
           style: {
-            fontFamily: "Mulish, sans-serif",
+            fontFamily: "var(--font-sans)",
             fontWeight: 600,
             color: "#171717",
           },
@@ -40,3 +41,8 @@ export default function App({
     </NextUIProvider>
   );
 }
+
+export const fonts = {
+  sans: fontSans.style.fontFamily,
+  mono: fontMono.style.fontFamily,
+};

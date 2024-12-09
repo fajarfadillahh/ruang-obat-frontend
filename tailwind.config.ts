@@ -27,7 +27,8 @@ const config: Config = {
         "2xl": "1537px",
       },
       fontFamily: {
-        sans: ["Mulish", "sans-serif"],
+        sans: ["var(--font-sans)"],
+        mono: ["var(--font-mono)"],
       },
       colors: {
         black: "#171717",
