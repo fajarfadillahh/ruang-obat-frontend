@@ -1,4 +1,5 @@
 import CardProgram from "@/components/card/CardProgram";
+import EmptyData from "@/components/EmptyData";
 import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
@@ -33,13 +34,7 @@ export default function DashboardPage({
     }
   }, [searchValue]);
 
-  const filteredPrograms = data?.data.programs.filter((program) =>
-    program.title.toLowerCase().includes(`${searchValue}`),
-  );
-
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Anda">
@@ -53,6 +48,8 @@ export default function DashboardPage({
         <div className="grid gap-4">
           <div className="flex items-center justify-between gap-4">
             <Input
+              isClearable
+              onClear={() => setSearch("")}
               defaultValue={query.q as string}
               type="text"
               variant="flat"
@@ -69,6 +66,7 @@ export default function DashboardPage({
                 input:
                   "font-semibold placeholder:font-semibold placeholder:text-gray",
               }}
+              className="max-w-[500px]"
               onChange={(e) => setSearch(e.target.value)}
             />
 
@@ -87,7 +85,7 @@ export default function DashboardPage({
                 },
               }}
               classNames={{
-                base: "w-[200px]",
+                base: "w-[150px]",
                 value: "font-semibold text-black",
               }}
               onChange={(e) => {
@@ -103,13 +101,8 @@ export default function DashboardPage({
             </Select>
           </div>
 
-          {searchValue && filteredPrograms?.length === 0 ? (
-            <div className="flex items-center justify-center gap-2 pt-16">
-              <MagnifyingGlass weight="bold" size={20} className="text-gray" />
-              <p className="font-semibold capitalize text-gray">
-                Program tidak ditemukan!
-              </p>
-            </div>
+          {searchValue && data?.data.programs.length === 0 ? (
+            <EmptyData text="Program tidak ditemukan!" />
           ) : (
             <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
               {data?.data.programs.map((program) => (
@@ -127,6 +120,7 @@ export default function DashboardPage({
               onChange={(e) => {
                 router.push({
                   query: {
+                    ...router.query,
                     page: e,
                   },
                 });
