@@ -3,6 +3,8 @@ import Loading from "@/components/Loading";
 import ModalConfirmTest from "@/components/modal/ModalConfirmTest";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
+import { Question } from "@/types/questions.type";
+import { DetailsTestResponse } from "@/types/tests.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate, formatDateWithoutTime } from "@/utils/formatDate";
 import { getError } from "@/utils/getError";
@@ -19,20 +21,6 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
-type Question = {
-  number: number;
-  question_id: string;
-  text: string;
-  url?: string;
-  type?: "text" | "video" | "image";
-  options: {
-    text: string;
-    option_id: string;
-  }[];
-  user_answer: string;
-  is_hesitant: boolean;
-};
-
 export default function DetailsTest({
   token,
   params,
@@ -42,7 +30,7 @@ export default function DetailsTest({
   const [loading, setLoading] = useState(false);
   const [expired, setExpired] = useState(false);
 
-  const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
+  const { data, isLoading } = useSWR<SuccessResponse<DetailsTestResponse>>(
     {
       url: `/tests/${params.id}`,
       method: "GET",
@@ -83,7 +71,7 @@ export default function DetailsTest({
         token,
       });
 
-      toast.success("Berhasil mengumpulkan ujian", {
+      toast.success("Berhasil Mengumpulkan Ujian", {
         duration: 3000,
       });
       localStorage.removeItem(params.id as string);
@@ -116,9 +104,7 @@ export default function DetailsTest({
     };
   }, [data]);
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title={data?.data.title}>
@@ -211,11 +197,7 @@ export default function DetailsTest({
             {!data?.data.has_start ? (
               <ModalConfirmTest
                 trigger={
-                  <Button
-                    variant="solid"
-                    color="secondary"
-                    className="px-4 font-bold"
-                  >
+                  <Button color="secondary" className="px-4 font-bold">
                     Mulai Ujian
                   </Button>
                 }
@@ -292,7 +274,6 @@ export default function DetailsTest({
                     <Button
                       isDisabled={!isSelected}
                       color="secondary"
-                      variant="solid"
                       className="font-bold"
                       onClick={() => {
                         document.documentElement.requestFullscreen();
@@ -311,7 +292,6 @@ export default function DetailsTest({
             {localStorage.getItem(data?.data.test_id as string) ? (
               data?.data.has_result ? (
                 <Button
-                  variant="solid"
                   color="secondary"
                   className="px-4 font-bold"
                   onClick={() =>
@@ -323,11 +303,7 @@ export default function DetailsTest({
               ) : (
                 <ModalConfirmTest
                   trigger={
-                    <Button
-                      variant="solid"
-                      color="secondary"
-                      className="px-4 font-bold"
-                    >
+                    <Button color="secondary" className="px-4 font-bold">
                       Lanjutkan Ujian
                     </Button>
                   }
@@ -369,7 +345,6 @@ export default function DetailsTest({
                       {!expired ? (
                         <Button
                           color="secondary"
-                          variant="solid"
                           className="font-bold"
                           onClick={() => {
                             document.documentElement.requestFullscreen();
@@ -384,7 +359,6 @@ export default function DetailsTest({
                           isDisabled={loading}
                           isLoading={loading}
                           color="secondary"
-                          variant="solid"
                           className="font-bold"
                           onClick={handleSaveTest}
                         >
@@ -401,7 +375,6 @@ export default function DetailsTest({
             !localStorage.getItem(data?.data.test_id as string) ? (
               data.data.has_result ? (
                 <Button
-                  variant="solid"
                   color="secondary"
                   className="px-4 font-bold"
                   onClick={() =>
@@ -413,11 +386,7 @@ export default function DetailsTest({
               ) : (
                 <ModalConfirmTest
                   trigger={
-                    <Button
-                      variant="solid"
-                      color="secondary"
-                      className="px-4 font-bold"
-                    >
+                    <Button color="secondary" className="px-4 font-bold">
                       Lanjutkan Ujian
                     </Button>
                   }
@@ -450,7 +419,6 @@ export default function DetailsTest({
 
                       <Button
                         color="secondary"
-                        variant="solid"
                         className="font-bold"
                         onClick={() => {
                           document.documentElement.requestFullscreen();
@@ -472,21 +440,6 @@ export default function DetailsTest({
   );
 }
 
-type TestResponse = {
-  test_id: string;
-  title: string;
-  description: string;
-  start: string;
-  end: string;
-  duration: number;
-  is_active: boolean;
-  total_questions: number;
-  status: string;
-  end_time: string;
-  has_start: boolean;
-  has_result: string;
-};
-
 export const getServerSideProps = async ({
   req,
   params,
@@ -494,7 +447,7 @@ export const getServerSideProps = async ({
   const token = req.headers["access_token"] as string;
 
   try {
-    const response: SuccessResponse<TestResponse> = await fetcher({
+    const response: SuccessResponse<DetailsTestResponse> = await fetcher({
       url: `/tests/${params?.id}`,
       method: "GET",
       token,

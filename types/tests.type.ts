@@ -14,3 +14,18 @@ export type MyTestType = {
   score: number;
   created_at: string;
 };
+
+export type DetailsTestResponse = {
+  test_id: string;
+  title: string;
+  description: string;
+  start: string;
+  end: string;
+  duration: number;
+  is_active: boolean;
+  total_questions: number;
+  status: string;
+  end_time: string;
+  has_start: boolean;
+  has_result: string;
+};
