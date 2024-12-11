@@ -3,9 +3,9 @@ import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import Navbar from "@/components/Navbar";
-import { UserDataResponse } from "@/pages/my/profile";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
+import { UserDataResponse } from "@/types/profile.type";
 import {
   Avatar,
   Button,
