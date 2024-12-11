@@ -15,7 +15,7 @@ export type MyTestType = {
   created_at: string;
 };
 
-export type DetailsTestResponse = {
+export type TestResponse = {
   test_id: string;
   title: string;
   description: string;
@@ -24,7 +24,7 @@ export type DetailsTestResponse = {
   duration: number;
   is_active: boolean;
   total_questions: number;
-  status: string;
+  status: "Belum dimulai" | "Berlangsung" | "Berakhir";
   end_time: string;
   has_start: boolean;
   has_result: string;

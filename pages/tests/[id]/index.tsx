@@ -4,7 +4,7 @@ import ModalConfirmTest from "@/components/modal/ModalConfirmTest";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { Question } from "@/types/questions.type";
-import { DetailsTestResponse } from "@/types/tests.type";
+import { TestResponse } from "@/types/tests.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate, formatDateWithoutTime } from "@/utils/formatDate";
 import { getError } from "@/utils/getError";
@@ -30,7 +30,7 @@ export default function DetailsTest({
   const [loading, setLoading] = useState(false);
   const [expired, setExpired] = useState(false);
 
-  const { data, isLoading } = useSWR<SuccessResponse<DetailsTestResponse>>(
+  const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
     {
       url: `/tests/${params.id}`,
       method: "GET",
@@ -447,7 +447,7 @@ export const getServerSideProps = async ({
   const token = req.headers["access_token"] as string;
 
   try {
-    const response: SuccessResponse<DetailsTestResponse> = await fetcher({
+    const response: SuccessResponse<TestResponse> = await fetcher({
       url: `/tests/${params?.id}`,
       method: "GET",
       token,
