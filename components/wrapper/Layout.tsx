@@ -117,191 +117,188 @@ export default function Layout({ title, children, className }: LayoutProps) {
         />
       </Head>
 
-      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
-        <Navbar className="items-center justify-between">
-          <Link
-            href={router.pathname == "/" ? "/" : "/dashboard"}
-            className="inline-flex items-center gap-2"
-          >
-            <LogoRuangobat className="h-auto w-8 text-gray/20" />
-            <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
-              RuangObat<span className="text-purple">.</span>
-            </h1>
-          </Link>
+      <Navbar className="items-center justify-between">
+        <Link
+          href={router.pathname == "/" ? "/" : "/dashboard"}
+          className="inline-flex items-center gap-2"
+        >
+          <LogoRuangobat className="h-auto w-8 text-gray/20" />
+          <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
+            RuangObat<span className="text-purple">.</span>
+          </h1>
+        </Link>
 
-          {router.pathname == "/" ? (
-            <div className="inline-flex items-center gap-2">
-              <Button
-                variant="bordered"
-                startContent={<SignIn weight="bold" size={18} />}
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/auth/login");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/login",
-                      "_blank",
-                    );
-                  }
-                }}
-                className="px-4 font-bold text-black"
-              >
-                Masuk
-              </Button>
+        {router.pathname == "/" ? (
+          <div className="inline-flex items-center gap-2">
+            <Button
+              variant="bordered"
+              startContent={<SignIn weight="bold" size={18} />}
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/login");
+                } else {
+                  window.open("https://cbt.ruangobat.id/auth/login", "_blank");
+                }
+              }}
+              className="px-4 font-bold text-black"
+            >
+              Masuk
+            </Button>
 
-              <Button
-                variant="solid"
-                color="secondary"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/auth/register");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/register",
-                      "_blank",
-                    );
-                  }
-                }}
-                className="px-8 font-bold"
-              >
-                Register
-              </Button>
-            </div>
-          ) : null}
+            <Button
+              variant="solid"
+              color="secondary"
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/register");
+                } else {
+                  window.open(
+                    "https://cbt.ruangobat.id/auth/register",
+                    "_blank",
+                  );
+                }
+              }}
+              className="px-8 font-bold"
+            >
+              Register
+            </Button>
+          </div>
+        ) : null}
 
-          {router.pathname !== "/" && status === "authenticated" ? (
-            <>
-              <Dropdown>
-                <DropdownTrigger>
-                  <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
-                    <Avatar
-                      isBordered
-                      showFallback
-                      size="sm"
-                      src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
-                      classNames={{
-                        base: "ring-purple bg-purple/20",
-                        icon: "text-purple",
-                      }}
-                    />
+        {router.pathname !== "/" && status === "authenticated" ? (
+          <>
+            <Dropdown>
+              <DropdownTrigger>
+                <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
+                  <Avatar
+                    isBordered
+                    showFallback
+                    size="sm"
+                    src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                    classNames={{
+                      base: "ring-purple bg-purple/20",
+                      icon: "text-purple",
+                    }}
+                  />
 
-                    <div>
-                      <h6 className="text-sm font-bold text-black">
-                        {status == "authenticated"
-                          ? formatName(
-                              user?.data.fullname ? user?.data.fullname : "",
-                            )
-                          : null}
-                      </h6>
-                      <p className="text-[12px] font-semibold uppercase text-gray">
-                        {status == "authenticated" ? user?.data.user_id : null}
-                      </p>
-                    </div>
+                  <div>
+                    <h6 className="text-sm font-bold text-black">
+                      {status == "authenticated"
+                        ? formatName(
+                            user?.data.fullname ? user?.data.fullname : "",
+                          )
+                        : null}
+                    </h6>
+                    <p className="text-[12px] font-semibold uppercase text-gray">
+                      {status == "authenticated" ? user?.data.user_id : null}
+                    </p>
                   </div>
-                </DropdownTrigger>
+                </div>
+              </DropdownTrigger>
 
-                <DropdownMenu
-                  aria-label="profile actions"
-                  itemClasses={{
-                    title: "font-semibold",
-                  }}
+              <DropdownMenu
+                aria-label="profile actions"
+                itemClasses={{
+                  title: "font-semibold",
+                }}
+              >
+                <DropdownItem
+                  key="dashboard"
+                  color="secondary"
+                  startContent={<House weight="bold" size={18} />}
+                  onClick={() => router.push("/dashboard")}
+                >
+                  Beranda
+                </DropdownItem>
+
+                <DropdownSection
+                  aria-label="account & settings section"
+                  title="Akun & Info"
                 >
                   <DropdownItem
-                    key="dashboard"
+                    key="profile"
                     color="secondary"
-                    startContent={<House weight="bold" size={18} />}
-                    onClick={() => router.push("/dashboard")}
+                    startContent={<UserCircle weight="bold" size={18} />}
+                    onClick={() => router.push("/my/profile")}
                   >
-                    Beranda
+                    Profil Saya
                   </DropdownItem>
-
-                  <DropdownSection
-                    aria-label="account & settings section"
-                    title="Akun & Info"
-                  >
-                    <DropdownItem
-                      key="profile"
-                      color="secondary"
-                      startContent={<UserCircle weight="bold" size={18} />}
-                      onClick={() => router.push("/my/profile")}
-                    >
-                      Profil Saya
-                    </DropdownItem>
-
-                    <DropdownItem
-                      key="myprogram"
-                      color="secondary"
-                      startContent={<ClipboardText weight="bold" size={18} />}
-                      onClick={() => router.push("/my/programs")}
-                    >
-                      Program Saya
-                    </DropdownItem>
-
-                    <DropdownItem
-                      key="mytest"
-                      color="secondary"
-                      startContent={<Medal weight="bold" size={18} />}
-                      onClick={() => router.push("/my/tests")}
-                    >
-                      Ujian Saya
-                    </DropdownItem>
-                  </DropdownSection>
-
-                  <DropdownSection
-                    aria-label="support section"
-                    title="Support & Feedback"
-                  >
-                    <DropdownItem
-                      key="help"
-                      color="secondary"
-                      startContent={<Headset weight="bold" size={18} />}
-                      onClick={onHelpOpen}
-                    >
-                      Bantuan
-                    </DropdownItem>
-
-                    <DropdownItem
-                      key="feedback"
-                      color="secondary"
-                      startContent={<ChatCircleText weight="bold" size={18} />}
-                      onClick={onFeedbackOpen}
-                    >
-                      Feedback
-                    </DropdownItem>
-                  </DropdownSection>
 
                   <DropdownItem
-                    key="logout"
-                    color="danger"
-                    startContent={<SignOut weight="bold" size={18} />}
-                    onClick={onLogoutOpen}
-                    className="text-danger-600"
+                    key="myprogram"
+                    color="secondary"
+                    startContent={<ClipboardText weight="bold" size={18} />}
+                    onClick={() => router.push("/my/programs")}
                   >
-                    Keluar
+                    Program Saya
                   </DropdownItem>
-                </DropdownMenu>
-              </Dropdown>
 
-              <ModalSendFeedback
-                isOpen={isFeedbackOpen}
-                onClose={onFeedbackClose}
-              />
+                  <DropdownItem
+                    key="mytest"
+                    color="secondary"
+                    startContent={<Medal weight="bold" size={18} />}
+                    onClick={() => router.push("/my/tests")}
+                  >
+                    Ujian Saya
+                  </DropdownItem>
+                </DropdownSection>
 
-              <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
+                <DropdownSection
+                  aria-label="support section"
+                  title="Support & Feedback"
+                >
+                  <DropdownItem
+                    key="help"
+                    color="secondary"
+                    startContent={<Headset weight="bold" size={18} />}
+                    onClick={onHelpOpen}
+                  >
+                    Bantuan
+                  </DropdownItem>
 
-              <ModalConfirm
-                btnText="Logout"
-                header="Pemberitahuan"
-                text="Apakah Anda Yakin Ingin Logout?"
-                loading={loading}
-                isOpen={isLogoutOpen}
-                onClose={onLogoutClose}
-                handleAction={handleSignOut}
-              />
-            </>
-          ) : null}
-        </Navbar>
+                  <DropdownItem
+                    key="feedback"
+                    color="secondary"
+                    startContent={<ChatCircleText weight="bold" size={18} />}
+                    onClick={onFeedbackOpen}
+                  >
+                    Feedback
+                  </DropdownItem>
+                </DropdownSection>
 
+                <DropdownItem
+                  key="logout"
+                  color="danger"
+                  startContent={<SignOut weight="bold" size={18} />}
+                  onClick={onLogoutOpen}
+                  className="text-danger-600"
+                >
+                  Keluar
+                </DropdownItem>
+              </DropdownMenu>
+            </Dropdown>
+
+            <ModalSendFeedback
+              isOpen={isFeedbackOpen}
+              onClose={onFeedbackClose}
+            />
+
+            <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
+
+            <ModalConfirm
+              btnText="Logout"
+              header="Pemberitahuan"
+              text="Apakah Anda Yakin Ingin Logout?"
+              loading={loading}
+              isOpen={isLogoutOpen}
+              onClose={onLogoutClose}
+              handleAction={handleSignOut}
+            />
+          </>
+        ) : null}
+      </Navbar>
+
+      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           {children}
         </main>
