@@ -130,9 +130,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
           </Link>
 
           {router.pathname == "/" ? (
-            <div className="inline-flex items-center gap-1">
+            <div className="inline-flex items-center gap-2">
               <Button
-                variant="light"
+                variant="bordered"
                 startContent={<SignIn weight="bold" size={18} />}
                 onClick={() => {
                   if (window.location.host == "localhost:3000") {

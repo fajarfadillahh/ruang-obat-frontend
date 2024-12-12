@@ -94,7 +94,7 @@ export default function HomePage() {
 
               <Button
                 variant="bordered"
-                className="border-black px-4 font-bold text-black"
+                className="px-4 font-bold"
                 onClick={() => {
                   if (window.location.host == "localhost:3000") {
                     router.push("/dashboard");
