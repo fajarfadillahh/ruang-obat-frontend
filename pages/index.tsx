@@ -16,6 +16,21 @@ export default function HomePage() {
   const router = useRouter();
   const [client, setClient] = useState<boolean>(false);
 
+  function getCardStyles(item: any, type: "reasons" | "programs") {
+    const cardItem =
+      (type === "reasons" && item.id === 2) ||
+      (type === "programs" && (item.id === 1 || item.id === 4));
+
+    const cardWrapper = cardItem
+      ? "bg-purple"
+      : "bg-white [box-shadow:0_0_12px_rgba(0,0,0,0.1)]";
+    const cardIcon = cardItem ? "text-white" : "text-purple";
+    const cardTitle = cardItem ? "text-white" : "text-black";
+    const cardText = cardItem ? "text-gray-200" : "text-gray";
+
+    return { cardWrapper, cardIcon, cardTitle, cardText };
+  }
+
   useEffect(() => {
     setClient(true);
   }, []);
@@ -127,38 +142,40 @@ export default function HomePage() {
             Kenapa Harus Pilih Ruang Obat?
           </h1>
 
-          <IconContext.Provider
-            value={{
-              weight: "bold",
-              size: 58,
-            }}
-          >
-            <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-12">
-              {siteConfig.reasons.map((item) => (
-                <div
-                  key={item.id}
-                  className={`grid w-[290px] gap-5 rounded-xl [padding:2.5rem_1.5rem] ${item.id === 2 ? "bg-purple" : "bg-white"}`}
-                >
-                  <item.icon
-                    className={item.id === 2 ? "text-white" : "text-purple"}
-                  />
+          <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-12">
+            {siteConfig.reasons.map((item) => {
+              const { cardWrapper, cardIcon, cardTitle, cardText } =
+                getCardStyles(item, "reasons");
 
-                  <div className="grid gap-2">
-                    <h4
-                      className={`max-w-[220px] text-[24px] font-black leading-[120%] ${item.id === 2 ? "text-white" : "text-black"}`}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className={`font-medium leading-[170%] ${item.id === 2 ? "text-gray-200" : "text-gray"}`}
-                    >
-                      {item.text}
-                    </p>
+              return (
+                <IconContext.Provider
+                  key={item.id}
+                  value={{
+                    weight: "bold",
+                    size: 58,
+                    className: cardIcon,
+                  }}
+                >
+                  <div
+                    className={`grid w-[290px] gap-5 rounded-xl [padding:2.5rem_1.5rem] ${cardWrapper}`}
+                  >
+                    <item.icon />
+
+                    <div className="grid gap-2">
+                      <h4
+                        className={`max-w-[220px] text-[24px] font-black leading-[120%] ${cardTitle}`}
+                      >
+                        {item.title}
+                      </h4>
+                      <p className={`font-medium leading-[170%] ${cardText}`}>
+                        {item.text}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </IconContext.Provider>
+                </IconContext.Provider>
+              );
+            })}
+          </div>
         </section>
 
         {/* programs */}
@@ -173,42 +190,46 @@ export default function HomePage() {
             </p>
           </div>
 
-          <IconContext.Provider
-            value={{
-              weight: "bold",
-              size: 91,
-            }}
-          >
-            <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
-              {siteConfig.programs.map((item) => (
-                <div
-                  key={item.id}
-                  className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${item.id === 1 ? "bg-purple" : "bg-white"}`}
-                >
-                  <item.icon
-                    className={item.id === 1 ? "text-white" : "text-purple"}
-                  />
+          <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
+            {siteConfig.programs.map((item) => {
+              const { cardWrapper, cardIcon, cardTitle, cardText } =
+                getCardStyles(item, "programs");
 
-                  <div className="grid flex-1 gap-2">
-                    <h4
-                      className={`text-[24px] font-black leading-[120%] ${item.id === 1 ? "text-white" : "text-black"}`}
-                    >
-                      {item.title}
-                    </h4>
-                    <p
-                      className={`max-w-[430px] font-medium leading-[170%] ${item.id === 1 ? "text-gray-200" : "text-gray"}`}
-                    >
-                      {item.text}
-                    </p>
+              return (
+                <IconContext.Provider
+                  key={item.id}
+                  value={{
+                    weight: "bold",
+                    size: 91,
+                    className: cardIcon,
+                  }}
+                >
+                  <div
+                    className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${cardWrapper}`}
+                  >
+                    <item.icon />
+
+                    <div className="grid flex-1 gap-2">
+                      <h4
+                        className={`text-[24px] font-black leading-[120%] ${cardTitle}`}
+                      >
+                        {item.title}
+                      </h4>
+                      <p
+                        className={`max-w-[430px] font-medium leading-[170%] ${cardText}`}
+                      >
+                        {item.text}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </div>
-          </IconContext.Provider>
+                </IconContext.Provider>
+              );
+            })}
+          </div>
         </section>
 
         {/* mentors */}
-        <section className="grid gap-8 py-[100px]">
+        <section className="grid gap-4 py-[100px]">
           <div className="grid gap-2">
             <h1 className="text-center text-[32px] font-black text-black">
               Ayo, Kenalan Dengan Mentor Ruang Obat
@@ -238,7 +259,7 @@ export default function HomePage() {
               {siteConfig.mentors.map((item) => (
                 <SwiperSlide
                   key={item.id}
-                  className="grid max-w-[300px] overflow-hidden rounded-xl border-2 border-gray/20 bg-white p-6 xs:max-w-[330px]"
+                  className="mt-4 grid max-w-[300px] overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] xs:max-w-[330px]"
                 >
                   <Image
                     src={item.image as string}
