@@ -2,16 +2,16 @@ import { ResultType } from "@/types/results.type";
 import { chunkArray } from "@/utils/chunkArray";
 import { Chip } from "@nextui-org/react";
 import { Check, Circle, IconContext, X } from "@phosphor-icons/react";
+import { forwardRef, Ref } from "react";
 
 type TemplateExportTestProps = {
   data?: ResultType;
-  id?: string;
 };
 
-export default function TemplateExportTest({
-  data,
-  id,
-}: TemplateExportTestProps) {
+function TemplateExportTest(
+  { data }: TemplateExportTestProps,
+  ref: Ref<HTMLDivElement>,
+) {
   const questionsPerPage = chunkArray(data?.questions || [], 2);
 
   function getClassName(question: any, option: any) {
@@ -38,7 +38,7 @@ export default function TemplateExportTest({
 
   return (
     <div
-      id={id as string}
+      ref={ref}
       className="h-max w-full overflow-hidden bg-white font-medium leading-[170%] text-black"
     >
       {questionsPerPage.map((pageQuestions, index) => (
@@ -114,3 +114,5 @@ export default function TemplateExportTest({
     </div>
   );
 }
+
+export default forwardRef(TemplateExportTest);

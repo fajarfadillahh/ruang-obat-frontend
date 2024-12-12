@@ -9,7 +9,7 @@ import { CaretDoubleLeft, Export } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import useSWR from "swr";
 
 export default function ResultTest({
@@ -17,6 +17,7 @@ export default function ResultTest({
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const templateRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useSWR<SuccessResponse<ResultType>>({
     url: `/tests/${params.id}/result`,
     method: "GET",
@@ -40,13 +41,13 @@ export default function ResultTest({
 
   async function handleExport() {
     const html2pdf = await require("html2pdf.js");
-    const element = document.querySelector("#element-to-print");
+    const element = templateRef.current;
     let options = {
       margin: 12,
       filename: `hasil-ujian-${data?.data.result_id}.pdf`,
       image: { type: "jpeg", quality: 0.98 },
       html2canvas: {
-        scale: 1,
+        scale: 2,
         useCORS: true,
       },
       jsPDF: {
@@ -85,7 +86,7 @@ export default function ResultTest({
 
         <div className="grid grid-cols-[1fr_max-content] xl:gap-4">
           <div className="h-[550px] overflow-hidden overflow-y-scroll rounded-xl border-2 border-gray/20 p-6">
-            <TemplateExportTest id="element-to-print" data={data?.data} />
+            <TemplateExportTest ref={templateRef} data={data?.data} />
           </div>
 
           <div
