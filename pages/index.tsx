@@ -19,7 +19,7 @@ export default function HomePage() {
   function getCardStyles(item: any, type: "reasons" | "programs") {
     const cardItem =
       (type === "reasons" && item.id === 2) ||
-      (type === "programs" && (item.id === 1 || item.id === 4));
+      (type === "programs" && item.id === 1);
 
     const cardWrapper = cardItem
       ? "bg-purple"
@@ -398,7 +398,7 @@ export default function HomePage() {
                 <Link
                   key={index}
                   href={item.href as string}
-                  className="w-max text-[18px] font-medium text-white hover:bg-pink-500 hover:underline"
+                  className="w-max text-[18px] font-medium text-white hover:rounded-md hover:bg-pink-500 hover:underline"
                 >
                   {item.label}
                 </Link>
@@ -420,7 +420,7 @@ export default function HomePage() {
                     key={item.label}
                     href={item.href as string}
                     target="_blank"
-                    className="rounded-xl p-2 hover:bg-pink-500"
+                    className="rounded-md p-1 hover:bg-pink-500"
                   >
                     <item.icon />
                   </Link>
