@@ -640,7 +640,6 @@ export default function RegisterPage() {
             <div className="grid gap-4">
               <Button
                 isDisabled={!isFormEmpty()}
-                variant="solid"
                 color="secondary"
                 onClick={() => {
                   handleCodeVerification();

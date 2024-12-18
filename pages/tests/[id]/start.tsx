@@ -401,7 +401,6 @@ export default function StartTest({
               {number - 1 === questions.length - 1 ? (
                 <>
                   <Button
-                    variant="solid"
                     color="secondary"
                     onClick={onSaveTestOpen}
                     className="font-bold"
@@ -426,7 +425,6 @@ export default function StartTest({
               ) : (
                 <>
                   <Button
-                    variant="solid"
                     color="default"
                     startContent={<ArrowLeft weight="bold" size={16} />}
                     className="font-bold"
@@ -439,7 +437,6 @@ export default function StartTest({
                   </Button>
 
                   <Button
-                    variant="solid"
                     color="secondary"
                     endContent={<ArrowRight weight="bold" size={16} />}
                     className="font-bold"

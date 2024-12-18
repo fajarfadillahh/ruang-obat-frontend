@@ -55,7 +55,6 @@ export default function WelcomePage({
             </div>
 
             <Button
-              variant="solid"
               color="secondary"
               endContent={<ArrowRight weight="bold" size={16} />}
               onClick={() => {

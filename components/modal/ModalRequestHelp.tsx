@@ -78,7 +78,6 @@ export default function ModalRequestHelp({
 
               <Button
                 color="secondary"
-                variant="solid"
                 startContent={<WhatsappLogo weight="bold" size={18} />}
                 className="font-bold"
                 isDisabled={!trouble}

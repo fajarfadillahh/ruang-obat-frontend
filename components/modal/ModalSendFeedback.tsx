@@ -137,7 +137,6 @@ export default function ModalSendFeedback({
 
               <Button
                 color="secondary"
-                variant="solid"
                 className="font-bold"
                 onClick={handleSaveFeedback}
                 isDisabled={!rating || !feedback}

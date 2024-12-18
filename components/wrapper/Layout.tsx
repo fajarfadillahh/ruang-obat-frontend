@@ -146,7 +146,6 @@ export default function Layout({ title, children, className }: LayoutProps) {
             </Button>
 
             <Button
-              variant="solid"
               color="secondary"
               onClick={() => {
                 if (window.location.host == "localhost:3000") {

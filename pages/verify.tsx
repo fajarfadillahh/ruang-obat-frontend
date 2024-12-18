@@ -26,7 +26,6 @@ export default function VerifyPage() {
           </div>
 
           <Button
-            variant="solid"
             color="secondary"
             onClick={() => router.push("/dashboard")}
             className="w-full font-bold"

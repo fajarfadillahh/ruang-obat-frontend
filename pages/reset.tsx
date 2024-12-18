@@ -93,7 +93,6 @@ export default function ResetPasswordPage({
             <Button
               isLoading={loading}
               isDisabled={!Boolean(password) || loading}
-              variant="solid"
               color="secondary"
               className="font-bold"
               onClick={handleChangePassword}

@@ -238,7 +238,6 @@ export default function ModalForgotPassword() {
 
                 <Button
                   color="secondary"
-                  variant="solid"
                   onClick={handleForgetPassword}
                   className="font-bold"
                   isDisabled={!Boolean(otpCode)}

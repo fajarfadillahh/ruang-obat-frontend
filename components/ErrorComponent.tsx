@@ -36,7 +36,6 @@ export default function ErrorComponent({ message, name }: ErrorProps) {
         </div>
 
         <Button
-          variant="solid"
           color="secondary"
           startContent={<ArrowClockwise weight="bold" size={18} />}
           onClick={() => window.location.reload()}

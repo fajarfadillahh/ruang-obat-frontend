@@ -93,7 +93,6 @@ export default function HomePage() {
 
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
-                variant="solid"
                 color="secondary"
                 onClick={() => {
                   if (window.location.host == "localhost:3000") {
@@ -370,7 +369,6 @@ export default function HomePage() {
             </div>
 
             <Button
-              variant="solid"
               color="secondary"
               onClick={() => {
                 if (window.location.host == "localhost:3000") {

@@ -217,7 +217,6 @@ export default function LoginPage() {
               <Button
                 isLoading={loading}
                 isDisabled={!isFormEmpty() || loading}
-                variant="solid"
                 color="secondary"
                 onClick={handleLogin}
                 className="font-bold"

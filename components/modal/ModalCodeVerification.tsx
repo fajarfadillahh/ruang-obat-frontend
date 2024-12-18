@@ -83,7 +83,6 @@ export default function ModalCodeVerification({
                 <Button
                   isLoading={loading}
                   isDisabled={!code || loading || code.length > 6}
-                  variant="solid"
                   color="secondary"
                   className="font-bold"
                   onClick={handleVerifyOtp}

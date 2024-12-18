@@ -57,7 +57,6 @@ export default function ModalConfirm({
 
             <Button
               color="secondary"
-              variant="solid"
               className="font-bold"
               isLoading={loading}
               onClick={handleAction}
