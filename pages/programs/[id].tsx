@@ -11,8 +11,9 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { Button, Chip } from "@nextui-org/react";
 import {
   BookBookmark,
-  CheckCircle,
+  IconContext,
   Notepad,
+  SealCheck,
   Tag,
   Users,
 } from "@phosphor-icons/react";
@@ -47,45 +48,46 @@ export default function DetailsProgram({
               <BookBookmark weight="bold" size={48} className="text-purple" />
 
               <div className="grid flex-1 gap-4">
-                <h4 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
+                <h1 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
                   {data?.data.title}
-                </h4>
+                </h1>
 
-                <div className="flex flex-wrap items-center gap-4 lg:gap-10">
-                  {data?.data.type == "free" ? (
-                    <Chip
-                      variant="flat"
-                      color="default"
-                      startContent={
-                        <Tag weight="bold" size={18} className="text-black" />
-                      }
-                      classNames={{
-                        base: "px-3 gap-1",
-                        content: "font-bold text-black",
-                      }}
-                    >
-                      Gratis
-                    </Chip>
-                  ) : (
-                    <h5 className="text-xl font-extrabold text-purple">
-                      {formatRupiah(data?.data.price as number)}
-                    </h5>
-                  )}
+                <IconContext.Provider
+                  value={{
+                    weight: "bold",
+                    size: 18,
+                  }}
+                >
+                  <div className="flex flex-wrap items-center gap-4 lg:gap-10">
+                    {data?.data.type == "free" ? (
+                      <Chip
+                        variant="flat"
+                        color="default"
+                        startContent={<Tag className="text-black" />}
+                        classNames={{
+                          base: "px-3 gap-1",
+                          content: "font-bold text-black",
+                        }}
+                      >
+                        Gratis
+                      </Chip>
+                    ) : (
+                      <h2 className="text-xl font-extrabold text-purple">
+                        {formatRupiah(data?.data.price as number)}
+                      </h2>
+                    )}
 
-                  <div className="inline-flex items-center gap-1 text-gray">
-                    <Notepad weight="bold" size={18} />
-                    <p className="text-sm font-bold">
+                    <h2 className="text-sm font-bold text-gray">
+                      <Notepad className="mr-1 inline-flex" />
                       {data?.data.total_tests} Ujian
-                    </p>
-                  </div>
+                    </h2>
 
-                  <div className="inline-flex items-center gap-1 text-gray">
-                    <Users weight="bold" size={18} />
-                    <p className="text-sm font-bold">
+                    <h2 className="text-sm font-bold text-gray">
+                      <Users className="mr-1 inline-flex" />
                       {data?.data.total_users} Mahasiswa/i
-                    </p>
+                    </h2>
                   </div>
-                </div>
+                </IconContext.Provider>
               </div>
             </div>
 
@@ -121,7 +123,7 @@ export default function DetailsProgram({
 
             {data?.data.is_approved && (
               <div className="inline-flex items-center gap-1">
-                <CheckCircle weight="fill" size={18} className="text-success" />
+                <SealCheck weight="fill" size={20} className="text-success" />
                 <p className="text-sm font-semibold capitalize text-black">
                   Program telah diikuti
                 </p>
@@ -130,9 +132,9 @@ export default function DetailsProgram({
           </div>
 
           <div className="grid gap-4 pt-8">
-            <h4 className="text-[20px] font-bold -tracking-wide text-black">
+            <h1 className="text-[20px] font-bold -tracking-wide text-black">
               Daftar Ujian 📋
-            </h4>
+            </h1>
 
             <div className="relative grid gap-2">
               {data?.data.tests.map((test) => (
