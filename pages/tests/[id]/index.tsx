@@ -2,6 +2,7 @@ import ButtonBack from "@/components/button/ButtonBack";
 import Loading from "@/components/Loading";
 import ModalConfirmTest from "@/components/modal/ModalConfirmTest";
 import Layout from "@/components/wrapper/Layout";
+import { WarningTextModal } from "@/config/text";
 import { SuccessResponse } from "@/types/global.type";
 import { Question } from "@/types/questions.type";
 import { TestResponse } from "@/types/tests.type";
@@ -203,57 +204,31 @@ export default function DetailsTest({
                 }
                 header={<h1 className="font-bold text-black">Peringatan!</h1>}
                 body={
-                  <div className="grid gap-6">
-                    <h1 className="max-w-[400px] border-l-5 border-purple pl-5 text-[20px] font-extrabold capitalize leading-[120%] text-black">
-                      Sebelum mulai ujian harap baca poin-poin penting berikut
-                      ini ⚠️
+                  <div className="grid gap-4">
+                    <h1 className="text-[22px] font-extrabold capitalize leading-[120%] text-black">
+                      Harap baca poin penting berikut ini ⚠️
                     </h1>
 
                     <div className="divide-y-2 divide-dashed divide-gray/20">
                       <ol className="ml-4 grid list-outside list-decimal gap-1.5 pb-2 text-sm font-medium leading-[170%] text-gray">
-                        <li>
-                          Anda hanya dapat mengerjakan ujian 1x{" "}
-                          <strong className="font-extrabold text-purple">
-                            (satu kali)
-                          </strong>
-                          .
-                        </li>
-                        <li>
-                          Anda harus meluangkan waktu sesuai durasi pengerjaan
-                          yang tertera.
-                        </li>
-                        <li>
-                          Anda harus memastikan koneksi internet stabil agar
-                          ujian berjalan lancar dan menghindari gangguan teknis.
-                        </li>
-                        <li>
-                          Jika anda berpindah device saat sedang mengerjakan
-                          ujian, jawaban pada device sebelumnya tidak akan
-                          terbawa karena jawaban tersimpan di device sebelumnya.
-                        </li>
-                        <li>
-                          Jika waktu ujian habis, jawaban yang sudah tersimpan
-                          harus dikumpulkan.
-                        </li>
-                        <li>
-                          Apabila terjadi kendala teknis, harap segera melapor
-                          ke admin.
-                        </li>
+                        {WarningTextModal.has_start.map((item, index) => (
+                          <li key={index}>{item.text}</li>
+                        ))}
                       </ol>
 
-                      <div className="mt-4 flex items-start gap-1 pt-6">
-                        <Checkbox
-                          size="md"
-                          color="secondary"
-                          isSelected={isSelected}
-                          onValueChange={setIsSelected}
-                        />
-
-                        <p className="text-sm font-medium text-gray">
-                          Ya, saya sudah membaca poin-poin tersebut dan siap
-                          untuk mengerjakan ujian.
-                        </p>
-                      </div>
+                      <Checkbox
+                        size="md"
+                        color="secondary"
+                        isSelected={isSelected}
+                        onValueChange={setIsSelected}
+                        className="mt-4 pt-6"
+                        classNames={{
+                          label: "text-sm font-medium text-gray",
+                        }}
+                      >
+                        Ya, saya sudah membaca poin-poin tersebut dan siap untuk
+                        mengerjakan ujian.
+                      </Checkbox>
                     </div>
                   </div>
                 }
@@ -314,19 +289,14 @@ export default function DetailsTest({
                     <>
                       {!expired ? (
                         <p className="text-sm font-medium leading-[170%] text-gray">
-                          Sebelumnya anda sudah mengerjakan ujian ini, durasi
-                          pengerjaannya sampai dengan{" "}
+                          {WarningTextModal.has_result.expired}{" "}
                           <strong className="font-extrabold text-purple">
                             {formatDate(data?.data.end_time as string)}{" "}
                           </strong>
                         </p>
                       ) : (
                         <p className="text-sm font-medium leading-[170%] text-gray">
-                          Durasi pengerjaan ujian telah selesai pada{" "}
-                          <strong className="font-extrabold text-purple">
-                            {formatDate(data?.data.end_time as string)}{" "}
-                          </strong>
-                          . Silakan kumpulkan jawaban Anda.
+                          {WarningTextModal.has_result.continue}
                         </p>
                       )}
                     </>
@@ -395,11 +365,7 @@ export default function DetailsTest({
                   }
                   body={
                     <p className="text-sm font-medium leading-[170%] text-gray">
-                      Sebelumnya anda sudah mengerjakan ujian ini. Namun, kami
-                      tidak menemukan data jawaban anda sebelumnya di
-                      device/browser anda sekarang. Jika anda melanjutkan ujian,
-                      maka anda akan menjawab soal-soal dari awal dengan durasi
-                      pengerjaan sampai dengan{" "}
+                      {WarningTextModal.change_device}{" "}
                       <strong className="font-extrabold text-purple">
                         {formatDate(data?.data.end_time as string)}
                       </strong>
