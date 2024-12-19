@@ -21,6 +21,7 @@ import {
   ClipboardText,
   Headset,
   House,
+  IconContext,
   Medal,
   SignIn,
   SignOut,
@@ -195,86 +196,93 @@ export default function Layout({ title, children, className }: LayoutProps) {
                 </div>
               </DropdownTrigger>
 
-              <DropdownMenu
-                aria-label="profile actions"
-                itemClasses={{
-                  title: "font-semibold",
+              <IconContext.Provider
+                value={{
+                  weight: "bold",
+                  size: 18,
                 }}
               >
-                <DropdownItem
-                  key="dashboard"
-                  color="secondary"
-                  startContent={<House weight="bold" size={18} />}
-                  onClick={() => router.push("/dashboard")}
-                >
-                  Beranda
-                </DropdownItem>
-
-                <DropdownSection
-                  aria-label="account & settings section"
-                  title="Akun & Info"
+                <DropdownMenu
+                  aria-label="profile actions"
+                  itemClasses={{
+                    title: "font-semibold",
+                  }}
                 >
                   <DropdownItem
-                    key="profile"
+                    key="dashboard"
                     color="secondary"
-                    startContent={<UserCircle weight="bold" size={18} />}
-                    onClick={() => router.push("/my/profile")}
+                    startContent={<House />}
+                    onClick={() => router.push("/dashboard")}
                   >
-                    Profil Saya
+                    Beranda
                   </DropdownItem>
+
+                  <DropdownSection
+                    aria-label="account & settings section"
+                    title="Akun & Info"
+                  >
+                    <DropdownItem
+                      key="profile"
+                      color="secondary"
+                      startContent={<UserCircle />}
+                      onClick={() => router.push("/my/profile")}
+                    >
+                      Profil Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="myprogram"
+                      color="secondary"
+                      startContent={<ClipboardText />}
+                      onClick={() => router.push("/my/programs")}
+                    >
+                      Program Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="mytest"
+                      color="secondary"
+                      startContent={<Medal />}
+                      onClick={() => router.push("/my/tests")}
+                    >
+                      Ujian Saya
+                    </DropdownItem>
+                  </DropdownSection>
+
+                  <DropdownSection
+                    aria-label="support section"
+                    title="Support & Feedback"
+                  >
+                    <DropdownItem
+                      key="help"
+                      color="secondary"
+                      startContent={<Headset />}
+                      onClick={onHelpOpen}
+                    >
+                      Bantuan
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="feedback"
+                      color="secondary"
+                      startContent={<ChatCircleText />}
+                      onClick={onFeedbackOpen}
+                    >
+                      Feedback
+                    </DropdownItem>
+                  </DropdownSection>
 
                   <DropdownItem
-                    key="myprogram"
-                    color="secondary"
-                    startContent={<ClipboardText weight="bold" size={18} />}
-                    onClick={() => router.push("/my/programs")}
+                    key="logout"
+                    color="danger"
+                    startContent={<SignOut />}
+                    onClick={onLogoutOpen}
+                    className="text-danger-600"
                   >
-                    Program Saya
+                    Keluar
                   </DropdownItem>
-
-                  <DropdownItem
-                    key="mytest"
-                    color="secondary"
-                    startContent={<Medal weight="bold" size={18} />}
-                    onClick={() => router.push("/my/tests")}
-                  >
-                    Ujian Saya
-                  </DropdownItem>
-                </DropdownSection>
-
-                <DropdownSection
-                  aria-label="support section"
-                  title="Support & Feedback"
-                >
-                  <DropdownItem
-                    key="help"
-                    color="secondary"
-                    startContent={<Headset weight="bold" size={18} />}
-                    onClick={onHelpOpen}
-                  >
-                    Bantuan
-                  </DropdownItem>
-
-                  <DropdownItem
-                    key="feedback"
-                    color="secondary"
-                    startContent={<ChatCircleText weight="bold" size={18} />}
-                    onClick={onFeedbackOpen}
-                  >
-                    Feedback
-                  </DropdownItem>
-                </DropdownSection>
-
-                <DropdownItem
-                  key="logout"
-                  color="danger"
-                  startContent={<SignOut weight="bold" size={18} />}
-                  onClick={onLogoutOpen}
-                  className="text-danger-600"
-                >
-                  Keluar
-                </DropdownItem>
-              </DropdownMenu>
+                </DropdownMenu>
+              </IconContext.Provider>
             </Dropdown>
 
             <ModalSendFeedback
