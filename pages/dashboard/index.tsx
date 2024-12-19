@@ -4,8 +4,9 @@ import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { DashboardResponse } from "@/types/dashboard.type";
 import { SuccessResponse } from "@/types/global.type";
+import { customInputClassnames } from "@/utils/customInputClassnames";
 import { Input, Pagination, Select, SelectItem } from "@nextui-org/react";
-import { Funnel, MagnifyingGlass } from "@phosphor-icons/react";
+import { Funnel, IconContext, MagnifyingGlass } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -56,60 +57,56 @@ export default function DashboardPage({
         </h1>
 
         <div className="grid gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <Input
-              isClearable
-              onClear={() => setSearch("")}
-              defaultValue={query.q as string}
-              type="text"
-              variant="flat"
-              labelPlacement="outside"
-              placeholder="Cari Program..."
-              startContent={
-                <MagnifyingGlass
-                  weight="bold"
-                  size={18}
-                  className="text-gray"
-                />
-              }
-              classNames={{
-                input:
-                  "font-semibold placeholder:font-semibold placeholder:text-gray",
-              }}
-              className="max-w-[500px]"
-              onChange={(e) => setSearch(e.target.value)}
-            />
+          <IconContext.Provider
+            value={{
+              weight: "bold",
+              size: 18,
+            }}
+          >
+            <div className="flex items-center justify-between gap-4">
+              <Input
+                isClearable
+                onClear={() => setSearch("")}
+                defaultValue={query.q as string}
+                type="text"
+                variant="flat"
+                labelPlacement="outside"
+                placeholder="Cari Program..."
+                startContent={<MagnifyingGlass className="text-gray" />}
+                classNames={customInputClassnames}
+                className="max-w-[500px]"
+                onChange={(e) => setSearch(e.target.value)}
+              />
 
-            <Select
-              selectedKeys={[query.type as string]}
-              aria-label="filter program"
-              variant="flat"
-              placeholder="Filter"
-              startContent={
-                <Funnel weight="bold" size={18} className="text-black" />
-              }
-              labelPlacement="outside"
-              listboxProps={{
-                itemClasses: {
-                  title: "font-semibold text-black",
-                },
-              }}
-              classNames={{
-                base: "w-[150px]",
-                value: "font-semibold text-black",
-              }}
-              onChange={(e) => {
-                if (e.target.value) {
-                  router.push({ query: { type: e.target.value } });
-                } else {
-                  router.push("/dashboard");
-                }
-              }}
-            >
-              <SelectItem key="free">Gratis</SelectItem>
-              <SelectItem key="paid">Berbayar</SelectItem>
-            </Select>
-          </div>
+              <Select
+                selectedKeys={[query.type as string]}
+                aria-label="filter program"
+                variant="flat"
+                placeholder="Filter"
+                startContent={<Funnel className="text-black" />}
+                labelPlacement="outside"
+                listboxProps={{
+                  itemClasses: {
+                    title: "font-semibold text-black",
+                  },
+                }}
+                classNames={{
+                  base: "w-[150px]",
+                  value: "font-semibold text-black",
+                }}
+                onChange={(e) => {
+                  if (e.target.value) {
+                    router.push({ query: { type: e.target.value } });
+                  } else {
+                    router.push("/dashboard");
+                  }
+                }}
+              >
+                <SelectItem key="free">Gratis</SelectItem>
+                <SelectItem key="paid">Berbayar</SelectItem>
+              </Select>
+            </div>
+          </IconContext.Provider>
 
           {searchValue && data?.data.programs.length === 0 ? (
             <EmptyData text="Program tidak ditemukan!" />
