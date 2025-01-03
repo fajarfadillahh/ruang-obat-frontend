@@ -76,16 +76,16 @@ export default function HomePage() {
                 </div>
               </h1>
               <p className="font-medium leading-[170%] text-gray">
-                Ruang Obat merupakan tempat belajar farmasi private No.1 di
-                Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak
-                program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas
-                Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut
-                UKMPPAI.
+                Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang
+                telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
+                Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang
+                pendidikan, antara lain: Kelas Mata Kuliah, Kelas Skripsi
+                Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan
+                Tryout UKMPPAI.
               </p>
               <p className="font-medium leading-[170%] text-gray">
-                Di website Ruang Obat kalian akan dapat mengakses berbagai
-                program. Mari raih gelar sarjana dan apotekermu bersama Ruang
-                Obat.
+                Di website ini kalian dapat mengakses berbagai program. Mari
+                raih gelar sarjana dan apotekermu bersama Ruang Obat.
                 <br />
                 #bimbelfarmasi #cukupdisiniaja
               </p>

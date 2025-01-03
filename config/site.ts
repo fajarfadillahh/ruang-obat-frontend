@@ -23,7 +23,7 @@ export const siteConfig = {
       id: 1,
       title: "Program Menarik & Lengkap",
       icon: GraduationCap,
-      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat.",
+      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat #cukupdisiniaja",
     },
     {
       id: 2,
