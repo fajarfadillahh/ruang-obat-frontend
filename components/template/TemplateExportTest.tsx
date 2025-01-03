@@ -38,22 +38,22 @@ function TemplateExportTest(
 
   return (
     <div
+      className="font-inter container h-max w-full overflow-hidden bg-white font-medium leading-[170%] text-black"
       ref={ref}
-      className="h-max w-full overflow-hidden bg-white font-medium leading-[170%] text-black"
     >
       {questionsPerPage.map((pageQuestions, index) => (
         <div key={index} className="space-y-3">
-          <div className="font-medium text-black">
+          <div className="pt-2 text-right text-xs font-medium text-black">
             Copyrights by{" "}
             <Chip
               color="secondary"
               size="sm"
               classNames={{
                 base: "px-2",
-                content: "font-bold capitalize",
+                content: "font-bold",
               }}
             >
-              Ruangobat.id
+              ruangobat.id
             </Chip>
           </div>
 
@@ -62,7 +62,7 @@ function TemplateExportTest(
               <div className="z-10 font-bold">{question.number}.</div>
 
               <div className="z-10 grid flex-1 gap-2">
-                <p
+                <div
                   className="preventive-list preventive-table list-outside font-semibold leading-[170%] text-black"
                   dangerouslySetInnerHTML={{
                     __html: question?.text as string,
@@ -97,7 +97,7 @@ function TemplateExportTest(
 
                 <div className="mt-2">
                   <h2 className="font-bold">Pembahasan:</h2>
-                  <p
+                  <div
                     className="preventive-list preventive-table list-outside font-semibold leading-[170%] text-black"
                     dangerouslySetInnerHTML={{
                       __html: question?.explanation as string,

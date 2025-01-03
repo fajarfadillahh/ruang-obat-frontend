@@ -1,22 +1,35 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import Loading from "@/components/Loading";
 import TemplateExportTest from "@/components/template/TemplateExportTest";
+import VideoComponent from "@/components/VideoComponent";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { ResultType } from "@/types/results.type";
-import { Button } from "@nextui-org/react";
-import { CaretDoubleLeft, Export } from "@phosphor-icons/react";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Radio,
+  RadioGroup,
+} from "@nextui-org/react";
+import {
+  ArrowDown,
+  CaretDoubleLeft,
+  CaretDoubleRight,
+  Export,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useRouter } from "next/router";
+import Link from "next/link";
 import { ParsedUrlQuery } from "querystring";
-import { useRef, useState } from "react";
+import { Suspense, useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 import useSWR from "swr";
 
 export default function ResultTest({
   token,
   params,
+  query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const router = useRouter();
   const templateRef = useRef<HTMLDivElement>(null);
   const { data, isLoading } = useSWR<SuccessResponse<ResultType>>({
     url: `/tests/${params.id}/result`,
@@ -32,32 +45,16 @@ export default function ResultTest({
     right: false,
   });
 
+  const handlePrint = useReactToPrint({
+    content: () => templateRef.current,
+    documentTitle: `Hasil ${query.title}`,
+  });
+
   function toggleContentOpen(id: "left" | "right") {
     setContentOpen((prevState) => ({
       ...prevState,
       [id]: !prevState[id],
     }));
-  }
-
-  async function handleExport() {
-    const html2pdf = await require("html2pdf.js");
-    const element = templateRef.current;
-    let options = {
-      margin: 12,
-      filename: `hasil-ujian-${data?.data.result_id}.pdf`,
-      image: { type: "jpeg", quality: 0.98 },
-      html2canvas: {
-        scale: 2,
-        useCORS: true,
-      },
-      jsPDF: {
-        unit: "mm",
-        format: "a4",
-        orientation: "portrait",
-      },
-    };
-
-    html2pdf().set(options).from(element).save();
   }
 
   if (isLoading) {
@@ -77,14 +74,20 @@ export default function ResultTest({
           <Button
             color="secondary"
             startContent={<Export weight="bold" size={18} />}
-            onClick={handleExport}
+            onClick={() => {
+              handlePrint();
+            }}
             className="w-max font-bold"
           >
             Export PDF
           </Button>
         </div>
 
-        <div className="grid grid-cols-[1fr_max-content] xl:gap-4">
+        <div className="hidden">
+          <TemplateExportTest ref={templateRef} data={data?.data} />
+        </div>
+
+        {/* <div className="grid grid-cols-[1fr_max-content] xl:gap-4">
           <div className="h-[550px] overflow-hidden overflow-y-scroll rounded-xl border-2 border-gray/20 p-6">
             <TemplateExportTest ref={templateRef} data={data?.data} />
           </div>
@@ -152,9 +155,9 @@ export default function ResultTest({
               </Button>
             </div>
           </div>
-        </div>
+        </div> */}
 
-        {/* <div className="xl:flex xl:items-start xl:gap-4">
+        <div className="xl:flex xl:items-start xl:gap-4">
           <div
             className={`fixed top-0 z-50 h-screen w-[260px] rounded-r-xl border-gray/20 bg-white p-6 shadow-[4px_0_8px_rgba(0,0,0,0.1)] transition-all duration-300 xl:static xl:flex xl:h-[550px] xl:rounded-xl xl:border-2 xl:shadow-none ${
               contentOpen.left ? "left-0" : "-left-[260px]"
@@ -335,9 +338,7 @@ export default function ResultTest({
             }`}
           >
             <div className="grid w-full gap-4">
-              <h4 className="text-[18px] font-bold text-black">
-                Hasil Ujian:
-              </h4>
+              <h4 className="text-[18px] font-bold text-black">Hasil Ujian:</h4>
 
               <div className="grid gap-4">
                 <div className="grid gap-1">
@@ -394,7 +395,7 @@ export default function ResultTest({
               </Button>
             </div>
           </div>
-        </div> */}
+        </div>
       </section>
     </Layout>
   );
@@ -403,11 +404,13 @@ export default function ResultTest({
 export const getServerSideProps: GetServerSideProps<{
   token: string;
   params: ParsedUrlQuery;
-}> = async ({ req, params }) => {
+  query: ParsedUrlQuery;
+}> = async ({ req, params, query }) => {
   return {
     props: {
       token: req.headers["access_token"] as string,
       params: params as ParsedUrlQuery,
+      query: query as ParsedUrlQuery,
     },
   };
 };
