@@ -29,6 +29,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
+        inter: ["Inter", "sans-serif"],
       },
       colors: {
         black: "#171717",
