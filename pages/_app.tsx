@@ -5,7 +5,6 @@ import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
-import { ThemeProvider as NextThemeProvider } from "next-themes";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
@@ -27,7 +26,6 @@ export default function App({
         }}
       />
       <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
-      <NextThemeProvider attribute="class">
         <SessionProvider session={session} refetchOnWindowFocus={false}>
           <SessionChecker />
           <SWRConfig
@@ -39,7 +37,6 @@ export default function App({
             <Component {...pageProps} />
           </SWRConfig>
         </SessionProvider>
-      </NextThemeProvider>
       <GoogleAnalytics gaId="G-QPX13ESQJV" />
     </NextUIProvider>
   );
