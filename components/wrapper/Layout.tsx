@@ -3,9 +3,9 @@ import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import Navbar from "@/components/Navbar";
-import { UserDataResponse } from "@/pages/my/profile";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
+import { UserDataResponse } from "@/types/profile.type";
 import {
   Avatar,
   Button,
@@ -21,6 +21,7 @@ import {
   ClipboardText,
   Headset,
   House,
+  IconContext,
   Medal,
   SignIn,
   SignOut,
@@ -117,89 +118,90 @@ export default function Layout({ title, children, className }: LayoutProps) {
         />
       </Head>
 
-      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
-        <Navbar className="items-center justify-between">
-          <Link
-            href={router.pathname == "/" ? "/" : "/dashboard"}
-            className="inline-flex items-center gap-2"
-          >
-            <LogoRuangobat className="h-auto w-8 text-gray/20" />
-            <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
-              RuangObat<span className="text-purple">.</span>
-            </h1>
-          </Link>
+      <Navbar className="items-center justify-between">
+        <Link
+          href={router.pathname == "/" ? "/" : "/dashboard"}
+          className="inline-flex items-center gap-2"
+        >
+          <LogoRuangobat className="h-auto w-8 text-gray/20" />
+          <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
+            RuangObat<span className="text-purple">.</span>
+          </h1>
+        </Link>
 
-          {router.pathname == "/" ? (
-            <div className="inline-flex items-center gap-1">
-              <Button
-                variant="light"
-                startContent={<SignIn weight="bold" size={18} />}
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/auth/login");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/login",
-                      "_blank",
-                    );
-                  }
-                }}
-                className="px-4 font-bold text-black"
-              >
-                Masuk
-              </Button>
+        {router.pathname == "/" ? (
+          <div className="inline-flex items-center gap-2">
+            <Button
+              variant="bordered"
+              startContent={<SignIn weight="bold" size={18} />}
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/login");
+                } else {
+                  window.open("https://cbt.ruangobat.id/auth/login", "_blank");
+                }
+              }}
+              className="px-4 font-bold text-black"
+            >
+              Masuk
+            </Button>
 
-              <Button
-                variant="solid"
-                color="secondary"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/auth/register");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/register",
-                      "_blank",
-                    );
-                  }
-                }}
-                className="px-8 font-bold"
-              >
-                Register
-              </Button>
-            </div>
-          ) : null}
+            <Button
+              color="secondary"
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/register");
+                } else {
+                  window.open(
+                    "https://cbt.ruangobat.id/auth/register",
+                    "_blank",
+                  );
+                }
+              }}
+              className="px-8 font-bold"
+            >
+              Register
+            </Button>
+          </div>
+        ) : null}
 
-          {router.pathname !== "/" && status === "authenticated" ? (
-            <>
-              <Dropdown>
-                <DropdownTrigger>
-                  <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
-                    <Avatar
-                      isBordered
-                      showFallback
-                      size="sm"
-                      src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
-                      classNames={{
-                        base: "ring-purple bg-purple/20",
-                        icon: "text-purple",
-                      }}
-                    />
+        {router.pathname !== "/" && status === "authenticated" ? (
+          <>
+            <Dropdown>
+              <DropdownTrigger>
+                <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
+                  <Avatar
+                    isBordered
+                    showFallback
+                    size="sm"
+                    src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                    classNames={{
+                      base: "ring-purple bg-purple/20",
+                      icon: "text-purple",
+                    }}
+                  />
 
-                    <div>
-                      <h6 className="text-sm font-bold text-black">
-                        {status == "authenticated"
-                          ? formatName(
-                              user?.data.fullname ? user?.data.fullname : "",
-                            )
-                          : null}
-                      </h6>
-                      <p className="text-[12px] font-semibold uppercase text-gray">
-                        {status == "authenticated" ? user?.data.user_id : null}
-                      </p>
-                    </div>
+                  <div>
+                    <h6 className="text-sm font-bold text-black">
+                      {status == "authenticated"
+                        ? formatName(
+                            user?.data.fullname ? user?.data.fullname : "",
+                          )
+                        : null}
+                    </h6>
+                    <p className="text-[12px] font-semibold uppercase text-gray">
+                      {status == "authenticated" ? user?.data.user_id : null}
+                    </p>
                   </div>
-                </DropdownTrigger>
+                </div>
+              </DropdownTrigger>
 
+              <IconContext.Provider
+                value={{
+                  weight: "bold",
+                  size: 18,
+                }}
+              >
                 <DropdownMenu
                   aria-label="profile actions"
                   itemClasses={{
@@ -209,7 +211,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   <DropdownItem
                     key="dashboard"
                     color="secondary"
-                    startContent={<House weight="bold" size={18} />}
+                    startContent={<House />}
                     onClick={() => router.push("/dashboard")}
                   >
                     Beranda
@@ -222,7 +224,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <DropdownItem
                       key="profile"
                       color="secondary"
-                      startContent={<UserCircle weight="bold" size={18} />}
+                      startContent={<UserCircle />}
                       onClick={() => router.push("/my/profile")}
                     >
                       Profil Saya
@@ -231,7 +233,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <DropdownItem
                       key="myprogram"
                       color="secondary"
-                      startContent={<ClipboardText weight="bold" size={18} />}
+                      startContent={<ClipboardText />}
                       onClick={() => router.push("/my/programs")}
                     >
                       Program Saya
@@ -240,7 +242,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <DropdownItem
                       key="mytest"
                       color="secondary"
-                      startContent={<Medal weight="bold" size={18} />}
+                      startContent={<Medal />}
                       onClick={() => router.push("/my/tests")}
                     >
                       Ujian Saya
@@ -254,7 +256,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <DropdownItem
                       key="help"
                       color="secondary"
-                      startContent={<Headset weight="bold" size={18} />}
+                      startContent={<Headset />}
                       onClick={onHelpOpen}
                     >
                       Bantuan
@@ -263,7 +265,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
                     <DropdownItem
                       key="feedback"
                       color="secondary"
-                      startContent={<ChatCircleText weight="bold" size={18} />}
+                      startContent={<ChatCircleText />}
                       onClick={onFeedbackOpen}
                     >
                       Feedback
@@ -273,35 +275,37 @@ export default function Layout({ title, children, className }: LayoutProps) {
                   <DropdownItem
                     key="logout"
                     color="danger"
-                    startContent={<SignOut weight="bold" size={18} />}
+                    startContent={<SignOut />}
                     onClick={onLogoutOpen}
                     className="text-danger-600"
                   >
                     Keluar
                   </DropdownItem>
                 </DropdownMenu>
-              </Dropdown>
+              </IconContext.Provider>
+            </Dropdown>
 
-              <ModalSendFeedback
-                isOpen={isFeedbackOpen}
-                onClose={onFeedbackClose}
-              />
+            <ModalSendFeedback
+              isOpen={isFeedbackOpen}
+              onClose={onFeedbackClose}
+            />
 
-              <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
+            <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
 
-              <ModalConfirm
-                btnText="Logout"
-                header="Pemberitahuan"
-                text="Apakah Anda Yakin Ingin Logout?"
-                loading={loading}
-                isOpen={isLogoutOpen}
-                onClose={onLogoutClose}
-                handleAction={handleSignOut}
-              />
-            </>
-          ) : null}
-        </Navbar>
+            <ModalConfirm
+              btnText="Logout"
+              header="Pemberitahuan"
+              text="Apakah Anda Yakin Ingin Logout?"
+              loading={loading}
+              isOpen={isLogoutOpen}
+              onClose={onLogoutClose}
+              handleAction={handleSignOut}
+            />
+          </>
+        ) : null}
+      </Navbar>
 
+      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           {children}
         </main>

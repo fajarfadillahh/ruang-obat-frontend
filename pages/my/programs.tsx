@@ -14,16 +14,13 @@ export default function MyProgramsPage({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-
   const { data, isLoading } = useSWR<SuccessResponse<ProgramsType[]>>({
     url: "/my/programs",
     method: "GET",
     token,
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title="Program Saya">
@@ -47,14 +44,13 @@ export default function MyProgramsPage({
               <p className="font-medium leading-[170%] text-gray">
                 Kamu belum mengikuti program
               </p>
+
               <Button
-                variant="solid"
                 color="secondary"
-                size="sm"
                 onClick={() => {
                   router.push("/dashboard");
                 }}
-                className="w-max px-4 font-bold"
+                className="w-max font-bold"
               >
                 Halaman Dashboard
               </Button>

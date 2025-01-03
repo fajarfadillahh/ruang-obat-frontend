@@ -30,7 +30,6 @@ export default function NotFoundPage() {
         </div>
 
         <Button
-          variant="solid"
           color="secondary"
           startContent={<ArrowLeft weight="bold" size={18} />}
           onClick={() => router.push("/dashboard")}

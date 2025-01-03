@@ -1,4 +1,6 @@
 import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
+import { customInputClassnames } from "@/utils/customInputClassnames";
+import { validateEmail, validatePassword } from "@/utils/formValidators";
 import { handleKeyDown } from "@/utils/handleKeyDown";
 import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
@@ -6,6 +8,7 @@ import {
   EnvelopeSimple,
   Eye,
   EyeSlash,
+  IconContext,
   Lock,
   Quotes,
 } from "@phosphor-icons/react";
@@ -14,26 +17,43 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-type InputType = {
+const quote = quotes[Math.floor(Math.random() * quotes.length)];
+
+type InputState = {
   email: string;
   password: string;
 };
 
-const quote = quotes[Math.floor(Math.random() * quotes.length)];
+type ErrorsState = {
+  email?: string;
+  password?: string;
+};
 
 export default function LoginPage() {
-  const [input, setInput] = useState<InputType>({
-    email: "",
-    password: "",
-  });
-
+  const router = useRouter();
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [type, setType] = useState("password");
-  const router = useRouter();
+  const [errors, setErrors] = useState<ErrorsState>({});
+  const [passwordType, setPasswordType] = useState<"password" | "text">(
+    "password",
+  );
+  const [input, setInput] = useState<InputState>({ email: "", password: "" });
+
+  function handleInputChange(
+    e: ChangeEvent<HTMLInputElement>,
+    customValidator?: (value: string) => string | null,
+  ) {
+    const { name, value } = e.target;
+    setInput((prev) => ({ ...prev, [name]: value }));
+
+    if (customValidator) {
+      const error = customValidator(value);
+      setErrors((prev) => ({ ...prev, [name]: error }));
+    }
+  }
 
   async function handleLogin() {
     setLoading(true);
@@ -52,6 +72,7 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
+      toast.success("Yeay, Anda Berhasil Login");
       return router.push("/dashboard");
     }
   }
@@ -127,7 +148,7 @@ export default function LoginPage() {
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-[400px] flex-col justify-center gap-4 px-6 py-10 xl:max-w-none xl:px-16">
+        <div className="mx-auto flex max-w-[400px] items-center justify-center px-6 xl:max-w-none">
           <div className="grid gap-8">
             <div className="text-center xl:text-left">
               <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
@@ -138,85 +159,63 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <div className="grid gap-2">
-              <Input
-                type="email"
-                variant="flat"
-                labelPlacement="outside"
-                placeholder="Alamat Email"
-                name="email"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-                startContent={
-                  <EnvelopeSimple
-                    weight="bold"
-                    size={18}
-                    className="text-gray"
-                  />
-                }
-                classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                }}
-                autoComplete="off"
-              />
+            <IconContext.Provider
+              value={{
+                weight: "bold",
+                size: 18,
+                className: "text-gray",
+              }}
+            >
+              <div className="grid gap-2">
+                <Input
+                  type="email"
+                  autoComplete="off"
+                  variant="flat"
+                  labelPlacement="outside"
+                  placeholder="Alamat Email"
+                  name="email"
+                  onChange={(e) => handleInputChange(e, validateEmail)}
+                  onKeyDown={(e) => handleKeyDown(e, handleLogin)}
+                  startContent={<EnvelopeSimple />}
+                  classNames={customInputClassnames}
+                  isInvalid={!!errors.email}
+                  errorMessage={errors.email}
+                />
 
-              <Input
-                type={type}
-                variant="flat"
-                labelPlacement="outside"
-                placeholder="Kata Sandi"
-                name="password"
-                onChange={(e) =>
-                  setInput({
-                    ...input,
-                    [e.target.name]: e.target.value,
-                  })
-                }
-                onKeyDown={(e) => handleKeyDown(e, handleLogin)}
-                startContent={
-                  <Lock weight="bold" size={18} className="text-gray" />
-                }
-                endContent={
-                  <button
-                    onClick={() =>
-                      type == "password" ? setType("text") : setType("password")
-                    }
-                  >
-                    {type == "password" ? (
-                      <Eye
-                        weight="bold"
-                        size={18}
-                        className="cursor-pointer text-gray"
-                      />
-                    ) : (
-                      <EyeSlash
-                        weight="bold"
-                        size={18}
-                        className="cursor-pointer text-gray"
-                      />
-                    )}
-                  </button>
-                }
-                classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                }}
-                autoComplete="off"
-              />
+                <Input
+                  type={passwordType}
+                  autoComplete="off"
+                  variant="flat"
+                  labelPlacement="outside"
+                  placeholder="Kata Sandi"
+                  name="password"
+                  onChange={(e) => handleInputChange(e, validatePassword)}
+                  onKeyDown={(e) => handleKeyDown(e, handleLogin)}
+                  startContent={<Lock />}
+                  endContent={
+                    <button
+                      onClick={() =>
+                        setPasswordType((prevType) =>
+                          prevType === "password" ? "text" : "password",
+                        )
+                      }
+                    >
+                      {passwordType === "password" ? <Eye /> : <EyeSlash />}
+                    </button>
+                  }
+                  classNames={customInputClassnames}
+                  isInvalid={!!errors.password}
+                  errorMessage={errors.password}
+                />
 
-              <ModalForgotPassword />
-            </div>
+                <ModalForgotPassword />
+              </div>
+            </IconContext.Provider>
 
             <div className="grid gap-4">
               <Button
                 isLoading={loading}
                 isDisabled={!isFormEmpty() || loading}
-                variant="solid"
                 color="secondary"
                 onClick={handleLogin}
                 className="font-bold"

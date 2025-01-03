@@ -30,6 +30,7 @@ export default function ModalSendFeedback({
 
   async function handleSaveFeedback() {
     setLoading(true);
+
     try {
       await fetcher({
         url: "/general/feedback",
@@ -47,7 +48,7 @@ export default function ModalSendFeedback({
       onClose();
       setRating(0);
       setFeedback("");
-      toast.success("Terimakasih atas feedbacknya!");
+      toast.success("Terima Kasih Atas Feedback-nya!");
     } catch (error) {
       setLoading(false);
       console.log(error);
@@ -95,7 +96,10 @@ export default function ModalSendFeedback({
                           color={starIndex <= rating ? "warning" : "default"}
                           onClick={() => setRating(starIndex)}
                         >
-                          <Star weight="bold" size={24} />
+                          <Star
+                            weight={starIndex <= rating ? "fill" : "bold"}
+                            size={24}
+                          />
                         </Button>
                       );
                     })}
@@ -133,7 +137,6 @@ export default function ModalSendFeedback({
 
               <Button
                 color="secondary"
-                variant="solid"
                 className="font-bold"
                 onClick={handleSaveFeedback}
                 isDisabled={!rating || !feedback}

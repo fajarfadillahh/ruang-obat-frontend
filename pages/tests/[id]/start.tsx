@@ -2,6 +2,8 @@ import Loading from "@/components/Loading";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
 import { SuccessResponse } from "@/types/global.type";
+import { Question } from "@/types/questions.type";
+import { TestResponse } from "@/types/tests.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
 import useNetworkStatus from "@/utils/useNetworkStatus";
@@ -19,11 +21,11 @@ import {
   ArrowLeft,
   ArrowRight,
   CaretDoubleLeft,
+  CaretDoubleRight,
   CheckCircle,
   WarningCircle,
 } from "@phosphor-icons/react";
-import { CaretDoubleRight } from "@phosphor-icons/react/dist/ssr";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
@@ -33,6 +35,34 @@ import { Suspense, useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import toast from "react-hot-toast";
 import useSWR from "swr";
+
+type StartTestResponse = {
+  questions: Question[];
+  total_questions: number;
+  end_time: string;
+};
+
+function getColor({
+  user_answer,
+  is_hesitant,
+}: {
+  user_answer: string;
+  is_hesitant: boolean;
+}) {
+  if (user_answer) {
+    if (is_hesitant) {
+      return "bg-yellow-500 text-white";
+    } else {
+      return "bg-purple text-white";
+    }
+  } else {
+    if (is_hesitant) {
+      return "bg-yellow-500 text-white";
+    } else {
+      return "bg-gray/10 text-gray hover:bg-gray/20";
+    }
+  }
+}
 
 export default function StartTest({
   token,
@@ -371,7 +401,6 @@ export default function StartTest({
               {number - 1 === questions.length - 1 ? (
                 <>
                   <Button
-                    variant="solid"
                     color="secondary"
                     onClick={onSaveTestOpen}
                     className="font-bold"
@@ -396,7 +425,6 @@ export default function StartTest({
               ) : (
                 <>
                   <Button
-                    variant="solid"
                     color="default"
                     startContent={<ArrowLeft weight="bold" size={16} />}
                     className="font-bold"
@@ -409,7 +437,6 @@ export default function StartTest({
                   </Button>
 
                   <Button
-                    variant="solid"
                     color="secondary"
                     endContent={<ArrowRight weight="bold" size={16} />}
                     className="font-bold"
@@ -570,56 +597,59 @@ export default function StartTest({
   );
 }
 
-type Question = {
-  number: number;
-  question_id: string;
-  text: string;
-  url?: string;
-  type?: "text" | "video" | "image";
-  options: {
-    text: string;
-    option_id: string;
-  }[];
-  user_answer: string;
-  is_hesitant: boolean;
-};
+export const getServerSideProps = async ({
+  req,
+  params,
+}: GetServerSidePropsContext) => {
+  const token = req.headers["access_token"] as string;
 
-type StartTestResponse = {
-  questions: Question[];
-  total_questions: number;
-  end_time: string;
-};
+  try {
+    const response: SuccessResponse<TestResponse> = await fetcher({
+      url: `/tests/${params?.id}`,
+      method: "GET",
+      token,
+    });
 
-function getColor({
-  user_answer,
-  is_hesitant,
-}: {
-  user_answer: string;
-  is_hesitant: boolean;
-}) {
-  if (user_answer) {
-    if (is_hesitant) {
-      return "bg-yellow-500 text-white";
-    } else {
-      return "bg-purple text-white";
+    if (
+      response.data.status == "Belum dimulai" ||
+      response.data.status == "Berakhir"
+    ) {
+      return {
+        redirect: {
+          destination: `/dashboard`,
+        },
+      };
     }
-  } else {
-    if (is_hesitant) {
-      return "bg-yellow-500 text-white";
-    } else {
-      return "bg-gray/10 text-gray hover:bg-gray/20";
+
+    if (response.data.has_result) {
+      return {
+        redirect: {
+          destination: `/results/${response.data.has_result}`,
+        },
+      };
+    }
+
+    return {
+      props: {
+        token,
+        params: params as ParsedUrlQuery,
+      },
+    };
+  } catch (error: any) {
+    if (error.status_code >= 500) {
+      return {
+        redirect: {
+          destination: "/500",
+        },
+      };
+    }
+
+    if (error.status_code == 404) {
+      return {
+        redirect: {
+          destination: "/404",
+        },
+      };
     }
   }
-}
-
-export const getServerSideProps: GetServerSideProps<{
-  token: string;
-  params: ParsedUrlQuery;
-}> = async ({ req, params }) => {
-  return {
-    props: {
-      token: req.headers["access_token"] as string,
-      params: params as ParsedUrlQuery,
-    },
-  };
 };

@@ -72,7 +72,6 @@ export default function ModalInputAccessKey({
   return (
     <>
       <Button
-        variant="solid"
         color="secondary"
         size="sm"
         onPress={onOpen}

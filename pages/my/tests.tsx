@@ -14,16 +14,13 @@ export default function MyTestsPage({
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-
   const { data, isLoading } = useSWR<SuccessResponse<MyTestType[]>>({
     url: "/my/tests",
     method: "GET",
     token,
   });
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title="Ujian Saya">
@@ -47,14 +44,13 @@ export default function MyTestsPage({
               <p className="font-medium leading-[170%] text-gray">
                 Kamu belum mengikuti ujian
               </p>
+
               <Button
-                variant="solid"
                 color="secondary"
-                size="sm"
                 onClick={() => {
                   router.push("/dashboard");
                 }}
-                className="w-max px-4 font-bold"
+                className="w-max font-bold"
               >
                 Halaman Dashboard
               </Button>

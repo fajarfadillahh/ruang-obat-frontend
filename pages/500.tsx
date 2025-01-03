@@ -26,7 +26,6 @@ export default function ServerErrorPage() {
         </div>
 
         <Button
-          variant="solid"
           color="secondary"
           startContent={<ArrowClockwise weight="bold" size={18} />}
           onClick={() => window.location.reload()}

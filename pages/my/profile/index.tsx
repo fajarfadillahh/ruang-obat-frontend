@@ -1,6 +1,7 @@
 import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
+import { UserDataResponse } from "@/types/profile.type";
 import { capitalize } from "@/utils/capitalize";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate } from "@/utils/formatDate";
@@ -118,9 +119,7 @@ export default function MyProfilePage({
     }
   }
 
-  if (isLoading) {
-    return <Loading />;
-  }
+  if (isLoading) return <Loading />;
 
   return (
     <Layout title="Profil Saya">
@@ -135,7 +134,6 @@ export default function MyProfilePage({
             </p>
 
             <Button
-              variant="solid"
               color="warning"
               size="sm"
               onClick={() => alert("Fitur masih dalam tahap development")}
@@ -198,14 +196,13 @@ export default function MyProfilePage({
 
               <Button
                 isDisabled={isDisabled}
-                variant="solid"
                 color="secondary"
                 size="sm"
                 startContent={<FloppyDisk weight="bold" size={18} />}
                 onClick={handleSave}
                 className="font-bold"
               >
-                Simpan Perubahan
+                Simpan
               </Button>
             </div>
 
@@ -341,7 +338,6 @@ export default function MyProfilePage({
             </h4>
 
             <Button
-              variant="solid"
               color="secondary"
               size="sm"
               startContent={<PencilLine weight="bold" size={18} />}
@@ -355,17 +351,6 @@ export default function MyProfilePage({
     </Layout>
   );
 }
-
-export type UserDataResponse = {
-  user_id: string;
-  email: string;
-  fullname: string;
-  phone_number: string;
-  gender: "M" | "F";
-  university: string;
-  created_at: string;
-  is_verified: boolean;
-};
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
