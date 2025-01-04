@@ -46,7 +46,7 @@ export default function HomePage() {
               <p className="font-medium text-gray">
                 👋 Selamat datang di Ruang Obat
               </p>
-              <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[72px]">
+              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black md:text-[56px] md:leading-[100%] lg:text-[72px]">
                 Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
                 <div className="inline-flex -space-x-3">
                   <Image
@@ -190,7 +190,7 @@ export default function HomePage() {
             />
 
             <div className="grid max-w-[600px] gap-4 justify-self-end">
-              <h1 className="text-[42px] font-black capitalize leading-[120%] -tracking-wide text-black">
+              <h1 className="text-[36px] font-black capitalize leading-[120%] -tracking-wide text-black xs:text-[42px]">
                 Kelas Farmasi No. 1 di Indonesia |{" "}
                 <span className="bg-purple px-2 py-0 text-white">
                   Fasilitasi 10.000+
@@ -419,7 +419,7 @@ export default function HomePage() {
             <div className="flex flex-wrap items-start gap-16 xl:gap-10">
               {siteConfig.footer.menu.map((item, index) => (
                 <div key={index} className="grid gap-3">
-                  <h4 className="text-xl font-extrabold text-white">
+                  <h4 className="text-[22px] font-extrabold text-white">
                     {item.label}
                   </h4>
                   <ul className="flex flex-col gap-2">
@@ -427,7 +427,7 @@ export default function HomePage() {
                       <Link
                         key={index}
                         href={subitem.href as string}
-                        className="w-max text-sm font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
+                        className="w-max font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
                       >
                         {subitem.label}
                       </Link>
@@ -461,7 +461,7 @@ export default function HomePage() {
             </IconContext.Provider>
           </div>
 
-          <p className="pb-8 text-center text-sm font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
+          <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
             &copy; {siteConfig.footer.copyright}
           </p>
         </div>
