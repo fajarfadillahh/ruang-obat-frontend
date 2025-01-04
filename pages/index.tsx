@@ -46,7 +46,7 @@ export default function HomePage() {
               <p className="font-medium text-gray">
                 👋 Selamat datang di Ruang Obat
               </p>
-              <h1 className="text-[48px] font-black capitalize leading-[100%] -tracking-wide text-black md:text-[56px] lg:text-[68px]">
+              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black md:text-[56px] md:leading-[100%] lg:text-[72px]">
                 Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
                 <div className="inline-flex -space-x-3">
                   <Image
@@ -137,7 +137,7 @@ export default function HomePage() {
 
         {/* reasons */}
         <section className="mx-auto grid max-w-[600px] gap-8 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h1 className="text-center text-[32px] font-black text-black">
+          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
             Kenapa Harus Pilih Ruang Obat?
           </h1>
 
@@ -178,59 +178,84 @@ export default function HomePage() {
         </section>
 
         {/* programs */}
-        <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-none">
-          <div className="grid gap-2">
-            <h1 className="text-center text-[32px] font-black text-black">
-              Program Unggulan Ruang Obat
-            </h1>
-            <p className="mx-auto max-w-[650px] text-center font-medium leading-[170%] text-gray">
-              Explore berbagai program unggulan yang dirancang khusus buat
-              mahasiswa farmasi. Pilih program sesuai kebutuhanmu.
-            </p>
+        <section className="grid gap-16 py-[100px]">
+          <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
+            <Image
+              priority
+              src="/img/home-classes-img.webp"
+              alt="home img"
+              width={415}
+              height={567}
+              className="h-autp w-[430px] justify-self-center"
+            />
+
+            <div className="grid max-w-[600px] gap-4 justify-self-end">
+              <h1 className="text-[36px] font-black capitalize leading-[120%] -tracking-wide text-black xs:text-[42px]">
+                Kelas Farmasi No. 1 di Indonesia |{" "}
+                <span className="bg-purple px-2 py-0 text-white">
+                  Fasilitasi 10.000+
+                </span>{" "}
+                Mahasiswa Farmasi Seluruh Indonesia
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                Dapatkan{" "}
+                <strong className="font-extrabold text-purple">
+                  Akses Video Mata Kuliah, Persiapan Skripsi & Riset, Masuk
+                  Apoteker, dan Tryout UKMPPAI
+                </strong>{" "}
+                untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
+              </p>
+            </div>
           </div>
 
-          <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
-            {siteConfig.programs.map((item) => {
-              const { cardWrapper, cardIcon, cardTitle, cardText } =
-                getCardStyles(item, "programs");
+          <div className="grid gap-4">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none lg:text-left">
+              Daftar Kelas di Ruang Obat 🔥
+            </h2>
 
-              return (
-                <IconContext.Provider
-                  key={item.id}
-                  value={{
-                    weight: "bold",
-                    size: 91,
-                    className: cardIcon,
-                  }}
-                >
-                  <div
-                    className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${cardWrapper}`}
+            <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
+              {siteConfig.programs.map((item) => {
+                const { cardWrapper, cardIcon, cardTitle, cardText } =
+                  getCardStyles(item, "programs");
+
+                return (
+                  <IconContext.Provider
+                    key={item.id}
+                    value={{
+                      weight: "bold",
+                      size: 91,
+                      className: cardIcon,
+                    }}
                   >
-                    <item.icon />
+                    <div
+                      className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${cardWrapper}`}
+                    >
+                      <item.icon />
 
-                    <div className="grid flex-1 gap-2">
-                      <h4
-                        className={`text-[24px] font-black leading-[120%] ${cardTitle}`}
-                      >
-                        {item.title}
-                      </h4>
-                      <p
-                        className={`max-w-[430px] font-medium leading-[170%] ${cardText}`}
-                      >
-                        {item.text}
-                      </p>
+                      <div className="grid flex-1 gap-2">
+                        <h4
+                          className={`text-[24px] font-black leading-[120%] ${cardTitle}`}
+                        >
+                          {item.title}
+                        </h4>
+                        <p
+                          className={`max-w-[430px] font-medium leading-[170%] ${cardText}`}
+                        >
+                          {item.text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </IconContext.Provider>
-              );
-            })}
+                  </IconContext.Provider>
+                );
+              })}
+            </div>
           </div>
         </section>
 
         {/* mentors */}
         <section className="grid gap-4 py-[100px]">
           <div className="grid gap-2">
-            <h1 className="text-center text-[32px] font-black text-black">
+            <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
               Ayo, Kenalan Dengan Mentor Ruang Obat
             </h1>
             <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
@@ -285,7 +310,7 @@ export default function HomePage() {
 
         {/* faqs */}
         <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-full">
-          <h1 className="text-center text-[32px] font-black text-black">
+          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
           </h1>
 
@@ -357,7 +382,7 @@ export default function HomePage() {
         <section className="py-[100px]">
           <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
             <div className="grid gap-2">
-              <h1 className="text-center text-[28px] font-black text-black">
+              <h1 className="text-center text-[28px] font-black -tracking-wide text-black">
                 Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
               </h1>
               <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
@@ -390,16 +415,25 @@ export default function HomePage() {
 
       <footer className="grid overflow-hidden bg-purple">
         <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
-          <div className="grid gap-16 py-[164px] sm:flex sm:items-center">
-            <div className="grid grid-cols-2 grid-rows-3 gap-4 sm:gap-x-16 sm:gap-y-6">
+          <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
+            <div className="flex flex-wrap items-start gap-16 xl:gap-10">
               {siteConfig.footer.menu.map((item, index) => (
-                <Link
-                  key={index}
-                  href={item.href as string}
-                  className="w-max text-[18px] font-medium text-white hover:rounded-md hover:bg-pink-500 hover:underline"
-                >
-                  {item.label}
-                </Link>
+                <div key={index} className="grid gap-3">
+                  <h4 className="text-[22px] font-extrabold text-white">
+                    {item.label}
+                  </h4>
+                  <ul className="flex flex-col gap-2">
+                    {item.list.map((subitem, index) => (
+                      <Link
+                        key={index}
+                        href={subitem.href as string}
+                        className="w-max font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
+                      >
+                        {subitem.label}
+                      </Link>
+                    ))}
+                  </ul>
+                </div>
               ))}
             </div>
 
@@ -427,7 +461,7 @@ export default function HomePage() {
             </IconContext.Provider>
           </div>
 
-          <p className="pb-8 text-center font-medium capitalize text-white xl:relative xl:-mb-10 xl:pb-0">
+          <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
             &copy; {siteConfig.footer.copyright}
           </p>
         </div>
