@@ -23,7 +23,7 @@ export const siteConfig = {
       id: 1,
       title: "Program Menarik & Lengkap",
       icon: GraduationCap,
-      text: "Beragam pilihan program farmasi mulai dari mata kuliah, riset, hingga persiapan apoteker. Semua tersedia di satu tempat #cukupdisiniaja",
+      text: "Pilihan program farmasi mulai dari mata kuliah, skripsi, riset, hingga persiapan masuk apoteker, tersedia di satu tempat! #cukupdisiniaja",
     },
     {
       id: 2,
@@ -181,24 +181,59 @@ export const siteConfig = {
       "PT. Pharmacy Cone Group 2024 | Hak cipta di lindungi undang-undang",
     menu: [
       {
-        label: "Beranda",
-        href: "#",
+        label: "Produk Kami",
+        list: [
+          {
+            label: "Tryout UKMPPAI (CBT)",
+            href: "#",
+          },
+          {
+            label: "Kelas Mata Kuliah",
+            href: "#",
+          },
+          {
+            label: "Kelas Skripsi Farmasi",
+            href: "#",
+          },
+          {
+            label: "Kelas Riset Farmasi",
+            href: "#",
+          },
+          {
+            label: "Kelas Masuk Apoteker",
+            href: "#",
+          },
+        ],
       },
       {
-        label: "Ketentuan Layanan",
-        href: "/company/terms",
+        label: "Panduan",
+        list: [
+          {
+            label: "Ketentuan Layanan",
+            href: "#",
+          },
+          {
+            label: "Kebijaka Privasi",
+            href: "#",
+          },
+        ],
       },
       {
         label: "Tentang Kami",
-        href: "#",
-      },
-      {
-        label: "Kebijakan Privacy",
-        href: "/company/privacy",
-      },
-      {
-        label: "CBT",
-        href: "https://cbt.ruangobat.id/",
+        list: [
+          {
+            label: "Tentang Ruang Obat",
+            href: "#",
+          },
+          {
+            label: "Kontak Kami",
+            href: "#",
+          },
+          {
+            label: "Testimonial",
+            href: "#",
+          },
+        ],
       },
     ],
     sosmed: [
