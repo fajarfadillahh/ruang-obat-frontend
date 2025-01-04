@@ -210,11 +210,11 @@ export const siteConfig = {
         list: [
           {
             label: "Ketentuan Layanan",
-            href: "#",
+            href: "/company/terms",
           },
           {
-            label: "Kebijaka Privasi",
-            href: "#",
+            label: "Kebijakan Privasi",
+            href: "/company/privacy",
           },
         ],
       },
