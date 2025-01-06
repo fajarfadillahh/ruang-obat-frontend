@@ -208,46 +208,44 @@ export default function HomePage() {
             </div>
           </div>
 
+          <div></div>
+
           <div className="grid gap-4">
             <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none lg:text-left">
               Daftar Kelas di Ruang Obat 🔥
             </h2>
 
-            <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
-              {siteConfig.programs.map((item) => {
-                const { cardWrapper, cardIcon, cardTitle, cardText } =
-                  getCardStyles(item, "programs");
+            <div className="grid grid-cols-3 gap-8">
+              {siteConfig.products.map((product, index) => (
+                <div
+                  key={index}
+                  className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  <Image
+                    src={product.image as string}
+                    alt="product img"
+                    width={304}
+                    height={304}
+                    className="aspect-square rounded-xl object-cover object-center"
+                  />
 
-                return (
-                  <IconContext.Provider
-                    key={item.id}
-                    value={{
-                      weight: "bold",
-                      size: 91,
-                      className: cardIcon,
-                    }}
-                  >
-                    <div
-                      className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${cardWrapper}`}
+                  <div className="grid gap-4">
+                    <h1 className="text-lg font-black text-black">
+                      {product.title}
+                    </h1>
+
+                    <Button
+                      variant={product.id === 5 ? "solid" : "flat"}
+                      as={Link}
+                      href={product.path as string}
+                      color="secondary"
+                      className="font-bold"
                     >
-                      <item.icon />
-
-                      <div className="grid flex-1 gap-2">
-                        <h4
-                          className={`text-[24px] font-black leading-[120%] ${cardTitle}`}
-                        >
-                          {item.title}
-                        </h4>
-                        <p
-                          className={`max-w-[430px] font-medium leading-[170%] ${cardText}`}
-                        >
-                          {item.text}
-                        </p>
-                      </div>
-                    </div>
-                  </IconContext.Provider>
-                );
-              })}
+                      {product.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>

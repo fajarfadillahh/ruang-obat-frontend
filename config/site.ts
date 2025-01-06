@@ -7,9 +7,7 @@ import {
   GraduationCap,
   Headset,
   InstagramLogo,
-  Notebook,
   NotePencil,
-  PencilRuler,
   Pill,
   RocketLaunch,
   Target,
@@ -38,30 +36,36 @@ export const siteConfig = {
       text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan.",
     },
   ],
-  programs: [
+  products: [
     {
       id: 1,
-      title: "Kelas Mata Kuliah & Praktikum",
-      icon: PencilRuler,
-      text: "Dapatkan pemahaman mendalam tentang mata kuliah farmasi sekaligus pengalaman praktikum yang aplikatif.",
+      title: "Kelas Video Mata Kuliah S1 & D3",
+      image: "/img/products/product-1.png",
+      path: "#",
     },
     {
       id: 2,
-      title: "Kelas Masuk Apoteker & OSCE",
-      icon: Pill,
-      text: "Persiapkan diri kamu untuk ujian masuk Apoteker dan OSCE dengan latihan intensif di kelas ini.",
+      title: "Kelas Skripsi Farmasi",
+      image: "/img/products/product-2.png",
+      path: "#",
     },
     {
       id: 3,
-      title: "Kelas Skripsi & Riset",
-      icon: Notebook,
-      text: "Butuh bimbingan buat skripsi atau riset? Di kelas ini, kamu bakal dipandu langsung oleh para mentor.",
+      title: "Kelas Riset Farmasi",
+      image: "/img/products/product-3.png",
+      path: "#",
     },
     {
       id: 4,
-      title: "TryOut UKMPPAI",
-      icon: Target,
-      text: "Rangkaian soal didesain sesuai blueprint terbaru untuk menguji kesiapan kamu dalam ujian.",
+      title: "Kelas Masuk Apoteker",
+      image: "/img/products/product-4.png",
+      path: "#",
+    },
+    {
+      id: 5,
+      title: "Tryout UKMPPAI",
+      image: "/img/products/product-5.png",
+      path: "#",
     },
   ],
   mentors: [
@@ -142,7 +146,7 @@ export const siteConfig = {
     {
       id: 1,
       title: "Apa itu Ruang Obat?",
-      text: "Ruang Obat adalah tempat belajar online khusus mahasiswa farmasi yang menyediakan berbagai program belajar, mulai dari mata kuliah, persiapan ujian masuk apoteker, hingga tryout UKMPPAI. Semua program disusun untuk membantu kamu sukses dalam pendidikan farmasi.",
+      text: "Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang pendidikan, antara lain; Kelas Mata Kuliah, Kelas Skripsi Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan Tryout UKMPPAI.",
       icon: Pill,
     },
     {
