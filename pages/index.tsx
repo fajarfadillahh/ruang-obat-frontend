@@ -1,3 +1,5 @@
+import CTOMain from "@/components/cto/CTOMain";
+import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfig } from "@/config/site";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
@@ -220,6 +222,7 @@ export default function HomePage() {
                   className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
                 >
                   <Image
+                    priority
                     src={product.image as string}
                     alt="product img"
                     width={304}
@@ -375,97 +378,10 @@ export default function HomePage() {
         </section>
 
         {/* cta */}
-        <section className="py-[100px]">
-          <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
-            <div className="grid gap-2">
-              <h1 className="text-center text-[28px] font-black -tracking-wide text-black">
-                Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
-              </h1>
-              <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
-                Gabung sekarang dan raih kesempatan belajar farmasi dengan
-                materi lengkap, mentor berpengalaman, dan akses penuh ke
-                berbagai program unggulan. Buka pintu kesuksesan karier farmasi
-                kamu di sini.
-              </p>
-            </div>
-
-            <Button
-              color="secondary"
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/dashboard");
-                } else {
-                  window.open(
-                    "https://cbt.ruangobat.id/auth/register",
-                    "_blank",
-                  );
-                }
-              }}
-              className="w-max justify-self-center px-4 font-bold"
-            >
-              Daftar Sekarang!
-            </Button>
-          </div>
-        </section>
+        <CTOMain />
       </Layout>
 
-      <footer className="grid overflow-hidden bg-purple">
-        <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
-          <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
-            <div className="flex flex-wrap items-start gap-16 xl:gap-10">
-              {siteConfig.footer.menu.map((item, index) => (
-                <div key={index} className="grid gap-3">
-                  <h4 className="text-[22px] font-extrabold text-white">
-                    {item.label}
-                  </h4>
-                  <ul className="flex flex-col gap-2">
-                    {item.list.map((subitem, index) => (
-                      <Link
-                        key={index}
-                        href={subitem.href as string}
-                        className="w-max font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
-                      >
-                        {subitem.label}
-                      </Link>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="hidden h-1 w-full flex-1 bg-white/20 md:flex" />
-
-            <IconContext.Provider
-              value={{
-                weight: "bold",
-                size: 24,
-                className: "text-white",
-              }}
-            >
-              <div className="flex items-center gap-6">
-                {siteConfig.footer.sosmed.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href as string}
-                    target="_blank"
-                    className="rounded-md p-1 hover:bg-pink-500"
-                  >
-                    <item.icon />
-                  </Link>
-                ))}
-              </div>
-            </IconContext.Provider>
-          </div>
-
-          <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
-            &copy; {siteConfig.footer.copyright}
-          </p>
-        </div>
-
-        <h1 className="hidden select-none justify-self-center text-center text-[240px] font-black leading-tight -tracking-[12px] text-white/20 xl:flex">
-          RuangObat.
-        </h1>
-      </footer>
+      <Footer />
     </>
   );
 }

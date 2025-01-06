@@ -26,17 +26,17 @@ export default function App({
         }}
       />
       <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
-        <SessionProvider session={session} refetchOnWindowFocus={false}>
-          <SessionChecker />
-          <SWRConfig
-            value={{
-              fetcher,
-              revalidateOnFocus: false,
-            }}
-          >
-            <Component {...pageProps} />
-          </SWRConfig>
-        </SessionProvider>
+      <SessionProvider session={session} refetchOnWindowFocus={false}>
+        <SessionChecker />
+        <SWRConfig
+          value={{
+            fetcher,
+            revalidateOnFocus: false,
+          }}
+        >
+          <Component {...pageProps} />
+        </SWRConfig>
+      </SessionProvider>
       <GoogleAnalytics gaId="G-QPX13ESQJV" />
     </NextUIProvider>
   );

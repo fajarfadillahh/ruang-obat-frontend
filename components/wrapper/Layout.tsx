@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
@@ -310,7 +309,7 @@ export default function Layout({ title, children, className }: LayoutProps) {
           {children}
         </main>
 
-        {router.pathname !== "/" ? <Footer /> : null}
+        {/* {router.pathname !== "/" ? <FooterSimple /> : null} */}
       </div>
     </>
   );

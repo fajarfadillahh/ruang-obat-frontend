@@ -1,5 +1,5 @@
 import ButtonBack from "@/components/button/ButtonBack";
-import Footer from "@/components/Footer";
+import Footer from "@/components/footer/FooterSimple";
 import Head from "next/head";
 import Link from "next/link";
 
