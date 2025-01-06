@@ -65,7 +65,7 @@ export const siteConfig = {
       id: 5,
       title: "Tryout UKMPPAI",
       image: "/img/products/product-5.png",
-      path: "#",
+      path: "https://cbt.ruangobat.id/dashboard",
     },
   ],
   mentors: [

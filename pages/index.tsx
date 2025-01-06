@@ -23,7 +23,7 @@ export default function HomePage() {
 
     const cardWrapper = cardItem
       ? "bg-purple"
-      : "bg-white [box-shadow:0_0_12px_rgba(0,0,0,0.1)]";
+      : "bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]";
     const cardIcon = cardItem ? "text-white" : "text-purple";
     const cardTitle = cardItem ? "text-white" : "text-black";
     const cardText = cardItem ? "text-gray-200" : "text-gray";
@@ -208,14 +208,12 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div></div>
-
           <div className="grid gap-4">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none lg:text-left">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none xl:text-left">
               Daftar Kelas di Ruang Obat 🔥
             </h2>
 
-            <div className="grid grid-cols-3 gap-8">
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
               {siteConfig.products.map((product, index) => (
                 <div
                   key={index}
@@ -226,7 +224,7 @@ export default function HomePage() {
                     alt="product img"
                     width={304}
                     height={304}
-                    className="aspect-square rounded-xl object-cover object-center"
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center"
                   />
 
                   <div className="grid gap-4">
