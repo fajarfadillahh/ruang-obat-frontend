@@ -41,19 +41,19 @@ export const siteConfig = {
       id: 1,
       title: "Kelas Video Mata Kuliah S1 & D3",
       image: "/img/products/product-1.png",
-      path: "#",
+      path: "/class/subject",
     },
     {
       id: 2,
       title: "Kelas Skripsi Farmasi",
       image: "/img/products/product-2.png",
-      path: "#",
+      path: "/class/thesis",
     },
     {
       id: 3,
       title: "Kelas Riset Farmasi",
       image: "/img/products/product-3.png",
-      path: "#",
+      path: "/class/research",
     },
     {
       id: 4,
