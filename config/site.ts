@@ -1,5 +1,6 @@
 export type SiteConfig = typeof siteConfig;
 import {
+  BookBookmark,
   ClipboardText,
   CloudSun,
   Gift,
@@ -7,8 +8,12 @@ import {
   GraduationCap,
   Headset,
   InstagramLogo,
+  MagnifyingGlass,
+  Medal,
   NotePencil,
+  PencilRuler,
   Pill,
+  Question,
   RocketLaunch,
   Target,
   TiktokLogo,
@@ -263,4 +268,84 @@ export const siteConfig = {
       },
     ],
   },
+};
+
+export const siteConfigClassSubjectPrivate = {
+  list: [
+    {
+      id: 1,
+      icon: PencilRuler,
+      text: "Pembahasan materi atau soal-soal UTS dan UAS",
+    },
+    {
+      id: 2,
+      icon: BookBookmark,
+      text: "Pembahasan terkait tugas, praktikum, skill ataupun OSCE.",
+    },
+    {
+      id: 3,
+      icon: MagnifyingGlass,
+      text: "Review atau mengulas kembali materi-materi perkuliahan",
+    },
+    {
+      id: 4,
+      icon: Medal,
+      text: "Persiapa untuk lomba, intern dan karir di Farmasi",
+    },
+    {
+      id: 5,
+      icon: Question,
+      text: "+ Request atau permintaan lainnya bebas",
+    },
+  ],
+  pricelist: [
+    {
+      id: 1,
+      title: "Paket Ruang Private 🔒",
+      description:
+        "Paket ini untuk kamu yang ingin lebih fokus atau belajar private sendiri. Namun kalau ingin lebih hemat kamujuga bisa membuat kelompok belajar bersama teman, maksimal untuk kelas ini 1 hingga 3 orang.",
+      list: [
+        {
+          price: 80000,
+          label: "untuk 1x pertemuan (1 jam)",
+        },
+        {
+          price: 120000,
+          label: "untuk 2x pertemuan (2 jam)",
+        },
+        {
+          price: 210000,
+          label: "untuk 3x pertemuan (3 jam)",
+        },
+        {
+          price: 500000,
+          label: "untuk 4x pertemuan (4 jam)",
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: "Paket Ruang Bersama 🤝",
+      description:
+        "Paket ini digunakan untuk kamu yang ingin belajar bersama kelompok belajarmu atau circle-mu. Di Paket Ruang Belajar Bersama ini tentunya akan lebih hemat karena kamu bisa belajar bersama teman-teman terdekatmu dan dengan harga hemat dengan patungan bersama tim kelompok, akan lebih seru dan hemat bukan? 🤩. Kelas Ruang Belajar Bersama terdiri dari 4 hingga 7 orang.",
+      list: [
+        {
+          price: 130000,
+          label: "untuk 1x pertemuan (1 jam)",
+        },
+        {
+          price: 200000,
+          label: "untuk 2x pertemuan (2 jam)",
+        },
+        {
+          price: 280000,
+          label: "untuk 3x pertemuan (3 jam)",
+        },
+        {
+          price: 550000,
+          label: "untuk 4x pertemuan (4 jam)",
+        },
+      ],
+    },
+  ],
 };

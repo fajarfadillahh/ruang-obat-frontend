@@ -102,6 +102,7 @@ export default function SubjectPage() {
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
+                onClick={() => router.push("/class/subject/private")}
                 className="w-max font-bold"
               >
                 Booking Kelas Sekarang
