@@ -118,17 +118,14 @@ export default function Layout({ title, children, className }: LayoutProps) {
       </Head>
 
       <Navbar className="items-center justify-between">
-        <Link
-          href={router.pathname == "/" ? "/" : "/dashboard"}
-          className="inline-flex items-center gap-2"
-        >
+        <Link href="/" className="inline-flex items-center gap-2">
           <LogoRuangobat className="h-auto w-8 text-gray/20" />
           <h1 className="hidden text-[20px] font-extrabold -tracking-wide text-black sm:inline-flex">
             RuangObat<span className="text-purple">.</span>
           </h1>
         </Link>
 
-        {router.pathname == "/" ? (
+        {/* {router.pathname == "/" ? (
           <div className="inline-flex items-center gap-2">
             <Button
               variant="bordered"
@@ -162,9 +159,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
               Register
             </Button>
           </div>
-        ) : null}
+        ) : null} */}
 
-        {router.pathname !== "/" && status === "authenticated" ? (
+        {status === "authenticated" ? (
           <>
             <Dropdown>
               <DropdownTrigger>
@@ -301,7 +298,41 @@ export default function Layout({ title, children, className }: LayoutProps) {
               handleAction={handleSignOut}
             />
           </>
-        ) : null}
+        ) : (
+          <div className="inline-flex items-center gap-2">
+            <Button
+              variant="bordered"
+              startContent={<SignIn weight="bold" size={18} />}
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/login");
+                } else {
+                  window.open("https://cbt.ruangobat.id/auth/login", "_blank");
+                }
+              }}
+              className="px-4 font-bold text-black"
+            >
+              Masuk
+            </Button>
+
+            <Button
+              color="secondary"
+              onClick={() => {
+                if (window.location.host == "localhost:3000") {
+                  router.push("/auth/register");
+                } else {
+                  window.open(
+                    "https://cbt.ruangobat.id/auth/register",
+                    "_blank",
+                  );
+                }
+              }}
+              className="px-8 font-bold"
+            >
+              Register
+            </Button>
+          </div>
+        )}
       </Navbar>
 
       <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">

@@ -1,4 +1,4 @@
-import SessionChecker from "@/components/SessionChecker";
+// import SessionChecker from "@/components/SessionChecker";
 import { fontMono, fontSans } from "@/config/fonts";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
@@ -27,7 +27,7 @@ export default function App({
       />
       <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
-        <SessionChecker />
+        {/* <SessionChecker /> */}
         <SWRConfig
           value={{
             fetcher,

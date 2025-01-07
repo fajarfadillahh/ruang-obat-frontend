@@ -282,25 +282,30 @@ export default function HomePage() {
               {siteConfig.mentors.map((item) => (
                 <SwiperSlide
                   key={item.id}
-                  className="mt-4 grid max-w-[300px] overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] xs:max-w-[330px]"
+                  className="max-w-[300px] xs:max-w-[330px]"
                 >
-                  <Image
-                    src={item.image as string}
-                    alt={`image ${item.name}`}
-                    width={500}
-                    height={500}
-                    className="aspect-square rounded-xl"
-                    priority
-                  />
+                  <Link
+                    href={`/mentor/${item.id}`}
+                    className="group mt-4 grid overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                  >
+                    <Image
+                      src={item.image as string}
+                      alt={`image ${item.name}`}
+                      width={500}
+                      height={500}
+                      className="aspect-square rounded-xl"
+                      priority
+                    />
 
-                  <div className="mt-8 grid flex-1 gap-1">
-                    <h4 className="text-[20px] font-black leading-[120%] text-black">
-                      {item.name}
-                    </h4>
-                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                      {item.mentor_title}
-                    </p>
-                  </div>
+                    <div className="mt-8 grid flex-1 gap-1">
+                      <h4 className="text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                        {item.name}
+                      </h4>
+                      <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                        {item.mentor_title}
+                      </p>
+                    </div>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>

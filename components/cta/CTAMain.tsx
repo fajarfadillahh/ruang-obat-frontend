@@ -5,7 +5,7 @@ export default function CTAMain() {
   const router = useRouter();
 
   return (
-    <section className="py-[100px]">
+    <section className="[padding:100px_0_156px]">
       <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
         <div className="grid gap-2">
           <h1 className="text-center text-[28px] font-black -tracking-wide text-black">
