@@ -1,5 +1,5 @@
 import ButtonBack from "@/components/button/ButtonBack";
-import CTOMain from "@/components/cto/CTOMain";
+import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import Image from "next/image";
@@ -71,7 +71,7 @@ export default function DetailMentorPage() {
             </div>
           </section>
 
-          <CTOMain />
+          <CTAMain />
         </div>
       </Layout>
 

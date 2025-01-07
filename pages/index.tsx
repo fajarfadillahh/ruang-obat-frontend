@@ -1,4 +1,4 @@
-import CTOMain from "@/components/cto/CTOMain";
+import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfig } from "@/config/site";
@@ -378,7 +378,7 @@ export default function HomePage() {
         </section>
 
         {/* cta */}
-        <CTOMain />
+        <CTAMain />
       </Layout>
 
       <Footer />

@@ -1,7 +1,7 @@
 import { Button } from "@nextui-org/react";
 import { useRouter } from "next/router";
 
-export default function CTOMain() {
+export default function CTAMain() {
   const router = useRouter();
 
   return (
