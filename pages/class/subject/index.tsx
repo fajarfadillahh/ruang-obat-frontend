@@ -4,8 +4,12 @@ import Layout from "@/components/wrapper/Layout";
 import { Button } from "@nextui-org/react";
 import { ArrowRight, GraduationCap, PencilRuler } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function SubjectPage() {
+  const router = useRouter();
+
   return (
     <>
       <Layout title="Kelas Video Mata Kuliah S1 & D3">
@@ -29,13 +33,21 @@ export default function SubjectPage() {
               Private One-by-One Farmasi, di mana kamu bisa belajar langsung
               dengan mentor untuk menguasai materi lebih dalam.
             </p>
-            <Button color="secondary" className="px-16 font-bold">
+            <Button
+              color="secondary"
+              as={Link}
+              href="#list-class"
+              className="px-16 font-bold"
+            >
               Pilih Kelas
             </Button>
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none">
+        <section
+          id="list-class"
+          className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
+        >
           <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black xl:text-left">
             Pilih Kelas Sesuai Dengan <br /> Kebutuhan Kamu 😉
           </h2>
@@ -64,6 +76,7 @@ export default function SubjectPage() {
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
+                onClick={() => router.push("/class/subject/preparation")}
                 className="w-max font-bold"
               >
                 Lihat Detail Kelas
