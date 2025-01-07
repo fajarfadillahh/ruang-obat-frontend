@@ -1,7 +1,16 @@
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { customInputClassnames } from "@/utils/customInputClassnames";
-import { Button, Input } from "@nextui-org/react";
+import {
+  Button,
+  Input,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import {
   ArrowsClockwise,
   Images,
@@ -12,6 +21,8 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function SubjectPreparationPage() {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
   return (
     <>
       <Layout title="Kelas Video Persiapan UTS/UAS">
@@ -93,6 +104,7 @@ export default function SubjectPreparationPage() {
                       variant="light"
                       radius="full"
                       size="lg"
+                      onPress={onOpen}
                     >
                       <PlayCircle
                         weight="fill"
@@ -101,6 +113,39 @@ export default function SubjectPreparationPage() {
                       />
                     </Button>
                   </div>
+
+                  <Modal size="xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+                    <ModalContent>
+                      {(onClose) => (
+                        <>
+                          <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                            Cuplikan Video
+                          </ModalHeader>
+
+                          <ModalBody>
+                            <div className="flex aspect-video h-auto w-full items-center justify-center rounded-xl bg-gray/20">
+                              <Images
+                                weight="bold"
+                                size={56}
+                                className="text-gray"
+                              />
+                            </div>
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <Button
+                              color="danger"
+                              variant="light"
+                              onPress={onClose}
+                              className="font-bold"
+                            >
+                              Tutup
+                            </Button>
+                          </ModalFooter>
+                        </>
+                      )}
+                    </ModalContent>
+                  </Modal>
 
                   <div className="flex h-full w-full items-center justify-center bg-gray/10">
                     <Images weight="bold" size={72} className="text-white" />
