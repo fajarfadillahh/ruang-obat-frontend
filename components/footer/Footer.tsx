@@ -1,4 +1,4 @@
-import { siteConfig } from "@/config/site";
+import { siteConfigHomePage } from "@/config/site";
 import { IconContext } from "@phosphor-icons/react";
 import Link from "next/link";
 
@@ -8,7 +8,7 @@ export default function Footer() {
       <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
         <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
           <div className="flex flex-wrap items-start gap-16 xl:gap-10">
-            {siteConfig.footer.menu.map((item, index) => (
+            {siteConfigHomePage.footer.menu.map((item, index) => (
               <div key={index} className="grid gap-3">
                 <h4 className="text-[22px] font-extrabold text-white">
                   {item.label}
@@ -38,7 +38,7 @@ export default function Footer() {
             }}
           >
             <div className="flex items-center gap-6">
-              {siteConfig.footer.sosmed.map((item) => (
+              {siteConfigHomePage.footer.sosmed.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href as string}
@@ -53,7 +53,7 @@ export default function Footer() {
         </div>
 
         <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
-          &copy; {siteConfig.footer.copyright}
+          &copy; {siteConfigHomePage.footer.copyright}
         </p>
       </div>
 

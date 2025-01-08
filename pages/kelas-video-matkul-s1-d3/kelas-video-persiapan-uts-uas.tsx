@@ -14,8 +14,10 @@ import {
 import { Images, MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
-export default function SubjectPreparationPage() {
+export default function ExamPreparationVideoClassPage() {
+  const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -167,7 +169,13 @@ export default function SubjectPreparationPage() {
               </p>
             </div>
 
-            <Button color="secondary" className="px-4 font-bold">
+            <Button
+              color="secondary"
+              onClick={() =>
+                router.push("/kelas-video-matkul-s1-d3/kelas-privat-farmasi")
+              }
+              className="px-4 font-bold"
+            >
               Booking Kelas Private
             </Button>
           </div>

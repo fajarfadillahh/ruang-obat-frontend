@@ -1,7 +1,7 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigClassSubjectPrivate } from "@/config/site";
+import { siteConfigPhamacyPrivteClassPage } from "@/config/site";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
@@ -16,12 +16,12 @@ import { IconContext } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function SubjectPrivatePage() {
+export default function PhamacyPrivteClassPage() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
-      <Layout title="Kelas Private Farmasi">
+      <Layout title="Kelas Privat Farmasi">
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <div>
             <h1 className="pb-2 text-[48px] font-black capitalize leading-[80%] -tracking-wide text-black">
@@ -42,7 +42,7 @@ export default function SubjectPrivatePage() {
             <Button
               color="secondary"
               as={Link}
-              href="#list-class"
+              href="#list-package"
               className="px-16 font-bold"
             >
               Pilih Paket
@@ -72,30 +72,32 @@ export default function SubjectPrivatePage() {
             }}
           >
             <div className="flex flex-wrap items-center justify-center gap-6">
-              {siteConfigClassSubjectPrivate.list.map((item) => (
-                <div
-                  key={item.id}
-                  className="grid h-auto max-w-[220px] gap-6 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:2rem_1rem]"
-                >
-                  <item.icon />
-                  <p className="font-medium leading-[170%] text-gray">
-                    {item.text}
-                  </p>
-                </div>
-              ))}
+              {siteConfigPhamacyPrivteClassPage.consultation_list.map(
+                (item, index) => (
+                  <div
+                    key={index}
+                    className="grid h-auto max-w-[220px] gap-6 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:2rem_1rem]"
+                  >
+                    <item.icon />
+                    <p className="font-medium leading-[170%] text-gray">
+                      {item.text}
+                    </p>
+                  </div>
+                ),
+              )}
             </div>
           </IconContext.Provider>
         </section>
 
-        <section className="grid gap-6 py-[100px]">
+        <section id="list-package" className="grid gap-6 py-[100px]">
           <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black">
             Daftar Harga Kelas Private Farmasi
           </h2>
 
           <div className="grid justify-center gap-4">
-            {siteConfigClassSubjectPrivate.pricelist.map((item) => (
+            {siteConfigPhamacyPrivteClassPage.price_list.map((item, index) => (
               <div
-                key={item.id}
+                key={index}
                 className={`grid max-w-[600px] gap-6 rounded-xl border-2 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px] ${item.id == 1 ? "border-purple bg-white" : "bg-purple"}`}
               >
                 <div>
@@ -118,14 +120,14 @@ export default function SubjectPrivatePage() {
                       className="flex items-center gap-2 xl:gap-6"
                     >
                       <h4
-                        className={`text-sm font-medium md:text-base ${item.id == 1 ? "text-gray" : "text-white/80"}`}
+                        className={`inline-flex text-lg font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
                       >
-                        <strong
-                          className={`text-lg font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
+                        {formatRupiah(price.price)}{" "}
+                        <span
+                          className={`text-sm font-medium md:text-base ${item.id == 1 ? "text-gray" : "text-white/80"}`}
                         >
-                          {formatRupiah(price.price)}
-                        </strong>{" "}
-                        {price.label}
+                          {price.label}
+                        </span>
                       </h4>
 
                       <div

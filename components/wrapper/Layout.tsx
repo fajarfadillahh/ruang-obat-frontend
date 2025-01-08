@@ -1,3 +1,4 @@
+import FooterSimple from "@/components/footer/FooterSimple";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
@@ -124,42 +125,6 @@ export default function Layout({ title, children, className }: LayoutProps) {
             RuangObat<span className="text-purple">.</span>
           </h1>
         </Link>
-
-        {/* {router.pathname == "/" ? (
-          <div className="inline-flex items-center gap-2">
-            <Button
-              variant="bordered"
-              startContent={<SignIn weight="bold" size={18} />}
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/auth/login");
-                } else {
-                  window.open("https://cbt.ruangobat.id/auth/login", "_blank");
-                }
-              }}
-              className="px-4 font-bold text-black"
-            >
-              Masuk
-            </Button>
-
-            <Button
-              color="secondary"
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/auth/register");
-                } else {
-                  window.open(
-                    "https://cbt.ruangobat.id/auth/register",
-                    "_blank",
-                  );
-                }
-              }}
-              className="px-8 font-bold"
-            >
-              Register
-            </Button>
-          </div>
-        ) : null} */}
 
         {status === "authenticated" ? (
           <>
@@ -340,7 +305,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
           {children}
         </main>
 
-        {/* {router.pathname !== "/" ? <FooterSimple /> : null} */}
+        {router.pathname === "https://cbt.ruangobat.id/" ? (
+          <FooterSimple />
+        ) : null}
       </div>
     </>
   );

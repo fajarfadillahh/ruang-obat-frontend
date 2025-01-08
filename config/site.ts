@@ -1,4 +1,3 @@
-export type SiteConfig = typeof siteConfig;
 import {
   BookBookmark,
   ClipboardText,
@@ -20,7 +19,7 @@ import {
   WhatsappLogo,
 } from "@phosphor-icons/react";
 
-export const siteConfig = {
+export const siteConfigHomePage = {
   reasons: [
     {
       id: 1,
@@ -41,36 +40,36 @@ export const siteConfig = {
       text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan.",
     },
   ],
-  products: [
+  classes: [
     {
       id: 1,
       title: "Kelas Video Mata Kuliah S1 & D3",
       image: "/img/products/product-1.png",
-      path: "/class/subject",
+      path: "/kelas-video-matkul-s1-d3",
     },
     {
       id: 2,
       title: "Kelas Skripsi Farmasi",
       image: "/img/products/product-2.png",
-      path: "/class/thesis",
+      path: "/kelas-skripsi-farmasi",
     },
     {
       id: 3,
       title: "Kelas Riset Farmasi",
       image: "/img/products/product-3.png",
-      path: "/class/research",
+      path: "/kelas-riset-farmasi",
     },
     {
       id: 4,
       title: "Kelas Masuk Apoteker",
       image: "/img/products/product-4.png",
-      path: "#",
+      path: "/kelas-masuk-apoteker",
     },
     {
       id: 5,
       title: "Tryout UKMPPAI",
       image: "/img/products/product-5.png",
-      path: "https://cbt.ruangobat.id/dashboard",
+      path: "/dashboard",
     },
   ],
   mentors: [
@@ -270,8 +269,8 @@ export const siteConfig = {
   },
 };
 
-export const siteConfigClassSubjectPrivate = {
-  list: [
+export const siteConfigPhamacyPrivteClassPage = {
+  consultation_list: [
     {
       id: 1,
       icon: PencilRuler,
@@ -298,7 +297,7 @@ export const siteConfigClassSubjectPrivate = {
       text: "+ Request atau permintaan lainnya bebas",
     },
   ],
-  pricelist: [
+  price_list: [
     {
       id: 1,
       title: "Paket Ruang Private 🔒",

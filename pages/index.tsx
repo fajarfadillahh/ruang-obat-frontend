@@ -1,7 +1,7 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfig } from "@/config/site";
+import { siteConfigHomePage } from "@/config/site";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import Image from "next/image";
@@ -144,13 +144,13 @@ export default function HomePage() {
           </h1>
 
           <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-12">
-            {siteConfig.reasons.map((item) => {
+            {siteConfigHomePage.reasons.map((item, index) => {
               const { cardWrapper, cardIcon, cardTitle, cardText } =
                 getCardStyles(item, "reasons");
 
               return (
                 <IconContext.Provider
-                  key={item.id}
+                  key={index}
                   value={{
                     weight: "bold",
                     size: 58,
@@ -179,7 +179,7 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* programs */}
+        {/* classes/products */}
         <section className="grid gap-16 py-[100px]">
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
@@ -216,14 +216,14 @@ export default function HomePage() {
             </h2>
 
             <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
-              {siteConfig.products.map((product, index) => (
+              {siteConfigHomePage.classes.map((item, index) => (
                 <div
                   key={index}
                   className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
                 >
                   <Image
                     priority
-                    src={product.image as string}
+                    src={item.image as string}
                     alt="product img"
                     width={304}
                     height={304}
@@ -232,17 +232,16 @@ export default function HomePage() {
 
                   <div className="grid gap-4">
                     <h1 className="text-lg font-black text-black">
-                      {product.title}
+                      {item.title}
                     </h1>
 
                     <Button
-                      variant={product.id === 5 ? "solid" : "flat"}
-                      as={Link}
-                      href={product.path as string}
+                      variant={item.id === 5 ? "solid" : "flat"}
                       color="secondary"
+                      onClick={() => router.push(item.path as string)}
                       className="font-bold"
                     >
-                      {product.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
+                      {item.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
                     </Button>
                   </div>
                 </div>
@@ -271,7 +270,7 @@ export default function HomePage() {
               spaceBetween={24}
               centeredSlides={true}
               autoplay={{
-                delay: 3000,
+                delay: 4000,
                 disableOnInteraction: false,
               }}
               pagination={{
@@ -279,10 +278,10 @@ export default function HomePage() {
               }}
               modules={[Pagination, Autoplay]}
             >
-              {siteConfig.mentors.map((item) => (
+              {siteConfigHomePage.mentors.map((item, index) => (
                 <SwiperSlide
-                  key={item.id}
-                  className="max-w-[300px] xs:max-w-[330px]"
+                  key={index}
+                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[360px]"
                 >
                   <Link
                     href={`/mentor/${item.id}`}
@@ -293,7 +292,7 @@ export default function HomePage() {
                       alt={`image ${item.name}`}
                       width={500}
                       height={500}
-                      className="aspect-square rounded-xl"
+                      className="aspect-square rounded-xl group-hover:grayscale-[0.5]"
                       priority
                     />
 
@@ -364,9 +363,9 @@ export default function HomePage() {
               }}
               defaultExpandedKeys={["1"]}
             >
-              {siteConfig.faqs.map((item) => (
+              {siteConfigHomePage.faqs.map((item, index) => (
                 <AccordionItem
-                  key={item.id}
+                  key={index}
                   title={item.title}
                   startContent={<item.icon />}
                   classNames={{

@@ -7,7 +7,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function SubjectPage() {
+export default function SubjectVideoClassPage() {
   const router = useRouter();
 
   return (
@@ -76,7 +76,11 @@ export default function SubjectPage() {
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/class/subject/preparation")}
+                onClick={() =>
+                  router.push(
+                    "/kelas-video-matkul-s1-d3/kelas-video-persiapan-uts-uas",
+                  )
+                }
                 className="w-max font-bold"
               >
                 Lihat Detail Kelas
@@ -102,7 +106,9 @@ export default function SubjectPage() {
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/class/subject/private")}
+                onClick={() =>
+                  router.push("/kelas-video-matkul-s1-d3/kelas-privat-farmasi")
+                }
                 className="w-max font-bold"
               >
                 Booking Kelas Sekarang
