@@ -48,7 +48,7 @@ export default function SubjectVideoClassPage() {
           id="list-class"
           className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
-          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
             Pilih Kelas Sesuai Dengan <br /> Kebutuhan Kamu 😉
           </h2>
 

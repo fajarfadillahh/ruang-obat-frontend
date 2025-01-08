@@ -96,21 +96,16 @@ export default function HomePage() {
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/dashboard");
-                  } else {
-                    window.open("https://cbt.ruangobat.id/dashboard", "_blank");
-                  }
-                }}
-                className="px-4 font-bold"
+                as={Link}
+                href="#list-class"
+                className="px-10 font-bold"
               >
-                Halaman Dashboard
+                Lihat Daftar Kelas
               </Button>
 
               <Button
                 variant="bordered"
-                className="px-4 font-bold"
+                className="px-6 font-bold"
                 onClick={() => {
                   if (window.location.host == "localhost:3000") {
                     router.push("/dashboard");
@@ -122,7 +117,7 @@ export default function HomePage() {
                   }
                 }}
               >
-                Mulai Ujian Sekarang!
+                Dashboard Tryout CBT
               </Button>
             </div>
           </div>
@@ -180,7 +175,7 @@ export default function HomePage() {
         </section>
 
         {/* classes/products */}
-        <section className="grid gap-16 py-[100px]">
+        <section id="list-class" className="grid gap-16 py-[100px]">
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
               priority

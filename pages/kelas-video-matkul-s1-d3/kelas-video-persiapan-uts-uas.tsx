@@ -58,7 +58,7 @@ export default function ExamPreparationVideoClassPage() {
           id="list-video"
           className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
-          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
             Daftar Video Pembelajaran
           </h2>
 
