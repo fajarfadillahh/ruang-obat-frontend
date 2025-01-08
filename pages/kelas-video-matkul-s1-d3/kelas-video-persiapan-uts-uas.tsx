@@ -4,6 +4,7 @@ import { customInputClassnames } from "@/utils/customInputClassnames";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
+  Chip,
   Input,
   Modal,
   ModalBody,
@@ -78,8 +79,18 @@ export default function ExamPreparationVideoClassPage() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
+                <Chip
+                  color="danger"
+                  className="absolute right-8 top-8 z-10"
+                  classNames={{
+                    content: "font-bold px-4",
+                  }}
+                >
+                  Baru
+                </Chip>
+
                 <div className="relative aspect-square size-full overflow-hidden rounded-xl">
                   <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-purple/20">
                     <Button
