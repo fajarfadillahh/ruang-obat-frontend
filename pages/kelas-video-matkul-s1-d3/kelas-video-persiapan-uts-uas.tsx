@@ -60,14 +60,14 @@ export default function ExamPreparationVideoClassPage() {
           className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
           <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
-            Daftar Video Pembelajaran
+            Daftar Video
           </h2>
 
           <Input
             type="text"
             variant="flat"
             labelPlacement="outside"
-            placeholder="Cari Video Pembelajaran..."
+            placeholder="Cari Video..."
             startContent={
               <MagnifyingGlass weight="bold" size={18} className="text-gray" />
             }

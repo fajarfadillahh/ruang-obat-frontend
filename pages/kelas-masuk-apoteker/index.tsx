@@ -48,7 +48,7 @@ export default function PharmacyEntranceClassPage() {
             type="text"
             variant="flat"
             labelPlacement="outside"
-            placeholder="Cari Video Kelas..."
+            placeholder="Cari Kelas per Kampus..."
             startContent={
               <MagnifyingGlass weight="bold" size={18} className="text-gray" />
             }
