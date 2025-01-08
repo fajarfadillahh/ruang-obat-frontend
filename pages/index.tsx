@@ -139,7 +139,7 @@ export default function HomePage() {
 
         {/* reasons */}
         <section className="mx-auto grid max-w-[600px] gap-8 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Kenapa Harus Pilih Ruang Obat?
           </h1>
 
@@ -211,7 +211,7 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-4">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none xl:text-left">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
               Daftar Kelas di Ruang Obat 🔥
             </h2>
 
@@ -231,7 +231,7 @@ export default function HomePage() {
                   />
 
                   <div className="grid gap-4">
-                    <h1 className="text-lg font-black text-black group-hover:text-purple">
+                    <h1 className="text-lg font-black leading-[120%] text-black group-hover:text-purple">
                       {item.title}
                     </h1>
 
@@ -253,7 +253,7 @@ export default function HomePage() {
         {/* mentors */}
         <section className="grid gap-4 py-[100px]">
           <div className="grid gap-2">
-            <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+            <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
               Ayo, Kenalan Dengan Mentor Ruang Obat
             </h1>
             <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
@@ -313,7 +313,7 @@ export default function HomePage() {
 
         {/* faqs */}
         <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-full">
-          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
           </h1>
 

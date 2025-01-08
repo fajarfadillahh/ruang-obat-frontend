@@ -137,8 +137,8 @@ export default function ExamPreparationVideoClassPage() {
                 </div>
 
                 <div className="grid gap-8">
-                  <div>
-                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black leading-[130%] text-black group-hover:text-purple">
+                  <div className="grid gap-[10px]">
+                    <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
                       Judul video pembelajaran
                     </h1>
 
@@ -163,7 +163,7 @@ export default function ExamPreparationVideoClassPage() {
         <section className="[padding:100px_0_156px]">
           <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
             <div className="flex-1 lg:max-w-[500px]">
-              <h2 className="pb-2 text-2xl font-black capitalize leading-[130%] -tracking-wide text-black">
+              <h2 className="pb-2 text-2xl font-black capitalize leading-[120%] -tracking-wide text-black">
                 Masih Kesulitan??? Kurang Paham??
               </h2>
               <p className="font-medium leading-[170%] text-gray">

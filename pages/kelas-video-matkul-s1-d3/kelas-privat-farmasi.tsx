@@ -60,7 +60,7 @@ export default function PhamacyPrivteClassPage() {
         </section>
 
         <section className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
             Yang Bisa Kamu Konsultasikan <br /> di Kelas Private Farmasi
           </h2>
 
@@ -90,7 +90,7 @@ export default function PhamacyPrivteClassPage() {
         </section>
 
         <section id="list-package" className="grid gap-6 py-[100px]">
-          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black">
             Daftar Harga Kelas Private Farmasi
           </h2>
 
@@ -102,7 +102,7 @@ export default function PhamacyPrivteClassPage() {
               >
                 <div>
                   <h3
-                    className={`mb-4 text-2xl font-black ${item.id == 1 ? "text-purple" : "text-white"}`}
+                    className={`mb-4 text-2xl font-black leading-[120%] ${item.id == 1 ? "text-purple" : "text-white"}`}
                   >
                     {item.title}
                   </h3>
@@ -152,7 +152,7 @@ export default function PhamacyPrivteClassPage() {
         </section>
 
         <section className="grid gap-4 py-[100px]">
-          <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none xl:text-left">
+          <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
             Daftar Mentor
           </h2>
 
@@ -172,7 +172,7 @@ export default function PhamacyPrivteClassPage() {
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="text-lg font-black text-black group-hover:text-purple">
+                  <h1 className="text-lg font-black leading-[120%] text-black group-hover:text-purple">
                     Kak Dhea
                   </h1>
 

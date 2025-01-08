@@ -8,7 +8,7 @@ export default function CTAMain() {
     <section className="[padding:100px_0_156px]">
       <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
         <div className="grid gap-2">
-          <h1 className="text-center text-[28px] font-black -tracking-wide text-black">
+          <h1 className="text-center text-[28px] font-black leading-[120%] -tracking-wide text-black">
             Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
           </h1>
           <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">

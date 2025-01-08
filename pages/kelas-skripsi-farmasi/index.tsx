@@ -64,7 +64,7 @@ export default function PharmacyThesisClassPage() {
         </section>
 
         <section id="list-class" className="grid gap-4 [padding:110px_0_100px]">
-          <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none xl:text-left">
+          <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
             Daftar Kelas Skripsi 🔥
           </h2>
 
@@ -79,8 +79,8 @@ export default function PharmacyThesisClassPage() {
                 </div>
 
                 <div className="grid gap-8">
-                  <div>
-                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black leading-[130%] text-black group-hover:text-purple">
+                  <div className="grid gap-[10px]">
+                    <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
                       Kelas Bimbingan Judul dan Pengenalan Penelitian
                     </h1>
 
@@ -160,7 +160,7 @@ export default function PharmacyThesisClassPage() {
         </section>
 
         <section className="grid gap-4 py-[100px]">
-          <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none xl:text-left">
+          <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
             Daftar Mentor
           </h2>
 
@@ -180,7 +180,7 @@ export default function PharmacyThesisClassPage() {
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="text-lg font-black text-black group-hover:text-purple">
+                  <h1 className="text-lg font-black leading-[120%] text-black group-hover:text-purple">
                     Kak Dhea
                   </h1>
 
