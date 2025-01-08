@@ -219,7 +219,7 @@ export default function HomePage() {
               {siteConfigHomePage.classes.map((item, index) => (
                 <div
                   key={index}
-                  className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
                 >
                   <Image
                     priority
@@ -227,11 +227,11 @@ export default function HomePage() {
                     alt="product img"
                     width={304}
                     height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center"
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
                   />
 
                   <div className="grid gap-4">
-                    <h1 className="text-lg font-black text-black">
+                    <h1 className="text-lg font-black text-black group-hover:text-purple">
                       {item.title}
                     </h1>
 

@@ -60,7 +60,7 @@ export default function PhamacyPrivteClassPage() {
         </section>
 
         <section className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
             Yang Bisa Kamu Konsultasikan <br /> di Kelas Private Farmasi
           </h2>
 
@@ -90,7 +90,7 @@ export default function PhamacyPrivteClassPage() {
         </section>
 
         <section id="list-package" className="grid gap-6 py-[100px]">
-          <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black">
             Daftar Harga Kelas Private Farmasi
           </h2>
 
@@ -102,7 +102,7 @@ export default function PhamacyPrivteClassPage() {
               >
                 <div>
                   <h3
-                    className={`mb-4 text-2xl font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
+                    className={`mb-4 text-2xl font-black ${item.id == 1 ? "text-purple" : "text-white"}`}
                   >
                     {item.title}
                   </h3>
@@ -113,22 +113,24 @@ export default function PhamacyPrivteClassPage() {
                   </p>
                 </div>
 
-                <div className="grid gap-1 md:mx-10 lg:mx-20">
-                  {item.list.map((price, index) => (
+                <div className="grid gap-4 xs:gap-1 md:mx-10 lg:mx-20">
+                  {item.list.map((subitem, index) => (
                     <div
                       key={index}
                       className="flex items-center gap-2 xl:gap-6"
                     >
-                      <h4
-                        className={`inline-flex text-lg font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
-                      >
-                        {formatRupiah(price.price)}{" "}
+                      <div className="inline-flex flex-wrap items-end xs:gap-1">
+                        <h4
+                          className={`inline-flex text-lg font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
+                        >
+                          {formatRupiah(subitem.price)}
+                        </h4>
                         <span
                           className={`text-sm font-medium md:text-base ${item.id == 1 ? "text-gray" : "text-white/80"}`}
                         >
-                          {price.label}
+                          {subitem.label}
                         </span>
-                      </h4>
+                      </div>
 
                       <div
                         className={`h-2 w-full flex-1 border-b-2 border-dashed ${item.id == 1 ? "border-gray/20" : "border-white/20"}`}
@@ -158,7 +160,7 @@ export default function PhamacyPrivteClassPage() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
                 <Image
                   priority
@@ -166,11 +168,13 @@ export default function PhamacyPrivteClassPage() {
                   alt="product img"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center"
+                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="text-lg font-black text-black">Kak Dhea</h1>
+                  <h1 className="text-lg font-black text-black group-hover:text-purple">
+                    Kak Dhea
+                  </h1>
 
                   <Button
                     variant="flat"
@@ -184,13 +188,14 @@ export default function PhamacyPrivteClassPage() {
                   <Modal
                     size="lg"
                     scrollBehavior="inside"
+                    placement="center"
                     isOpen={isOpen}
                     onOpenChange={onOpenChange}
                   >
                     <ModalContent>
                       {(onClose) => (
                         <>
-                          <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                          <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
                             Detail Mentor
                           </ModalHeader>
 

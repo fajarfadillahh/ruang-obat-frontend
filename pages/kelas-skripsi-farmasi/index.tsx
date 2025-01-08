@@ -11,6 +11,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
+import { Images } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -71,20 +72,15 @@ export default function PharmacyThesisClassPage() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
-                <Image
-                  priority
-                  src="/img/products/product-2.png"
-                  alt="class img"
-                  width={304}
-                  height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center"
-                />
+                <div className="flex aspect-square size-full items-center justify-center rounded-xl bg-purple object-cover object-center group-hover:grayscale-[0.5]">
+                  <Images weight="bold" size={64} className="text-white/50" />
+                </div>
 
                 <div className="grid gap-8">
                   <div>
-                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black leading-[130%] text-black">
+                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black leading-[130%] text-black group-hover:text-purple">
                       Kelas Bimbingan Judul dan Pengenalan Penelitian
                     </h1>
 
@@ -120,7 +116,7 @@ export default function PharmacyThesisClassPage() {
                       <ModalContent>
                         {(onClose) => (
                           <>
-                            <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
                               Deskripsi Kelas
                             </ModalHeader>
 
@@ -172,7 +168,7 @@ export default function PharmacyThesisClassPage() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
                 <Image
                   priority
@@ -180,11 +176,13 @@ export default function PharmacyThesisClassPage() {
                   alt="product img"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center"
+                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="text-lg font-black text-black">Kak Dhea</h1>
+                  <h1 className="text-lg font-black text-black group-hover:text-purple">
+                    Kak Dhea
+                  </h1>
 
                   <Button
                     variant="flat"
@@ -205,7 +203,7 @@ export default function PharmacyThesisClassPage() {
                     <ModalContent>
                       {(onClose) => (
                         <>
-                          <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                          <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
                             Detail Mentor
                           </ModalHeader>
 

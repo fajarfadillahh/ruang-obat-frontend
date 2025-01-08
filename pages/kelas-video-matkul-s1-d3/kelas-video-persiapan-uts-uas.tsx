@@ -1,6 +1,7 @@
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { customInputClassnames } from "@/utils/customInputClassnames";
+import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
   Input,
@@ -57,7 +58,7 @@ export default function ExamPreparationVideoClassPage() {
           id="list-video"
           className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
-          <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
             Daftar Video Pembelajaran
           </h2>
 
@@ -77,7 +78,7 @@ export default function ExamPreparationVideoClassPage() {
             {Array.from({ length: 3 }, (_, index) => (
               <div
                 key={index}
-                className="grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
                 <div className="relative aspect-square size-full overflow-hidden rounded-xl">
                   <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-purple/20">
@@ -101,7 +102,7 @@ export default function ExamPreparationVideoClassPage() {
                     <ModalContent>
                       {(onClose) => (
                         <>
-                          <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+                          <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
                             Cuplikan Video
                           </ModalHeader>
 
@@ -130,18 +131,20 @@ export default function ExamPreparationVideoClassPage() {
                     </ModalContent>
                   </Modal>
 
-                  <div className="flex h-full w-full items-center justify-center bg-gray/10">
+                  <div className="flex h-full w-full items-center justify-center bg-purple/10 group-hover:bg-purple/30">
                     <Images weight="bold" size={72} className="text-white" />
                   </div>
                 </div>
 
                 <div className="grid gap-8">
                   <div>
-                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black text-black">
+                    <h1 className="line-clamp-2 pb-[10px] text-lg font-black leading-[130%] text-black group-hover:text-purple">
                       Judul video pembelajaran
                     </h1>
 
-                    <h2 className="font-bold text-purple">Rp 500.000,-</h2>
+                    <h2 className="font-bold text-purple">
+                      {formatRupiah(500000)},-
+                    </h2>
                   </div>
 
                   <Button

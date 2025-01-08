@@ -48,7 +48,7 @@ export default function SubjectVideoClassPage() {
           id="list-class"
           className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
-          <h2 className="text-center text-[32px] font-extrabold capitalize leading-[130%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-[32px] font-black capitalize leading-[130%] -tracking-wide text-black xl:text-left">
             Pilih Kelas Sesuai Dengan <br /> Kebutuhan Kamu 😉
           </h2>
 
@@ -62,7 +62,7 @@ export default function SubjectVideoClassPage() {
                 />
 
                 <div className="grid gap-[10px]">
-                  <h3 className="text-[24px] font-extrabold capitalize leading-[120%] -tracking-wide text-black">
+                  <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
                     Kelas Video Persiapan UTS/UAS
                   </h3>
                   <p className="font-medium leading-[170%] text-gray">
@@ -92,7 +92,7 @@ export default function SubjectVideoClassPage() {
                 <PencilRuler weight="bold" size={72} className="text-purple" />
 
                 <div className="grid gap-[10px]">
-                  <h3 className="text-[24px] font-extrabold capitalize leading-[120%] -tracking-wide text-black">
+                  <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
                     Kelas Private One-by-One Farmasi
                   </h3>
                   <p className="font-medium leading-[170%] text-gray">
