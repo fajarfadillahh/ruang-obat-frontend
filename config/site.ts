@@ -193,23 +193,23 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Tryout UKMPPAI (CBT)",
-            href: "#",
+            href: "/dashboard",
           },
           {
             label: "Kelas Mata Kuliah",
-            href: "#",
+            href: "/kelas-video-matkul-s1-d3",
           },
           {
             label: "Kelas Skripsi Farmasi",
-            href: "#",
+            href: "/kelas-skripsi-farmasi",
           },
           {
             label: "Kelas Riset Farmasi",
-            href: "#",
+            href: "/kelas-riset-farmasi",
           },
           {
             label: "Kelas Masuk Apoteker",
-            href: "#",
+            href: "/kelas-masuk-apoteker",
           },
         ],
       },
@@ -231,15 +231,15 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Tentang Ruang Obat",
-            href: "#",
+            href: "/company/about-us",
           },
           {
             label: "Kontak Kami",
-            href: "#",
+            href: "/company/contact-us",
           },
           {
             label: "Testimonial",
-            href: "#",
+            href: "/company/testimonials",
           },
         ],
       },
