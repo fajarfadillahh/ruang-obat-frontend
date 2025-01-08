@@ -11,12 +11,7 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import {
-  ArrowsClockwise,
-  Images,
-  MagnifyingGlass,
-  PlayCircle,
-} from "@phosphor-icons/react";
+import { Images, MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -64,31 +59,17 @@ export default function SubjectPreparationPage() {
             Daftar Video Pembelajaran
           </h2>
 
-          <div className="flex flex-wrap items-center justify-between gap-2 pt-2 lg:gap-4">
-            <Input
-              type="text"
-              variant="flat"
-              labelPlacement="outside"
-              placeholder="Cari Video Pembelajaran..."
-              startContent={
-                <MagnifyingGlass
-                  weight="bold"
-                  size={18}
-                  className="text-gray"
-                />
-              }
-              classNames={customInputClassnames}
-              className="max-w-[500px]"
-            />
-
-            <Button
-              color="secondary"
-              startContent={<ArrowsClockwise weight="bold" size={18} />}
-              className="font-bold"
-            >
-              Sinkron Data
-            </Button>
-          </div>
+          <Input
+            type="text"
+            variant="flat"
+            labelPlacement="outside"
+            placeholder="Cari Video Pembelajaran..."
+            startContent={
+              <MagnifyingGlass weight="bold" size={18} className="text-gray" />
+            }
+            classNames={customInputClassnames}
+            className="max-w-[500px] pt-2"
+          />
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
             {Array.from({ length: 3 }, (_, index) => (
