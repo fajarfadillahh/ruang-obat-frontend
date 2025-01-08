@@ -26,12 +26,12 @@ export default function DetailPharmacyEntranceClassPage() {
       <Layout className={`Kelas Masuk Apoteker Nama Univ.`}>
         <ButtonBack />
 
-        <section className="grid divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_40px]">
-          <h1 className="pb-8 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+        <section className="divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
+          <h1 className="pb-16 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
             Kelas Masuk Apoteker Universitas Pancasila
           </h1>
 
-          <div className="mx-auto grid max-w-[600px] gap-4 [padding:2rem_0_100px] lg:max-w-[700px] xl:mx-0 xl:max-w-none">
+          <div className="mx-auto grid max-w-[600px] gap-4 pt-16 lg:max-w-[700px] xl:max-w-none">
             <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
               Daftar Video
             </h2>
@@ -88,6 +88,7 @@ export default function DetailPharmacyEntranceClassPage() {
 
                     <Modal
                       size="xl"
+                      placement="center"
                       isOpen={isOpen}
                       onOpenChange={onOpenChange}
                     >

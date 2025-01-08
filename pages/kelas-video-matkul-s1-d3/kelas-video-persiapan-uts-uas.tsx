@@ -109,7 +109,12 @@ export default function ExamPreparationVideoClassPage() {
                     </Button>
                   </div>
 
-                  <Modal size="xl" isOpen={isOpen} onOpenChange={onOpenChange}>
+                  <Modal
+                    size="xl"
+                    placement="center"
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                  >
                     <ModalContent>
                       {(onClose) => (
                         <>
