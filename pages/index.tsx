@@ -1,12 +1,13 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
-import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/config/site";
-import { SuccessResponse } from "@/types/global.type";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorType } from "@/types/homepage.type";
+import { fetcher } from "@/utils/fetcher";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -15,14 +16,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import useSWR from "swr";
 
-export default function HomePage() {
+export default function HomePage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const { data, isLoading } = useSWR<SuccessResponse<MentorType[]>>({
-    method: "GET",
-    url: "/general/homepage",
-  });
   const [client, setClient] = useState<boolean>(false);
 
   function getCardStyles(item: any, type: "reasons" | "programs") {
@@ -45,8 +44,6 @@ export default function HomePage() {
   }, []);
 
   if (!client) return;
-
-  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -282,7 +279,7 @@ export default function HomePage() {
               }}
               modules={[Pagination, Autoplay]}
             >
-              {data?.data.mentors.map((mentor: MentorType) => (
+              {data?.mentors.map((mentor: MentorType) => (
                 <SwiperSlide
                   key={mentor.mentor_id}
                   className="max-w-[300px] xs:max-w-[330px] lg:max-w-[360px]"
@@ -365,7 +362,7 @@ export default function HomePage() {
                   },
                 },
               }}
-              defaultExpandedKeys={["1"]}
+              defaultExpandedKeys={["0"]}
             >
               {siteConfigHomePage.faqs.map((item, index) => (
                 <AccordionItem
@@ -393,3 +390,31 @@ export default function HomePage() {
     </>
   );
 }
+
+type DataProps = {
+  data?: MentorType[];
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: "/general/homepage",
+    })) as SuccessResponse<MentorType[]>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
