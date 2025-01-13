@@ -1,21 +1,28 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
+import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/config/site";
+import { SuccessResponse } from "@/types/global.type";
+import { MentorType } from "@/types/homepage.type";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Autoplay, Pagination } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
-
 import "swiper/css";
 import "swiper/css/pagination";
+import { Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import useSWR from "swr";
 
 export default function HomePage() {
   const router = useRouter();
+  const { data, isLoading } = useSWR<SuccessResponse<MentorType[]>>({
+    method: "GET",
+    url: "/general/homepage",
+  });
   const [client, setClient] = useState<boolean>(false);
 
   function getCardStyles(item: any, type: "reasons" | "programs") {
@@ -38,6 +45,8 @@ export default function HomePage() {
   }, []);
 
   if (!client) return;
+
+  if (isLoading) return <Loading />;
 
   return (
     <>
@@ -273,18 +282,18 @@ export default function HomePage() {
               }}
               modules={[Pagination, Autoplay]}
             >
-              {siteConfigHomePage.mentors.map((item, index) => (
+              {data?.data.mentors.map((mentor: MentorType) => (
                 <SwiperSlide
-                  key={index}
+                  key={mentor.mentor_id}
                   className="max-w-[300px] xs:max-w-[330px] lg:max-w-[360px]"
                 >
                   <Link
-                    href={`/mentor/${item.id}`}
+                    href={`/mentor/${mentor.mentor_id}`}
                     className="group mt-4 grid overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
                   >
                     <Image
-                      src={item.image as string}
-                      alt={`image ${item.name}`}
+                      src={mentor.img_url as string}
+                      alt={`image ${mentor.fullname}`}
                       width={500}
                       height={500}
                       className="aspect-square rounded-xl group-hover:grayscale-[0.5]"
@@ -293,10 +302,10 @@ export default function HomePage() {
 
                     <div className="mt-8 grid flex-1 gap-1">
                       <h4 className="text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
-                        {item.name}
+                        {mentor.nickname}
                       </h4>
                       <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                        {item.mentor_title}
+                        {mentor.mentor_title}
                       </p>
                     </div>
                   </Link>
