@@ -1,6 +1,9 @@
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { PreparationResponse } from "@/types/classes.type";
+import {
+  PreparationClassType,
+  PreparationResponse,
+} from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
@@ -98,12 +101,12 @@ export default function ExamPreparationVideoClassPage({
           />
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-            {data?.preparation_classes.map((preparation) => (
+            {data?.preparation_classes.map((item: PreparationClassType) => (
               <div
-                key={preparation.subject_id}
+                key={item.subject_id}
                 className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
-                {isNewProduct(preparation.created_at) ? (
+                {isNewProduct(item.created_at) ? (
                   <Chip
                     color="danger"
                     className="absolute right-8 top-8 z-10"
@@ -115,15 +118,15 @@ export default function ExamPreparationVideoClassPage({
                   </Chip>
                 ) : null}
 
-                <div className="relative aspect-square size-full overflow-hidden rounded-xl">
-                  {preparation.thumbnail_type === "video" ? (
-                    <>
+                {item.thumbnail_type === "video" ? (
+                  <>
+                    <div className="relative aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
                       <Image
-                        src="/img/default-thumbnail-product-digital.png"
+                        src={item.thumbnail_url as string}
                         alt="thumbnail img"
                         width={500}
                         height={500}
-                        className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
+                        className="h-full w-full object-cover object-center"
                       />
 
                       <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
@@ -142,73 +145,69 @@ export default function ExamPreparationVideoClassPage({
                           />
                         </Button>
                       </div>
+                    </div>
 
-                      <Modal
-                        isDismissable={false}
-                        size="xl"
-                        placement="center"
-                        isOpen={isOpen}
-                        onOpenChange={onOpenChange}
-                      >
-                        <ModalContent>
-                          {(onClose) => (
-                            <>
-                              <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                Cuplikan Video
-                              </ModalHeader>
+                    <Modal
+                      isDismissable={false}
+                      size="xl"
+                      placement="center"
+                      isOpen={isOpen}
+                      onOpenChange={onOpenChange}
+                    >
+                      <ModalContent>
+                        {(onClose) => (
+                          <>
+                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                              Cuplikan Video
+                            </ModalHeader>
 
-                              <ModalBody>
-                                <div className="aspect-video h-full w-full">
-                                  {PreviewVideo(
-                                    preparation.thumbnail_url as string,
-                                  )}
-                                </div>
-                              </ModalBody>
+                            <ModalBody>
+                              <div className="aspect-video h-full w-full">
+                                {PreviewVideo(item.thumbnail_url as string)}
+                              </div>
+                            </ModalBody>
 
-                              <ModalFooter>
-                                <Button
-                                  color="danger"
-                                  variant="light"
-                                  onPress={onClose}
-                                  className="font-bold"
-                                >
-                                  Tutup
-                                </Button>
-                              </ModalFooter>
-                            </>
-                          )}
-                        </ModalContent>
-                      </Modal>
-                    </>
-                  ) : (
-                    <>
-                      <Image
-                        src={preparation.thumbnail_url as string}
-                        alt="thumbnail img"
-                        width={500}
-                        height={500}
-                        className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
-                      />
-
-                      <div className="absolute left-0 top-0 h-full w-full" />
-                    </>
-                  )}
-                </div>
+                            <ModalFooter>
+                              <Button
+                                color="danger"
+                                variant="light"
+                                onPress={onClose}
+                                className="font-bold"
+                              >
+                                Tutup
+                              </Button>
+                            </ModalFooter>
+                          </>
+                        )}
+                      </ModalContent>
+                    </Modal>
+                  </>
+                ) : (
+                  <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                    <Image
+                      src={item.thumbnail_url as string}
+                      alt="thumbnail img"
+                      width={500}
+                      height={500}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+                )}
 
                 <div className="grid gap-8">
                   <div className="grid gap-[10px]">
                     <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                      {preparation.title}
+                      {item.title}
                     </h1>
 
                     <h2 className="font-bold text-purple">
-                      {formatRupiah(preparation.price)},-
+                      {formatRupiah(item.price)},-
                     </h2>
                   </div>
 
                   <Button
                     as={Link}
-                    href={preparation.link_order}
+                    href={item.link_order}
                     target="_blank"
                     variant="flat"
                     color="secondary"
