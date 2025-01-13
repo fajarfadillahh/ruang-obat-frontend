@@ -8,6 +8,11 @@ export type PrivateResponse = {
   mentors: any[];
 };
 
+export type ThesisResponse = {
+  theses: ThesisClassType[];
+  mentors: any[];
+};
+
 // ==== seperated ====
 
 export type PreparationClassType = {
@@ -35,3 +40,14 @@ export interface PrivateSubClassType {
   description: string;
   link_order: string;
 }
+
+export type ThesisClassType = {
+  thesis_id: string;
+  title: string;
+  description: string;
+  price: number;
+  link_order: string;
+  thumbnail_url: string;
+  thumbnail_type: string;
+  created_at: Date;
+};

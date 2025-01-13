@@ -16,6 +16,10 @@ const nextConfig = {
         hostname: "i.pinimg.com",
       },
       {
+        protocol: "https",
+        hostname: "www.youtube.com",
+      },
+      {
         protocol: "http",
         hostname: "api.ruangobat.id",
       },
