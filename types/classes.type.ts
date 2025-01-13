@@ -13,6 +13,11 @@ export type ThesisResponse = {
   mentors: any[];
 };
 
+export interface ResearchResponse {
+  research: ResearchClassType[];
+  mentors: any[];
+}
+
 // ==== seperated ====
 
 export type PreparationClassType = {
@@ -49,5 +54,16 @@ export type ThesisClassType = {
   link_order: string;
   thumbnail_url: string;
   thumbnail_type: string;
-  created_at: Date;
+  created_at: string;
 };
+
+export interface ResearchClassType {
+  research_id: string;
+  title: string;
+  description: string;
+  price: number;
+  link_order: string;
+  thumbnail_url: string;
+  thumbnail_type: string;
+  created_at: string;
+}

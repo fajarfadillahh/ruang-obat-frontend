@@ -1,6 +1,9 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { ResearchClassType, ResearchResponse } from "@/types/classes.type";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
@@ -11,11 +14,14 @@ import {
   ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
-import { Images } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PharmacyResearchClassPage() {
+export default function PharmacyResearchClassPage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const {
     isOpen: isOpenClass,
     onOpen: onOpenClass,
@@ -68,23 +74,29 @@ export default function PharmacyResearchClassPage() {
           </h2>
 
           <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
-            {Array.from({ length: 3 }, (_, index) => (
+            {data?.research.map((item: ResearchClassType) => (
               <div
-                key={index}
+                key={item.research_id}
                 className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
-                <div className="flex aspect-square size-full items-center justify-center rounded-xl bg-purple object-cover object-center group-hover:grayscale-[0.5]">
-                  <Images weight="bold" size={64} className="text-white/50" />
+                <div className="aspect-square size-full rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                  <Image
+                    src={item.thumbnail_url as string}
+                    alt="thumbnail img"
+                    width={500}
+                    height={500}
+                    className="h-full w-full object-cover object-center"
+                  />
                 </div>
 
                 <div className="grid gap-8">
                   <div className="grid gap-[10px]">
                     <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                      Kelas Pelatihan Bioinformatic dan Network Pharmacology
+                      {item.title}
                     </h1>
 
                     <h2 className="font-bold text-purple">
-                      {formatRupiah(200000)},-
+                      {formatRupiah(item.price)},-
                     </h2>
                   </div>
 
@@ -98,6 +110,9 @@ export default function PharmacyResearchClassPage() {
                     </Button>
 
                     <Button
+                      as={Link}
+                      href={item.link_order}
+                      target="_blank"
                       variant="flat"
                       color="secondary"
                       className="font-bold"
@@ -121,19 +136,7 @@ export default function PharmacyResearchClassPage() {
 
                             <ModalBody>
                               <p className="font-medium leading-[170%] text-gray">
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit. Alias, officiis pariatur. Eius
-                                atque, sit ducimus consequatur natus saepe quis,
-                                error, rem nam veritatis quam. Iusto animi
-                                doloremque quisquam vitae vero?
-                                <br />
-                                <br />
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Tempore doloribus aliquam vero
-                                commodi iure libero exercitationem sapiente
-                                obcaecati et, error soluta, illum, laudantium
-                                rerum. Reprehenderit perferendis laudantium
-                                libero maiores error.
+                                {item.description}
                               </p>
                             </ModalBody>
 
@@ -243,3 +246,31 @@ export default function PharmacyResearchClassPage() {
     </>
   );
 }
+
+type DataProps = {
+  data?: ResearchResponse;
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: "/general/research",
+    })) as SuccessResponse<ResearchResponse>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
