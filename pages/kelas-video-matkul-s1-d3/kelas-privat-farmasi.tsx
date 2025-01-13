@@ -2,6 +2,13 @@ import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigPhamacyPrivteClassPage } from "@/config/site";
+import {
+  PrivateClassType,
+  PrivateResponse,
+  PrivateSubClassType,
+} from "@/types/classes.type";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
   Button,
@@ -13,10 +20,14 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PhamacyPrivteClassPage() {
+export default function PhamacyPrivteClassPage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
@@ -95,56 +106,52 @@ export default function PhamacyPrivteClassPage() {
           </h2>
 
           <div className="grid justify-center gap-4">
-            {siteConfigPhamacyPrivteClassPage.price_list.map((item, index) => (
+            {data?.private_classes.map((item: PrivateClassType) => (
               <div
-                key={index}
-                className={`grid max-w-[600px] gap-6 rounded-xl border-2 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px] ${item.id == 1 ? "border-purple bg-white" : "bg-purple"}`}
+                key={item.subject_id}
+                className="grid max-w-[600px] gap-6 rounded-xl border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
               >
                 <div>
-                  <h3
-                    className={`mb-4 text-2xl font-black leading-[120%] ${item.id == 1 ? "text-purple" : "text-white"}`}
-                  >
+                  <h3 className="mb-4 text-2xl font-black leading-[120%] text-purple">
                     {item.title}
                   </h3>
-                  <p
-                    className={`font-medium leading-[170%] ${item.id == 1 ? "text-gray" : "text-white/80"}`}
-                  >
+                  <p className="font-medium leading-[170%] text-gray">
                     {item.description}
                   </p>
                 </div>
 
                 <div className="grid gap-4 xs:gap-1 md:mx-10 lg:mx-20">
-                  {item.list.map((subitem, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center gap-2 xl:gap-6"
-                    >
-                      <div className="inline-flex flex-wrap items-end xs:gap-1">
-                        <h4
-                          className={`inline-flex text-lg font-extrabold ${item.id == 1 ? "text-purple" : "text-white"}`}
-                        >
-                          {formatRupiah(subitem.price)}
-                        </h4>
-                        <span
-                          className={`text-sm font-medium md:text-base ${item.id == 1 ? "text-gray" : "text-white/80"}`}
-                        >
-                          {subitem.label}
-                        </span>
-                      </div>
-
+                  {item.private_sub_classes.map(
+                    (subitem: PrivateSubClassType) => (
                       <div
-                        className={`h-2 w-full flex-1 border-b-2 border-dashed ${item.id == 1 ? "border-gray/20" : "border-white/20"}`}
-                      ></div>
-
-                      <Button
-                        variant="light"
-                        size="sm"
-                        className={`font-bold ${item.id == 1 ? "text-purple" : "text-white"}`}
+                        key={subitem.subject_part_id}
+                        className="flex items-center gap-2 xl:gap-6"
                       >
-                        Pilih
-                      </Button>
-                    </div>
-                  ))}
+                        <div className="inline-flex flex-wrap items-end xs:gap-1">
+                          <h4 className="inline-flex text-lg font-extrabold text-purple">
+                            {formatRupiah(subitem.price)}
+                          </h4>
+                          <span className="text-sm font-medium text-gray md:text-base">
+                            {subitem.description}
+                          </span>
+                        </div>
+
+                        <div className="h-2 w-full flex-1 border-b-2 border-dashed border-gray/20" />
+
+                        <Button
+                          as={Link}
+                          href={subitem.link_order}
+                          target="_blank"
+                          variant="light"
+                          color="secondary"
+                          size="sm"
+                          className="font-bold"
+                        >
+                          Pilih
+                        </Button>
+                      </div>
+                    ),
+                  )}
                 </div>
               </div>
             ))}
@@ -236,3 +243,31 @@ export default function PhamacyPrivteClassPage() {
     </>
   );
 }
+
+type DataProps = {
+  data?: PrivateResponse;
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: "/general/subjects/private",
+    })) as SuccessResponse<PrivateResponse>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
