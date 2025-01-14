@@ -18,20 +18,42 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  useDisclosure,
 } from "@nextui-org/react";
 import { MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function ExamPreparationVideoClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [isOpenVideo, setIsOpenVideo] = useState(false);
+  const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedClass, setSelectedClass] =
+    useState<PreparationClassType | null>(null);
+
+  function handleOpenModal(
+    prepClass: PreparationClassType,
+    type: "video" | "detail",
+  ) {
+    setSelectedClass(prepClass);
+
+    if (type === "video") {
+      setIsLoading(true);
+      setIsOpenVideo(true);
+    } else {
+      setIsOpenDetail(true);
+    }
+  }
+
+  function handleVideoLoad() {
+    setIsLoading(false);
+  }
 
   function PreviewVideo(url: string) {
     const videoID = new URL(url).searchParams.get("v");
@@ -42,6 +64,7 @@ export default function ExamPreparationVideoClassPage({
         allowFullScreen
         src={embedURL}
         title="Preview Video Player"
+        onLoad={handleVideoLoad}
         className="h-full w-full rounded-xl"
       />
     );
@@ -120,67 +143,78 @@ export default function ExamPreparationVideoClassPage({
 
                 {item.thumbnail_type === "video" ? (
                   <>
-                    <div className="relative aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                    <div className="relative aspect-square size-full overflow-hidden rounded-xl">
                       <Image
-                        src={item.thumbnail_url as string}
+                        src="/img/default-thumbnail.png"
                         alt="thumbnail img"
                         width={500}
                         height={500}
-                        className="h-full w-full object-cover object-center"
+                        className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
                       />
 
-                      <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center">
-                        <Button
-                          isIconOnly
-                          color="secondary"
-                          variant="light"
-                          radius="full"
-                          size="lg"
-                          onPress={onOpen}
-                        >
+                      <div
+                        onClick={() => handleOpenModal(item, "video")}
+                        className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                      >
+                        <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
                           <PlayCircle
                             weight="fill"
                             size={56}
                             className="text-white"
                           />
-                        </Button>
+                        </div>
                       </div>
                     </div>
 
-                    <Modal
-                      isDismissable={false}
-                      size="xl"
-                      placement="center"
-                      isOpen={isOpen}
-                      onOpenChange={onOpenChange}
-                    >
-                      <ModalContent>
-                        {(onClose) => (
-                          <>
-                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                              Cuplikan Video
-                            </ModalHeader>
+                    {selectedClass && (
+                      <Modal
+                        isDismissable={false}
+                        size="xl"
+                        placement="center"
+                        hideCloseButton={true}
+                        isOpen={isOpenVideo}
+                        onOpenChange={(open) => setIsOpenVideo(open)}
+                      >
+                        <ModalContent>
+                          {(onClose) => (
+                            <>
+                              <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                                Cuplikan Video
+                              </ModalHeader>
 
-                            <ModalBody>
-                              <div className="aspect-video h-full w-full">
-                                {PreviewVideo(item.thumbnail_url as string)}
-                              </div>
-                            </ModalBody>
+                              <ModalBody>
+                                <div className="aspect-video h-full w-full">
+                                  {isLoading && (
+                                    <div className="flex h-full w-full items-center justify-center">
+                                      <h1 className="font-semibold text-black">
+                                        Loading video...
+                                      </h1>
+                                    </div>
+                                  )}
 
-                            <ModalFooter>
-                              <Button
-                                color="danger"
-                                variant="light"
-                                onPress={onClose}
-                                className="font-bold"
-                              >
-                                Tutup
-                              </Button>
-                            </ModalFooter>
-                          </>
-                        )}
-                      </ModalContent>
-                    </Modal>
+                                  {PreviewVideo(
+                                    selectedClass.thumbnail_url as string,
+                                  )}
+                                </div>
+                              </ModalBody>
+
+                              <ModalFooter>
+                                <Button
+                                  color="danger"
+                                  variant="light"
+                                  onPress={() => {
+                                    onClose(), setIsLoading(false);
+                                  }}
+                                  className="font-bold"
+                                >
+                                  Tutup
+                                </Button>
+                              </ModalFooter>
+                            </>
+                          )}
+                        </ModalContent>
+                      </Modal>
+                    )}
                   </>
                 ) : (
                   <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
@@ -205,16 +239,63 @@ export default function ExamPreparationVideoClassPage({
                     </h2>
                   </div>
 
-                  <Button
-                    as={Link}
-                    href={item.link_order}
-                    target="_blank"
-                    variant="flat"
-                    color="secondary"
-                    className="font-bold"
-                  >
-                    Beli Video
-                  </Button>
+                  <div className="grid gap-[10px]">
+                    <Button
+                      variant="bordered"
+                      onPress={() => handleOpenModal(item, "detail")}
+                      className="font-bold text-black"
+                    >
+                      Detail
+                    </Button>
+
+                    <Button
+                      as={Link}
+                      href={item.link_order}
+                      target="_blank"
+                      variant="flat"
+                      color="secondary"
+                      className="font-bold"
+                    >
+                      Beli Video
+                    </Button>
+
+                    {selectedClass && (
+                      <Modal
+                        size="lg"
+                        scrollBehavior="inside"
+                        placement="center"
+                        isOpen={isOpenDetail}
+                        onOpenChange={(open) => setIsOpenDetail(open)}
+                      >
+                        <ModalContent>
+                          {(onClose) => (
+                            <>
+                              <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                                Deskripsi Video
+                              </ModalHeader>
+
+                              <ModalBody>
+                                <p className="font-medium leading-[170%] text-gray">
+                                  {selectedClass.description}
+                                </p>
+                              </ModalBody>
+
+                              <ModalFooter>
+                                <Button
+                                  color="danger"
+                                  variant="light"
+                                  onPress={onClose}
+                                  className="font-bold"
+                                >
+                                  Tutup
+                                </Button>
+                              </ModalFooter>
+                            </>
+                          )}
+                        </ModalContent>
+                      </Modal>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
