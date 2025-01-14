@@ -3,7 +3,7 @@ import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { MentorDetailsType } from "@/types/homepage.type";
+import { MentorDetailsType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";

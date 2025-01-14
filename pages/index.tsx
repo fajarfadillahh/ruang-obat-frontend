@@ -3,7 +3,7 @@ import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/config/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { MentorType } from "@/types/homepage.type";
+import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
@@ -271,7 +271,7 @@ export default function HomePage({
               spaceBetween={24}
               centeredSlides={true}
               autoplay={{
-                delay: 4000,
+                delay: 5000,
                 disableOnInteraction: false,
               }}
               pagination={{
@@ -392,7 +392,7 @@ export default function HomePage({
 }
 
 type DataProps = {
-  data?: MentorType[];
+  data?: HomepageResponse;
   error?: ErrorDataType;
 };
 
@@ -401,7 +401,7 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
     const response = (await fetcher({
       method: "GET",
       url: "/general/homepage",
-    })) as SuccessResponse<MentorType[]>;
+    })) as SuccessResponse<HomepageResponse>;
 
     return {
       props: {
