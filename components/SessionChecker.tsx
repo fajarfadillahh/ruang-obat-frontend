@@ -23,6 +23,12 @@ export default function SessionChecker() {
         !router.pathname.startsWith("/auth") &&
         !router.pathname.startsWith("/tests") &&
         !router.pathname.startsWith("/company") &&
+        !router.pathname.startsWith("/kelas-masuk-apoteker") &&
+        !router.pathname.startsWith("/kelas-riset-farmasi") &&
+        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
+        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
+        !router.pathname.startsWith("/kelas-video-matkul-s1-d3") &&
+        !router.pathname.startsWith("/mentor") &&
         router.pathname !== "/" &&
         router.pathname !== "/reset"
       ) {
@@ -35,6 +41,12 @@ export default function SessionChecker() {
         !router.pathname.startsWith("/auth") &&
         !router.pathname.startsWith("/tests") &&
         !router.pathname.startsWith("/company") &&
+        !router.pathname.startsWith("/kelas-masuk-apoteker") &&
+        !router.pathname.startsWith("/kelas-riset-farmasi") &&
+        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
+        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
+        !router.pathname.startsWith("/kelas-video-matkul-s1-d3") &&
+        !router.pathname.startsWith("/mentor") &&
         router.pathname !== "/" &&
         router.pathname !== "/reset"
       ) {
