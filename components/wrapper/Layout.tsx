@@ -2,7 +2,9 @@ import FooterSimple from "@/components/footer/FooterSimple";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
+import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import Navbar from "@/components/Navbar";
+import { AppContext } from "@/context/AppContext";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
 import { UserDataResponse } from "@/types/profile.type";
@@ -31,7 +33,7 @@ import { signOut, useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ReactNode, useState } from "react";
+import { ReactNode, useContext, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
 
@@ -43,6 +45,7 @@ interface LayoutProps {
 
 export default function Layout({ title, children, className }: LayoutProps) {
   const router = useRouter();
+  const ctx = useContext(AppContext);
   const { data: token, status } = useSession();
   const { data: user } = useSWR<SuccessResponse<UserDataResponse>>({
     url: "/my/profile",
@@ -302,6 +305,11 @@ export default function Layout({ title, children, className }: LayoutProps) {
 
       <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
+          <ModalUnauthenticated
+            isOpen={ctx?.isOpenUnauthenticated as boolean}
+            onClose={ctx?.onCloseUnauthenticated as () => void}
+          />
+
           {children}
         </main>
 

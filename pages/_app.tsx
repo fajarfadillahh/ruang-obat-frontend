@@ -1,5 +1,6 @@
 import SessionChecker from "@/components/SessionChecker";
 import { fontMono, fontSans } from "@/config/fonts";
+import AppProvider from "@/context/AppProvider";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -34,7 +35,9 @@ export default function App({
             revalidateOnFocus: false,
           }}
         >
-          <Component {...pageProps} />
+          <AppProvider>
+            <Component {...pageProps} />
+          </AppProvider>
         </SWRConfig>
       </SessionProvider>
       <GoogleAnalytics gaId="G-QPX13ESQJV" />

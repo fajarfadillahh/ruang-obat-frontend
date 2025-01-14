@@ -1,5 +1,6 @@
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { AppContext } from "@/context/AppContext";
 import {
   PreparationClassType,
   PreparationResponse,
@@ -21,16 +22,19 @@ import {
 } from "@nextui-org/react";
 import { MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function ExamPreparationVideoClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const session = useSession();
+  const ctx = useContext(AppContext);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -249,11 +253,15 @@ export default function ExamPreparationVideoClassPage({
                     </Button>
 
                     <Button
-                      as={Link}
-                      href={item.link_order}
-                      target="_blank"
                       variant="flat"
                       color="secondary"
+                      onClick={() => {
+                        if (session.status == "unauthenticated") {
+                          ctx?.onOpenUnauthenticated();
+                        } else {
+                          window.open(item.link_order, "_blank");
+                        }
+                      }}
                       className="font-bold"
                     >
                       Beli Video
