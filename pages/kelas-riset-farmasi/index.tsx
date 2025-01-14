@@ -3,6 +3,7 @@ import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { ResearchClassType, ResearchResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import {
@@ -12,26 +13,25 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  useDisclosure,
 } from "@nextui-org/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function PharmacyResearchClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {
-    isOpen: isOpenClass,
-    onOpen: onOpenClass,
-    onOpenChange: onOpenChangeClass,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenMentor,
-    onOpen: onOpenMentor,
-    onOpenChange: onOpenChangeMentor,
-  } = useDisclosure();
+  const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [selectedClass, setSelectedClass] = useState<ResearchClassType | null>(
+    null,
+  );
+
+  function handleOpenModal(prepClass: ResearchClassType) {
+    setSelectedClass(prepClass);
+    setIsOpenDetail(true);
+  }
 
   return (
     <>
@@ -79,9 +79,9 @@ export default function PharmacyResearchClassPage({
                 key={item.research_id}
                 className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
-                <div className="aspect-square size-full rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
                   <Image
-                    src={item.thumbnail_url as string}
+                    src="/img/default-thumbnail.png"
                     alt="thumbnail img"
                     width={500}
                     height={500}
@@ -103,7 +103,7 @@ export default function PharmacyResearchClassPage({
                   <div className="grid gap-[10px]">
                     <Button
                       variant="bordered"
-                      onPress={onOpenClass}
+                      onPress={() => handleOpenModal(item)}
                       className="font-bold text-black"
                     >
                       Detail Kelas
@@ -124,8 +124,8 @@ export default function PharmacyResearchClassPage({
                       size="lg"
                       scrollBehavior="inside"
                       placement="center"
-                      isOpen={isOpenClass}
-                      onOpenChange={onOpenChangeClass}
+                      isOpen={isOpenDetail}
+                      onOpenChange={(open) => setIsOpenDetail(open)}
                     >
                       <ModalContent>
                         {(onClose) => (
@@ -136,7 +136,7 @@ export default function PharmacyResearchClassPage({
 
                             <ModalBody>
                               <p className="font-medium leading-[170%] text-gray">
-                                {item.description}
+                                {selectedClass?.description}
                               </p>
                             </ModalBody>
 
@@ -161,83 +161,40 @@ export default function PharmacyResearchClassPage({
           </div>
         </section>
 
-        <section className="grid gap-4 py-[100px]">
-          <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
-            Daftar Mentor
-          </h2>
+        {data?.mentors.length ? (
+          <section className="grid gap-4 py-[100px]">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+              Daftar Mentor
+            </h2>
 
-          <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
-            {Array.from({ length: 3 }, (_, index) => (
-              <div
-                key={index}
-                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-              >
-                <Image
-                  priority
-                  src="/img/mentors/kak-dhea-spss.webp"
-                  alt="product img"
-                  width={304}
-                  height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                />
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {data?.mentors.map((mentor: MentorClassType) => (
+                <div
+                  key={mentor.class_mentor_id}
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  <Image
+                    priority
+                    src={mentor.img_url as string}
+                    alt="mentor img"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  />
 
-                <div className="grid gap-4">
-                  <h1 className="text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                    Kak Dhea
-                  </h1>
-
-                  <Button
-                    variant="flat"
-                    color="secondary"
-                    onPress={onOpenMentor}
-                    className="font-bold"
-                  >
-                    Detail Mentor
-                  </Button>
-
-                  <Modal
-                    size="lg"
-                    scrollBehavior="inside"
-                    placement="center"
-                    isOpen={isOpenMentor}
-                    onOpenChange={onOpenChangeMentor}
-                  >
-                    <ModalContent>
-                      {(onClose) => (
-                        <>
-                          <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                            Detail Mentor
-                          </ModalHeader>
-
-                          <ModalBody>
-                            <p className="font-medium leading-[170%] text-gray">
-                              Lorem ipsum dolor sit amet consectetur adipisicing
-                              elit. Alias, officiis pariatur. Eius atque, sit
-                              ducimus consequatur natus saepe quis, error, rem
-                              nam veritatis quam. Iusto animi doloremque
-                              quisquam vitae vero?
-                            </p>
-                          </ModalBody>
-
-                          <ModalFooter>
-                            <Button
-                              color="danger"
-                              variant="light"
-                              onPress={onClose}
-                              className="font-bold"
-                            >
-                              Tutup
-                            </Button>
-                          </ModalFooter>
-                        </>
-                      )}
-                    </ModalContent>
-                  </Modal>
+                  <div className="grid flex-1 gap-1">
+                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                      {mentor.fullname}
+                    </h4>
+                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                      {mentor.mentor_title}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <CTASecondary />
       </Layout>
