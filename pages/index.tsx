@@ -298,8 +298,8 @@ export default function HomePage({
                     />
 
                     <div className="mt-8 grid flex-1 gap-1">
-                      <h4 className="text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
-                        {mentor.nickname}
+                      <h4 className="line-clamp-1 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                        {mentor.fullname}
                       </h4>
                       <p className="text-sm font-medium capitalize leading-[170%] text-gray">
                         {mentor.mentor_title}
