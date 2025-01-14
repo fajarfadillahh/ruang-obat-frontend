@@ -40,7 +40,7 @@ export default function ModalUnauthenticated({
               alt="img"
               width={800}
               height={800}
-              className="h-auto w-[250px] justify-self-center"
+              className="h-auto w-[230px] justify-self-center"
             />
 
             <div className="grid gap-6 justify-self-center">

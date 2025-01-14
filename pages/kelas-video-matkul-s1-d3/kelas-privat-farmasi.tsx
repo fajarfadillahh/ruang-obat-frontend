@@ -2,6 +2,7 @@ import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigPhamacyPrivteClassPage } from "@/config/site";
+import { AppContext } from "@/context/AppContext";
 import {
   PrivateClassType,
   PrivateResponse,
@@ -14,13 +15,18 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
+import { useContext } from "react";
 
 export default function PhamacyPrivteClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const session = useSession();
+  const ctx = useContext(AppContext);
+
   return (
     <>
       <Layout title="Kelas Privat Farmasi">
@@ -130,12 +136,16 @@ export default function PhamacyPrivteClassPage({
                         <div className="h-2 w-full flex-1 border-b-2 border-dashed border-gray/20" />
 
                         <Button
-                          as={Link}
-                          href={subitem.link_order}
-                          target="_blank"
+                          size="sm"
                           variant="light"
                           color="secondary"
-                          size="sm"
+                          onClick={() => {
+                            if (session.status == "unauthenticated") {
+                              ctx?.onOpenUnauthenticated();
+                            } else {
+                              window.open(subitem.link_order, "_blank");
+                            }
+                          }}
                           className="font-bold"
                         >
                           Pilih

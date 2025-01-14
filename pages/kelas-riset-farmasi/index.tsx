@@ -1,6 +1,7 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { AppContext } from "@/context/AppContext";
 import { ResearchClassType, ResearchResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
@@ -15,14 +16,17 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 export default function PharmacyResearchClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const session = useSession();
+  const ctx = useContext(AppContext);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [selectedClass, setSelectedClass] = useState<ResearchClassType | null>(
     null,
@@ -110,11 +114,15 @@ export default function PharmacyResearchClassPage({
                     </Button>
 
                     <Button
-                      as={Link}
-                      href={item.link_order}
-                      target="_blank"
                       variant="flat"
                       color="secondary"
+                      onClick={() => {
+                        if (session.status == "unauthenticated") {
+                          ctx?.onOpenUnauthenticated();
+                        } else {
+                          window.open(item.link_order, "_blank");
+                        }
+                      }}
                       className="font-bold"
                     >
                       Booking Kelas
