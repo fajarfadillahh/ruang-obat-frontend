@@ -1,13 +1,22 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { PharmacistAdmissionClassType } from "@/types/classes.type";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
+import { fetcher } from "@/utils/fetcher";
+import { isNewProduct } from "@/utils/isNewProduct";
 import { Button, Chip, Input } from "@nextui-org/react";
-import { Images, MagnifyingGlass } from "@phosphor-icons/react";
+import { MagnifyingGlass } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-export default function PharmacyEntranceClassPage() {
+export default function PharmacyEntranceClassPage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
 
   return (
@@ -48,7 +57,7 @@ export default function PharmacyEntranceClassPage() {
             type="text"
             variant="flat"
             labelPlacement="outside"
-            placeholder="Cari Kelas per Kampus..."
+            placeholder="Cari Kelas per Universitas..."
             startContent={
               <MagnifyingGlass weight="bold" size={18} className="text-gray" />
             }
@@ -57,34 +66,44 @@ export default function PharmacyEntranceClassPage() {
           />
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-            {Array.from({ length: 3 }, (_, index) => (
+            {data?.map((item: PharmacistAdmissionClassType) => (
               <div
-                key={index}
+                key={item.university_id}
                 className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
-                <Chip
-                  color="danger"
-                  className="absolute right-8 top-8 z-10"
-                  classNames={{
-                    content: "font-bold px-4",
-                  }}
-                >
-                  Baru
-                </Chip>
+                {isNewProduct(item.created_at) ? (
+                  <Chip
+                    color="danger"
+                    className="absolute right-8 top-8 z-10"
+                    classNames={{
+                      content: "font-bold px-4",
+                    }}
+                  >
+                    Baru
+                  </Chip>
+                ) : null}
 
-                <div className="flex aspect-square size-full items-center justify-center rounded-xl bg-purple object-cover object-center group-hover:grayscale-[0.5]">
-                  <Images weight="bold" size={64} className="text-white/50" />
+                <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                  <Image
+                    src={item.img_url as string}
+                    alt="thumbnail img"
+                    width={500}
+                    height={500}
+                    className="h-full w-full object-cover object-center"
+                  />
                 </div>
 
                 <div className="grid gap-8">
                   <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                    Kelas Masuk Apoteker Universitas Pancasila
+                    Kelas Masuk Apoteker {item.name}
                   </h1>
 
                   <Button
                     variant="flat"
                     color="secondary"
-                    onClick={() => router.push("/kelas-masuk-apoteker/slug")}
+                    onClick={() =>
+                      router.push(`/kelas-masuk-apoteker/${item.slug}`)
+                    }
                     className="font-bold"
                   >
                     Detail Kelas
@@ -102,3 +121,31 @@ export default function PharmacyEntranceClassPage() {
     </>
   );
 }
+
+type DataProps = {
+  data?: PharmacistAdmissionClassType[];
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: "/general/pharmacistadmission",
+    })) as SuccessResponse<PharmacistAdmissionClassType[]>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};

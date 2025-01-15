@@ -18,6 +18,11 @@ export interface ResearchResponse {
   mentors: any[];
 }
 
+export interface PharmacistAdmissionDetailsResponse {
+  pharmacist_admissions: PharmacistAdmissionDetailsClassType[];
+  mentors: any[];
+}
+
 // ==== seperated ====
 
 export type PreparationClassType = {
@@ -66,4 +71,28 @@ export interface ResearchClassType {
   thumbnail_url: string;
   thumbnail_type: string;
   created_at: string;
+}
+
+export type PharmacistAdmissionClassType = {
+  university_id: string;
+  name: string;
+  description: string;
+  img_url: string;
+  slug: string;
+  created_at: string;
+};
+
+export interface PharmacistAdmissionDetailsClassType {
+  pa_id: string;
+  title: string;
+  description: string;
+  price: number;
+  link_order: string;
+  thumbnail_url: string;
+  thumbnail_type: string;
+  slug: string;
+  created_at: string;
+  university: {
+    name: string;
+  };
 }

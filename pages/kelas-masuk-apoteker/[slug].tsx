@@ -1,8 +1,16 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { AppContext } from "@/context/AppContext";
+import {
+  PharmacistAdmissionDetailsClassType,
+  PharmacistAdmissionDetailsResponse,
+} from "@/types/classes.type";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
+import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
+import { isNewProduct } from "@/utils/isNewProduct";
 import {
   Button,
   Chip,
@@ -12,23 +20,68 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
-  useDisclosure,
 } from "@nextui-org/react";
-import { Images, MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
+import { MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import { useRouter } from "next/router";
+import { useContext, useState } from "react";
 
-export default function DetailPharmacyEntranceClassPage() {
+export default function DetailPharmacyEntranceClassPage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const session = useSession();
+  const ctx = useContext(AppContext);
+  const [isOpenVideo, setIsOpenVideo] = useState(false);
+  const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedClass, setSelectedClass] =
+    useState<PharmacistAdmissionDetailsClassType | null>(null);
+
+  function handleOpenModal(
+    prepClass: PharmacistAdmissionDetailsClassType,
+    type: "video" | "detail",
+  ) {
+    setSelectedClass(prepClass);
+
+    if (type === "video") {
+      setIsLoading(true);
+      setIsOpenVideo(true);
+    } else {
+      setIsOpenDetail(true);
+    }
+  }
+
+  function handleVideoLoad() {
+    setIsLoading(false);
+  }
+
+  function PreviewVideo(url: string) {
+    const videoID = new URL(url).searchParams.get("v");
+    const embedURL = `https://www.youtube.com/embed/${videoID}`;
+
+    return (
+      <iframe
+        allowFullScreen
+        src={embedURL}
+        title="Preview Video Player"
+        onLoad={handleVideoLoad}
+        className="h-full w-full rounded-xl"
+      />
+    );
+  }
 
   return (
     <>
-      <Layout className={`Kelas Masuk Apoteker Nama Univ.`}>
+      <Layout className="Detail Kelas">
         <ButtonBack />
 
         <section className="divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
           <h1 className="pb-16 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-            Kelas Masuk Apoteker Universitas Pancasila
+            Kelas Masuk Apoteker Univ. (Nama Univ.)
           </h1>
 
           <div className="mx-auto grid max-w-[600px] gap-4 pt-16 lg:max-w-[700px] xl:max-w-none">
@@ -53,103 +106,187 @@ export default function DetailPharmacyEntranceClassPage() {
             />
 
             <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-              {Array.from({ length: 3 }, (_, index) => (
-                <div
-                  key={index}
-                  className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
-                  <Chip
-                    color="danger"
-                    className="absolute right-8 top-8 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
+              {data?.pharmacist_admissions.map(
+                (item: PharmacistAdmissionDetailsClassType) => (
+                  <div
+                    key={item.pa_id}
+                    className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
                   >
-                    Baru
-                  </Chip>
-
-                  <div className="relative aspect-square size-full overflow-hidden rounded-xl">
-                    <div className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-purple/20">
-                      <Button
-                        isIconOnly
-                        color="secondary"
-                        variant="light"
-                        radius="full"
-                        size="lg"
-                        onPress={onOpen}
+                    {isNewProduct(item.created_at) ? (
+                      <Chip
+                        color="danger"
+                        className="absolute right-8 top-8 z-10"
+                        classNames={{
+                          content: "font-bold px-4",
+                        }}
                       >
-                        <PlayCircle
-                          weight="fill"
-                          size={48}
-                          className="text-purple"
-                        />
-                      </Button>
-                    </div>
+                        Baru
+                      </Chip>
+                    ) : null}
 
-                    <Modal
-                      size="xl"
-                      placement="center"
-                      isOpen={isOpen}
-                      onOpenChange={onOpenChange}
-                    >
-                      <ModalContent>
-                        {(onClose) => (
-                          <>
-                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                              Cuplikan Video
-                            </ModalHeader>
+                    {item.thumbnail_type === "video" ? (
+                      <>
+                        <div className="relative aspect-square size-full overflow-hidden rounded-xl">
+                          <Image
+                            src="/img/default-thumbnail.png"
+                            alt="thumbnail img"
+                            width={500}
+                            height={500}
+                            className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
+                          />
 
-                            <ModalBody>
-                              <div className="flex aspect-video h-auto w-full items-center justify-center rounded-xl bg-gray/20">
-                                <Images
-                                  weight="bold"
-                                  size={56}
-                                  className="text-gray"
-                                />
-                              </div>
-                            </ModalBody>
+                          <div
+                            onClick={() => handleOpenModal(item, "video")}
+                            className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                          >
+                            <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
+                              <PlayCircle
+                                weight="fill"
+                                size={56}
+                                className="text-white"
+                              />
+                            </div>
+                          </div>
+                        </div>
 
-                            <ModalFooter>
-                              <Button
-                                color="danger"
-                                variant="light"
-                                onPress={onClose}
-                                className="font-bold"
-                              >
-                                Tutup
-                              </Button>
-                            </ModalFooter>
-                          </>
+                        {selectedClass && (
+                          <Modal
+                            isDismissable={false}
+                            size="xl"
+                            placement="center"
+                            hideCloseButton={true}
+                            isOpen={isOpenVideo}
+                            onOpenChange={(open) => setIsOpenVideo(open)}
+                          >
+                            <ModalContent>
+                              {(onClose) => (
+                                <>
+                                  <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                                    Cuplikan Video
+                                  </ModalHeader>
+
+                                  <ModalBody>
+                                    <div className="aspect-video h-full w-full">
+                                      {isLoading && (
+                                        <div className="flex h-full w-full items-center justify-center">
+                                          <h1 className="font-semibold text-black">
+                                            Loading video...
+                                          </h1>
+                                        </div>
+                                      )}
+
+                                      {PreviewVideo(
+                                        selectedClass.thumbnail_url as string,
+                                      )}
+                                    </div>
+                                  </ModalBody>
+
+                                  <ModalFooter>
+                                    <Button
+                                      color="danger"
+                                      variant="light"
+                                      onPress={() => {
+                                        onClose(), setIsLoading(false);
+                                      }}
+                                      className="font-bold"
+                                    >
+                                      Tutup
+                                    </Button>
+                                  </ModalFooter>
+                                </>
+                              )}
+                            </ModalContent>
+                          </Modal>
                         )}
-                      </ModalContent>
-                    </Modal>
+                      </>
+                    ) : (
+                      <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                        <Image
+                          src={item.thumbnail_url as string}
+                          alt="thumbnail img"
+                          width={500}
+                          height={500}
+                          className="h-full w-full object-cover object-center"
+                        />
+                      </div>
+                    )}
 
-                    <div className="flex h-full w-full items-center justify-center bg-purple/10 group-hover:bg-purple/30">
-                      <Images weight="bold" size={72} className="text-white" />
+                    <div className="grid gap-8">
+                      <div className="grid gap-[10px]">
+                        <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                          {item.title}
+                        </h1>
+
+                        <h2 className="font-bold text-purple">
+                          {formatRupiah(item.price)},-
+                        </h2>
+                      </div>
+
+                      <div className="grid gap-[10px]">
+                        <Button
+                          variant="bordered"
+                          onPress={() => handleOpenModal(item, "detail")}
+                          className="font-bold text-black"
+                        >
+                          Detail
+                        </Button>
+
+                        <Button
+                          variant="flat"
+                          color="secondary"
+                          onClick={() => {
+                            if (session.status == "unauthenticated") {
+                              ctx?.onOpenUnauthenticated();
+                            } else {
+                              window.open(item.link_order, "_blank");
+                            }
+                          }}
+                          className="font-bold"
+                        >
+                          Beli Video
+                        </Button>
+
+                        {selectedClass && (
+                          <Modal
+                            size="lg"
+                            scrollBehavior="inside"
+                            placement="center"
+                            isOpen={isOpenDetail}
+                            onOpenChange={(open) => setIsOpenDetail(open)}
+                          >
+                            <ModalContent>
+                              {(onClose) => (
+                                <>
+                                  <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                                    Deskripsi Video
+                                  </ModalHeader>
+
+                                  <ModalBody>
+                                    <p className="font-medium leading-[170%] text-gray">
+                                      {selectedClass.description}
+                                    </p>
+                                  </ModalBody>
+
+                                  <ModalFooter>
+                                    <Button
+                                      color="danger"
+                                      variant="light"
+                                      onPress={onClose}
+                                      className="font-bold"
+                                    >
+                                      Tutup
+                                    </Button>
+                                  </ModalFooter>
+                                </>
+                              )}
+                            </ModalContent>
+                          </Modal>
+                        )}
+                      </div>
                     </div>
                   </div>
-
-                  <div className="grid gap-8">
-                    <div className="grid gap-[10px]">
-                      <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                        Judul video pembelajaran
-                      </h1>
-
-                      <h2 className="font-bold text-purple">
-                        {formatRupiah(500000)},-
-                      </h2>
-                    </div>
-
-                    <Button
-                      variant="flat"
-                      color="secondary"
-                      className="font-bold"
-                    >
-                      Beli Video
-                    </Button>
-                  </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
         </section>
@@ -183,3 +320,33 @@ export default function DetailPharmacyEntranceClassPage() {
     </>
   );
 }
+
+type DataProps = {
+  data?: PharmacistAdmissionDetailsResponse;
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async ({
+  params,
+}) => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: `/general/pharmacistadmission/${params?.slug}`,
+    })) as SuccessResponse<PharmacistAdmissionDetailsResponse>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
