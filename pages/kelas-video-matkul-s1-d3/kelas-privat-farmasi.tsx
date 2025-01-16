@@ -59,11 +59,11 @@ export default function PhamacyPrivteClassPage({
 
           <Image
             priority
-            src="/img/class-subject-private-img.png"
+            src="/img/default/subject-private-class-img.png"
             alt="class subject private img"
             width={418}
             height={434}
-            className="justify-self-center"
+            className="h-auto w-full justify-self-center"
           />
         </section>
 

@@ -80,11 +80,11 @@ export default function ExamPreparationVideoClassPage({
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <Image
             priority
-            src="/img/class-subject-exam-prepration-img.png"
+            src="/img/default/subject-preparation-class-img.png"
             alt="class subject img"
             width={510}
             height={340}
-            className="justify-self-center"
+            className="h-auto w-full justify-self-center"
           />
 
           <div>

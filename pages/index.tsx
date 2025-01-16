@@ -130,7 +130,7 @@ export default function HomePage({
 
           <Image
             priority
-            src="/img/home-img.webp"
+            src="/img/default/homepage-img.png"
             alt="home img"
             width={396}
             height={512}
@@ -185,11 +185,11 @@ export default function HomePage({
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
               priority
-              src="/img/home-classes-img.webp"
+              src="/img/default/homepage-class-img.png"
               alt="home img"
               width={415}
               height={567}
-              className="h-autp w-[430px] justify-self-center"
+              className="h-auto w-full justify-self-center"
             />
 
             <div className="grid max-w-[600px] gap-4 justify-self-end">
