@@ -11,6 +11,7 @@ export type MentorType = {
   nickname: string;
   mentor_title: string;
   img_url: string;
+  description: string;
 };
 
 export type MentorDetailsType = {
