@@ -12,13 +12,20 @@ import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Button } from "@nextui-org/react";
+import {
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 
 export default function PhamacyPrivteClassPage({
   data,
@@ -26,6 +33,15 @@ export default function PhamacyPrivteClassPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
   const ctx = useContext(AppContext);
+  const [isOpenDetailMentor, setIsOpenDetailMentor] = useState(false);
+  const [selectedMentor, setSelectedMentor] = useState<MentorClassType | null>(
+    null,
+  );
+
+  function handleOpenModalDetailMentor(prepClass: MentorClassType) {
+    setSelectedMentor(prepClass);
+    setIsOpenDetailMentor(true);
+  }
 
   return (
     <>
@@ -162,7 +178,7 @@ export default function PhamacyPrivteClassPage({
         {data?.mentors.length ? (
           <section className="grid gap-4 py-[100px]">
             <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
-              Daftar Mentor
+              Daftar Mentor 📢
             </h2>
 
             <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
@@ -188,6 +204,55 @@ export default function PhamacyPrivteClassPage({
                       {mentor.mentor_title}
                     </p>
                   </div>
+
+                  <>
+                    <Button
+                      variant="flat"
+                      color="secondary"
+                      onPress={() => handleOpenModalDetailMentor(mentor)}
+                      className="font-bold"
+                    >
+                      Detail Mentor
+                    </Button>
+
+                    <Modal
+                      size="lg"
+                      scrollBehavior="inside"
+                      placement="center"
+                      isOpen={isOpenDetailMentor}
+                      onOpenChange={(open) => setIsOpenDetailMentor(open)}
+                    >
+                      <ModalContent>
+                        {(onClose) => (
+                          <>
+                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                              Deskripsi Mentor
+                            </ModalHeader>
+
+                            <ModalBody>
+                              <p
+                                className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
+                                dangerouslySetInnerHTML={{
+                                  __html: selectedMentor?.description as string,
+                                }}
+                              />
+                            </ModalBody>
+
+                            <ModalFooter>
+                              <Button
+                                color="danger"
+                                variant="light"
+                                onPress={onClose}
+                                className="font-bold"
+                              >
+                                Tutup
+                              </Button>
+                            </ModalFooter>
+                          </>
+                        )}
+                      </ModalContent>
+                    </Modal>
+                  </>
                 </div>
               ))}
             </div>
