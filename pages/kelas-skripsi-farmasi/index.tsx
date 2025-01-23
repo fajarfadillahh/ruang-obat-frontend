@@ -1,4 +1,5 @@
 import CTASecondary from "@/components/cta/CTASecondary";
+import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
@@ -120,88 +121,176 @@ export default function PharmacyThesisClassPage({
             Daftar Kelas Skripsi 🔥
           </h2>
 
-          <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
-            {data?.theses.map((item: ThesisClassType) => (
-              <div
-                key={item.thesis_id}
-                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-              >
-                {isNewProduct(item.created_at) ? (
-                  <Chip
-                    color="danger"
-                    className="absolute right-8 top-8 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
-                  >
-                    Baru
-                  </Chip>
-                ) : null}
+          {data?.theses.length === 0 ? (
+            <div className="rounded-xl border-2 border-dashed border-gray/20">
+              <EmptyData text="Kelas Skripsi Farmasi Tidak Ditemukan 😥" />
+            </div>
+          ) : (
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {data?.theses.map((item: ThesisClassType) => (
+                <div
+                  key={item.thesis_id}
+                  className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  {isNewProduct(item.created_at) ? (
+                    <Chip
+                      color="danger"
+                      className="absolute right-8 top-8 z-10"
+                      classNames={{
+                        content: "font-bold px-4",
+                      }}
+                    >
+                      Baru
+                    </Chip>
+                  ) : null}
 
-                {item.thumbnail_type === "video" ? (
-                  <>
-                    <div className="relative aspect-square size-full overflow-hidden rounded-xl">
+                  {item.thumbnail_type === "video" ? (
+                    <>
+                      <div className="relative aspect-square size-full overflow-hidden rounded-xl">
+                        <Image
+                          src="/img/default-thumbnail.png"
+                          alt="thumbnail img"
+                          width={500}
+                          height={500}
+                          className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
+                        />
+
+                        <div
+                          onClick={() => handleOpenModal(item, "video")}
+                          className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
+                        >
+                          <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
+                            <PlayCircle
+                              weight="fill"
+                              size={56}
+                              className="text-white"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {selectedClass && (
+                        <Modal
+                          isDismissable={false}
+                          size="xl"
+                          placement="center"
+                          hideCloseButton={true}
+                          isOpen={isOpenVideo}
+                          onOpenChange={(open) => setIsOpenVideo(open)}
+                        >
+                          <ModalContent>
+                            {(onClose) => (
+                              <>
+                                <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                                  Cuplikan Video
+                                </ModalHeader>
+
+                                <ModalBody>
+                                  <div className="aspect-video h-full w-full">
+                                    {isLoading && (
+                                      <div className="flex h-full w-full items-center justify-center">
+                                        <h1 className="font-semibold text-black">
+                                          Loading video...
+                                        </h1>
+                                      </div>
+                                    )}
+
+                                    {PreviewVideo(
+                                      selectedClass.thumbnail_url as string,
+                                    )}
+                                  </div>
+                                </ModalBody>
+
+                                <ModalFooter>
+                                  <Button
+                                    color="danger"
+                                    variant="light"
+                                    onPress={() => {
+                                      onClose(), setIsLoading(false);
+                                    }}
+                                    className="font-bold"
+                                  >
+                                    Tutup
+                                  </Button>
+                                </ModalFooter>
+                              </>
+                            )}
+                          </ModalContent>
+                        </Modal>
+                      )}
+                    </>
+                  ) : (
+                    <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
                       <Image
-                        src="/img/default-thumbnail.png"
+                        src={item.thumbnail_url as string}
                         alt="thumbnail img"
                         width={500}
                         height={500}
-                        className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
+                        className="h-full w-full object-cover object-center"
                       />
+                    </div>
+                  )}
 
-                      <div
-                        onClick={() => handleOpenModal(item, "video")}
-                        className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
-                      >
-                        <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
-                          <PlayCircle
-                            weight="fill"
-                            size={56}
-                            className="text-white"
-                          />
-                        </div>
-                      </div>
+                  <div className="grid gap-8">
+                    <div className="grid gap-[10px]">
+                      <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                        {item.title}
+                      </h1>
+
+                      <h2 className="font-bold text-purple">
+                        {formatRupiah(item.price)},-
+                      </h2>
                     </div>
 
-                    {selectedClass && (
+                    <div className="grid gap-[10px]">
+                      <Button
+                        variant="bordered"
+                        onPress={() => handleOpenModal(item, "detail")}
+                        className="font-bold text-black"
+                      >
+                        Detail Kelas
+                      </Button>
+
+                      <Button
+                        variant="flat"
+                        color="secondary"
+                        onClick={() => {
+                          if (session.status == "unauthenticated") {
+                            ctx?.onOpenUnauthenticated();
+                          } else {
+                            window.open(item.link_order, "_blank");
+                          }
+                        }}
+                        className="font-bold"
+                      >
+                        Booking Kelas
+                      </Button>
+
                       <Modal
-                        isDismissable={false}
-                        size="xl"
+                        size="lg"
+                        scrollBehavior="inside"
                         placement="center"
-                        hideCloseButton={true}
-                        isOpen={isOpenVideo}
-                        onOpenChange={(open) => setIsOpenVideo(open)}
+                        isOpen={isOpenDetail}
+                        onOpenChange={(open) => setIsOpenDetail(open)}
                       >
                         <ModalContent>
                           {(onClose) => (
                             <>
                               <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                Cuplikan Video
+                                Deskripsi Kelas
                               </ModalHeader>
 
                               <ModalBody>
-                                <div className="aspect-video h-full w-full">
-                                  {isLoading && (
-                                    <div className="flex h-full w-full items-center justify-center">
-                                      <h1 className="font-semibold text-black">
-                                        Loading video...
-                                      </h1>
-                                    </div>
-                                  )}
-
-                                  {PreviewVideo(
-                                    selectedClass.thumbnail_url as string,
-                                  )}
-                                </div>
+                                <p className="font-medium leading-[170%] text-gray">
+                                  {selectedClass?.description}
+                                </p>
                               </ModalBody>
 
                               <ModalFooter>
                                 <Button
                                   color="danger"
                                   variant="light"
-                                  onPress={() => {
-                                    onClose(), setIsLoading(false);
-                                  }}
+                                  onPress={onClose}
                                   className="font-bold"
                                 >
                                   Tutup
@@ -211,94 +300,12 @@ export default function PharmacyThesisClassPage({
                           )}
                         </ModalContent>
                       </Modal>
-                    )}
-                  </>
-                ) : (
-                  <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
-                    <Image
-                      src={item.thumbnail_url as string}
-                      alt="thumbnail img"
-                      width={500}
-                      height={500}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
-                )}
-
-                <div className="grid gap-8">
-                  <div className="grid gap-[10px]">
-                    <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                      {item.title}
-                    </h1>
-
-                    <h2 className="font-bold text-purple">
-                      {formatRupiah(item.price)},-
-                    </h2>
-                  </div>
-
-                  <div className="grid gap-[10px]">
-                    <Button
-                      variant="bordered"
-                      onPress={() => handleOpenModal(item, "detail")}
-                      className="font-bold text-black"
-                    >
-                      Detail Kelas
-                    </Button>
-
-                    <Button
-                      variant="flat"
-                      color="secondary"
-                      onClick={() => {
-                        if (session.status == "unauthenticated") {
-                          ctx?.onOpenUnauthenticated();
-                        } else {
-                          window.open(item.link_order, "_blank");
-                        }
-                      }}
-                      className="font-bold"
-                    >
-                      Booking Kelas
-                    </Button>
-
-                    <Modal
-                      size="lg"
-                      scrollBehavior="inside"
-                      placement="center"
-                      isOpen={isOpenDetail}
-                      onOpenChange={(open) => setIsOpenDetail(open)}
-                    >
-                      <ModalContent>
-                        {(onClose) => (
-                          <>
-                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                              Deskripsi Kelas
-                            </ModalHeader>
-
-                            <ModalBody>
-                              <p className="font-medium leading-[170%] text-gray">
-                                {selectedClass?.description}
-                              </p>
-                            </ModalBody>
-
-                            <ModalFooter>
-                              <Button
-                                color="danger"
-                                variant="light"
-                                onPress={onClose}
-                                className="font-bold"
-                              >
-                                Tutup
-                              </Button>
-                            </ModalFooter>
-                          </>
-                        )}
-                      </ModalContent>
-                    </Modal>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {data?.mentors.length ? (

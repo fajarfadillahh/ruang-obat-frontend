@@ -1,4 +1,5 @@
 import CTASecondary from "@/components/cta/CTASecondary";
+import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigPhamacyPrivteClassPage } from "@/config/site";
@@ -118,61 +119,67 @@ export default function PhamacyPrivteClassPage({
             Daftar Harga Kelas Private Farmasi
           </h2>
 
-          <div className="grid justify-center gap-4">
-            {data?.private_classes.map((item: PrivateClassType) => (
-              <div
-                key={item.subject_id}
-                className="grid max-w-[600px] gap-6 rounded-xl border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
-              >
-                <div>
-                  <h3 className="mb-4 text-2xl font-black leading-[120%] text-purple">
-                    {item.title}
-                  </h3>
-                  <p className="font-medium leading-[170%] text-gray">
-                    {item.description}
-                  </p>
-                </div>
+          {data?.private_classes.length === 0 ? (
+            <div className="rounded-xl border-2 border-dashed border-gray/20">
+              <EmptyData text="Paket Kelas PRivate Tidak Ditemukan 😥" />
+            </div>
+          ) : (
+            <div className="grid justify-center gap-4">
+              {data?.private_classes.map((item: PrivateClassType) => (
+                <div
+                  key={item.subject_id}
+                  className="grid max-w-[600px] gap-6 rounded-xl border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
+                >
+                  <div>
+                    <h3 className="mb-4 text-2xl font-black leading-[120%] text-purple">
+                      {item.title}
+                    </h3>
+                    <p className="font-medium leading-[170%] text-gray">
+                      {item.description}
+                    </p>
+                  </div>
 
-                <div className="grid gap-4 xs:gap-1 md:mx-10 lg:mx-20">
-                  {item.private_sub_classes.map(
-                    (subitem: PrivateSubClassType) => (
-                      <div
-                        key={subitem.subject_part_id}
-                        className="flex items-center gap-2 xl:gap-6"
-                      >
-                        <div className="inline-flex flex-wrap items-end xs:gap-1">
-                          <h4 className="inline-flex text-lg font-extrabold text-purple">
-                            {formatRupiah(subitem.price)}
-                          </h4>
-                          <span className="text-sm font-medium text-gray md:text-base">
-                            {subitem.description}
-                          </span>
-                        </div>
-
-                        <div className="h-2 w-full flex-1 border-b-2 border-dashed border-gray/20" />
-
-                        <Button
-                          size="sm"
-                          variant="light"
-                          color="secondary"
-                          onClick={() => {
-                            if (session.status == "unauthenticated") {
-                              ctx?.onOpenUnauthenticated();
-                            } else {
-                              window.open(subitem.link_order, "_blank");
-                            }
-                          }}
-                          className="font-bold"
+                  <div className="grid gap-4 xs:gap-1 md:mx-10 lg:mx-20">
+                    {item.private_sub_classes.map(
+                      (subitem: PrivateSubClassType) => (
+                        <div
+                          key={subitem.subject_part_id}
+                          className="flex items-center gap-2 xl:gap-6"
                         >
-                          Pilih
-                        </Button>
-                      </div>
-                    ),
-                  )}
+                          <div className="inline-flex flex-wrap items-end xs:gap-1">
+                            <h4 className="inline-flex text-lg font-extrabold text-purple">
+                              {formatRupiah(subitem.price)}
+                            </h4>
+                            <span className="text-sm font-medium text-gray md:text-base">
+                              {subitem.description}
+                            </span>
+                          </div>
+
+                          <div className="h-2 w-full flex-1 border-b-2 border-dashed border-gray/20" />
+
+                          <Button
+                            size="sm"
+                            variant="light"
+                            color="secondary"
+                            onClick={() => {
+                              if (session.status == "unauthenticated") {
+                                ctx?.onOpenUnauthenticated();
+                              } else {
+                                window.open(subitem.link_order, "_blank");
+                              }
+                            }}
+                            className="font-bold"
+                          >
+                            Pilih
+                          </Button>
+                        </div>
+                      ),
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         {data?.mentors.length ? (

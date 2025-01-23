@@ -1,4 +1,5 @@
 import CTASecondary from "@/components/cta/CTASecondary";
+import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { PharmacistAdmissionClassType } from "@/types/classes.type";
@@ -65,53 +66,59 @@ export default function PharmacyEntranceClassPage({
             className="max-w-[500px] pt-2"
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-            {data?.map((item: PharmacistAdmissionClassType) => (
-              <div
-                key={item.university_id}
-                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-              >
-                {isNewProduct(item.created_at) ? (
-                  <Chip
-                    color="danger"
-                    className="absolute right-8 top-8 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
-                  >
-                    Baru
-                  </Chip>
-                ) : null}
+          {data?.length === 0 ? (
+            <div className="rounded-xl border-2 border-dashed border-gray/20">
+              <EmptyData text="Kelas Masuk Apoteker Tidak Ditemukan 😥" />
+            </div>
+          ) : (
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+              {data?.map((item: PharmacistAdmissionClassType) => (
+                <div
+                  key={item.university_id}
+                  className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  {isNewProduct(item.created_at) ? (
+                    <Chip
+                      color="danger"
+                      className="absolute right-8 top-8 z-10"
+                      classNames={{
+                        content: "font-bold px-4",
+                      }}
+                    >
+                      Baru
+                    </Chip>
+                  ) : null}
 
-                <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
-                  <Image
-                    src={item.img_url as string}
-                    alt="thumbnail img"
-                    width={500}
-                    height={500}
-                    className="h-full w-full object-cover object-center"
-                  />
+                  <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
+                    <Image
+                      src={item.img_url as string}
+                      alt="thumbnail img"
+                      width={500}
+                      height={500}
+                      className="h-full w-full object-cover object-center"
+                    />
+                  </div>
+
+                  <div className="grid gap-8">
+                    <h1 className="line-clamp-2 text-lg font-black capitalize leading-[120%] text-black group-hover:text-purple">
+                      {item.name}
+                    </h1>
+
+                    <Button
+                      variant="flat"
+                      color="secondary"
+                      onClick={() =>
+                        router.push(`/kelas-masuk-apoteker/${item.slug}`)
+                      }
+                      className="font-bold"
+                    >
+                      Detail Kelas
+                    </Button>
+                  </div>
                 </div>
-
-                <div className="grid gap-8">
-                  <h1 className="line-clamp-2 text-lg font-black capitalize leading-[120%] text-black group-hover:text-purple">
-                    {item.name}
-                  </h1>
-
-                  <Button
-                    variant="flat"
-                    color="secondary"
-                    onClick={() =>
-                      router.push(`/kelas-masuk-apoteker/${item.slug}`)
-                    }
-                    className="font-bold"
-                  >
-                    Detail Kelas
-                  </Button>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </section>
 
         <CTASecondary />
