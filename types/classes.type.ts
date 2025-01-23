@@ -18,10 +18,14 @@ export interface ResearchResponse {
   mentors: any[];
 }
 
-export interface PharmacistAdmissionDetailsResponse {
+export type PharmacistAdmissionDetailsResponse = {
+  university_id: string;
+  name: string;
+  description: string;
+  img_url: string;
   pharmacist_admissions: PharmacistAdmissionDetailsClassType[];
   mentors: any[];
-}
+};
 
 // ==== seperated ====
 
@@ -82,7 +86,7 @@ export type PharmacistAdmissionClassType = {
   created_at: string;
 };
 
-export interface PharmacistAdmissionDetailsClassType {
+export type PharmacistAdmissionDetailsClassType = {
   pa_id: string;
   title: string;
   description: string;
@@ -92,7 +96,4 @@ export interface PharmacistAdmissionDetailsClassType {
   thumbnail_type: string;
   slug: string;
   created_at: string;
-  university: {
-    name: string;
-  };
-}
+};

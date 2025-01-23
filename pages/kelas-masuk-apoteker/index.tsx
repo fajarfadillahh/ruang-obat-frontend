@@ -94,8 +94,8 @@ export default function PharmacyEntranceClassPage({
                 </div>
 
                 <div className="grid gap-8">
-                  <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                    Kelas Masuk Apoteker {item.name}
+                  <h1 className="line-clamp-2 text-lg font-black capitalize leading-[120%] text-black group-hover:text-purple">
+                    {item.name}
                   </h1>
 
                   <Button

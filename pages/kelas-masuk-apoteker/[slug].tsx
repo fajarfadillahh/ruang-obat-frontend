@@ -7,6 +7,7 @@ import {
   PharmacistAdmissionDetailsResponse,
 } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { MentorClassType } from "@/types/mentor.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
@@ -76,13 +77,28 @@ export default function DetailPharmacyEntranceClassPage({
 
   return (
     <>
-      <Layout className="Detail Kelas">
+      <Layout title={`Detail ${data?.name}`}>
         <ButtonBack />
 
         <section className="divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
-          <h1 className="pb-16 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-            Kelas Masuk Apoteker Univ. (Nama Univ.)
-          </h1>
+          <div className="grid grid-cols-[max-content_1fr] items-center gap-8 pb-16">
+            <Image
+              src={data?.img_url as string}
+              alt="img img"
+              width={500}
+              height={500}
+              className="size-[200px] rounded-xl object-cover object-center"
+            />
+
+            <div className="grid max-w-[700px] gap-2">
+              <h1 className="text-[42px] font-black capitalize leading-[110%] -tracking-wide text-black">
+                {data?.name}
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                {data?.description}
+              </p>
+            </div>
+          </div>
 
           <div className="mx-auto grid max-w-[600px] gap-4 pt-16 lg:max-w-[700px] xl:max-w-none">
             <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
@@ -314,6 +330,41 @@ export default function DetailPharmacyEntranceClassPage({
             </Button>
           </div>
         </section>
+
+        {data?.mentors.length ? (
+          <section className="grid gap-4 py-[100px]">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+              Daftar Mentor
+            </h2>
+
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {data?.mentors.map((mentor: MentorClassType) => (
+                <div
+                  key={mentor.class_mentor_id}
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  <Image
+                    priority
+                    src={mentor.img_url as string}
+                    alt="mentor img"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  />
+
+                  <div className="grid flex-1 gap-1">
+                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                      {mentor.fullname}
+                    </h4>
+                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                      {mentor.mentor_title}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
       </Layout>
 
       <Footer />
