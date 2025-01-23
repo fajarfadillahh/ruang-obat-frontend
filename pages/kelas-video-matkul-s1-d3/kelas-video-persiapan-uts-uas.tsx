@@ -6,6 +6,7 @@ import {
   PreparationResponse,
 } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { MentorClassType } from "@/types/mentor.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
@@ -37,9 +38,13 @@ export default function ExamPreparationVideoClassPage({
   const ctx = useContext(AppContext);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
+  const [isOpenDetailMentor, setIsOpenDetailMentor] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [selectedClass, setSelectedClass] =
     useState<PreparationClassType | null>(null);
+  const [selectedMentor, setSelectedMentor] = useState<MentorClassType | null>(
+    null,
+  );
 
   function handleOpenModal(
     prepClass: PreparationClassType,
@@ -53,6 +58,11 @@ export default function ExamPreparationVideoClassPage({
     } else {
       setIsOpenDetail(true);
     }
+  }
+
+  function handleOpenModalDetailMentor(prepClass: MentorClassType) {
+    setSelectedMentor(prepClass);
+    setIsOpenDetailMentor(true);
   }
 
   function handleVideoLoad() {
@@ -112,7 +122,7 @@ export default function ExamPreparationVideoClassPage({
           className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
           <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
-            Daftar Video
+            Daftar Video 🔥
           </h2>
 
           <Input
@@ -249,7 +259,7 @@ export default function ExamPreparationVideoClassPage({
                       onPress={() => handleOpenModal(item, "detail")}
                       className="font-bold text-black"
                     >
-                      Detail
+                      Detail Kelas
                     </Button>
 
                     <Button
@@ -309,6 +319,90 @@ export default function ExamPreparationVideoClassPage({
             ))}
           </div>
         </section>
+
+        {data?.mentors.length ? (
+          <section className="grid gap-4 py-[100px]">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+              Daftar Mentor 📢
+            </h2>
+
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {data?.mentors.map((mentor: MentorClassType) => (
+                <div
+                  key={mentor.class_mentor_id}
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  <Image
+                    priority
+                    src={mentor.img_url as string}
+                    alt="mentor img"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  />
+
+                  <div className="grid flex-1 gap-1">
+                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                      {mentor.fullname}
+                    </h4>
+                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                      {mentor.mentor_title}
+                    </p>
+                  </div>
+
+                  <>
+                    <Button
+                      variant="flat"
+                      color="secondary"
+                      onPress={() => handleOpenModalDetailMentor(mentor)}
+                      className="font-bold"
+                    >
+                      Detail Mentor
+                    </Button>
+
+                    <Modal
+                      size="lg"
+                      scrollBehavior="inside"
+                      placement="center"
+                      isOpen={isOpenDetailMentor}
+                      onOpenChange={(open) => setIsOpenDetailMentor(open)}
+                    >
+                      <ModalContent>
+                        {(onClose) => (
+                          <>
+                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                              Deskripsi Mentor
+                            </ModalHeader>
+
+                            <ModalBody>
+                              <p
+                                className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
+                                dangerouslySetInnerHTML={{
+                                  __html: selectedMentor?.description as string,
+                                }}
+                              />
+                            </ModalBody>
+
+                            <ModalFooter>
+                              <Button
+                                color="danger"
+                                variant="light"
+                                onPress={onClose}
+                                className="font-bold"
+                              >
+                                Tutup
+                              </Button>
+                            </ModalFooter>
+                          </>
+                        )}
+                      </ModalContent>
+                    </Modal>
+                  </>
+                </div>
+              ))}
+            </div>
+          </section>
+        ) : null}
 
         <section className="[padding:100px_0_156px]">
           <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
