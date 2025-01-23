@@ -1,24 +1,33 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
 import { PharmacistAdmissionClassType } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
+import { filterData } from "@/utils/filterData";
 import { isNewProduct } from "@/utils/isNewProduct";
-import { Button, Chip, Input } from "@nextui-org/react";
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import { Button, Chip } from "@nextui-org/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { useState } from "react";
 
 export default function PharmacyEntranceClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const [search, setSearch] = useState("");
+
+  // for search product/class
+  const keysToFilter: (keyof PharmacistAdmissionClassType)[] = [
+    "university_id",
+    "name",
+  ];
+  const filteredData = filterData(data || [], search, keysToFilter);
 
   return (
     <>
@@ -54,19 +63,14 @@ export default function PharmacyEntranceClassPage({
             Daftar Kelas per Universitas
           </h2>
 
-          <Input
-            type="text"
-            variant="flat"
-            labelPlacement="outside"
+          <SearchInput
             placeholder="Cari Kelas per Universitas..."
-            startContent={
-              <MagnifyingGlass weight="bold" size={18} className="text-gray" />
-            }
-            classNames={customInputClassnames}
-            className="max-w-[500px] pt-2"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            onClear={() => setSearch("")}
           />
 
-          {data?.length === 0 ? (
+          {filteredData.length === 0 ? (
             <div className="rounded-xl border-2 border-dashed border-gray/20">
               <EmptyData text="Kelas Masuk Apoteker Tidak Ditemukan 😥" />
             </div>

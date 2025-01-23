@@ -1,6 +1,7 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import {
@@ -9,21 +10,20 @@ import {
 } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
-import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
+import { filterData } from "@/utils/filterData";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { isNewProduct } from "@/utils/isNewProduct";
 import {
   Button,
   Chip,
-  Input,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { MagnifyingGlass, PlayCircle } from "@phosphor-icons/react";
+import { PlayCircle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -37,6 +37,7 @@ export default function DetailPharmacyEntranceClassPage({
   const router = useRouter();
   const session = useSession();
   const ctx = useContext(AppContext);
+  const [search, setSearch] = useState("");
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -76,6 +77,17 @@ export default function DetailPharmacyEntranceClassPage({
     );
   }
 
+  // for search product/class
+  const keysToFilter: (keyof PharmacistAdmissionDetailsClassType)[] = [
+    "pa_id",
+    "title",
+  ];
+  const filteredData = filterData(
+    data?.pharmacist_admissions || [],
+    search,
+    keysToFilter,
+  );
+
   return (
     <>
       <Layout title={`Detail ${data?.name}`}>
@@ -103,26 +115,17 @@ export default function DetailPharmacyEntranceClassPage({
 
           <div className="mx-auto grid max-w-[600px] gap-4 pt-16 lg:max-w-[700px] xl:max-w-none">
             <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
-              Daftar Video
+              Daftar Video 🔥
             </h2>
 
-            <Input
-              type="text"
-              variant="flat"
-              labelPlacement="outside"
+            <SearchInput
               placeholder="Cari Video..."
-              startContent={
-                <MagnifyingGlass
-                  weight="bold"
-                  size={18}
-                  className="text-gray"
-                />
-              }
-              classNames={customInputClassnames}
-              className="max-w-[500px] pt-2"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              onClear={() => setSearch("")}
             />
 
-            {data?.pharmacist_admissions.length === 0 ? (
+            {filteredData.length === 0 ? (
               <div className="rounded-xl border-2 border-dashed border-gray/20">
                 <EmptyData text="Video Pembelajaran Tidak Ditemukan 😥" />
               </div>
