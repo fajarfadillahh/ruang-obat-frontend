@@ -1,5 +1,6 @@
 import SessionChecker from "@/components/SessionChecker";
 import { fontMono, fontSans } from "@/config/fonts";
+import AppProvider from "@/context/AppProvider";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
@@ -26,17 +27,19 @@ export default function App({
         }}
       />
       <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
-        <SessionProvider session={session} refetchOnWindowFocus={false}>
-          <SessionChecker />
-          <SWRConfig
-            value={{
-              fetcher,
-              revalidateOnFocus: false,
-            }}
-          >
+      <SessionProvider session={session} refetchOnWindowFocus={false}>
+        <SessionChecker />
+        <SWRConfig
+          value={{
+            fetcher,
+            revalidateOnFocus: false,
+          }}
+        >
+          <AppProvider>
             <Component {...pageProps} />
-          </SWRConfig>
-        </SessionProvider>
+          </AppProvider>
+        </SWRConfig>
+      </SessionProvider>
       <GoogleAnalytics gaId="G-QPX13ESQJV" />
     </NextUIProvider>
   );

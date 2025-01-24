@@ -1,6 +1,5 @@
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { Button } from "@nextui-org/react";
-import { ArrowRight } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
@@ -48,26 +47,30 @@ export default function WelcomePage({
                 🙌
               </h1>
               <p className="font-medium leading-[170%] text-gray">
-                Akun Ruang Ujian kamu sudah siap untuk diakses, selamat
-                mengerjakan ujian Try Out UKMPPAI. Semangat meraih gelar
-                Apotekermu sudah di depan mata, jangan menyerah ya! 🙌
+                Akun Ruang Ujian kamu sudah siap untuk diakses, sekarang kamu
+                bisa membeli produk yang tersedia dan juga menegerjakan ujian
+                TryOut UKMPPAI. Semangat meraih gelar Apotekermu sudah di depan
+                mata, jangan menyerah ya! 🙌
               </p>
             </div>
 
-            <Button
-              color="secondary"
-              endContent={<ArrowRight weight="bold" size={16} />}
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/dashboard");
-                } else {
-                  router.push("https://cbt.ruangobat.id/dashboard");
-                }
-              }}
-              className="w-max px-4 font-bold"
-            >
-              Halaman Dashboard
-            </Button>
+            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+              <Button
+                color="secondary"
+                onClick={() => router.push("/dashboard")}
+                className="px-6 font-bold"
+              >
+                Halaman Dashboard
+              </Button>
+
+              <Button
+                variant="bordered"
+                onClick={() => router.push("/")}
+                className="px-6 font-bold"
+              >
+                Kembali Ke Beranda
+              </Button>
+            </div>
           </div>
 
           <Image

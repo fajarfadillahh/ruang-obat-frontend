@@ -1,18 +1,26 @@
+import CTAMain from "@/components/cta/CTAMain";
+import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfig } from "@/config/site";
+import { siteConfigHomePage } from "@/config/site";
+import { ErrorDataType, SuccessResponse } from "@/types/global.type";
+import { HomepageResponse, MentorType } from "@/types/mentor.type";
+import { fetcher } from "@/utils/fetcher";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import "swiper/css";
+import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
-import "swiper/css";
-import "swiper/css/pagination";
-
-export default function HomePage() {
+export default function HomePage({
+  data,
+  error,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const [client, setClient] = useState<boolean>(false);
 
@@ -23,7 +31,7 @@ export default function HomePage() {
 
     const cardWrapper = cardItem
       ? "bg-purple"
-      : "bg-white [box-shadow:0_0_12px_rgba(0,0,0,0.1)]";
+      : "bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]";
     const cardIcon = cardItem ? "text-white" : "text-purple";
     const cardTitle = cardItem ? "text-white" : "text-black";
     const cardText = cardItem ? "text-gray-200" : "text-gray";
@@ -94,40 +102,26 @@ export default function HomePage() {
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/dashboard");
-                  } else {
-                    window.open("https://cbt.ruangobat.id/dashboard", "_blank");
-                  }
-                }}
-                className="px-4 font-bold"
+                as={Link}
+                href="#list-class"
+                className="px-10 font-bold"
               >
-                Halaman Dashboard
+                Lihat Daftar Kelas
               </Button>
 
               <Button
                 variant="bordered"
-                className="px-4 font-bold"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/dashboard");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/register",
-                      "_blank",
-                    );
-                  }
-                }}
+                className="px-6 font-bold"
+                onClick={() => router.push("/dashboard")}
               >
-                Mulai Ujian Sekarang!
+                Dashboard Tryout CBT
               </Button>
             </div>
           </div>
 
           <Image
             priority
-            src="/img/home-img.webp"
+            src="/img/default/homepage-img.png"
             alt="home img"
             width={396}
             height={512}
@@ -137,18 +131,18 @@ export default function HomePage() {
 
         {/* reasons */}
         <section className="mx-auto grid max-w-[600px] gap-8 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Kenapa Harus Pilih Ruang Obat?
           </h1>
 
           <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-12">
-            {siteConfig.reasons.map((item) => {
+            {siteConfigHomePage.reasons.map((item, index) => {
               const { cardWrapper, cardIcon, cardTitle, cardText } =
                 getCardStyles(item, "reasons");
 
               return (
                 <IconContext.Provider
-                  key={item.id}
+                  key={index}
                   value={{
                     weight: "bold",
                     size: 58,
@@ -177,16 +171,16 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* programs */}
-        <section className="grid gap-16 py-[100px]">
+        {/* classes/products */}
+        <section id="list-class" className="grid gap-16 py-[100px]">
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
               priority
-              src="/img/home-classes-img.webp"
+              src="/img/default/homepage-class-img.png"
               alt="home img"
               width={415}
               height={567}
-              className="h-autp w-[430px] justify-self-center"
+              className="h-auto w-full justify-self-center"
             />
 
             <div className="grid max-w-[600px] gap-4 justify-self-end">
@@ -209,45 +203,41 @@ export default function HomePage() {
           </div>
 
           <div className="grid gap-4">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black -tracking-wide text-black xs:max-w-none lg:text-left">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
               Daftar Kelas di Ruang Obat 🔥
             </h2>
 
-            <div className="grid justify-center gap-4 lg:grid-cols-2 xl:gap-y-6">
-              {siteConfig.programs.map((item) => {
-                const { cardWrapper, cardIcon, cardTitle, cardText } =
-                  getCardStyles(item, "programs");
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {siteConfigHomePage.classes.map((item, index) => (
+                <div
+                  key={index}
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
+                  <Image
+                    priority
+                    src={item.image as string}
+                    alt="product img"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  />
 
-                return (
-                  <IconContext.Provider
-                    key={item.id}
-                    value={{
-                      weight: "bold",
-                      size: 91,
-                      className: cardIcon,
-                    }}
-                  >
-                    <div
-                      className={`grid max-w-[592px] items-center gap-4 rounded-xl [padding:2.5rem_1.5rem] xl:flex ${cardWrapper}`}
+                  <div className="grid gap-4">
+                    <h1 className="max-w-[250px] text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                      {item.title}
+                    </h1>
+
+                    <Button
+                      variant={item.id === 5 ? "solid" : "flat"}
+                      color="secondary"
+                      onClick={() => router.push(item.path as string)}
+                      className="font-bold"
                     >
-                      <item.icon />
-
-                      <div className="grid flex-1 gap-2">
-                        <h4
-                          className={`text-[24px] font-black leading-[120%] ${cardTitle}`}
-                        >
-                          {item.title}
-                        </h4>
-                        <p
-                          className={`max-w-[430px] font-medium leading-[170%] ${cardText}`}
-                        >
-                          {item.text}
-                        </p>
-                      </div>
-                    </div>
-                  </IconContext.Provider>
-                );
-              })}
+                      {item.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
+                    </Button>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -255,7 +245,7 @@ export default function HomePage() {
         {/* mentors */}
         <section className="grid gap-4 py-[100px]">
           <div className="grid gap-2">
-            <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+            <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
               Ayo, Kenalan Dengan Mentor Ruang Obat
             </h1>
             <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
@@ -272,7 +262,7 @@ export default function HomePage() {
               spaceBetween={24}
               centeredSlides={true}
               autoplay={{
-                delay: 3000,
+                delay: 5000,
                 disableOnInteraction: false,
               }}
               pagination={{
@@ -280,28 +270,33 @@ export default function HomePage() {
               }}
               modules={[Pagination, Autoplay]}
             >
-              {siteConfig.mentors.map((item) => (
+              {data?.mentors.map((mentor: MentorType) => (
                 <SwiperSlide
-                  key={item.id}
-                  className="mt-4 grid max-w-[300px] overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] xs:max-w-[330px]"
+                  key={mentor.mentor_id}
+                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[360px]"
                 >
-                  <Image
-                    src={item.image as string}
-                    alt={`image ${item.name}`}
-                    width={500}
-                    height={500}
-                    className="aspect-square rounded-xl"
-                    priority
-                  />
+                  <Link
+                    href={`/mentor/${mentor.mentor_id}`}
+                    className="group mt-4 grid overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                  >
+                    <Image
+                      src={mentor.img_url as string}
+                      alt={`image ${mentor.fullname}`}
+                      width={500}
+                      height={500}
+                      className="aspect-square rounded-xl group-hover:grayscale-[0.5]"
+                      priority
+                    />
 
-                  <div className="mt-8 grid flex-1 gap-1">
-                    <h4 className="text-[20px] font-black leading-[120%] text-black">
-                      {item.name}
-                    </h4>
-                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                      {item.mentor_title}
-                    </p>
-                  </div>
+                    <div className="mt-8 grid flex-1 gap-1">
+                      <h4 className="line-clamp-1 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                        {mentor.fullname}
+                      </h4>
+                      <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                        {mentor.mentor_title}
+                      </p>
+                    </div>
+                  </Link>
                 </SwiperSlide>
               ))}
             </Swiper>
@@ -310,7 +305,7 @@ export default function HomePage() {
 
         {/* faqs */}
         <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-full">
-          <h1 className="text-center text-[32px] font-black -tracking-wide text-black">
+          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
           </h1>
 
@@ -358,11 +353,11 @@ export default function HomePage() {
                   },
                 },
               }}
-              defaultExpandedKeys={["1"]}
+              defaultExpandedKeys={["0"]}
             >
-              {siteConfig.faqs.map((item) => (
+              {siteConfigHomePage.faqs.map((item, index) => (
                 <AccordionItem
-                  key={item.id}
+                  key={index}
                   title={item.title}
                   startContent={<item.icon />}
                   classNames={{
@@ -379,97 +374,38 @@ export default function HomePage() {
         </section>
 
         {/* cta */}
-        <section className="py-[100px]">
-          <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
-            <div className="grid gap-2">
-              <h1 className="text-center text-[28px] font-black -tracking-wide text-black">
-                Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
-              </h1>
-              <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
-                Gabung sekarang dan raih kesempatan belajar farmasi dengan
-                materi lengkap, mentor berpengalaman, dan akses penuh ke
-                berbagai program unggulan. Buka pintu kesuksesan karier farmasi
-                kamu di sini.
-              </p>
-            </div>
-
-            <Button
-              color="secondary"
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/dashboard");
-                } else {
-                  window.open(
-                    "https://cbt.ruangobat.id/auth/register",
-                    "_blank",
-                  );
-                }
-              }}
-              className="w-max justify-self-center px-4 font-bold"
-            >
-              Daftar Sekarang!
-            </Button>
-          </div>
-        </section>
+        <CTAMain />
       </Layout>
 
-      <footer className="grid overflow-hidden bg-purple">
-        <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
-          <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
-            <div className="flex flex-wrap items-start gap-16 xl:gap-10">
-              {siteConfig.footer.menu.map((item, index) => (
-                <div key={index} className="grid gap-3">
-                  <h4 className="text-[22px] font-extrabold text-white">
-                    {item.label}
-                  </h4>
-                  <ul className="flex flex-col gap-2">
-                    {item.list.map((subitem, index) => (
-                      <Link
-                        key={index}
-                        href={subitem.href as string}
-                        className="w-max font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
-                      >
-                        {subitem.label}
-                      </Link>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="hidden h-1 w-full flex-1 bg-white/20 md:flex" />
-
-            <IconContext.Provider
-              value={{
-                weight: "bold",
-                size: 24,
-                className: "text-white",
-              }}
-            >
-              <div className="flex items-center gap-6">
-                {siteConfig.footer.sosmed.map((item) => (
-                  <Link
-                    key={item.label}
-                    href={item.href as string}
-                    target="_blank"
-                    className="rounded-md p-1 hover:bg-pink-500"
-                  >
-                    <item.icon />
-                  </Link>
-                ))}
-              </div>
-            </IconContext.Provider>
-          </div>
-
-          <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
-            &copy; {siteConfig.footer.copyright}
-          </p>
-        </div>
-
-        <h1 className="hidden select-none justify-self-center text-center text-[240px] font-black leading-tight -tracking-[12px] text-white/20 xl:flex">
-          RuangObat.
-        </h1>
-      </footer>
+      <Footer />
     </>
   );
 }
+
+type DataProps = {
+  data?: HomepageResponse;
+  error?: ErrorDataType;
+};
+
+export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
+  try {
+    const response = (await fetcher({
+      method: "GET",
+      url: "/general/homepage",
+    })) as SuccessResponse<HomepageResponse>;
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};

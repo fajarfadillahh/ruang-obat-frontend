@@ -7,7 +7,7 @@ export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <section className="flex flex-col items-center justify-center gap-8 pt-8">
+    <section className="flex h-screen w-full flex-col items-center justify-center gap-8 px-6">
       <Image
         priority
         src="/img/404-img.svg"
@@ -32,10 +32,10 @@ export default function NotFoundPage() {
         <Button
           color="secondary"
           startContent={<ArrowLeft weight="bold" size={18} />}
-          onClick={() => router.push("/dashboard")}
+          onClick={() => router.back()}
           className="w-max justify-self-center px-4 font-bold"
         >
-          Kembali Ke Dashboard
+          Kembali
         </Button>
       </div>
     </section>

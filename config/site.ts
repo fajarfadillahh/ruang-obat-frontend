@@ -1,5 +1,5 @@
-export type SiteConfig = typeof siteConfig;
 import {
+  BookBookmark,
   ClipboardText,
   CloudSun,
   Gift,
@@ -7,17 +7,19 @@ import {
   GraduationCap,
   Headset,
   InstagramLogo,
-  Notebook,
+  MagnifyingGlass,
+  Medal,
   NotePencil,
   PencilRuler,
   Pill,
+  Question,
   RocketLaunch,
   Target,
   TiktokLogo,
   WhatsappLogo,
 } from "@phosphor-icons/react";
 
-export const siteConfig = {
+export const siteConfigHomePage = {
   reasons: [
     {
       id: 1,
@@ -38,30 +40,36 @@ export const siteConfig = {
       text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan.",
     },
   ],
-  programs: [
+  classes: [
     {
       id: 1,
-      title: "Kelas Mata Kuliah & Praktikum",
-      icon: PencilRuler,
-      text: "Dapatkan pemahaman mendalam tentang mata kuliah farmasi sekaligus pengalaman praktikum yang aplikatif.",
+      title: "Kelas Pembelajaran Mata Kuliah Farmasi",
+      image: "/img/products/product-1.png",
+      path: "/kelas-pembelajaran-matkul-farmasi",
     },
     {
       id: 2,
-      title: "Kelas Masuk Apoteker & OSCE",
-      icon: Pill,
-      text: "Persiapkan diri kamu untuk ujian masuk Apoteker dan OSCE dengan latihan intensif di kelas ini.",
+      title: "Kelas Skripsi Farmasi",
+      image: "/img/products/product-2.png",
+      path: "/kelas-skripsi-farmasi",
     },
     {
       id: 3,
-      title: "Kelas Skripsi & Riset",
-      icon: Notebook,
-      text: "Butuh bimbingan buat skripsi atau riset? Di kelas ini, kamu bakal dipandu langsung oleh para mentor.",
+      title: "Kelas Riset Farmasi",
+      image: "/img/products/product-3.png",
+      path: "/kelas-riset-farmasi",
     },
     {
       id: 4,
-      title: "TryOut UKMPPAI",
-      icon: Target,
-      text: "Rangkaian soal didesain sesuai blueprint terbaru untuk menguji kesiapan kamu dalam ujian.",
+      title: "Kelas Masuk Apoteker",
+      image: "/img/products/product-4.png",
+      path: "/kelas-masuk-apoteker",
+    },
+    {
+      id: 5,
+      title: "Tryout UKMPPAI",
+      image: "/img/products/product-5.png",
+      path: "/dashboard",
     },
   ],
   mentors: [
@@ -142,7 +150,7 @@ export const siteConfig = {
     {
       id: 1,
       title: "Apa itu Ruang Obat?",
-      text: "Ruang Obat adalah tempat belajar online khusus mahasiswa farmasi yang menyediakan berbagai program belajar, mulai dari mata kuliah, persiapan ujian masuk apoteker, hingga tryout UKMPPAI. Semua program disusun untuk membantu kamu sukses dalam pendidikan farmasi.",
+      text: "Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang pendidikan, antara lain; Kelas Mata Kuliah, Kelas Skripsi Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan Tryout UKMPPAI.",
       icon: Pill,
     },
     {
@@ -177,31 +185,30 @@ export const siteConfig = {
     },
   ],
   footer: {
-    copyright:
-      "PT. Pharmacy Cone Group 2024 | Hak cipta di lindungi undang-undang",
+    copyright: `Part of Pharma Metrocity Group ${new Date().getFullYear()} | Hak cipta di lindungi undang-undang`,
     menu: [
       {
         label: "Produk Kami",
         list: [
           {
             label: "Tryout UKMPPAI (CBT)",
-            href: "#",
+            href: "/dashboard",
           },
           {
-            label: "Kelas Mata Kuliah",
-            href: "#",
+            label: "Kelas Mata Kuliah Farmasi",
+            href: "/kelas-pembelajaran-matkul-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",
-            href: "#",
+            href: "/kelas-skripsi-farmasi",
           },
           {
             label: "Kelas Riset Farmasi",
-            href: "#",
+            href: "/kelas-riset-farmasi",
           },
           {
             label: "Kelas Masuk Apoteker",
-            href: "#",
+            href: "/kelas-masuk-apoteker",
           },
         ],
       },
@@ -222,16 +229,16 @@ export const siteConfig = {
         label: "Tentang Kami",
         list: [
           {
-            label: "Tentang Ruang Obat",
-            href: "#",
+            label: "Tentang Kami",
+            href: "/company/tentang-kami",
           },
           {
             label: "Kontak Kami",
-            href: "#",
+            href: "/company/contact-us",
           },
           {
             label: "Testimonial",
-            href: "#",
+            href: "/company/testimonials",
           },
         ],
       },
@@ -259,4 +266,84 @@ export const siteConfig = {
       },
     ],
   },
+};
+
+export const siteConfigPhamacyPrivteClassPage = {
+  consultation_list: [
+    {
+      id: 1,
+      icon: PencilRuler,
+      text: "Pembahasan materi atau soal-soal UTS dan UAS",
+    },
+    {
+      id: 2,
+      icon: BookBookmark,
+      text: "Pembahasan terkait tugas, praktikum, skill ataupun OSCE.",
+    },
+    {
+      id: 3,
+      icon: MagnifyingGlass,
+      text: "Review atau mengulas kembali materi-materi perkuliahan",
+    },
+    {
+      id: 4,
+      icon: Medal,
+      text: "Persiapa untuk lomba, intern dan karir di Farmasi",
+    },
+    {
+      id: 5,
+      icon: Question,
+      text: "+ Request atau permintaan lainnya bebas",
+    },
+  ],
+  price_list: [
+    {
+      id: 1,
+      title: "Paket Ruang Private 🔒",
+      description:
+        "Paket ini untuk kamu yang ingin lebih fokus atau belajar private sendiri. Namun kalau ingin lebih hemat kamujuga bisa membuat kelompok belajar bersama teman, maksimal untuk kelas ini 1 hingga 3 orang.",
+      list: [
+        {
+          price: 80000,
+          label: "untuk 1x pertemuan (1 jam)",
+        },
+        {
+          price: 120000,
+          label: "untuk 2x pertemuan (2 jam)",
+        },
+        {
+          price: 210000,
+          label: "untuk 3x pertemuan (3 jam)",
+        },
+        {
+          price: 500000,
+          label: "untuk 4x pertemuan (4 jam)",
+        },
+      ],
+    },
+    {
+      id: 2,
+      title: "Paket Ruang Bersama 🤝",
+      description:
+        "Paket ini digunakan untuk kamu yang ingin belajar bersama kelompok belajarmu atau circle-mu. Di Paket Ruang Belajar Bersama ini tentunya akan lebih hemat karena kamu bisa belajar bersama teman-teman terdekatmu dan dengan harga hemat dengan patungan bersama tim kelompok, akan lebih seru dan hemat bukan? 🤩. Kelas Ruang Belajar Bersama terdiri dari 4 hingga 7 orang.",
+      list: [
+        {
+          price: 130000,
+          label: "untuk 1x pertemuan (1 jam)",
+        },
+        {
+          price: 200000,
+          label: "untuk 2x pertemuan (2 jam)",
+        },
+        {
+          price: 280000,
+          label: "untuk 3x pertemuan (3 jam)",
+        },
+        {
+          price: 550000,
+          label: "untuk 4x pertemuan (4 jam)",
+        },
+      ],
+    },
+  ],
 };

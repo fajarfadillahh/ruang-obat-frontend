@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function ServerErrorPage() {
   return (
-    <section className="flex flex-col items-center justify-center gap-8 pt-8">
+    <section className="flex h-screen w-full flex-col items-center justify-center gap-8 px-6">
       <Image
         priority
         src="/img/500-img.svg"
