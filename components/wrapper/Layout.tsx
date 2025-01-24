@@ -1,4 +1,3 @@
-import FooterSimple from "@/components/footer/FooterSimple";
 import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import NavbarMenu from "@/components/navbar/NavbarMenu";
 import { AppContext } from "@/context/AppContext";
@@ -55,9 +54,9 @@ export default function Layout({ title, children, className }: LayoutProps) {
           {children}
         </main>
 
-        {router.pathname === "https://cbt.ruangobat.id/" ? (
+        {/* {router.pathname === "https://cbt.ruangobat.id/" ? (
           <FooterSimple />
-        ) : null}
+        ) : null} */}
       </div>
     </>
   );

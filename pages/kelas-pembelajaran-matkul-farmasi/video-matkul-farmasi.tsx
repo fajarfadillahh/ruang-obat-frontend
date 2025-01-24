@@ -96,7 +96,7 @@ export default function ExamPreparationVideoClassPage({
 
   return (
     <>
-      <Layout title="Kelas Video Persiapan UTS/UAS">
+      <Layout title="Video Pembelajaran Mata Kuliah Farmasi">
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <Image
             priority
@@ -109,12 +109,12 @@ export default function ExamPreparationVideoClassPage({
 
           <div>
             <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-              Kelas Video Persiapan UTS/UAS
+              Video Pembelajaran Mata Kuliah Farmasi
             </h1>
             <p className="pb-8 font-medium leading-[170%] text-gray">
-              Dikelas ini kami menyediakan video pembelajaran Mata Kuliah S1 &
-              D3 yang lengkap dan mudah dipahami. Solusi praktis untuk membantu
-              kamu belajar kapan saja dan di mana saja.
+              Dikelas ini kami menyediakan video pembelajaran mata kuliah
+              farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk
+              membantu kamu belajar kapan saja dan di mana saja.
             </p>
             <Button
               color="secondary"
@@ -136,7 +136,7 @@ export default function ExamPreparationVideoClassPage({
           </h2>
 
           <SearchInput
-            placeholder="Cari Video..."
+            placeholder="Cari Video Pembelajaran..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onClear={() => setSearch("")}
@@ -422,7 +422,7 @@ export default function ExamPreparationVideoClassPage({
                 Masih Kesulitan??? Kurang Paham??
               </h2>
               <p className="font-medium leading-[170%] text-gray">
-                Kamu bisa booking Kelas Private One-by-One dengan mentor
+                Kamu bisa booking Kelas Private 1 on 1 Farmasi dengan mentor
                 pilihanmu sekarang!!!
               </p>
             </div>
@@ -430,7 +430,9 @@ export default function ExamPreparationVideoClassPage({
             <Button
               color="secondary"
               onClick={() =>
-                router.push("/kelas-video-matkul-s1-d3/kelas-privat-farmasi")
+                router.push(
+                  "/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi",
+                )
               }
               className="px-4 font-bold"
             >

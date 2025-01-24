@@ -12,7 +12,7 @@ export default function SubjectVideoClassPage() {
 
   return (
     <>
-      <Layout title="Kelas Video Mata Kuliah S1 & D3">
+      <Layout title="Kelas Pembelajaran Mata Kuliah Farmasi">
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <Image
             priority
@@ -25,12 +25,12 @@ export default function SubjectVideoClassPage() {
 
           <div>
             <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-              Kelas Video Mata Kuliah S1 & D3
+              Kelas Pembelajaran Mata Kuliah Farmasi
             </h1>
             <p className="pb-8 font-medium leading-[170%] text-gray">
               Ruang Obat menyajikan program belajar Farmasi yang lengkap dengan
-              dua pilihan menarik: Kelas Video Persiapan UTS/UAS, dan Kelas
-              Private One-by-One Farmasi, di mana kamu bisa belajar langsung
+              dua pilihan menarik: Video Pembelajaran Mata Kuliah Farmasi, dan
+              Kelas Private 1 on 1 Farmasi, di mana kamu bisa belajar langsung
               dengan mentor untuk menguasai materi lebih dalam.
             </p>
             <Button
@@ -49,7 +49,7 @@ export default function SubjectVideoClassPage() {
           className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
           <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
-            Pilih Kelas Sesuai Dengan <br /> Kebutuhan Kamu 😉
+            Pilih Sesuai Dengan <br /> Kebutuhan Kamu 😉
           </h2>
 
           <div className="grid gap-8 xl:grid-cols-2">
@@ -63,7 +63,7 @@ export default function SubjectVideoClassPage() {
 
                 <div className="grid gap-[10px]">
                   <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
-                    Kelas Video Persiapan UTS/UAS
+                    Video Pembelajaran Mata Kuliah Farmasi
                   </h3>
                   <p className="font-medium leading-[170%] text-gray">
                     Pada kelas ini kami menyediakan video pembelajaran digital
@@ -78,12 +78,12 @@ export default function SubjectVideoClassPage() {
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
                   router.push(
-                    "/kelas-video-matkul-s1-d3/kelas-video-persiapan-uts-uas",
+                    "/kelas-pembelajaran-matkul-farmasi/video-matkul-farmasi",
                   )
                 }
                 className="w-max font-bold"
               >
-                Lihat Detail Kelas
+                Lihat Video Pembelajaran
               </Button>
             </div>
 
@@ -93,7 +93,7 @@ export default function SubjectVideoClassPage() {
 
                 <div className="grid gap-[10px]">
                   <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
-                    Kelas Private One-by-One Farmasi
+                    Kelas Private 1 on 1 Farmasi
                   </h3>
                   <p className="font-medium leading-[170%] text-gray">
                     Kelas ini menawarkan pembelajaran personal yang fleksibel,
@@ -107,7 +107,9 @@ export default function SubjectVideoClassPage() {
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
-                  router.push("/kelas-video-matkul-s1-d3/kelas-privat-farmasi")
+                  router.push(
+                    "/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi",
+                  )
                 }
                 className="w-max font-bold"
               >

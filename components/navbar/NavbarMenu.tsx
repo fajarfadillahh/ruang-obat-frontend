@@ -42,8 +42,11 @@ import useSWR from "swr";
 
 const menuItemsMobile = [
   { label: "Beranda", href: "/" },
-  { label: "Tentang Kami", href: "/company/about-us" },
-  { label: "Kelas Mata Kuliah S1 & D3", href: "/kelas-video-matkul-s1-d3" },
+  { label: "Tentang Kami", href: "/company/tentang-kami" },
+  {
+    label: "Kelas Pembelajaran Mata Kuliah Farmasi",
+    href: "/kelas-pembelajaran-matkul-farmasi",
+  },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
   { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
@@ -51,7 +54,10 @@ const menuItemsMobile = [
 ];
 
 const menuItemsDesktop = [
-  { label: "Kelas Mata Kuliah S1 & D3", href: "/kelas-video-matkul-s1-d3" },
+  {
+    label: "Kelas Pembelajaran Mata Kuliah Farmasi",
+    href: "/kelas-pembelajaran-matkul-farmasi",
+  },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
   { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
@@ -135,7 +141,7 @@ export default function NavbarMain() {
       <NavbarContent className="hidden gap-8 lg:flex" justify="center">
         <NavbarItem>
           <Link
-            href="#"
+            href="/company/tentang-kami"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Tentang Kami

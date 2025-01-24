@@ -20,13 +20,7 @@ export default function CTAMain() {
 
         <Button
           color="secondary"
-          onClick={() => {
-            if (window.location.host == "localhost:3000") {
-              router.push("/dashboard");
-            } else {
-              window.open("https://cbt.ruangobat.id/auth/register", "_blank");
-            }
-          }}
+          onClick={() => router.push("/auth/register")}
           className="w-max justify-self-center px-4 font-bold"
         >
           Daftar Sekarang!

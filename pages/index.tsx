@@ -223,7 +223,7 @@ export default function HomePage({
                   />
 
                   <div className="grid gap-4">
-                    <h1 className="text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                    <h1 className="max-w-[250px] text-lg font-black leading-[120%] text-black group-hover:text-purple">
                       {item.title}
                     </h1>
 

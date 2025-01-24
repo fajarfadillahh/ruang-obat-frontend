@@ -46,12 +46,12 @@ export default function PhamacyPrivteClassPage({
 
   return (
     <>
-      <Layout title="Kelas Privat Farmasi">
+      <Layout title="Kelas Privat 1 on 1 Farmasi">
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[80%] -tracking-wide text-black">
-              Kelas Private Farmasi <br />
-              <span className="text-2xl font-bold text-purple">
+            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+              Kelas Private 1 on 1 <br /> Farmasi{" "}
+              <span className="text-2xl font-extrabold text-purple">
                 by Ruang Obat
               </span>
             </h1>
@@ -128,7 +128,7 @@ export default function PhamacyPrivteClassPage({
               {data?.private_classes.map((item: PrivateClassType) => (
                 <div
                   key={item.subject_id}
-                  className="grid max-w-[600px] gap-6 rounded-xl border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
+                  className="grid max-w-[600px] gap-6 rounded-xl border-2 border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
                 >
                   <div>
                     <h3 className="mb-4 text-2xl font-black leading-[120%] text-purple">

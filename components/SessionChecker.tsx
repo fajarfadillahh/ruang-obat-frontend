@@ -27,7 +27,7 @@ export default function SessionChecker() {
         !router.pathname.startsWith("/kelas-riset-farmasi") &&
         !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
         !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
-        !router.pathname.startsWith("/kelas-video-matkul-s1-d3") &&
+        !router.pathname.startsWith("/kelas-pembelajaran-matkul-farmasi") &&
         !router.pathname.startsWith("/mentor") &&
         router.pathname !== "/" &&
         router.pathname !== "/reset"
@@ -45,7 +45,7 @@ export default function SessionChecker() {
         !router.pathname.startsWith("/kelas-riset-farmasi") &&
         !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
         !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
-        !router.pathname.startsWith("/kelas-video-matkul-s1-d3") &&
+        !router.pathname.startsWith("/kelas-pembelajaran-matkul-farmasi") &&
         !router.pathname.startsWith("/mentor") &&
         router.pathname !== "/" &&
         router.pathname !== "/reset"

@@ -43,9 +43,9 @@ export const siteConfigHomePage = {
   classes: [
     {
       id: 1,
-      title: "Kelas Video Mata Kuliah S1 & D3",
+      title: "Kelas Pembelajaran Mata Kuliah Farmasi",
       image: "/img/products/product-1.png",
-      path: "/kelas-video-matkul-s1-d3",
+      path: "/kelas-pembelajaran-matkul-farmasi",
     },
     {
       id: 2,
@@ -185,8 +185,7 @@ export const siteConfigHomePage = {
     },
   ],
   footer: {
-    copyright:
-      "PT. Pharmacy Cone Group 2024 | Hak cipta di lindungi undang-undang",
+    copyright: `Part of Pharma Metrocity Group ${new Date().getFullYear()} | Hak cipta di lindungi undang-undang`,
     menu: [
       {
         label: "Produk Kami",
@@ -196,8 +195,8 @@ export const siteConfigHomePage = {
             href: "/dashboard",
           },
           {
-            label: "Kelas Mata Kuliah",
-            href: "/kelas-video-matkul-s1-d3",
+            label: "Kelas Mata Kuliah Farmasi",
+            href: "/kelas-pembelajaran-matkul-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",
@@ -230,8 +229,8 @@ export const siteConfigHomePage = {
         label: "Tentang Kami",
         list: [
           {
-            label: "Tentang Ruang Obat",
-            href: "/company/about-us",
+            label: "Tentang Kami",
+            href: "/company/tentang-kami",
           },
           {
             label: "Kontak Kami",
