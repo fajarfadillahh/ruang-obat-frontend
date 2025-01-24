@@ -112,16 +112,7 @@ export default function HomePage({
               <Button
                 variant="bordered"
                 className="px-6 font-bold"
-                onClick={() => {
-                  if (window.location.host == "localhost:3000") {
-                    router.push("/dashboard");
-                  } else {
-                    window.open(
-                      "https://cbt.ruangobat.id/auth/register",
-                      "_blank",
-                    );
-                  }
-                }}
+                onClick={() => router.push("/dashboard")}
               >
                 Dashboard Tryout CBT
               </Button>

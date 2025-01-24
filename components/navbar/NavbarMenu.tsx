@@ -232,7 +232,7 @@ export default function NavbarMain() {
                     startContent={<House />}
                     onClick={() => router.push("/dashboard")}
                   >
-                    Beranda
+                    Dashboard
                   </DropdownItem>
 
                   <DropdownSection
@@ -325,13 +325,7 @@ export default function NavbarMain() {
             <Button
               variant="bordered"
               startContent={<SignIn weight="bold" size={18} />}
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/auth/login");
-                } else {
-                  window.open("https://cbt.ruangobat.id/auth/login", "_blank");
-                }
-              }}
+              onClick={() => router.push("/auth/login")}
               className="px-4 font-bold text-black"
             >
               Masuk
@@ -339,16 +333,7 @@ export default function NavbarMain() {
 
             <Button
               color="secondary"
-              onClick={() => {
-                if (window.location.host == "localhost:3000") {
-                  router.push("/auth/register");
-                } else {
-                  window.open(
-                    "https://cbt.ruangobat.id/auth/register",
-                    "_blank",
-                  );
-                }
-              }}
+              onClick={() => router.push("/auth/register")}
               className="px-8 font-bold"
             >
               Register
