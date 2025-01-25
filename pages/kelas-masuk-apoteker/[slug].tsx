@@ -332,7 +332,7 @@ export default function DetailPharmacyEntranceClassPage({
             <Button
               color="secondary"
               onClick={() =>
-                router.push("/kelas-video-matkul-s1-d3/kelas-privat-farmasi")
+                router.push("/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi")
               }
               className="px-4 font-bold"
             >
