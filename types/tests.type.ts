@@ -28,4 +28,5 @@ export type TestResponse = {
   end_time: string;
   has_start: boolean;
   has_result: string;
+  remaining_tests: number;
 };

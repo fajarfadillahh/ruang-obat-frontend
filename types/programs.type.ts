@@ -19,6 +19,7 @@ export type DetailsProgramResponse = ProgramsType & {
     duration: number;
     is_active: boolean;
     has_result: boolean;
+    remaining_tests: number;
     result_id: string;
     status: string;
   }[];

@@ -30,7 +30,6 @@ export default function DetailsTest({
   const [isSelected, setIsSelected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [expired, setExpired] = useState(false);
-
   const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
     {
       url: `/tests/${params.id}`,
@@ -153,6 +152,28 @@ export default function DetailsTest({
 
               <div className="grid gap-1">
                 <span className="text-sm font-medium text-gray">
+                  Sisa Pengerjaan:
+                </span>
+                <h1 className="font-semibold text-black">
+                  {data?.data.remaining_tests === 0 ? (
+                    <Chip
+                      variant="flat"
+                      color="danger"
+                      classNames={{
+                        base: "px-2 gap-1",
+                        content: "font-semibold capitalize",
+                      }}
+                    >
+                      Habis
+                    </Chip>
+                  ) : (
+                    `${data?.data.remaining_tests} kali`
+                  )}
+                </h1>
+              </div>
+
+              <div className="grid gap-1">
+                <span className="text-sm font-medium text-gray">
                   Jumlah Soal:
                 </span>
                 <h1 className="font-semibold text-black">
@@ -196,193 +217,125 @@ export default function DetailsTest({
             </div>
 
             {!data?.data.has_start ? (
-              <ModalConfirmTest
-                trigger={
-                  <Button color="secondary" className="px-4 font-bold">
-                    Mulai Ujian
-                  </Button>
-                }
-                header={<h1 className="font-bold text-black">Peringatan!</h1>}
-                body={
-                  <div className="grid gap-4">
-                    <h1 className="text-[22px] font-extrabold capitalize leading-[120%] text-black">
-                      Harap baca poin penting berikut ini ⚠️
-                    </h1>
-
-                    <div className="divide-y-2 divide-dashed divide-gray/20">
-                      <ol className="ml-4 grid list-outside list-decimal gap-1.5 pb-2 text-sm font-medium leading-[170%] text-gray">
-                        {WarningTextModal.has_start.map((item, index) => (
-                          <li key={index}>{item.text}</li>
-                        ))}
-                      </ol>
-
-                      <Checkbox
-                        size="md"
-                        color="secondary"
-                        isSelected={isSelected}
-                        onValueChange={setIsSelected}
-                        className="mt-4 pt-6"
-                        classNames={{
-                          label: "text-sm font-medium text-gray",
-                        }}
-                      >
-                        Ya, saya sudah membaca poin-poin tersebut dan siap untuk
-                        mengerjakan ujian.
-                      </Checkbox>
-                    </div>
-                  </div>
-                }
-                footer={(onClose: any) => (
-                  <>
-                    <Button
-                      color="danger"
-                      variant="light"
-                      onClick={() => {
-                        onClose();
-                        setIsSelected(false);
-                      }}
-                      className="font-bold"
-                    >
-                      Tutup
-                    </Button>
-
-                    <Button
-                      isDisabled={!isSelected}
-                      color="secondary"
-                      className="font-bold"
-                      onClick={() => {
-                        document.documentElement.requestFullscreen();
-                        router.push(`/tests/${data?.data.test_id}/start`);
-                        onClose();
-                        setIsSelected(false);
-                      }}
-                    >
-                      Mulai Sekarang!
-                    </Button>
-                  </>
-                )}
-              />
-            ) : null}
-
-            {localStorage.getItem(data?.data.test_id as string) ? (
-              data?.data.has_result ? (
+              data?.data.status === "Berlangsung" &&
+              data?.data.remaining_tests > 0 &&
+              data?.data.remaining_tests < 3 ? (
                 <Button
-                  color="secondary"
-                  className="px-4 font-bold"
-                  onClick={() =>
-                    router.push(`/results/${data?.data.has_result}`)
-                  }
+                  variant="bordered"
+                  className="px-4 font-bold text-black"
+                  onClick={() => {
+                    document.documentElement.requestFullscreen();
+                    router.push(`/tests/${data?.data.test_id}/start`);
+                  }}
                 >
-                  Lihat Jawaban Saya
+                  Ulangi Ujian
                 </Button>
               ) : (
                 <ModalConfirmTest
                   trigger={
                     <Button color="secondary" className="px-4 font-bold">
-                      Lanjutkan Ujian
+                      Mulai Ujian
                     </Button>
                   }
-                  header={
-                    <h1 className="font-bold text-black">Peringatan ⚠️</h1>
-                  }
+                  header={<h1 className="font-bold text-black">Peringatan!</h1>}
                   body={
-                    <>
-                      {!expired ? (
-                        <p className="text-sm font-medium leading-[170%] text-gray">
-                          {WarningTextModal.has_result.expired}{" "}
-                          <strong className="font-extrabold text-purple">
-                            {formatDate(data?.data.end_time as string)}{" "}
-                          </strong>
-                        </p>
-                      ) : (
-                        <p className="text-sm font-medium leading-[170%] text-gray">
-                          {WarningTextModal.has_result.continue}
-                        </p>
-                      )}
-                    </>
+                    <div className="grid gap-4">
+                      <h1 className="text-[22px] font-extrabold capitalize leading-[120%] text-black">
+                        Harap baca poin penting berikut ini ⚠️
+                      </h1>
+
+                      <div className="divide-y-2 divide-dashed divide-gray/20">
+                        <ol className="ml-4 grid list-outside list-decimal gap-1.5 pb-2 text-sm font-medium leading-[170%] text-gray">
+                          {WarningTextModal.has_start.map((item, index) => (
+                            <li key={index}>{item.text}</li>
+                          ))}
+                        </ol>
+
+                        <Checkbox
+                          size="md"
+                          color="secondary"
+                          isSelected={isSelected}
+                          onValueChange={setIsSelected}
+                          className="mt-4 pt-6"
+                          classNames={{
+                            label: "text-sm font-medium text-gray",
+                          }}
+                        >
+                          Ya, saya sudah membaca poin-poin tersebut dan siap
+                          untuk mengerjakan ujian.
+                        </Checkbox>
+                      </div>
+                    </div>
                   }
                   footer={(onClose: any) => (
                     <>
                       <Button
                         color="danger"
                         variant="light"
-                        onClick={onClose}
+                        onClick={() => {
+                          onClose();
+                          setIsSelected(false);
+                        }}
                         className="font-bold"
                       >
                         Tutup
                       </Button>
 
-                      {!expired ? (
-                        <Button
-                          color="secondary"
-                          className="font-bold"
-                          onClick={() => {
-                            document.documentElement.requestFullscreen();
-                            router.push(`/tests/${data?.data.test_id}/start`);
-                            onClose();
-                          }}
-                        >
-                          Lanjutkan Sekarang!
-                        </Button>
-                      ) : (
-                        <Button
-                          isDisabled={loading}
-                          isLoading={loading}
-                          color="secondary"
-                          className="font-bold"
-                          onClick={handleSaveTest}
-                        >
-                          Kumpulkan Jawaban 🌟
-                        </Button>
-                      )}
+                      <Button
+                        isDisabled={!isSelected}
+                        color="secondary"
+                        className="font-bold"
+                        onClick={() => {
+                          document.documentElement.requestFullscreen();
+                          router.push(`/tests/${data?.data.test_id}/start`);
+                          onClose();
+                          setIsSelected(false);
+                        }}
+                      >
+                        Mulai Sekarang!
+                      </Button>
                     </>
                   )}
                 />
               )
             ) : null}
 
-            {data?.data.has_start &&
-            !localStorage.getItem(data?.data.test_id as string) ? (
-              data.data.has_result ? (
-                <Button
-                  color="secondary"
-                  className="px-4 font-bold"
-                  onClick={() =>
-                    router.push(`/results/${data?.data.has_result}`)
-                  }
-                >
-                  Lihat Jawaban Saya
-                </Button>
-              ) : (
-                <ModalConfirmTest
-                  trigger={
-                    <Button color="secondary" className="px-4 font-bold">
-                      Lanjutkan Ujian
+            {localStorage.getItem(data?.data.test_id as string) ? (
+              <ModalConfirmTest
+                trigger={
+                  <Button color="secondary" className="px-4 font-bold">
+                    Lanjutkan Ujian
+                  </Button>
+                }
+                header={<h1 className="font-bold text-black">Peringatan ⚠️</h1>}
+                body={
+                  <>
+                    {!expired ? (
+                      <p className="text-sm font-medium leading-[170%] text-gray">
+                        {WarningTextModal.has_result.expired}{" "}
+                        <strong className="font-extrabold text-purple">
+                          {formatDate(data?.data.end_time as string)}{" "}
+                        </strong>
+                      </p>
+                    ) : (
+                      <p className="text-sm font-medium leading-[170%] text-gray">
+                        {WarningTextModal.has_result.continue}
+                      </p>
+                    )}
+                  </>
+                }
+                footer={(onClose: any) => (
+                  <>
+                    <Button
+                      color="danger"
+                      variant="light"
+                      onClick={onClose}
+                      className="font-bold"
+                    >
+                      Tutup
                     </Button>
-                  }
-                  header={
-                    <h1 className="font-bold text-black">Peringatan ⚠️</h1>
-                  }
-                  body={
-                    <p className="text-sm font-medium leading-[170%] text-gray">
-                      {WarningTextModal.change_device}{" "}
-                      <strong className="font-extrabold text-purple">
-                        {formatDate(data?.data.end_time as string)}
-                      </strong>
-                      .
-                    </p>
-                  }
-                  footer={(onClose: any) => (
-                    <>
-                      <Button
-                        color="danger"
-                        variant="light"
-                        onClick={onClose}
-                        className="font-bold"
-                      >
-                        Tutup
-                      </Button>
 
+                    {!expired ? (
                       <Button
                         color="secondary"
                         className="font-bold"
@@ -394,10 +347,75 @@ export default function DetailsTest({
                       >
                         Lanjutkan Sekarang!
                       </Button>
-                    </>
-                  )}
-                />
-              )
+                    ) : (
+                      <Button
+                        isDisabled={loading}
+                        isLoading={loading}
+                        color="secondary"
+                        className="font-bold"
+                        onClick={handleSaveTest}
+                      >
+                        Kumpulkan Jawaban 🌟
+                      </Button>
+                    )}
+                  </>
+                )}
+              />
+            ) : null}
+
+            {data?.data.has_start &&
+            !localStorage.getItem(data?.data.test_id as string) ? (
+              <ModalConfirmTest
+                trigger={
+                  <Button color="secondary" className="px-4 font-bold">
+                    Lanjutkan Ujian
+                  </Button>
+                }
+                header={<h1 className="font-bold text-black">Peringatan ⚠️</h1>}
+                body={
+                  <p className="text-sm font-medium leading-[170%] text-gray">
+                    {WarningTextModal.change_device}{" "}
+                    <strong className="font-extrabold text-purple">
+                      {formatDate(data?.data.end_time as string)}
+                    </strong>
+                    .
+                  </p>
+                }
+                footer={(onClose: any) => (
+                  <>
+                    <Button
+                      color="danger"
+                      variant="light"
+                      onClick={onClose}
+                      className="font-bold"
+                    >
+                      Tutup
+                    </Button>
+
+                    <Button
+                      color="secondary"
+                      className="font-bold"
+                      onClick={() => {
+                        document.documentElement.requestFullscreen();
+                        router.push(`/tests/${data?.data.test_id}/start`);
+                        onClose();
+                      }}
+                    >
+                      Lanjutkan Sekarang!
+                    </Button>
+                  </>
+                )}
+              />
+            ) : null}
+
+            {data?.data.remaining_tests === 0 ? (
+              <Button
+                color="secondary"
+                className="px-4 font-bold"
+                onClick={() => router.push(`/my/tests`)}
+              >
+                Jawaban Saya
+              </Button>
             ) : null}
           </div>
         </div>

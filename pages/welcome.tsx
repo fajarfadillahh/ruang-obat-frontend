@@ -57,7 +57,7 @@ export default function WelcomePage({
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => (window.location.href = "/dashboard")}
                 className="px-6 font-bold"
               >
                 Halaman Dashboard
@@ -65,7 +65,7 @@ export default function WelcomePage({
 
               <Button
                 variant="bordered"
-                onClick={() => router.push("/")}
+                onClick={() => (window.location.href = "/")}
                 className="px-6 font-bold"
               >
                 Kembali Ke Beranda

@@ -23,11 +23,21 @@ export default function CardTest(test: CardTest) {
       isDisabled = true;
       buttonText = lockIcon;
     } else if (test.status === "Berlangsung") {
-      isDisabled = false;
-      buttonText = test.has_result ? "Jawaban Saya" : "Lihat Ujian";
+      if (test.remaining_tests > 0) {
+        isDisabled = false;
+        buttonText = "Lihat Ujian";
+      } else {
+        isDisabled = false;
+        buttonText = "Jawaban Saya";
+      }
     } else if (test.status === "Berakhir") {
-      isDisabled = !test.has_result;
-      buttonText = test.has_result ? "Jawaban Saya" : "Tidak Mengerjakan";
+      if (test.remaining_tests > 0) {
+        isDisabled = false;
+        buttonText = "Jawaban Saya";
+      } else {
+        isDisabled = !test.has_result;
+        buttonText = test.has_result ? "Jawaban Saya" : "Tidak Mengerjakan";
+      }
     }
 
     return { isDisabled, buttonText };
@@ -80,6 +90,17 @@ export default function CardTest(test: CardTest) {
               </span>
               <h1 className="text-sm font-semibold text-black">
                 {test.duration} Menit
+              </h1>
+            </div>
+
+            <div className="grid gap-[2px]">
+              <span className="text-[12px] font-medium text-gray">
+                Sisa Pengerjaan:
+              </span>
+              <h1 className="text-sm font-semibold text-black">
+                {test.remaining_tests === 0
+                  ? "-"
+                  : `${test.remaining_tests} kali`}
               </h1>
             </div>
 
@@ -139,13 +160,19 @@ export default function CardTest(test: CardTest) {
       <Button
         size="sm"
         color={!test.is_active ? "danger" : "secondary"}
-        onClick={() =>
-          router.push(
-            !test.has_result
-              ? `/tests/${test.test_id}`
-              : `/results/${test.result_id}`,
-          )
-        }
+        onClick={() => {
+          if (test.status === "Berlangsung") {
+            test.remaining_tests > 0
+              ? router.push(`/tests/${test.test_id}`)
+              : router.push(`/my/tests`);
+          } else if (test.status === "Berakhir") {
+            test.remaining_tests > 0 || test.has_result
+              ? router.push(`/my/tests`)
+              : console.log("Kesempatan habis dan tidak ada hasil.");
+          } else {
+            console.log("Ujian belum dimulai.");
+          }
+        }}
         className="w-full font-bold md:w-max md:px-6"
         isDisabled={getButtonProps(test).isDisabled}
       >
@@ -163,6 +190,7 @@ type CardTest = {
   duration: number;
   is_active: boolean;
   has_result: boolean;
+  remaining_tests: number;
   result_id: string;
   status: string;
   is_approved: boolean | null;
