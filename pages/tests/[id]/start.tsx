@@ -621,10 +621,10 @@ export const getServerSideProps = async ({
       };
     }
 
-    if (response.data.has_result) {
+    if (response.data.remaining_tests === 0) {
       return {
         redirect: {
-          destination: `/results/${response.data.has_result}`,
+          destination: `/my/tests`,
         },
       };
     }

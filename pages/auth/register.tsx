@@ -188,7 +188,7 @@ export default function RegisterPage() {
         setCode("");
 
         toast.success("Registrasi berhasil");
-        return router.push("/welcome?from=register");
+        return (window.location.href = "/welcome?from=register");
       }
     } catch (error: any) {
       setLoading(false);
