@@ -347,3 +347,40 @@ export const siteConfigPhamacyPrivteClassPage = {
     },
   ],
 };
+
+export const siteConfigAboutUsPage = {
+  products: [
+    { label: "Kelas Matkul Farmasi", icon: GraduationCap },
+    { label: "Kelas Skripsi Farmasi", icon: BookBookmark },
+    { label: "Kelas Riset Farmasi", icon: MagnifyingGlass },
+    { label: "Kelas Masuk Farmasi", icon: Pill },
+    { label: "TryOut UKMPPAI", icon: PencilRuler },
+  ],
+  data: {
+    vision: {
+      title: "Visi",
+      text: "Membantu menciptakan generasi apoteker professional, inovatif dan berdaya saing global untuk tercapainya Golden Pharmacy 2045",
+    },
+    mission: {
+      title: "Misi",
+      list: [
+        {
+          key: 1,
+          text: "Penyediaan akses End-to-End pendidikan farmasi berkualitas tinggi dan terjangkau bagi seluruh mahasiswa farmasi di Indonesia",
+        },
+        {
+          key: 2,
+          text: "Penyediaan komunitas belajar yang aktif dan kolaboratif untuk mendorong semangat berbagi ilmu dan inovasi farmasi di Indonesia",
+        },
+        {
+          key: 3,
+          text: "Mendukung penelitian dan pengembangan pada bidang farmasi untuk menghasilkan inovasi yang bermanfaat bagi masyarakat di Indonesia",
+        },
+        {
+          key: 4,
+          text: "Membangun kemitraan yang kuat dengan berbagai stakeholders di Indonesia",
+        },
+      ],
+    },
+  },
+};
