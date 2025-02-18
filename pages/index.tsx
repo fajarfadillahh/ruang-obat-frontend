@@ -86,10 +86,9 @@ export default function HomePage({
               <p className="font-medium leading-[170%] text-gray">
                 Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang
                 telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
-                Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang
-                pendidikan, antara lain: Kelas Mata Kuliah, Kelas Skripsi
-                Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan
-                Tryout UKMPPAI.
+                Indonesia. Terdapat berbagai kelas menarik untSumatifa jenjang
+                pendidikan, antara lain: Video Pembelajaran Farmasi, Persiapan
+                Skripsi & Riset, Masuk Apoteker, OSCE dan UKMPPAI Sumatif
               </p>
               <p className="font-medium leading-[170%] text-gray">
                 Di website ini kalian dapat mengakses berbagai program. Mari
@@ -185,7 +184,7 @@ export default function HomePage({
 
             <div className="grid max-w-[600px] gap-4 justify-self-end">
               <h1 className="text-[36px] font-black capitalize leading-[120%] -tracking-wide text-black xs:text-[42px]">
-                Kelas Farmasi No. 1 di Indonesia |{" "}
+                Bimbel Farmasi No. 1 di Indonesia |{" "}
                 <span className="bg-purple px-2 py-0 text-white">
                   Fasilitasi 10.000+
                 </span>{" "}
@@ -194,8 +193,8 @@ export default function HomePage({
               <p className="font-medium leading-[170%] text-gray">
                 Dapatkan{" "}
                 <strong className="font-extrabold text-purple">
-                  Akses Video Mata Kuliah, Persiapan Skripsi & Riset, Masuk
-                  Apoteker, dan Tryout UKMPPAI
+                  Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
+                  Masuk Apoteker, OSCE dan UKMPPAI Sumatif
                 </strong>{" "}
                 untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
               </p>
