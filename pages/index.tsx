@@ -48,80 +48,124 @@ export default function HomePage({
   return (
     <>
       <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
-        <section className="relative mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
-          <div className="grid gap-10 justify-self-center lg:max-w-[580px] xl:justify-self-start">
-            <div className="grid gap-4">
-              <p className="font-medium text-gray">
-                👋 Selamat datang di Ruang Obat
-              </p>
-              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black md:text-[56px] md:leading-[100%] lg:text-[72px]">
-                Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
-                <div className="inline-flex -space-x-3">
+        <section className="grid gap-16">
+          <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
+            <Image
+              priority
+              src="/img/base/base-img-2.svg"
+              alt="home img"
+              width={415}
+              height={567}
+              className="h-auto w-full justify-self-center"
+            />
+
+            <div className="grid gap-10">
+              <div className="grid max-w-[600px] gap-4 justify-self-end">
+                <p className="font-medium text-gray">
+                  👋 Selamat datang di Ruang Obat
+                </p>
+                <h1 className="text-[36px] font-black capitalize leading-[110%] -tracking-wide text-black xs:text-[42px] xl:text-[56px]">
+                  Bimbel Farmasi No.1 di Indonesia |{" "}
+                  <span className="bg-purple px-2 py-0 text-white">
+                    Fasilitasi 10.000+
+                  </span>{" "}
+                  Mahasiswa Farmasi Seluruh Indonesia
+                </h1>
+                <p className="font-medium leading-[170%] text-gray">
+                  Dapatkan{" "}
+                  <strong className="font-extrabold text-purple">
+                    Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
+                    Masuk Apoteker, OSCE dan UKMPPAI Sumatif
+                  </strong>{" "}
+                  untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
+                </p>
+              </div>
+
+              <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+                <Button
+                  color="secondary"
+                  as={Link}
+                  href="#list-class"
+                  className="px-10 font-bold"
+                >
+                  Lihat Daftar Kelas
+                </Button>
+
+                <Button
+                  variant="bordered"
+                  className="px-6 font-bold"
+                  onClick={() => router.push("/dashboard")}
+                >
+                  Dashboard Tryout CBT
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          <div id="list-class" className="grid gap-4">
+            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+              Daftar Kelas di Ruang Obat 🔥
+            </h2>
+
+            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+              {siteConfigHomePage.classes.map((item, index) => (
+                <div
+                  key={index}
+                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                >
                   <Image
-                    src="/img/home-avatar1.webp"
-                    alt="avatar mentor img"
-                    width={100}
-                    height={100}
-                    className="size-10 rounded-full lg:size-14"
                     priority
+                    src={item.image as string}
+                    alt="product img"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
                   />
-                  <Image
-                    src="/img/home-avatar2.webp"
-                    alt="avatar mentor img"
-                    width={100}
-                    height={100}
-                    className="size-10 rounded-full lg:size-14"
-                    priority
-                  />
-                  <Image
-                    src="/img/home-avatar3.webp"
-                    alt="avatar mentor img"
-                    width={100}
-                    height={100}
-                    className="size-10 rounded-full lg:size-14"
-                    priority
-                  />
+
+                  <div className="grid gap-4">
+                    <h1 className="max-w-[250px] text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                      {item.title}
+                    </h1>
+
+                    <Button
+                      variant={item.id === 5 ? "solid" : "flat"}
+                      color="secondary"
+                      onClick={() => router.push(item.path as string)}
+                      className="font-bold"
+                    >
+                      {item.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
+                    </Button>
+                  </div>
                 </div>
-              </h1>
-              <p className="font-medium leading-[170%] text-gray">
-                Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang
-                telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
-                Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang
-                pendidikan, antara lain: Kelas Mata Kuliah, Kelas Skripsi
-                Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan
-                Tryout UKMPPAI.
-              </p>
-              <p className="font-medium leading-[170%] text-gray">
-                Di website ini kalian dapat mengakses berbagai program. Mari
-                raih gelar sarjana dan apotekermu bersama Ruang Obat.
-                <br />
-                #bimbelfarmasi #cukupdisiniaja
-              </p>
+              ))}
             </div>
+          </div>
+        </section>
 
-            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
-              <Button
-                color="secondary"
-                as={Link}
-                href="#list-class"
-                className="px-10 font-bold"
-              >
-                Lihat Daftar Kelas
-              </Button>
-
-              <Button
-                variant="bordered"
-                className="px-6 font-bold"
-                onClick={() => router.push("/dashboard")}
-              >
-                Dashboard Tryout CBT
-              </Button>
-            </div>
+        <section className="relative mx-auto grid max-w-[600px] items-center gap-10 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
+          <div className="grid gap-4">
+            <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black md:text-[56px] md:leading-[100%]">
+              Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
+              <div className="inline-flex h-3 w-full max-w-[250px] rounded-3xl border-b-[10px] border-purple" />
+            </h1>
+            <p className="font-medium leading-[170%] text-gray">
+              Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang
+              telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
+              Indonesia. Terdapat berbagai kelas menarik untSumatifa jenjang
+              pendidikan, antara lain: Video Pembelajaran Farmasi, Persiapan
+              Skripsi & Riset, Masuk Apoteker, OSCE dan UKMPPAI Sumatif
+            </p>
+            <p className="font-medium leading-[170%] text-gray">
+              Di website ini kalian dapat mengakses berbagai program. Mari raih
+              gelar sarjana dan apotekermu bersama Ruang Obat.
+              <br />
+              #bimbelfarmasi #cukupdisiniaja
+            </p>
           </div>
 
           <Image
             priority
-            src="/img/default/homepage-img.png"
+            src="/img/base/base-img-1.svg"
             alt="home img"
             width={396}
             height={512}
@@ -129,8 +173,7 @@ export default function HomePage({
           />
         </section>
 
-        {/* reasons */}
-        <section className="mx-auto grid max-w-[600px] gap-8 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none">
+        <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-none">
           <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Kenapa Harus Pilih Ruang Obat?
           </h1>
@@ -171,78 +214,6 @@ export default function HomePage({
           </div>
         </section>
 
-        {/* classes/products */}
-        <section id="list-class" className="grid gap-16 py-[100px]">
-          <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
-            <Image
-              priority
-              src="/img/default/homepage-class-img.png"
-              alt="home img"
-              width={415}
-              height={567}
-              className="h-auto w-full justify-self-center"
-            />
-
-            <div className="grid max-w-[600px] gap-4 justify-self-end">
-              <h1 className="text-[36px] font-black capitalize leading-[120%] -tracking-wide text-black xs:text-[42px]">
-                Kelas Farmasi No. 1 di Indonesia |{" "}
-                <span className="bg-purple px-2 py-0 text-white">
-                  Fasilitasi 10.000+
-                </span>{" "}
-                Mahasiswa Farmasi Seluruh Indonesia
-              </h1>
-              <p className="font-medium leading-[170%] text-gray">
-                Dapatkan{" "}
-                <strong className="font-extrabold text-purple">
-                  Akses Video Mata Kuliah, Persiapan Skripsi & Riset, Masuk
-                  Apoteker, dan Tryout UKMPPAI
-                </strong>{" "}
-                untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-4">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
-              Daftar Kelas di Ruang Obat 🔥
-            </h2>
-
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
-              {siteConfigHomePage.classes.map((item, index) => (
-                <div
-                  key={index}
-                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
-                  <Image
-                    priority
-                    src={item.image as string}
-                    alt="product img"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                  />
-
-                  <div className="grid gap-4">
-                    <h1 className="max-w-[250px] text-lg font-black leading-[120%] text-black group-hover:text-purple">
-                      {item.title}
-                    </h1>
-
-                    <Button
-                      variant={item.id === 5 ? "solid" : "flat"}
-                      color="secondary"
-                      onClick={() => router.push(item.path as string)}
-                      className="font-bold"
-                    >
-                      {item.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
-                    </Button>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* mentors */}
         <section className="grid gap-4 py-[100px]">
           <div className="grid gap-2">
             <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
@@ -303,7 +274,6 @@ export default function HomePage({
           </div>
         </section>
 
-        {/* faqs */}
         <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-full">
           <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
@@ -373,7 +343,6 @@ export default function HomePage({
           </IconContext.Provider>
         </section>
 
-        {/* cta */}
         <CTAMain />
       </Layout>
 
@@ -404,7 +373,8 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
 
     return {
       props: {
-        error,
+        error:
+          error?.message || "Telah terjadi kesalahan, mohon reload halaman!",
       },
     };
   }

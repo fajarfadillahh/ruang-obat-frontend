@@ -44,8 +44,8 @@ const menuItemsMobile = [
   { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/company/tentang-kami" },
   {
-    label: "Kelas Pembelajaran Mata Kuliah Farmasi",
-    href: "/kelas-pembelajaran-matkul-farmasi",
+    label: "Kelas Video Pembelajaran Farmasi",
+    href: "/kelas-video-pembelajaran-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
@@ -55,8 +55,8 @@ const menuItemsMobile = [
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Pembelajaran Mata Kuliah Farmasi",
-    href: "/kelas-pembelajaran-matkul-farmasi",
+    label: "Kelas Video Pembelajaran Farmasi",
+    href: "/kelas-video-pembelajaran-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
