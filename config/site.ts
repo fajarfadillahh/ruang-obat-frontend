@@ -195,8 +195,8 @@ export const siteConfigHomePage = {
             href: "/dashboard",
           },
           {
-            label: "Kelas Mata Kuliah Farmasi",
-            href: "/kelas-pembelajaran-matkul-farmasi",
+            label: "Kelas Video Pembelajaran Farmasi",
+            href: "/kelas-video-pembelajaran-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",
