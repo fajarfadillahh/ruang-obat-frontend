@@ -100,7 +100,7 @@ export default function ExamPreparationVideoClassPage({
         <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
           <Image
             priority
-            src="/img/default/subject-preparation-class-img.png"
+            src="/img/base/base-img-4.svg"
             alt="class subject img"
             width={510}
             height={340}
@@ -431,7 +431,7 @@ export default function ExamPreparationVideoClassPage({
               color="secondary"
               onClick={() =>
                 router.push(
-                  "/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi",
+                  "/kelas-video-pembelajaran-farmasi/kelas-privat-farmasi",
                 )
               }
               className="px-4 font-bold"

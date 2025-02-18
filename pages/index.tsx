@@ -120,7 +120,7 @@ export default function HomePage({
 
           <Image
             priority
-            src="/img/default/homepage-img.png"
+            src="/img/base/base-img-1.svg"
             alt="home img"
             width={396}
             height={512}
@@ -175,7 +175,7 @@ export default function HomePage({
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
               priority
-              src="/img/default/homepage-class-img.png"
+              src="/img/base/base-img-2.svg"
               alt="home img"
               width={415}
               height={567}
@@ -403,7 +403,8 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
 
     return {
       props: {
-        error,
+        error:
+          error?.message || "Telah terjadi kesalahan, mohon reload halaman!",
       },
     };
   }
