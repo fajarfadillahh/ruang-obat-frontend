@@ -43,9 +43,9 @@ export const siteConfigHomePage = {
   classes: [
     {
       id: 1,
-      title: "Video Pembelajaran Farmasi",
+      title: "Kelas Pembelajaran Farmasi",
       image: "/img/products/product-1.png",
-      path: "/kelas-video-pembelajaran-farmasi",
+      path: "/kelas-pembelajaran-farmasi",
     },
     {
       id: 2,
@@ -195,8 +195,8 @@ export const siteConfigHomePage = {
             href: "/dashboard",
           },
           {
-            label: "Kelas Video Pembelajaran Farmasi",
-            href: "/kelas-video-pembelajaran-farmasi",
+            label: "Kelas Pembelajaran Farmasi",
+            href: "/kelas-pembelajaran-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",

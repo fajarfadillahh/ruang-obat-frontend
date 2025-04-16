@@ -76,7 +76,7 @@ export default function PhamacyPrivteClassPage({
 
           <Image
             priority
-            src="/img/base/base-img-5.svg"
+            src="/img/base/private-1on1-img.svg"
             alt="class subject private img"
             width={418}
             height={434}
