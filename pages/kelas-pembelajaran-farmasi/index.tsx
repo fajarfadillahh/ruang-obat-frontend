@@ -13,18 +13,18 @@ export default function SubjectVideoClassPage() {
   return (
     <>
       <Layout title="Kelas Pembelajaran Mata Kuliah Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
+        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-2">
           <Image
             priority
-            src="/img/base/base-img-3.svg"
+            src="/img/base/video-pembelajaran-img.svg"
             alt="class subject img"
             width={493}
             height={619}
-            className="h-auto w-full justify-self-center"
+            className="h-[680px] w-full justify-self-center"
           />
 
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black xl:text-[56px]">
               Kelas Pembelajaran Mata Kuliah Farmasi
             </h1>
             <p className="pb-8 font-medium leading-[170%] text-gray">
@@ -49,7 +49,7 @@ export default function SubjectVideoClassPage() {
           className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
           <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
-            Pilih Sesuai Dengan <br /> Kebutuhan Kamu 😉
+            Fasilitas yang tersedia 😉
           </h2>
 
           <div className="grid gap-8 xl:grid-cols-2">
@@ -78,7 +78,7 @@ export default function SubjectVideoClassPage() {
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
                   router.push(
-                    "/kelas-video-pembelajaran-farmasi/video-matkul-farmasi",
+                    "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
                   )
                 }
                 className="w-max font-bold"
@@ -108,7 +108,7 @@ export default function SubjectVideoClassPage() {
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
                   router.push(
-                    "/kelas-video-pembelajaran-farmasi/kelas-privat-farmasi",
+                    "/kelas-pembelajaran-farmasi/kelas-privat-farmasi",
                   )
                 }
                 className="w-max font-bold"

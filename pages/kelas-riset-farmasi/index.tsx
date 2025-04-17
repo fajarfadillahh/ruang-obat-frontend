@@ -83,7 +83,7 @@ export default function PharmacyResearchClassPage({
   return (
     <>
       <Layout title="Kelas Riset Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
+        {/* <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
           <div className="grid max-w-[850px] gap-[10px]">
             <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
               Kelas Riset Farmasi
@@ -113,6 +113,49 @@ export default function PharmacyResearchClassPage({
           >
             Pilih Kelas
           </Button>
+        </section> */}
+
+        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-0">
+          <div className="grid gap-12">
+            <div className="grid max-w-[850px] gap-[10px]">
+              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+                Kelas Riset Farmasi
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                Untuk mahasiswa S1 ataupun S2 yang membutuhkan bimbingan terkait
+                riset secara teknikal, kelas ini akan sangat membantu kalian,
+                dikarenakan mentor-mentor yang mengajar berasal dari praktisi
+                Researcher, Formulator, dan lain-lain yang sudah berpengalaman
+                di masing - masing bidang terkait.
+                <br />
+                <br />
+                Di Kelas ini kamu akan diajarkan terkait hal-hal yang berkaitan
+                dengan teknikal lab, tentunya kamu tidak hanya diajarkan teori
+                saja tapi akan diajarkan secara teknikal. Kelas ini akan
+                membantu kamu dalam meminimalisir terjadinya trial error saat
+                penelitian. Dan kamu akan memiliki prinsip-prinsip penting yang
+                dapat kamu perhatikan saat akan memulai penelitian 🤩 !
+              </p>
+            </div>
+
+            <Button
+              color="secondary"
+              as={Link}
+              href="#list-class"
+              className="w-max px-16 font-bold"
+            >
+              Pilih Kelas
+            </Button>
+          </div>
+
+          <Image
+            priority
+            src="/img/base/riset-img.svg"
+            alt="class subject img"
+            width={493}
+            height={619}
+            className="h-[640px] w-full justify-self-center"
+          />
         </section>
 
         <section id="list-class" className="grid gap-4 [padding:110px_0_100px]">

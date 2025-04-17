@@ -97,18 +97,9 @@ export default function ExamPreparationVideoClassPage({
   return (
     <>
       <Layout title="Video Pembelajaran Mata Kuliah Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
-          <Image
-            priority
-            src="/img/base/base-img-4.svg"
-            alt="class subject img"
-            width={510}
-            height={340}
-            className="h-auto w-full justify-self-center"
-          />
-
+        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-2">
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black xl:text-[56px]">
               Video Pembelajaran Mata Kuliah Farmasi
             </h1>
             <p className="pb-8 font-medium leading-[170%] text-gray">
@@ -125,6 +116,15 @@ export default function ExamPreparationVideoClassPage({
               Pilih Video Pembelajaran
             </Button>
           </div>
+
+          <Image
+            priority
+            src="/img/base/video-pembelajaran-img.svg"
+            alt="class subject img"
+            width={510}
+            height={340}
+            className="h-[600px] w-full justify-self-center xl:justify-self-end"
+          />
         </section>
 
         <section

@@ -52,7 +52,7 @@ export default function HomePage({
           <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
             <Image
               priority
-              src="/img/base/base-img-2.svg"
+              src="/img/base/main-img-1.svg"
               alt="home img"
               width={415}
               height={567}
@@ -165,7 +165,7 @@ export default function HomePage({
 
           <Image
             priority
-            src="/img/base/base-img-1.svg"
+            src="/img/base/main-img-2.svg"
             alt="home img"
             width={396}
             height={512}

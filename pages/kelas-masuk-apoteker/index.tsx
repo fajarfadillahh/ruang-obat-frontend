@@ -32,27 +32,38 @@ export default function PharmacyEntranceClassPage({
   return (
     <>
       <Layout title="Kelas Masuk Apoteker">
-        <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
-          <div className="grid max-w-[850px] gap-[10px]">
-            <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-              Kelas Masuk Apoteker
-            </h1>
-            <p className="font-medium leading-[170%] text-gray">
-              Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami
-              menyediakan program khusus yang disesuaikan dengan kampus pilihan
-              kamu, dan kelas ini pula dirancang untuk membantu kamu memahami
-              materi seleksi secara mendalam dan terarah.
-            </p>
+        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-0">
+          <div className="grid gap-12">
+            <div className="grid max-w-[850px] gap-[12px]">
+              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+                Kelas Masuk Apoteker
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                Bersiaplah menghadapi seleksi masuk program profesi apoteker.
+                Kami menyediakan program khusus yang disesuaikan dengan kampus
+                pilihan kamu, dan kelas ini pula dirancang untuk membantu kamu
+                memahami materi seleksi secara mendalam dan terarah.
+              </p>
+            </div>
+
+            <Button
+              color="secondary"
+              as={Link}
+              href="#list-class"
+              className="w-max px-12 font-bold"
+            >
+              Pilih Universitas
+            </Button>
           </div>
 
-          <Button
-            color="secondary"
-            as={Link}
-            href="#list-class"
-            className="w-max px-16 font-bold"
-          >
-            Pilih Kelas
-          </Button>
+          <Image
+            priority
+            src="/img/base/apoteker-img.svg"
+            alt="class subject img"
+            width={493}
+            height={619}
+            className="h-[640px] w-full justify-self-center"
+          />
         </section>
 
         <section

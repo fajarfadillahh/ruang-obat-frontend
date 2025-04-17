@@ -94,7 +94,7 @@ export default function DetailPharmacyEntranceClassPage({
         <ButtonBack />
 
         <section className="divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
-          <div className="grid grid-cols-[max-content_1fr] items-center gap-8 pb-16">
+          <div className="flex flex-wrap items-center gap-8 pb-16">
             <Image
               src={data?.img_url as string}
               alt="img img"
@@ -104,7 +104,7 @@ export default function DetailPharmacyEntranceClassPage({
             />
 
             <div className="grid max-w-[700px] gap-2">
-              <h1 className="text-[42px] font-black capitalize leading-[110%] -tracking-wide text-black">
+              <h1 className="text-[36px] font-black capitalize leading-[110%] -tracking-wide text-black lg:text-[42px]">
                 {data?.name}
               </h1>
               <p className="font-medium leading-[170%] text-gray">
@@ -332,7 +332,9 @@ export default function DetailPharmacyEntranceClassPage({
             <Button
               color="secondary"
               onClick={() =>
-                router.push("/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi")
+                router.push(
+                  "/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi",
+                )
               }
               className="px-4 font-bold"
             >

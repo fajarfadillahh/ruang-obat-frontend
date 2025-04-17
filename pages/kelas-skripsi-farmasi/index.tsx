@@ -83,7 +83,7 @@ export default function PharmacyThesisClassPage({
   return (
     <>
       <Layout title="Kelas Skripsi Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
+        {/* <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
           <div className="grid max-w-[850px] gap-[10px]">
             <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
               Kelas Skripsi Farmasi
@@ -114,6 +114,50 @@ export default function PharmacyThesisClassPage({
           >
             Pilih Kelas
           </Button>
+        </section> */}
+
+        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-0">
+          <div className="grid gap-12">
+            <div className="grid max-w-[850px] gap-[10px]">
+              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
+                Kelas Skripsi Farmasi
+              </h1>
+              <p className="font-medium leading-[170%] text-gray">
+                Kelas Bimbingan Skripsi super lengkap, Ruang Obat solusinya😍
+                !!. Tidak hanya sebatas kelas saja, tapi kamu juga akan
+                dibimbing dari nol hingga meraih sarjana. Bahkan, kelas skripsi
+                ini sudah termasuk free konsultasi via Wathsapp dan free video
+                recording yang bisa kamu tonton kembali sepuasnya. Kelas skripsi
+                bersifat private one-by-one dengan mentor, sehingga akan
+                membuatmu lebih fokus dalam mengerjakan skripsi.
+                <br />
+                <br />
+                Paket bootcamp 30 hari akan membantu proses skripsimu lebih
+                cepat selesai. Terdapat berbagai macam jenis kelas, meliputi
+                Kelas Judul dan Pengenalan Penelitian, Kelas Bab 1-3, Kelas
+                Simulasi Sempro, Kelas Revisian, Kelas Analisa data SPSS, Kelas
+                Kompre dan Kelas Simulasi Sidang Hasil.
+              </p>
+            </div>
+
+            <Button
+              color="secondary"
+              as={Link}
+              href="#list-class"
+              className="w-max px-16 font-bold"
+            >
+              Pilih Kelas
+            </Button>
+          </div>
+
+          <Image
+            priority
+            src="/img/base/skripsi-img.svg"
+            alt="class subject img"
+            width={493}
+            height={619}
+            className="h-[640px] w-full justify-self-center"
+          />
         </section>
 
         <section id="list-class" className="grid gap-4 [padding:110px_0_100px]">
