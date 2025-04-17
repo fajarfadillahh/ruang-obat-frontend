@@ -195,6 +195,10 @@ export const siteConfigHomePage = {
             href: "/dashboard",
           },
           {
+            label: "Video Belajar",
+            href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
+          },
+          {
             label: "Kelas Pembelajaran Farmasi",
             href: "/kelas-pembelajaran-farmasi",
           },
@@ -217,11 +221,11 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Ketentuan Layanan",
-            href: "/company/terms",
+            href: "/company/terms-conditions",
           },
           {
             label: "Kebijakan Privasi",
-            href: "/company/privacy",
+            href: "/company/privacy-policy",
           },
         ],
       },
@@ -230,7 +234,7 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Tentang Kami",
-            href: "/company/tentang-kami",
+            href: "/company/about-us",
           },
           {
             label: "Kontak Kami",
