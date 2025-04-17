@@ -44,6 +44,10 @@ const menuItemsMobile = [
   { label: "Beranda", href: "/" },
   { label: "Tentang Kami", href: "/company/tentang-kami" },
   {
+    label: "Video Belajar",
+    href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
+  },
+  {
     label: "Kelas Pembelajaran Farmasi",
     href: "/kelas-pembelajaran-farmasi",
   },
@@ -138,13 +142,13 @@ export default function NavbarMain() {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-8 lg:flex" justify="center">
+      <NavbarContent className="hidden gap-5 lg:flex" justify="center">
         <NavbarItem>
           <Link
-            href="/company/tentang-kami"
+            href="/kelas-pembelajaran-farmasi/video-matkul-farmasi"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            Tentang Kami
+            Video Belajar
           </Link>
         </NavbarItem>
 
@@ -184,6 +188,15 @@ export default function NavbarMain() {
             className="text-sm font-medium text-gray hover:text-purple"
           >
             TryOut UKMPPAI
+          </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link
+            href="/company/tentang-kami"
+            className="text-sm font-medium text-gray hover:text-purple"
+          >
+            Tentang Kami
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -348,6 +361,7 @@ export default function NavbarMain() {
         )}
       </NavbarContent>
 
+      {/* mobile view */}
       <NavbarMenu className="gap-1">
         {menuItemsMobile.map((item, index) => (
           <NavbarMenuItem key={index}>
