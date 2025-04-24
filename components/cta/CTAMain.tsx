@@ -7,11 +7,12 @@ export default function CTAMain() {
   return (
     <section className="[padding:100px_0_156px]">
       <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
-        <div className="grid gap-2">
-          <h1 className="text-center text-[28px] font-black leading-[120%] -tracking-wide text-black">
-            Siap Mulai Perjalanan Belajar Bersama Ruang Obat?
+        <div className="grid place-items-center gap-4 text-center">
+          <h1 className="text-3xl font-black -tracking-wide text-black">
+            Siap Mulai Perjalanan Belajar Bersama RuangObat?
           </h1>
-          <p className="mx-auto max-w-[800px] text-center font-medium leading-[170%] text-gray">
+
+          <p className="mx-auto max-w-[700px] font-medium leading-[170%] text-gray">
             Gabung sekarang dan raih kesempatan belajar farmasi dengan materi
             lengkap, mentor berpengalaman, dan akses penuh ke berbagai program
             unggulan. Buka pintu kesuksesan karier farmasi kamu di sini.
@@ -21,7 +22,7 @@ export default function CTAMain() {
         <Button
           color="secondary"
           onClick={() => router.push("/auth/register")}
-          className="w-max justify-self-center px-4 font-bold"
+          className="w-max justify-self-center px-10 font-bold"
         >
           Daftar Sekarang!
         </Button>

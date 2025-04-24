@@ -37,13 +37,13 @@ export const siteConfigHomePage = {
       id: 3,
       title: "Website Nyaman & Responsif",
       icon: RocketLaunch,
-      text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan aja, di mana aja, dan tanpa hambatan.",
+      text: "Akses belajar nyaman dengan website yang responsif. Bisa diakses kapan saja, di mana saja, dan tanpa adanya hambatan.",
     },
   ],
   classes: [
     {
       id: 1,
-      title: "Kelas Pembelajaran Farmasi",
+      title: "Kelas Matkul Farmasi",
       image: "/img/products/product-1.png",
       path: "/kelas-pembelajaran-farmasi",
     },

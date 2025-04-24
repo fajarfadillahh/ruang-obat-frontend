@@ -43,7 +43,7 @@ export default function Layout({
       />
 
       <Head>
-        <title>{`${title} | Ruangobat.id`}</title>
+        <title>{`${title} | RuangObat`}</title>
       </Head>
 
       <NavbarMenu />

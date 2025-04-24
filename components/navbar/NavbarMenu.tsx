@@ -345,9 +345,9 @@ export default function NavbarMain() {
               variant="bordered"
               startContent={<SignIn weight="bold" size={18} />}
               onClick={() => router.push("/auth/login")}
-              className="px-4 font-bold text-black"
+              className="px-7 font-bold text-black"
             >
-              Masuk
+              Login
             </Button>
 
             <Button

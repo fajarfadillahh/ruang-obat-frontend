@@ -55,3 +55,9 @@
     display: initial;
   }
 }
+
+@layer components {
+  .base-container {
+    @apply mx-auto grid max-w-[600px] lg:max-w-[700px] xl:max-w-none;
+  }
+}
