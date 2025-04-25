@@ -7,18 +7,19 @@ export default function Footer() {
     <footer className="grid overflow-hidden bg-purple">
       <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
         <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
-          <div className="flex flex-wrap items-start gap-16 xl:gap-10">
+          <div className="flex flex-wrap items-start gap-16">
             {siteConfigHomePage.footer.menu.map((item, index) => (
-              <div key={index} className="grid gap-3">
-                <h4 className="text-[22px] font-extrabold text-white">
+              <div key={index} className="grid gap-4">
+                <h4 className="text-xl font-extrabold text-white">
                   {item.label}
                 </h4>
+
                 <ul className="flex flex-col gap-2">
                   {item.list.map((subitem, index) => (
                     <Link
                       key={index}
                       href={subitem.href as string}
-                      className="w-max font-medium text-white/80 hover:rounded-md hover:bg-pink-500 hover:text-white hover:underline"
+                      className="w-max font-medium text-white/80 hover:text-white hover:underline"
                     >
                       {subitem.label}
                     </Link>
@@ -32,7 +33,7 @@ export default function Footer() {
 
           <IconContext.Provider
             value={{
-              weight: "bold",
+              weight: "duotone",
               size: 24,
               className: "text-white",
             }}

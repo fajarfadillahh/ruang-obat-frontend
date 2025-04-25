@@ -362,11 +362,11 @@ export const siteConfigAboutUsPage = {
   ],
   data: {
     vision: {
-      title: "Visi",
+      title: "Visi 🎯",
       text: "Membantu menciptakan generasi apoteker professional, inovatif dan berdaya saing global untuk tercapainya Golden Pharmacy 2045",
     },
     mission: {
-      title: "Misi",
+      title: "Misi 🔥",
       list: [
         {
           key: 1,
