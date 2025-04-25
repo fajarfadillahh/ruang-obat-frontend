@@ -48,8 +48,8 @@ const menuItemsMobile = [
     href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
   },
   {
-    label: "Kelas Pembelajaran Farmasi",
-    href: "/kelas-pembelajaran-farmasi",
+    label: "Kelas Matkul Farmasi",
+    href: "/kelas-matkul-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
@@ -59,8 +59,8 @@ const menuItemsMobile = [
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Pembelajaran Farmasi",
-    href: "/kelas-pembelajaran-farmasi",
+    label: "Kelas Matkul Farmasi",
+    href: "/kelas-matkul-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },

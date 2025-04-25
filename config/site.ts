@@ -195,12 +195,8 @@ export const siteConfigHomePage = {
             href: "/dashboard",
           },
           {
-            label: "Video Belajar",
-            href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
-          },
-          {
-            label: "Kelas Pembelajaran Farmasi",
-            href: "/kelas-pembelajaran-farmasi",
+            label: "Kelas Matkul Farmasi",
+            href: "/kelas-matkul-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",
@@ -213,6 +209,10 @@ export const siteConfigHomePage = {
           {
             label: "Kelas Masuk Apoteker",
             href: "/kelas-masuk-apoteker",
+          },
+          {
+            label: "Video Belajar",
+            href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
           },
         ],
       },
