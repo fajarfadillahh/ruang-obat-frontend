@@ -46,16 +46,20 @@ export default function PhamacyPrivteClassPage({
 
   return (
     <>
-      <Layout title="Kelas Privat 1 on 1 Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2">
+      <Layout
+        title="Kelas Privat 1 on 1 Farmasi"
+        description="Sesi pembelajaran privat satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar Anda."
+      >
+        <section className="base-container items-center gap-16 xl:grid-cols-2">
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-              Kelas Private 1 on 1 <br /> Farmasi{" "}
+            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Kelas Private 1 on 1 Farmasi{" "}
               <span className="text-2xl font-extrabold text-purple">
                 by Ruang Obat
               </span>
             </h1>
-            <p className="pb-8 font-medium leading-[170%] text-gray">
+
+            <p className="mb-10 font-medium leading-[170%] text-gray">
               Khusus kalian mahasiswa farmasi dan mahasiswa profesi apoteker
               yang masih bingung terkait materi kuliah, tugas, skill, praktikum,
               OSCE dan lain-lain. Tidak perlu khawatir, karena kami menyediakan
@@ -64,6 +68,7 @@ export default function PhamacyPrivteClassPage({
               lho!!. Materi yang diajarkan dikemas dengan menarik menggunakan
               bahasa yang mudah dipahami.
             </p>
+
             <Button
               color="secondary"
               as={Link}
@@ -84,8 +89,8 @@ export default function PhamacyPrivteClassPage({
           />
         </section>
 
-        <section className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none">
-          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
+        <section className="base-container gap-6 [padding:110px_0_100px]">
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Yang Bisa Kamu Konsultasikan <br /> di Kelas Private Farmasi
           </h2>
 
@@ -104,6 +109,7 @@ export default function PhamacyPrivteClassPage({
                     className="grid h-auto max-w-[220px] gap-6 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:2rem_1rem]"
                   >
                     <item.icon />
+
                     <p className="font-medium leading-[170%] text-gray">
                       {item.text}
                     </p>
@@ -114,14 +120,17 @@ export default function PhamacyPrivteClassPage({
           </IconContext.Provider>
         </section>
 
-        <section id="list-package" className="grid gap-6 py-[100px]">
-          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black">
+        <section
+          id="list-package"
+          className="base-container grid gap-6 py-[100px]"
+        >
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black">
             Daftar Harga Kelas Private Farmasi
           </h2>
 
           {data?.private_classes.length === 0 ? (
             <div className="rounded-xl border-2 border-dashed border-gray/20">
-              <EmptyData text="Paket Kelas PRivate Tidak Ditemukan 😥" />
+              <EmptyData text="Paket Kelas Tidak Ditemukan 😥" />
             </div>
           ) : (
             <div className="grid justify-center gap-4">
@@ -131,25 +140,27 @@ export default function PhamacyPrivteClassPage({
                   className="grid max-w-[600px] gap-6 rounded-xl border-2 border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
                 >
                   <div>
-                    <h3 className="mb-4 text-2xl font-black leading-[120%] text-purple">
+                    <h3 className="mb-1 text-2xl font-black text-purple">
                       {item.title}
                     </h3>
+
                     <p className="font-medium leading-[170%] text-gray">
                       {item.description}
                     </p>
                   </div>
 
-                  <div className="grid gap-4 xs:gap-1 md:mx-10 lg:mx-20">
+                  <div className="grid gap-4 xs:gap-1 md:mx-10">
                     {item.private_sub_classes.map(
                       (subitem: PrivateSubClassType) => (
                         <div
                           key={subitem.subject_part_id}
-                          className="flex items-center gap-2 xl:gap-6"
+                          className="flex items-center gap-2"
                         >
                           <div className="inline-flex flex-wrap items-end xs:gap-1">
-                            <h4 className="inline-flex text-lg font-extrabold text-purple">
+                            <h4 className="text-lg font-extrabold text-purple">
                               {formatRupiah(subitem.price)}
                             </h4>
+
                             <span className="text-sm font-medium text-gray md:text-base">
                               {subitem.description}
                             </span>
@@ -183,12 +194,12 @@ export default function PhamacyPrivteClassPage({
         </section>
 
         {data?.mentors.length ? (
-          <section className="grid gap-4 py-[100px]">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+          <section className="base-container gap-4 py-[100px]">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
               Daftar Mentor 📢
             </h2>
 
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
               {data?.mentors.map((mentor: MentorClassType) => (
                 <div
                   key={mentor.class_mentor_id}
@@ -204,9 +215,10 @@ export default function PhamacyPrivteClassPage({
                   />
 
                   <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
                       {mentor.fullname}
                     </h4>
+
                     <p className="text-sm font-medium capitalize leading-[170%] text-gray">
                       {mentor.mentor_title}
                     </p>

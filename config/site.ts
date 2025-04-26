@@ -45,7 +45,7 @@ export const siteConfigHomePage = {
       id: 1,
       title: "Kelas Matkul Farmasi",
       image: "/img/products/product-1.png",
-      path: "/kelas-pembelajaran-farmasi",
+      path: "/kelas-matkul-farmasi",
     },
     {
       id: 2,
@@ -212,7 +212,7 @@ export const siteConfigHomePage = {
           },
           {
             label: "Video Belajar",
-            href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
+            href: "/kelas-matkul-farmasi/video-matkul-farmasi",
           },
         ],
       },

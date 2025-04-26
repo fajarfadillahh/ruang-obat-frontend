@@ -45,7 +45,7 @@ const menuItemsMobile = [
   { label: "Tentang Kami", href: "/company/about-us" },
   {
     label: "Video Belajar",
-    href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
+    href: "/kelas-matkul-farmasi/video-matkul-farmasi",
   },
   {
     label: "Kelas Matkul Farmasi",
@@ -145,7 +145,7 @@ export default function NavbarMain() {
       <NavbarContent className="hidden gap-5 lg:flex" justify="center">
         <NavbarItem>
           <Link
-            href="/kelas-pembelajaran-farmasi/video-matkul-farmasi"
+            href="/kelas-matkul-farmasi/video-matkul-farmasi"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Video Belajar
