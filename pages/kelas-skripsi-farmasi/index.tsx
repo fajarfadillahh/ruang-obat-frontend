@@ -82,13 +82,17 @@ export default function PharmacyThesisClassPage({
 
   return (
     <>
-      <Layout title="Kelas Skripsi Farmasi">
-        {/* <section className="mx-auto grid max-w-[600px] items-center gap-8 lg:max-w-[700px] xl:max-w-none">
-          <div className="grid max-w-[850px] gap-[10px]">
-            <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-              Kelas Skripsi Farmasi
+      <Layout
+        title="Kelas Skripsi Farmasi"
+        description="Kelas Bimbingan Skripsi super lengkap dan bersifat private one-by-one dengan mentor, sehingga akan membuatmu lebih fokus dalam mengerjakan skripsi."
+      >
+        <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
+          <div>
+            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Kelas Skripsi Farmasi: Solusi Tepat Sampai Sidang
             </h1>
-            <p className="font-medium leading-[170%] text-gray">
+
+            <p className="mb-10 font-medium leading-[170%] text-gray">
               Kelas Bimbingan Skripsi super lengkap, Ruang Obat solusinya😍 !!.
               Tidak hanya sebatas kelas saja, tapi kamu juga akan dibimbing dari
               nol hingga meraih sarjana. Bahkan, kelas skripsi ini sudah
@@ -104,41 +108,6 @@ export default function PharmacyThesisClassPage({
               Kelas Revisian, Kelas Analisa data SPSS, Kelas Kompre dan Kelas
               Simulasi Sidang Hasil.
             </p>
-          </div>
-
-          <Button
-            color="secondary"
-            as={Link}
-            href="#list-class"
-            className="w-max px-16 font-bold"
-          >
-            Pilih Kelas
-          </Button>
-        </section> */}
-
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-0">
-          <div className="grid gap-12">
-            <div className="grid max-w-[850px] gap-[10px]">
-              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-                Kelas Skripsi Farmasi
-              </h1>
-              <p className="font-medium leading-[170%] text-gray">
-                Kelas Bimbingan Skripsi super lengkap, Ruang Obat solusinya😍
-                !!. Tidak hanya sebatas kelas saja, tapi kamu juga akan
-                dibimbing dari nol hingga meraih sarjana. Bahkan, kelas skripsi
-                ini sudah termasuk free konsultasi via Wathsapp dan free video
-                recording yang bisa kamu tonton kembali sepuasnya. Kelas skripsi
-                bersifat private one-by-one dengan mentor, sehingga akan
-                membuatmu lebih fokus dalam mengerjakan skripsi.
-                <br />
-                <br />
-                Paket bootcamp 30 hari akan membantu proses skripsimu lebih
-                cepat selesai. Terdapat berbagai macam jenis kelas, meliputi
-                Kelas Judul dan Pengenalan Penelitian, Kelas Bab 1-3, Kelas
-                Simulasi Sempro, Kelas Revisian, Kelas Analisa data SPSS, Kelas
-                Kompre dan Kelas Simulasi Sidang Hasil.
-              </p>
-            </div>
 
             <Button
               color="secondary"
@@ -156,21 +125,24 @@ export default function PharmacyThesisClassPage({
             alt="class subject img"
             width={493}
             height={619}
-            className="h-[640px] w-full justify-self-center"
+            className="h-[600px] w-full justify-self-center"
           />
         </section>
 
-        <section id="list-class" className="grid gap-4 [padding:110px_0_100px]">
-          <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+        <section
+          id="list-class"
+          className="base-container gap-4 [padding:110px_0_100px]"
+        >
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Kelas Skripsi 🔥
           </h2>
 
           {data?.theses.length === 0 ? (
-            <div className="rounded-xl border-2 border-dashed border-gray/20">
+            <div className="rounded-xl border-2 border-dashed border-gray/20 p-6">
               <EmptyData text="Kelas Skripsi Farmasi Tidak Ditemukan 😥" />
             </div>
           ) : (
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
               {data?.theses.map((item: ThesisClassType) => (
                 <div
                   key={item.thesis_id}
@@ -276,17 +248,17 @@ export default function PharmacyThesisClassPage({
                   )}
 
                   <div className="grid gap-8">
-                    <div className="grid gap-[10px]">
-                      <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                    <div className="grid gap-2">
+                      <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                         {item.title}
                       </h1>
 
-                      <h2 className="font-bold text-purple">
+                      <p className="font-bold text-purple">
                         {formatRupiah(item.price)},-
-                      </h2>
+                      </p>
                     </div>
 
-                    <div className="grid gap-[10px]">
+                    <div className="grid gap-2">
                       <Button
                         variant="bordered"
                         onPress={() => handleOpenModal(item, "detail")}
@@ -353,12 +325,12 @@ export default function PharmacyThesisClassPage({
         </section>
 
         {data?.mentors.length ? (
-          <section className="grid gap-4 py-[100px]">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+          <section className="base-container gap-4 py-[100px]">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
               Daftar Mentor 📢
             </h2>
 
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
               {data?.mentors.map((mentor: MentorClassType) => (
                 <div
                   key={mentor.class_mentor_id}
@@ -374,9 +346,10 @@ export default function PharmacyThesisClassPage({
                   />
 
                   <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
                       {mentor.fullname}
                     </h4>
+
                     <p className="text-sm font-medium capitalize leading-[170%] text-gray">
                       {mentor.mentor_title}
                     </p>
