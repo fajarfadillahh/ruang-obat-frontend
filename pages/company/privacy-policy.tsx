@@ -1,34 +1,31 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/FooterSimple";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function PrivacyPage() {
+  const router = useRouter();
+  const currentUrl = `https://ruangobat.id${router.asPath}`;
+
   return (
     <>
+      <NextSeo
+        title="Kebijakan Privasi | RuangObat"
+        description="Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang Anda berikan saat menggunakan layanan kami."
+        canonical={currentUrl}
+        openGraph={{
+          url: currentUrl,
+          title: "Kebijakan Privasi | RuangObat",
+          description:
+            "Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang Anda berikan saat menggunakan layanan kami.",
+          site_name: "RuangObat",
+        }}
+      />
+
       <Head>
-        <title>Kebijakan Privasi | Ruangobat.id</title>
-        <meta
-          name="description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          name="description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
-        <meta
-          name="keywords"
-          content="ruangobat, ruangobat.id, ruangobat id, ruang obat id, ruangobat ujian, ruangobat ujian online, ruangobat farmasi, ruangobat tryout, ruangobat tes, ujian online ruangobat, platform ujian mahasiswa farmasi, belajar farmasi online, tryout farmasi online, tes farmasi online, latihan soal farmasi, simulasi ujian farmasi, platform belajar farmasi, ujian online farmasi terpercaya kelas apoteker, kelas masuk apoteker, program apoteker, praktikum apoteker, ujian tryout apoteker, ujian praktikum apoteker, ujian praktikum farmasi, ujian praktikum jurusan farmasi, tryout juruan apoteker, ujian juruan apoteker, kelas masuk apoteker, kelas apoteker, kelas farmasi, kelas jurusan apoteker, kelas jurusan farmasi, kelas skripsi dan riset apoteker, kelas skripsi dan riset farmasi, ujian UKMPPAI, tryout UKMPPAI, skripsi apoteker, skripsi farmasi, ujian online apoteker, kelas online apoteker, kelas online farmasi"
-        />
-        <meta property="og:title" content="Kebijakan Privasi | Ruangobat.id" />
-        <meta
-          property="og:description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          property="og:description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
+        <title>Kebijakan Privasi | RuangObat</title>
       </Head>
 
       <main className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
@@ -51,7 +48,7 @@ export default function PrivacyPage() {
                 diuraikan dalam Kebijakan Privasi ini.
               </p>
 
-              <ul className="grid list-inside list-decimal gap-4 font-medium leading-[180%] text-gray">
+              <ul className="grid list-outside list-decimal gap-4 pl-4 font-medium leading-[180%] text-gray">
                 <li>
                   <strong className="font-bold text-black">
                     Informasi yang Kami Kumpulkan
@@ -59,7 +56,7 @@ export default function PrivacyPage() {
                   Kami mengumpulkan berbagai jenis informasi untuk memberikan
                   dan meningkatkan layanan kami. Informasi yang kami kumpulkan
                   termasuk:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>
                       <strong className="font-bold text-black">
                         Informasi Pribadi:
@@ -91,7 +88,7 @@ export default function PrivacyPage() {
                   </strong>{" "}
                   Kami menggunakan informasi yang kami kumpulkan untuk berbagai
                   keperluan, termasuk:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>
                       Menyediakan, memelihara, dan meningkatkan layanan
                       Ruangobat.id.
@@ -119,7 +116,7 @@ export default function PrivacyPage() {
                   Kami tidak akan menjual, menukar, atau membagikan informasi
                   pribadi Anda kepada pihak ketiga tanpa persetujuan Anda,
                   kecuali dalam situasi berikut:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>
                       <strong className="font-bold text-black">
                         Penyedia Layanan:
@@ -190,7 +187,7 @@ export default function PrivacyPage() {
                   <strong className="font-bold text-black">Kontak</strong> Jika
                   Anda memiliki pertanyaan mengenai Kebijakan Privasi ini,
                   silakan hubungi kami di:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>
                       <strong className="font-bold text-black">Website:</strong>{" "}
                       <Link
