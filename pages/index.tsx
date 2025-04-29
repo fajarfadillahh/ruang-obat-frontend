@@ -1,7 +1,7 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigHomePage } from "@/config/site";
+import { siteConfigHomePage, siteTestimonials } from "@/config/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
@@ -287,6 +287,59 @@ export default function HomePage({
                       </p>
                     </div>
                   </Link>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+            Kata Mereka Tentang RuangObat
+          </h1>
+
+          <div className="testimonial-container overflow-hidden">
+            <Swiper
+              loop={true}
+              slidesPerView={"auto"}
+              spaceBetween={32}
+              centeredSlides={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              {siteTestimonials.slice(0, 8).map((testimonial, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[368px]"
+                >
+                  <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
+                    <div className="flex items-center gap-4 pb-4">
+                      <Image
+                        src="/img/avatar-male.svg"
+                        alt="avatar"
+                        width={100}
+                        height={100}
+                        className="aspect-square size-12 rounded-full bg-purple/20"
+                      />
+
+                      <div className="grid">
+                        <h5 className="font-bold text-black">
+                          {testimonial.name}
+                        </h5>
+
+                        <p className="text-xs leading-[170%] text-gray">
+                          {testimonial.university}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="pt-4 font-medium leading-[170%] text-gray">
+                      {testimonial.comment}
+                    </p>
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>

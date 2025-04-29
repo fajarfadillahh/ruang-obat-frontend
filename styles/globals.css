@@ -25,6 +25,7 @@
   @apply list-outside;
 }
 
+.testimonial-container .swiper-pagination,
 .mentor-container .swiper-pagination {
   @apply static mx-auto pt-4 transition-all xs:pt-8;
 }
