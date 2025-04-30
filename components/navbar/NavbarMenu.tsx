@@ -45,11 +45,11 @@ const menuItemsMobile = [
   { label: "Tentang Kami", href: "/company/about-us" },
   {
     label: "Video Belajar",
-    href: "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
+    href: "/kelas-matkul-farmasi/video-matkul-farmasi",
   },
   {
-    label: "Kelas Pembelajaran Farmasi",
-    href: "/kelas-pembelajaran-farmasi",
+    label: "Kelas Matkul Farmasi",
+    href: "/kelas-matkul-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
@@ -59,8 +59,8 @@ const menuItemsMobile = [
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Pembelajaran Farmasi",
-    href: "/kelas-pembelajaran-farmasi",
+    label: "Kelas Matkul Farmasi",
+    href: "/kelas-matkul-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
@@ -145,7 +145,7 @@ export default function NavbarMain() {
       <NavbarContent className="hidden gap-5 lg:flex" justify="center">
         <NavbarItem>
           <Link
-            href="/kelas-pembelajaran-farmasi/video-matkul-farmasi"
+            href="/kelas-matkul-farmasi/video-matkul-farmasi"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Video Belajar
@@ -345,9 +345,9 @@ export default function NavbarMain() {
               variant="bordered"
               startContent={<SignIn weight="bold" size={18} />}
               onClick={() => router.push("/auth/login")}
-              className="px-4 font-bold text-black"
+              className="px-7 font-bold text-black"
             >
-              Masuk
+              Login
             </Button>
 
             <Button

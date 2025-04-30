@@ -1,34 +1,31 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/FooterSimple";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function TermsPage() {
+  const router = useRouter();
+  const currentUrl = `https://ruangobat.id${router.asPath}`;
+
   return (
     <>
+      <NextSeo
+        title="Ketentuan Layanan | RuangObat"
+        description="Dengan menggunakan layanan kami, Anda menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami."
+        canonical={currentUrl}
+        openGraph={{
+          url: currentUrl,
+          title: "Ketentuan Layanan | RuangObat",
+          description:
+            "Dengan menggunakan layanan kami, Anda menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami.",
+          site_name: "RuangObat",
+        }}
+      />
+
       <Head>
         <title>Ketentuan Layanan | Ruangobat.id</title>
-        <meta
-          name="description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          name="description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
-        <meta
-          name="keywords"
-          content="ruangobat, ruangobat.id, ruangobat id, ruang obat id, ruangobat ujian, ruangobat ujian online, ruangobat farmasi, ruangobat tryout, ruangobat tes, ujian online ruangobat, platform ujian mahasiswa farmasi, belajar farmasi online, tryout farmasi online, tes farmasi online, latihan soal farmasi, simulasi ujian farmasi, platform belajar farmasi, ujian online farmasi terpercaya kelas apoteker, kelas masuk apoteker, program apoteker, praktikum apoteker, ujian tryout apoteker, ujian praktikum apoteker, ujian praktikum farmasi, ujian praktikum jurusan farmasi, tryout juruan apoteker, ujian juruan apoteker, kelas masuk apoteker, kelas apoteker, kelas farmasi, kelas jurusan apoteker, kelas jurusan farmasi, kelas skripsi dan riset apoteker, kelas skripsi dan riset farmasi, ujian UKMPPAI, tryout UKMPPAI, skripsi apoteker, skripsi farmasi, ujian online apoteker, kelas online apoteker, kelas online farmasi"
-        />
-        <meta property="og:title" content="Ketentuan Layanan | Ruangobat.id" />
-        <meta
-          property="og:description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          property="og:description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
       </Head>
 
       <main className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
@@ -49,7 +46,7 @@ export default function TermsPage() {
                 menggunakan layanan kami.
               </p>
 
-              <ul className="grid list-inside list-decimal gap-4 font-medium leading-[180%] text-gray">
+              <ul className="grid list-outside list-decimal gap-4 pl-4 font-medium leading-[180%] text-gray">
                 <li>
                   <strong className="font-bold text-black">
                     Penerimaan Ketentuan
@@ -87,7 +84,7 @@ export default function TermsPage() {
                   Anda setuju untuk tidak menggunakan layanan kami untuk tujuan
                   yang melanggar hukum, tidak sah, atau merugikan pihak lain.
                   Anda juga dilarang untuk:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>Mengakses sistem kami secara ilegal.</li>
                     <li>Menyebarkan virus atau kode berbahaya lainnya.</li>
                     <li>
@@ -151,7 +148,7 @@ export default function TermsPage() {
                   <strong className="font-bold text-black">Kontak</strong> Jika
                   Anda memiliki pertanyaan mengenai Ketentuan Layanan ini,
                   silakan hubungi kami di:
-                  <ul className="list-inside list-disc pl-4">
+                  <ul className="list-outside list-disc pl-4">
                     <li>
                       <strong className="font-bold text-black">Website:</strong>{" "}
                       <Link

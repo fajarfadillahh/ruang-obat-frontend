@@ -1,7 +1,7 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigHomePage } from "@/config/site";
+import { siteConfigHomePage, siteTestimonials } from "@/config/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
@@ -49,31 +49,35 @@ export default function HomePage({
     <>
       <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
         <section className="grid gap-16">
-          <div className="mx-auto grid max-w-[600px] items-center gap-10 lg:max-w-[700px] xl:max-w-none xl:grid-cols-[500px_1fr]">
+          <div className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
             <Image
               priority
               src="/img/base/main-img-1.svg"
               alt="home img"
               width={415}
               height={567}
-              className="h-auto w-full justify-self-center"
+              className="order-2 h-auto w-full justify-self-center xl:-order-1"
             />
 
             <div className="grid gap-10">
-              <div className="grid max-w-[600px] gap-4 justify-self-end">
+              <div className="grid gap-4 justify-self-end">
                 <p className="font-medium text-gray">
-                  👋 Selamat datang di Ruang Obat
+                  👋 Selamat datang di RuangObat
                 </p>
-                <h1 className="text-[36px] font-black capitalize leading-[110%] -tracking-wide text-black xs:text-[42px] xl:text-[56px]">
-                  Bimbel Farmasi No.1 di Indonesia |{" "}
-                  <span className="bg-purple px-2 py-0 text-white">
-                    Fasilitasi 10.000+
-                  </span>{" "}
+
+                <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+                  Bimbel Farmasi No.1 di Indonesia Yang{" "}
+                  <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
+                    <span className="relative text-white">
+                      Fasilitasi 10.000+
+                    </span>
+                  </span>
                   Mahasiswa Farmasi Seluruh Indonesia
                 </h1>
+
                 <p className="font-medium leading-[170%] text-gray">
                   Dapatkan{" "}
-                  <strong className="font-extrabold text-purple">
+                  <strong className="font-bold text-purple">
                     Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
                     Masuk Apoteker, OSCE dan UKMPPAI Sumatif
                   </strong>{" "}
@@ -102,12 +106,12 @@ export default function HomePage({
             </div>
           </div>
 
-          <div id="list-class" className="grid gap-4">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
-              Daftar Kelas di Ruang Obat 🔥
+          <div id="list-class" className="base-container gap-5">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+              Daftar Kelas di RuangObat
             </h2>
 
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
               {siteConfigHomePage.classes.map((item, index) => (
                 <div
                   key={index}
@@ -123,7 +127,7 @@ export default function HomePage({
                   />
 
                   <div className="grid gap-4">
-                    <h1 className="max-w-[250px] text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                    <h1 className="max-w-[250px] text-xl font-black text-black group-hover:text-purple">
                       {item.title}
                     </h1>
 
@@ -142,25 +146,37 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className="relative mx-auto grid max-w-[600px] items-center gap-10 [padding:200px_0_100px] lg:max-w-[700px] xl:max-w-none xl:grid-cols-[1fr_500px] xl:gap-4">
+        <section className="base-container items-center gap-6 [padding:200px_0_100px] xl:grid-cols-[1fr_500px]">
           <div className="grid gap-4">
-            <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black md:text-[56px] md:leading-[100%]">
-              Ruang Belajar Farmasi Super Lengkap dan Fleksibel{" "}
-              <div className="inline-flex h-3 w-full max-w-[250px] rounded-3xl border-b-[10px] border-purple" />
+            <h1 className="mb-2 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Ruang Belajar Farmasi Super Lengkap, Bebas Akses Kapan Saja
+              <span className="text-purple">.</span>
             </h1>
+
             <p className="font-medium leading-[170%] text-gray">
-              Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang
+              RuangObat merupakan platform Bimbel Private Farmasi No. 1 yang
               telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
               Indonesia. Terdapat berbagai kelas menarik untSumatifa jenjang
               pendidikan, antara lain: Video Pembelajaran Farmasi, Persiapan
-              Skripsi & Riset, Masuk Apoteker, OSCE dan UKMPPAI Sumatif
-            </p>
-            <p className="font-medium leading-[170%] text-gray">
+              Skripsi & Riset, Masuk Apoteker, OSCE dan UKMPPAI Sumatif.
+              <div />
               Di website ini kalian dapat mengakses berbagai program. Mari raih
-              gelar sarjana dan apotekermu bersama Ruang Obat.
-              <br />
-              #bimbelfarmasi #cukupdisiniaja
+              gelar sarjana dan apotekermu bersama RuangObat.
             </p>
+
+            <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+              <Button
+                color="secondary"
+                onClick={() => router.push("/company/about-us")}
+                className="w-full px-10 font-bold sm:w-max"
+              >
+                Baca Selengkapnya
+              </Button>
+
+              <span className="font-bold text-purple">
+                #bimbelfarmasi #cukupdisiniaja
+              </span>
+            </div>
           </div>
 
           <Image
@@ -169,16 +185,16 @@ export default function HomePage({
             alt="home img"
             width={396}
             height={512}
-            className="h-auto w-full justify-self-center xl:justify-self-end"
+            className="h-auto w-full justify-self-center"
           />
         </section>
 
-        <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-none">
-          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
-            Kenapa Harus Pilih Ruang Obat?
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+            Kenapa Harus Pilih RuangObat?
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 lg:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 xl:gap-12">
             {siteConfigHomePage.reasons.map((item, index) => {
               const { cardWrapper, cardIcon, cardTitle, cardText } =
                 getCardStyles(item, "reasons");
@@ -188,7 +204,7 @@ export default function HomePage({
                   key={index}
                   value={{
                     weight: "bold",
-                    size: 58,
+                    size: 64,
                     className: cardIcon,
                   }}
                 >
@@ -199,10 +215,11 @@ export default function HomePage({
 
                     <div className="grid gap-2">
                       <h4
-                        className={`max-w-[220px] text-[24px] font-black leading-[120%] ${cardTitle}`}
+                        className={`max-w-[220px] text-2xl font-black ${cardTitle}`}
                       >
                         {item.title}
                       </h4>
+
                       <p className={`font-medium leading-[170%] ${cardText}`}>
                         {item.text}
                       </p>
@@ -214,15 +231,16 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className="grid gap-4 py-[100px]">
-          <div className="grid gap-2">
-            <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
-              Ayo, Kenalan Dengan Mentor Ruang Obat
+        <section className="grid gap-8 py-[100px]">
+          <div className="base-container place-items-center gap-2 text-center">
+            <h1 className="text-4xl font-black -tracking-wide text-black">
+              Ayo, Kenalan Dengan Mentor RuangObat
             </h1>
-            <p className="mx-auto max-w-[700px] text-center font-medium leading-[170%] text-gray">
-              Ruang Obat memiliki mentor yang sangat berpengalaman dan siap
-              bantu kamu mencapai target belajar. Dari praktisi, peneliti,
-              sampai apoteker senior, semuanya ada di sini.
+
+            <p className="max-w-[700px] font-medium leading-[170%] text-gray">
+              RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
+              kamu mencapai target belajar. Dari praktisi, peneliti, sampai
+              apoteker senior, semuanya ada di sini.
             </p>
           </div>
 
@@ -230,7 +248,7 @@ export default function HomePage({
             <Swiper
               loop={true}
               slidesPerView={"auto"}
-              spaceBetween={24}
+              spaceBetween={32}
               centeredSlides={true}
               autoplay={{
                 delay: 5000,
@@ -244,7 +262,7 @@ export default function HomePage({
               {data?.mentors.map((mentor: MentorType) => (
                 <SwiperSlide
                   key={mentor.mentor_id}
-                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[360px]"
+                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[368px]"
                 >
                   <Link
                     href={`/mentor/${mentor.mentor_id}`}
@@ -260,10 +278,11 @@ export default function HomePage({
                     />
 
                     <div className="mt-8 grid flex-1 gap-1">
-                      <h4 className="line-clamp-1 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                      <h4 className="line-clamp-1 text-xl font-black text-black group-hover:text-purple">
                         {mentor.fullname}
                       </h4>
-                      <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+
+                      <p className="line-clamp-1 text-sm font-medium capitalize leading-[170%] text-gray">
                         {mentor.mentor_title}
                       </p>
                     </div>
@@ -274,8 +293,61 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className="mx-auto grid max-w-[600px] gap-8 py-[100px] lg:max-w-[700px] xl:max-w-full">
-          <h1 className="text-center text-[32px] font-black leading-[120%] -tracking-wide text-black">
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+            Kata Mereka Tentang RuangObat
+          </h1>
+
+          <div className="testimonial-container overflow-hidden">
+            <Swiper
+              loop={true}
+              slidesPerView={"auto"}
+              spaceBetween={32}
+              centeredSlides={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              {siteTestimonials.slice(0, 8).map((testimonial, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[368px]"
+                >
+                  <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
+                    <div className="flex items-center gap-4 pb-4">
+                      <Image
+                        src="/img/avatar-male.svg"
+                        alt="avatar"
+                        width={100}
+                        height={100}
+                        className="aspect-square size-12 rounded-full bg-purple/20"
+                      />
+
+                      <div className="grid">
+                        <h5 className="font-bold text-black">
+                          {testimonial.name}
+                        </h5>
+
+                        <p className="text-xs leading-[170%] text-gray">
+                          {testimonial.university}
+                        </p>
+                      </div>
+                    </div>
+
+                    <p className="pt-4 font-medium leading-[170%] text-gray">
+                      {testimonial.comment}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
           </h1>
 
@@ -329,9 +401,9 @@ export default function HomePage({
                 <AccordionItem
                   key={index}
                   title={item.title}
-                  startContent={<item.icon />}
+                  // startContent={<item.icon />}
                   classNames={{
-                    title: "text-[18px] text-black font-bold xs:text-[20px]",
+                    title: "text-lg text-black font-bold xs:text-xl",
                     indicator: "text-black",
                     content: "text-gray leading-[170%] font-medium pb-8",
                   }}

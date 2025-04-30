@@ -93,28 +93,29 @@ export default function DetailPharmacyEntranceClassPage({
       <Layout title={`Detail ${data?.name}`}>
         <ButtonBack />
 
-        <section className="divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
-          <div className="flex flex-wrap items-center gap-8 pb-16">
+        <section className="base-container divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
+          <div className="grid gap-8 pb-20 lg:grid-cols-[max-content_1fr] lg:items-center">
             <Image
               src={data?.img_url as string}
-              alt="img img"
-              width={500}
-              height={500}
-              className="size-[200px] rounded-xl object-cover object-center"
+              alt="logo university"
+              width={1000}
+              height={1000}
+              className="w-full max-w-[300px] rounded-xl object-cover object-center"
             />
 
-            <div className="grid max-w-[700px] gap-2">
-              <h1 className="text-[36px] font-black capitalize leading-[110%] -tracking-wide text-black lg:text-[42px]">
+            <div className="grid max-w-[900px] gap-4">
+              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
                 {data?.name}
               </h1>
+
               <p className="font-medium leading-[170%] text-gray">
                 {data?.description}
               </p>
             </div>
           </div>
 
-          <div className="mx-auto grid max-w-[600px] gap-4 pt-16 lg:max-w-[700px] xl:max-w-none">
-            <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
+          <div className="grid gap-4 pt-16">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
               Daftar Video 🔥
             </h2>
 
@@ -123,11 +124,12 @@ export default function DetailPharmacyEntranceClassPage({
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               onClear={() => setSearch("")}
+              className="mb-4 max-w-[550px]"
             />
 
             {filteredData.length === 0 ? (
-              <div className="rounded-xl border-2 border-dashed border-gray/20">
-                <EmptyData text="Video Pembelajaran Tidak Ditemukan 😥" />
+              <div className="rounded-xl border-2 border-dashed border-gray/20 p-6">
+                <EmptyData text="Video Tidak Ditemukan 😥" />
               </div>
             ) : (
               <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
@@ -237,17 +239,17 @@ export default function DetailPharmacyEntranceClassPage({
                       )}
 
                       <div className="grid gap-8">
-                        <div className="grid gap-[10px]">
-                          <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                        <div className="grid gap-2">
+                          <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                             {item.title}
                           </h1>
 
-                          <h2 className="font-bold text-purple">
+                          <p className="font-bold text-purple">
                             {formatRupiah(item.price)},-
-                          </h2>
+                          </p>
                         </div>
 
-                        <div className="grid gap-[10px]">
+                        <div className="grid gap-2">
                           <Button
                             variant="bordered"
                             onPress={() => handleOpenModal(item, "detail")}
@@ -317,39 +319,13 @@ export default function DetailPharmacyEntranceClassPage({
           </div>
         </section>
 
-        <section className="[padding:100px_0_156px]">
-          <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
-            <div className="flex-1 lg:max-w-[500px]">
-              <h2 className="pb-2 text-2xl font-black capitalize leading-[120%] -tracking-wide text-black">
-                Masih Kesulitan??? Kurang Paham??
-              </h2>
-              <p className="font-medium leading-[170%] text-gray">
-                Kamu bisa booking Kelas Private One-by-One dengan mentor
-                pilihanmu sekarang!!!
-              </p>
-            </div>
-
-            <Button
-              color="secondary"
-              onClick={() =>
-                router.push(
-                  "/kelas-pembelajaran-matkul-farmasi/kelas-privat-farmasi",
-                )
-              }
-              className="px-4 font-bold"
-            >
-              Booking Kelas Private
-            </Button>
-          </div>
-        </section>
-
         {data?.mentors.length ? (
-          <section className="grid gap-4 py-[100px]">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
-              Daftar Mentor
+          <section className="base-container gap-4 py-[100px]">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+              Daftar Mentor 📢
             </h2>
 
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
               {data?.mentors.map((mentor: MentorClassType) => (
                 <div
                   key={mentor.class_mentor_id}
@@ -365,9 +341,10 @@ export default function DetailPharmacyEntranceClassPage({
                   />
 
                   <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
                       {mentor.fullname}
                     </h4>
+
                     <p className="text-sm font-medium capitalize leading-[170%] text-gray">
                       {mentor.mentor_title}
                     </p>
@@ -377,6 +354,31 @@ export default function DetailPharmacyEntranceClassPage({
             </div>
           </section>
         ) : null}
+
+        <section className="[padding:100px_0_156px]">
+          <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
+            <div className="flex-1 lg:max-w-[500px]">
+              <h2 className="pb-2 text-3xl font-black capitalize -tracking-wide text-black">
+                Masih Kesulitan??? Kurang Paham??
+              </h2>
+
+              <p className="font-medium leading-[170%] text-gray">
+                Kamu bisa booking Kelas Private 1 on 1 Farmasi dengan mentor
+                pilihanmu sekarang!!!
+              </p>
+            </div>
+
+            <Button
+              color="secondary"
+              onClick={() =>
+                router.push("/kelas-matkul-farmasi/kelas-privat-farmasi")
+              }
+              className="px-4 font-bold"
+            >
+              Booking Kelas Private
+            </Button>
+          </div>
+        </section>
       </Layout>
 
       <Footer />

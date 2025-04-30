@@ -96,22 +96,27 @@ export default function ExamPreparationVideoClassPage({
 
   return (
     <>
-      <Layout title="Video Pembelajaran Mata Kuliah Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-2">
+      <Layout
+        title="Video Pembelajaran Mata Kuliah Farmasi"
+        description="Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja dengan video pembelajaran mata kuliah farmasi yang lengkap dan mudah dipahami."
+      >
+        <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black xl:text-[56px]">
+            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Video Pembelajaran Mata Kuliah Farmasi
             </h1>
-            <p className="pb-8 font-medium leading-[170%] text-gray">
+
+            <p className="mb-10 font-medium leading-[170%] text-gray">
               Dikelas ini kami menyediakan video pembelajaran mata kuliah
               farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk
               membantu kamu belajar kapan saja dan di mana saja.
             </p>
+
             <Button
               color="secondary"
               as={Link}
               href="#list-video"
-              className="font-bold"
+              className="px-8 font-bold"
             >
               Pilih Video Pembelajaran
             </Button>
@@ -129,22 +134,23 @@ export default function ExamPreparationVideoClassPage({
 
         <section
           id="list-video"
-          className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
+          className="base-container gap-4 [padding:110px_0_100px]"
         >
-          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Video 🔥
           </h2>
 
           <SearchInput
-            placeholder="Cari Video Pembelajaran..."
+            placeholder="Cari Video..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onClear={() => setSearch("")}
+            className="mb-4 max-w-[550px]"
           />
 
           {filteredData.length === 0 ? (
             <div className="rounded-xl border-2 border-dashed border-gray/20">
-              <EmptyData text="Video Pembelajaran Tidak Ditemukan 😥" />
+              <EmptyData text="Video Tidak Ditemukan 😥" />
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
@@ -253,17 +259,17 @@ export default function ExamPreparationVideoClassPage({
                   )}
 
                   <div className="grid gap-8">
-                    <div className="grid gap-[10px]">
-                      <h1 className="line-clamp-2 text-lg font-black leading-[120%] text-black group-hover:text-purple">
+                    <div className="grid gap-2">
+                      <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                         {item.title}
                       </h1>
 
-                      <h2 className="font-bold text-purple">
+                      <p className="font-bold text-purple">
                         {formatRupiah(item.price)},-
-                      </h2>
+                      </p>
                     </div>
 
-                    <div className="grid gap-[10px]">
+                    <div className="grid gap-2">
                       <Button
                         variant="bordered"
                         onPress={() => handleOpenModal(item, "detail")}
@@ -332,12 +338,12 @@ export default function ExamPreparationVideoClassPage({
         </section>
 
         {data?.mentors.length ? (
-          <section className="grid gap-4 py-[100px]">
-            <h2 className="max-w-[350px] text-center text-[28px] font-black leading-[120%] -tracking-wide text-black xs:max-w-none xl:text-left">
+          <section className="base-container gap-4 py-[100px]">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
               Daftar Mentor 📢
             </h2>
 
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
               {data?.mentors.map((mentor: MentorClassType) => (
                 <div
                   key={mentor.class_mentor_id}
@@ -353,9 +359,10 @@ export default function ExamPreparationVideoClassPage({
                   />
 
                   <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-[20px] font-black leading-[120%] text-black group-hover:text-purple">
+                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
                       {mentor.fullname}
                     </h4>
+
                     <p className="text-sm font-medium capitalize leading-[170%] text-gray">
                       {mentor.mentor_title}
                     </p>
@@ -418,9 +425,10 @@ export default function ExamPreparationVideoClassPage({
         <section className="[padding:100px_0_156px]">
           <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
             <div className="flex-1 lg:max-w-[500px]">
-              <h2 className="pb-2 text-2xl font-black capitalize leading-[120%] -tracking-wide text-black">
+              <h2 className="pb-2 text-3xl font-black capitalize -tracking-wide text-black">
                 Masih Kesulitan??? Kurang Paham??
               </h2>
+
               <p className="font-medium leading-[170%] text-gray">
                 Kamu bisa booking Kelas Private 1 on 1 Farmasi dengan mentor
                 pilihanmu sekarang!!!
@@ -430,9 +438,7 @@ export default function ExamPreparationVideoClassPage({
             <Button
               color="secondary"
               onClick={() =>
-                router.push(
-                  "/kelas-video-pembelajaran-farmasi/kelas-privat-farmasi",
-                )
+                router.push("/kelas-matkul-farmasi/kelas-privat-farmasi")
               }
               className="px-4 font-bold"
             >

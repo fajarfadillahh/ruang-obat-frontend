@@ -149,10 +149,10 @@ export default function RegisterPage() {
     }
   }
 
-  async function handleRegister(token: string) {
+  async function handleRegister(token?: string) {
     try {
       await fetcher({
-        url: "/auth/register/users",
+        url: "/auth/register/users/temporary",
         method: "POST",
         data: {
           ...input,
@@ -217,6 +217,10 @@ export default function RegisterPage() {
   }
 
   useEffect(() => {
+    setClient(true);
+  }, []);
+
+  useEffect(() => {
     if (time) {
       const interval = setInterval(() => {
         setTime(time - 1);
@@ -227,10 +231,6 @@ export default function RegisterPage() {
       };
     }
   }, [time]);
-
-  useEffect(() => {
-    setClient(true);
-  }, []);
 
   if (!client) {
     return;
@@ -470,9 +470,13 @@ export default function RegisterPage() {
                 isDisabled={!isFormEmpty()}
                 color="secondary"
                 onClick={() => {
-                  handleCodeVerification();
-                  setTime(60);
-                  onCodeVerificationOpen();
+                  if (process.env.NEXT_PUBLIC_SEND_OTP == "true") {
+                    handleCodeVerification();
+                    setTime(60);
+                    onCodeVerificationOpen();
+                  } else {
+                    handleRegister();
+                  }
                 }}
                 className="font-bold"
               >

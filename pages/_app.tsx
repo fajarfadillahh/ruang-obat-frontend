@@ -1,11 +1,13 @@
 import SessionChecker from "@/components/SessionChecker";
 import { fontMono, fontSans } from "@/config/fonts";
+import seoConfig from "@/config/seo.config";
 import AppProvider from "@/context/AppProvider";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/react";
 import { SessionProvider } from "next-auth/react";
+import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
 import { Toaster } from "react-hot-toast";
@@ -36,6 +38,7 @@ export default function App({
           }}
         >
           <AppProvider>
+            <DefaultSeo {...seoConfig} />
             <Component {...pageProps} />
           </AppProvider>
         </SWRConfig>

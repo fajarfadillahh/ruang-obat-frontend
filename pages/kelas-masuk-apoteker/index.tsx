@@ -31,20 +31,22 @@ export default function PharmacyEntranceClassPage({
 
   return (
     <>
-      <Layout title="Kelas Masuk Apoteker">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-0">
-          <div className="grid gap-12">
-            <div className="grid max-w-[850px] gap-[12px]">
-              <h1 className="text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black">
-                Kelas Masuk Apoteker
-              </h1>
-              <p className="font-medium leading-[170%] text-gray">
-                Bersiaplah menghadapi seleksi masuk program profesi apoteker.
-                Kami menyediakan program khusus yang disesuaikan dengan kampus
-                pilihan kamu, dan kelas ini pula dirancang untuk membantu kamu
-                memahami materi seleksi secara mendalam dan terarah.
-              </p>
-            </div>
+      <Layout
+        title="Kelas Masuk Apoteker"
+        description="Kelas ini dirancang khusus untuk mempersiapkan Anda menghadapi seleksi masuk Program Profesi Apoteker, dengan materi komprehensif dan pembimbing berpengalaman."
+      >
+        <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
+          <div>
+            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Kelas Siap Masuk Apoteker: Upgrade Skill, Raih Mimpi
+            </h1>
+
+            <p className="mb-10 font-medium leading-[170%] text-gray">
+              Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami
+              menyediakan program khusus yang disesuaikan dengan kampus pilihan
+              kamu, dan kelas ini pula dirancang untuk membantu kamu memahami
+              materi seleksi secara mendalam dan terarah.
+            </p>
 
             <Button
               color="secondary"
@@ -62,15 +64,15 @@ export default function PharmacyEntranceClassPage({
             alt="class subject img"
             width={493}
             height={619}
-            className="h-[640px] w-full justify-self-center"
+            className="h-[600px] w-full justify-self-center"
           />
         </section>
 
         <section
           id="list-class"
-          className="mx-auto grid max-w-[600px] gap-4 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
+          className="base-container gap-4 [padding:110px_0_100px]"
         >
-          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Kelas per Universitas
           </h2>
 
@@ -79,11 +81,12 @@ export default function PharmacyEntranceClassPage({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onClear={() => setSearch("")}
+            className="mb-4 max-w-[550px]"
           />
 
           {filteredData.length === 0 ? (
-            <div className="rounded-xl border-2 border-dashed border-gray/20">
-              <EmptyData text="Kelas Masuk Apoteker Tidak Ditemukan 😥" />
+            <div className="rounded-xl border-2 border-dashed border-gray/20 p-6">
+              <EmptyData text="Kelas Tidak Ditemukan 😥" />
             </div>
           ) : (
             <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
@@ -114,8 +117,8 @@ export default function PharmacyEntranceClassPage({
                     />
                   </div>
 
-                  <div className="grid gap-8">
-                    <h1 className="line-clamp-2 text-lg font-black capitalize leading-[120%] text-black group-hover:text-purple">
+                  <div className="grid gap-4">
+                    <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                       {item.name}
                     </h1>
 

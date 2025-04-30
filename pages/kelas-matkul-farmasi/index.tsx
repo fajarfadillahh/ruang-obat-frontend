@@ -12,27 +12,32 @@ export default function SubjectVideoClassPage() {
 
   return (
     <>
-      <Layout title="Kelas Pembelajaran Mata Kuliah Farmasi">
-        <section className="mx-auto grid max-w-[600px] items-center gap-16 lg:max-w-[700px] xl:max-w-none xl:grid-cols-2 xl:gap-2">
+      <Layout
+        title="Kelas Pembelajaran Mata Kuliah Farmasi"
+        description="Video Pembelajaran Mata Kuliah Farmasi, dan Kelas Private 1 on 1 Farmasi, di mana kamu bisa belajar langsung dengan mentor untuk menguasai materi lebih dalam."
+      >
+        <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
           <Image
             priority
             src="/img/base/video-pembelajaran-img.svg"
             alt="class subject img"
             width={493}
             height={619}
-            className="h-[680px] w-full justify-self-center"
+            className="order-2 h-[600px] w-full justify-self-center xl:-order-1"
           />
 
           <div>
-            <h1 className="pb-2 text-[48px] font-black capitalize leading-[110%] -tracking-wide text-black xl:text-[56px]">
-              Kelas Pembelajaran Mata Kuliah Farmasi
+            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Kelas Digital untuk Mata Kuliah Farmasi Terpilih
             </h1>
-            <p className="pb-8 font-medium leading-[170%] text-gray">
-              Ruang Obat menyajikan program belajar Farmasi yang lengkap dengan
+
+            <p className="pb-10 font-medium leading-[170%] text-gray">
+              RuangObat menyajikan program belajar Farmasi yang lengkap dengan
               dua pilihan menarik: Video Pembelajaran Mata Kuliah Farmasi, dan
               Kelas Private 1 on 1 Farmasi, di mana kamu bisa belajar langsung
               dengan mentor untuk menguasai materi lebih dalam.
             </p>
+
             <Button
               color="secondary"
               as={Link}
@@ -46,9 +51,9 @@ export default function SubjectVideoClassPage() {
 
         <section
           id="list-class"
-          className="mx-auto grid max-w-[600px] gap-6 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
+          className="mx-auto grid max-w-[600px] gap-5 [padding:110px_0_100px] lg:max-w-[700px] xl:max-w-none"
         >
-          <h2 className="text-center text-[32px] font-black capitalize leading-[120%] -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Fasilitas yang tersedia 😉
           </h2>
 
@@ -61,10 +66,11 @@ export default function SubjectVideoClassPage() {
                   className="text-purple"
                 />
 
-                <div className="grid gap-[10px]">
-                  <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
+                <div className="grid gap-2">
+                  <h3 className="text-2xl font-black capitalize -tracking-wide text-black">
                     Video Pembelajaran Mata Kuliah Farmasi
                   </h3>
+
                   <p className="font-medium leading-[170%] text-gray">
                     Pada kelas ini kami menyediakan video pembelajaran digital
                     yang dirancang khusus untuk membantu kamu memahami materi
@@ -77,9 +83,7 @@ export default function SubjectVideoClassPage() {
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
-                  router.push(
-                    "/kelas-pembelajaran-farmasi/video-matkul-farmasi",
-                  )
+                  router.push("/kelas-matkul-farmasi/video-matkul-farmasi")
                 }
                 className="w-max font-bold"
               >
@@ -91,10 +95,11 @@ export default function SubjectVideoClassPage() {
               <div className="grid gap-4">
                 <PencilRuler weight="bold" size={72} className="text-purple" />
 
-                <div className="grid gap-[10px]">
-                  <h3 className="text-[24px] font-black capitalize leading-[120%] -tracking-wide text-black">
+                <div className="grid gap-2">
+                  <h3 className="text-2xl font-black capitalize -tracking-wide text-black">
                     Kelas Private 1 on 1 Farmasi
                   </h3>
+
                   <p className="font-medium leading-[170%] text-gray">
                     Kelas ini menawarkan pembelajaran personal yang fleksibel,
                     mendalam, dan fokus sesuai kebutuhan kamu untuk mencapai
@@ -107,9 +112,7 @@ export default function SubjectVideoClassPage() {
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() =>
-                  router.push(
-                    "/kelas-pembelajaran-farmasi/kelas-privat-farmasi",
-                  )
+                  router.push("/kelas-matkul-farmasi/kelas-privat-farmasi")
                 }
                 className="w-max font-bold"
               >

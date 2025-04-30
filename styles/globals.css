@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 ::-webkit-scrollbar {
-  @apply rounded-full bg-purple/5;
+  @apply w-3 rounded-full bg-purple/5;
 }
 ::-webkit-scrollbar-thumb {
   @apply w-1 rounded-full bg-purple/20 hover:bg-purple/40;
@@ -25,6 +25,7 @@
   @apply list-outside;
 }
 
+.testimonial-container .swiper-pagination,
 .mentor-container .swiper-pagination {
   @apply static mx-auto pt-4 transition-all xs:pt-8;
 }
@@ -53,5 +54,11 @@
 @layer base {
   img {
     display: initial;
+  }
+}
+
+@layer components {
+  .base-container {
+    @apply mx-auto grid max-w-[600px] lg:max-w-[700px] xl:max-w-none;
   }
 }
