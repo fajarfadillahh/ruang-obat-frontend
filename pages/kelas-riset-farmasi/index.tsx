@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
@@ -86,6 +87,8 @@ export default function PharmacyResearchClassPage({
         title="Kelas Riset Farmasi"
         description="Kelas ini dirancang untuk membekali Anda dengan keterampilan riset farmasi, mulai dari perencanaan penelitian hingga analisis data, dengan panduan dari para ahli berpengalaman."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
           <div>
             <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
