@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
@@ -16,6 +17,8 @@ export default function SubjectVideoClassPage() {
         title="Kelas Pembelajaran Mata Kuliah Farmasi"
         description="Video Pembelajaran Mata Kuliah Farmasi, dan Kelas Private 1 on 1 Farmasi, di mana kamu bisa belajar langsung dengan mentor untuk menguasai materi lebih dalam."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
           <Image
             priority
