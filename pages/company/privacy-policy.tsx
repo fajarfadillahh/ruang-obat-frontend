@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/FooterSimple";
 import { NextSeo } from "next-seo";
@@ -31,6 +32,8 @@ export default function PrivacyPage() {
       <main className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
         <div className="grid min-h-screen gap-4 pb-24 pt-12">
           <ButtonBack />
+
+          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
 
           <section className="mx-auto grid max-w-[700px] gap-6">
             <h1 className="text-[28px] font-extrabold text-black">

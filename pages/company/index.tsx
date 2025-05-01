@@ -34,7 +34,7 @@ export default function CompanyPage() {
         title="PT. Pharmacy Cone Group"
         description="Inovasi di bidang farmasi untuk kualitas hidup yang lebih baik. PT. Pharmacy Cone Group hadir sebagai solusi edukasi farmasi yang relevan dan terpercaya."
       >
-        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
 
         <section className="base-container gap-24 pb-[100px]">
           <div className="grid gap-4 text-center">
