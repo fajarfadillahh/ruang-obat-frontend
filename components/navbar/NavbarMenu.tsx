@@ -42,7 +42,7 @@ import useSWR from "swr";
 
 const menuItemsMobile = [
   { label: "Beranda", href: "/" },
-  { label: "Tentang Kami", href: "/company/about-us" },
+  { label: "Tentang RuangObat", href: "/company/about-us" },
   {
     label: "Video Belajar",
     href: "/kelas-matkul-farmasi/video-matkul-farmasi",
@@ -196,7 +196,7 @@ export default function NavbarMain() {
             href="/company/about-us"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            Tentang Kami
+            Tentang RuangObat
           </Link>
         </NavbarItem>
       </NavbarContent>
