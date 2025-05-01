@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
@@ -35,6 +36,8 @@ export default function PharmacyEntranceClassPage({
         title="Kelas Masuk Apoteker"
         description="Kelas ini dirancang khusus untuk mempersiapkan Anda menghadapi seleksi masuk Program Profesi Apoteker, dengan materi komprehensif dan pembimbing berpengalaman."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
           <div>
             <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">

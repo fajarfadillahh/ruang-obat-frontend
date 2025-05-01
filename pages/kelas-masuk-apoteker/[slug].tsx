@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import ButtonBack from "@/components/button/ButtonBack";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
@@ -92,6 +93,10 @@ export default function DetailPharmacyEntranceClassPage({
     <>
       <Layout title={`Detail ${data?.name}`}>
         <ButtonBack />
+
+        <div className="mt-4">
+          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        </div>
 
         <section className="base-container divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
           <div className="grid gap-8 pb-20 lg:grid-cols-[max-content_1fr] lg:items-center">
