@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteTestimonials } from "@/config/site";
@@ -11,6 +12,8 @@ export default function TestimonialsPage() {
         title="Testimonial Mereka Tentang Kami"
         description="Simak cerita dan pengalaman para mahasiswa yang telah mengikuti program kami. Testimoni nyata dari mereka yang telah merasakan manfaat langsung dari pembelajaran di RuangObat."
       >
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
+
         <section className="base-container gap-8">
           <div className="grid justify-items-center gap-2 text-center">
             <h1 className="text-4xl font-black -tracking-wide text-black">
