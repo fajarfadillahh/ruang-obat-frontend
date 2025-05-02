@@ -106,7 +106,7 @@ export default function DashboardPage({
           {searchValue && data?.data.programs.length === 0 ? (
             <EmptyData text="Program tidak ditemukan!" />
           ) : (
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6 xl:grid-cols-3">
               {data?.data.programs.map((program) => (
                 <CardProgram key={program.program_id} {...program} />
               ))}
