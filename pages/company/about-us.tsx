@@ -67,7 +67,7 @@ export default function AboutUsPage() {
         <section className="base-container py-[100px]">
           <IconContext.Provider
             value={{
-              weight: "bold",
+              weight: "duotone",
               size: 48,
               className: "text-purple",
             }}

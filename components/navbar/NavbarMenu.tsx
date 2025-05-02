@@ -235,7 +235,7 @@ export default function NavbarMain() {
 
               <IconContext.Provider
                 value={{
-                  weight: "bold",
+                  weight: "duotone",
                   size: 18,
                 }}
               >
