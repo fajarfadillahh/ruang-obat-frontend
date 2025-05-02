@@ -1,6 +1,5 @@
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { ArrowLeft } from "@phosphor-icons/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function NotFoundPage() {
@@ -10,7 +9,6 @@ export default function NotFoundPage() {
     <main className="flex h-screen w-full items-center justify-center px-6">
       <section className="grid justify-items-center gap-12">
         <Image
-          priority
           src="/img/404-img.svg"
           alt="404 img"
           className="h-[250px] w-auto"

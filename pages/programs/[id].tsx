@@ -11,22 +11,20 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { Button, Chip } from "@nextui-org/react";
 import {
   BookBookmark,
+  ClipboardText,
   IconContext,
-  Notepad,
   SealCheck,
   Tag,
   Users,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { useState } from "react";
 import useSWR from "swr";
 
 export default function DetailsProgram({
   token,
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const { data, isLoading, mutate } = useSWR<
     SuccessResponse<DetailsProgramResponse>
   >({
@@ -43,9 +41,13 @@ export default function DetailsProgram({
         <ButtonBack />
 
         <div className="grid divide-y-2 divide-dashed divide-gray/20">
-          <div className="grid gap-10 pb-8 sm:grid-cols-[1fr_max-content] sm:items-start md:pr-6">
+          <div className="grid gap-10 pb-10 sm:grid-cols-[1fr_max-content] sm:items-start md:pr-6">
             <div className="flex items-start gap-6">
-              <BookBookmark weight="bold" size={48} className="text-purple" />
+              <BookBookmark
+                weight="duotone"
+                size={48}
+                className="text-purple"
+              />
 
               <div className="grid flex-1 gap-4">
                 <h1 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
@@ -54,8 +56,8 @@ export default function DetailsProgram({
 
                 <IconContext.Provider
                   value={{
-                    weight: "bold",
-                    size: 18,
+                    weight: "duotone",
+                    size: 20,
                   }}
                 >
                   <div className="flex flex-wrap items-center gap-4 lg:gap-10">
@@ -65,7 +67,7 @@ export default function DetailsProgram({
                         color="default"
                         startContent={<Tag className="text-black" />}
                         classNames={{
-                          base: "px-3 gap-1",
+                          base: "px-2 gap-1",
                           content: "font-bold text-black",
                         }}
                       >
@@ -77,15 +79,19 @@ export default function DetailsProgram({
                       </h2>
                     )}
 
-                    <h2 className="text-sm font-bold text-gray">
-                      <Notepad className="mr-1 inline-flex" />
-                      {data?.data.total_tests} Ujian
-                    </h2>
+                    <div className="inline-flex items-center gap-1 text-gray">
+                      <ClipboardText />
+                      <p className="font-semibold">
+                        {data?.data.total_tests} Ujian
+                      </p>
+                    </div>
 
-                    <h2 className="text-sm font-bold text-gray">
-                      <Users className="mr-1 inline-flex" />
-                      {data?.data.total_users} Mahasiswa/i
-                    </h2>
+                    <div className="inline-flex items-center gap-1 text-gray">
+                      <Users />
+                      <p className="font-semibold">
+                        {data?.data.total_users} Mahasiswa
+                      </p>
+                    </div>
                   </div>
                 </IconContext.Provider>
               </div>
@@ -123,20 +129,21 @@ export default function DetailsProgram({
 
             {data?.data.is_approved && (
               <div className="inline-flex items-center gap-1">
-                <SealCheck weight="fill" size={20} className="text-success" />
-                <p className="text-sm font-semibold capitalize text-black">
+                <SealCheck weight="fill" size={24} className="text-success" />
+
+                <p className="font-semibold capitalize text-black">
                   Program telah diikuti
                 </p>
               </div>
             )}
           </div>
 
-          <div className="grid gap-4 pt-8">
-            <h1 className="text-[20px] font-bold -tracking-wide text-black">
+          <div className="grid gap-4 pt-10">
+            <h1 className="text-2xl font-bold -tracking-wide text-black">
               Daftar Ujian 📋
             </h1>
 
-            <div className="relative grid gap-2">
+            <div className="grid gap-2">
               {data?.data.tests.map((test) => (
                 <CardTest
                   key={test.test_id}
