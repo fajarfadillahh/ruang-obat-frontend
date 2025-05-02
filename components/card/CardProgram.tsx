@@ -47,13 +47,13 @@ export default function CardProgram(program: ProgramsType) {
 
         <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
           <div className="inline-flex items-center gap-1 text-gray">
-            <ClipboardText weight="duotone" size={16} />
+            <ClipboardText weight="duotone" size={18} />
 
             <p className="text-sm font-semibold">{program.total_tests} Ujian</p>
           </div>
 
           <div className="inline-flex items-center gap-1 text-gray">
-            <Users weight="duotone" size={16} />
+            <Users weight="duotone" size={18} />
 
             <p className="text-sm font-semibold">
               {program.total_users} Mahasiswa

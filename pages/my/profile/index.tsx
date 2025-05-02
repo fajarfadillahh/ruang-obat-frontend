@@ -144,12 +144,12 @@ export default function MyProfilePage({
           </div>
         ) : null} */}
 
-        <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
+        <h1 className="text-2xl font-extrabold -tracking-wide text-black">
           Profil Saya 🧑
         </h1>
 
         <div className="divide-y-2 divide-dashed divide-gray/20">
-          <div className="inline-flex items-center gap-4 pb-8">
+          <div className="inline-flex items-center gap-4 pb-10">
             <Image
               src={
                 data?.data.gender === "M"
@@ -162,10 +162,11 @@ export default function MyProfilePage({
               className="size-[100px] rounded-full border-3 border-purple bg-purple/10 object-cover object-center p-1"
             />
 
-            <div>
-              <h4 className="text-[20px] font-bold leading-[120%] text-black">
+            <div className="grid">
+              <h4 className="text-2xl font-bold text-black">
                 {data?.data.fullname}
               </h4>
+
               <Snippet
                 symbol=""
                 copyIcon={
@@ -177,20 +178,19 @@ export default function MyProfilePage({
                 className="w-max"
                 classNames={{
                   base: "text-black bg-transparent border-none p-0",
-                  pre: "font-medium text-black font-sans text-[14px]",
+                  pre: "font-medium text-black font-sans",
                 }}
               >
                 {data?.data.user_id}
               </Snippet>
-              <p className="text-sm font-medium text-gray">
-                {data?.data.university}
-              </p>
+
+              <p className="font-medium text-gray">{data?.data.university}</p>
             </div>
           </div>
 
           <div className="grid gap-4 py-8">
             <div className="flex items-center justify-between">
-              <h4 className="text-[20px] font-bold leading-[120%] text-black">
+              <h4 className="text-xl font-bold text-black">
                 Informasi Personal
               </h4>
 
@@ -327,7 +327,7 @@ export default function MyProfilePage({
               />
             </div>
 
-            <p className="mt-4 text-sm font-medium text-gray">
+            <p className="mt-8 text-sm font-medium text-gray">
               Akun dibuat pada: {formatDate(data?.data.created_at as string)}
             </p>
           </div>
