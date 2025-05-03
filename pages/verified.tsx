@@ -9,7 +9,7 @@ export default function VerifyPage() {
   return (
     <>
       <Head>
-        <title>Verifikasi Email Anda | RuangObat</title>
+        <title>Verifikasi Email Berhasil | RuangObat</title>
       </Head>
 
       <main className="flex h-screen w-full items-center justify-center px-6">
