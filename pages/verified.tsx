@@ -3,7 +3,7 @@ import { SealCheck } from "@phosphor-icons/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-export default function VerifyPage() {
+export default function VerifiedPage() {
   const router = useRouter();
 
   return (
