@@ -32,17 +32,17 @@ export default function ModalConfirm({
       isDismissable={false}
       isOpen={isOpen}
       onClose={onClose}
-      size="sm"
+      size="md"
       placement="center"
     >
       <ModalContent>
         <>
-          <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+          <ModalHeader className="text-xl font-bold text-black">
             {header}
           </ModalHeader>
 
           <ModalBody>
-            <p className="text-sm font-medium text-gray">{text}</p>
+            <p className="font-medium leading-[170%] text-gray">{text}</p>
           </ModalBody>
 
           <ModalFooter>

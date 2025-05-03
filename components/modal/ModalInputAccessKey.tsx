@@ -96,13 +96,13 @@ export default function ModalInputAccessKey({
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+              <ModalHeader className="text-xl font-bold text-black">
                 Masukan Kode Akses
               </ModalHeader>
 
               <ModalBody>
                 <div className="grid gap-4">
-                  <p className="text-sm font-medium leading-[170%] text-gray">
+                  <p className="font-medium leading-[170%] text-gray">
                     Akses fitur ini hanya diperuntukkan bagi pengguna yang telah
                     membayar program ini. Silakan masukkan kode akses yang telah
                     diberikan oleh admin pada kolom di bawah ini.

@@ -1,39 +1,39 @@
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { ArrowClockwise } from "@phosphor-icons/react";
-import Image from "next/image";
 
 export default function ServerErrorPage() {
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center gap-8 px-6">
-      <Image
-        priority
-        src="/img/500-img.svg"
-        alt="500 img"
-        width={1000}
-        height={500}
-        className="h-auto w-[450px]"
-      />
+    <main className="flex h-screen w-full items-center justify-center px-6">
+      <section className="grid justify-items-center gap-12">
+        <Image
+          src="/img/500-img.svg"
+          alt="500 img"
+          className="h-[250px] w-auto"
+        />
 
-      <div className="grid justify-center gap-6">
-        <div className="text-center">
-          <h1 className="mb-2 text-[38px] font-black leading-[120%] -tracking-wide text-black">
-            Hmmm, Server Sepertinya Error
-          </h1>
-          <p className="mx-auto max-w-[580px] font-medium leading-[170%] text-gray">
-            Sepertinya ada kendala teknis di server kami. Tim kami sedang
-            bekerja keras untuk memperbaikinya. Silakan coba beberapa saat lagi.
-          </p>
+        <div className="grid gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-4xl font-black -tracking-wide text-black">
+              Gawat! Server Mengalami Kendala
+            </h1>
+
+            <p className="w-full max-w-[650px] font-medium leading-[170%] text-gray">
+              Sepertinya ada kendala teknis di server kami. Tim kami sedang
+              bekerja keras untuk memperbaikinya. Silakan coba beberapa saat
+              lagi.
+            </p>
+          </div>
+
+          <Button
+            color="secondary"
+            startContent={<ArrowClockwise weight="bold" size={18} />}
+            onPress={() => window.location.reload()}
+            className="w-max justify-self-center px-12 font-bold"
+          >
+            Refresh Halaman
+          </Button>
         </div>
-
-        <Button
-          color="secondary"
-          startContent={<ArrowClockwise weight="bold" size={18} />}
-          onClick={() => window.location.reload()}
-          className="w-max justify-self-center px-4 font-bold"
-        >
-          Muat Ulang Halaman
-        </Button>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }
