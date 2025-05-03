@@ -123,10 +123,10 @@ export default function MyProfilePage({
 
   return (
     <Layout title="Profil Saya">
-      <section className="grid gap-8 pb-16">
+      <section className="grid gap-8 pb-32">
         {/* {!data?.data.is_verified ? (
           <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-warning bg-warning/10 [padding:1rem_2rem]">
-            <p className="text-sm font-medium text-black">
+            <p className="font-medium leading-[170%] text-black">
               <strong className="font-extrabold">
                 Email belum diverifikasi!
               </strong>{" "}
@@ -188,7 +188,7 @@ export default function MyProfilePage({
             </div>
           </div>
 
-          <div className="grid gap-4 py-8">
+          <div className="grid gap-4 py-10">
             <div className="flex items-center justify-between">
               <h4 className="text-xl font-bold text-black">
                 Informasi Personal
@@ -327,15 +327,13 @@ export default function MyProfilePage({
               />
             </div>
 
-            <p className="mt-8 text-sm font-medium text-gray">
+            <p className="mt-4 text-sm font-medium text-gray">
               Akun dibuat pada: {formatDate(data?.data.created_at as string)}
             </p>
           </div>
 
-          {/* <div className="flex items-center justify-between pt-8">
-            <h4 className="text-[20px] leading-[120%] font-bold text-black">
-              Ubah Kata Sandi
-            </h4>
+          {/* <div className="flex items-center justify-between pt-10">
+            <h4 className="text-xl font-bold text-black">Ubah Kata Sandi</h4>
 
             <Button
               color="secondary"
@@ -343,7 +341,7 @@ export default function MyProfilePage({
               startContent={<PencilLine weight="bold" size={18} />}
               className="font-bold"
             >
-              Ubah Kata Sandi
+              Ubah Sandi
             </Button>
           </div> */}
         </div>
