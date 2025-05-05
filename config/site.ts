@@ -16,6 +16,7 @@ import {
   RocketLaunch,
   Target,
   TiktokLogo,
+  Video,
   WhatsappLogo,
 } from "@phosphor-icons/react";
 
@@ -360,11 +361,12 @@ export const siteConfigPhamacyPrivteClassPage = {
 
 export const siteConfigAboutUsPage = {
   products: [
-    { label: "Kelas Matkul Farmasi", icon: GraduationCap },
+    { label: "Video Pembelajaran", icon: Video },
+    { label: "Kelas Private 1 on 1", icon: ClipboardText },
     { label: "Kelas Skripsi Farmasi", icon: BookBookmark },
     { label: "Kelas Riset Farmasi", icon: MagnifyingGlass },
-    { label: "Kelas Masuk Farmasi", icon: Pill },
-    { label: "TryOut UKMPPAI", icon: PencilRuler },
+    { label: "Kelas Masuk Apoteker", icon: Pill },
+    { label: "UKMPPAI & OSCE", icon: PencilRuler },
   ],
   data: {
     vision: {
