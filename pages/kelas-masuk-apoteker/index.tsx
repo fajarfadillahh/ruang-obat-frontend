@@ -46,18 +46,19 @@ export default function PharmacyEntranceClassPage({
 
             <p className="mb-10 font-medium leading-[170%] text-gray">
               Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami
-              menyediakan program khusus yang disesuaikan dengan kampus pilihan
-              kamu, dan kelas ini pula dirancang untuk membantu kamu memahami
-              materi seleksi secara mendalam dan terarah.
+              menyediakan program khusus yang disesuaikan dengan kebutuhan
+              menjadi seorang Apoteker yang handal dan profesional. Kelas ini
+              pula dirancang untuk membantu kamu memahami materi secara mendalam
+              dan terarah.
             </p>
 
             <Button
               color="secondary"
               as={Link}
-              href="#list-class"
+              href="#list-video"
               className="w-max px-12 font-bold"
             >
-              Pilih Universitas
+              Pilih Video Belajar
             </Button>
           </div>
 
@@ -72,15 +73,15 @@ export default function PharmacyEntranceClassPage({
         </section>
 
         <section
-          id="list-class"
+          id="list-video"
           className="base-container gap-4 [padding:110px_0_100px]"
         >
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-            Daftar Kelas per Universitas
+            Daftar Video 🔥
           </h2>
 
           <SearchInput
-            placeholder="Cari Kelas per Universitas..."
+            placeholder="Cari Video..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             onClear={() => setSearch("")}
@@ -110,18 +111,17 @@ export default function PharmacyEntranceClassPage({
                     </Chip>
                   ) : null}
 
-                  <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
-                    <Image
-                      src={item.img_url as string}
-                      alt="thumbnail img"
-                      width={500}
-                      height={500}
-                      className="h-full w-full object-cover object-center"
-                    />
-                  </div>
+                  <Image
+                    priority
+                    src="/img/default-thumbnail.png"
+                    alt="thumbnail"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  />
 
                   <div className="grid gap-4">
-                    <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                    <h1 className="line-clamp-2 text-xl font-black text-black group-hover:text-purple">
                       {item.name}
                     </h1>
 
@@ -133,13 +133,29 @@ export default function PharmacyEntranceClassPage({
                       }
                       className="font-bold"
                     >
-                      Detail Kelas
+                      Detail Video
                     </Button>
                   </div>
                 </div>
               ))}
             </div>
           )}
+        </section>
+
+        <section className="base-container gap-4 py-[100px]">
+          <div className="grid gap-1">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+              Daftar Tryout ✍
+            </h2>
+
+            <p className="font-medium leading-[170%] text-gray">
+              Kamu bisa memilih bonus tryout minimal 1 Univesitas.
+            </p>
+          </div>
+
+          <p className="mt-6 text-xl font-medium text-gray">
+            Daftar bonus tryout per universitas akan muncul disini!
+          </p>
         </section>
 
         <CTASecondary />
