@@ -1,93 +1,27 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import ButtonBack from "@/components/button/ButtonBack";
-import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
-import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
-import { AppContext } from "@/context/AppContext";
-import {
-  PharmacistAdmissionDetailsClassType,
-  PharmacistAdmissionDetailsResponse,
-} from "@/types/classes.type";
+import { dummyOfferSubscriptions, dummyVideoCourse } from "@/config/dummy";
+import { PharmacistAdmissionDetailsResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
-import { filterData } from "@/utils/filterData";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { isNewProduct } from "@/utils/isNewProduct";
-import {
-  Button,
-  Chip,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-} from "@nextui-org/react";
-import { PlayCircle } from "@phosphor-icons/react";
+import { scrollToSection } from "@/utils/scrollToSection";
+import { handleShareClipboard } from "@/utils/shareClipboard";
+import { Accordion, AccordionItem, Button, Progress } from "@nextui-org/react";
+import { Check, CheckCircle, Play, ShareNetwork } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useContext, useState } from "react";
+import { useRef } from "react";
 
 export default function DetailPharmacyEntranceClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const session = useSession();
-  const ctx = useContext(AppContext);
-  const [search, setSearch] = useState("");
-  const [isOpenVideo, setIsOpenVideo] = useState(false);
-  const [isOpenDetail, setIsOpenDetail] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [selectedClass, setSelectedClass] =
-    useState<PharmacistAdmissionDetailsClassType | null>(null);
-
-  function handleOpenModal(
-    prepClass: PharmacistAdmissionDetailsClassType,
-    type: "video" | "detail",
-  ) {
-    setSelectedClass(prepClass);
-
-    if (type === "video") {
-      setIsLoading(true);
-      setIsOpenVideo(true);
-    } else {
-      setIsOpenDetail(true);
-    }
-  }
-
-  function handleVideoLoad() {
-    setIsLoading(false);
-  }
-
-  function PreviewVideo(url: string) {
-    const videoID = new URL(url).searchParams.get("v");
-    const embedURL = `https://www.youtube.com/embed/${videoID}`;
-
-    return (
-      <iframe
-        allowFullScreen
-        src={embedURL}
-        title="Preview Video Player"
-        onLoad={handleVideoLoad}
-        className="h-full w-full rounded-xl"
-      />
-    );
-  }
-
-  // for search product/class
-  const keysToFilter: (keyof PharmacistAdmissionDetailsClassType)[] = [
-    "pa_id",
-    "title",
-  ];
-  const filteredData = filterData(
-    data?.pharmacist_admissions || [],
-    search,
-    keysToFilter,
-  );
+  const subscribeRef = useRef<HTMLElement | null>(null);
 
   return (
     <>
@@ -98,267 +32,265 @@ export default function DetailPharmacyEntranceClassPage({
           <BreadcrumbsUrl rootLabel="Home" basePath="/" />
         </div>
 
-        <section className="base-container divide-y-2 divide-dashed divide-gray/20 [padding:2rem_0_100px]">
-          <div className="grid gap-8 pb-20 lg:grid-cols-[max-content_1fr] lg:items-center">
+        <section className="base-container gap-20 [padding:2rem_0_100px]">
+          <div className="grid gap-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-16">
             <Image
               src={data?.img_url as string}
               alt="logo university"
               width={1000}
               height={1000}
-              className="w-full max-w-[300px] rounded-xl object-cover object-center"
+              className="w-full max-w-[350px] rounded-xl object-cover object-center"
             />
 
-            <div className="grid max-w-[900px] gap-4">
-              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
-                {data?.name}
-              </h1>
+            <div className="grid max-w-[900px] gap-8">
+              <div className="grid gap-4">
+                <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
+                  {data?.name}
+                </h1>
+
+                <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+                  <Button
+                    color="secondary"
+                    onClick={() => scrollToSection(subscribeRef)}
+                    className="px-10 font-bold"
+                  >
+                    Akses Sekarang
+                  </Button>
+
+                  <Button variant="bordered" className="px-10 font-bold">
+                    Tonton Preview
+                  </Button>
+                </div>
+              </div>
 
               <p className="font-medium leading-[170%] text-gray">
                 {data?.description}
               </p>
+
+              <Button
+                aria-label="Share Link"
+                variant="bordered"
+                size="sm"
+                startContent={
+                  <ShareNetwork
+                    weight="duotone"
+                    size={16}
+                    className="text-black"
+                  />
+                }
+                onClick={handleShareClipboard}
+                className="w-max font-bold"
+              >
+                Bagikan
+              </Button>
             </div>
           </div>
 
-          <div className="grid gap-4 pt-16">
-            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-              Daftar Video 🔥
-            </h2>
+          <div className="grid gap-6">
+            {/* progress bar */}
+            <div className="grid rounded-xl p-8 ring-2 ring-gray/10">
+              <h5 className="mb-4 text-lg font-bold text-black">
+                Track progres belajar kamu!
+              </h5>
 
-            <SearchInput
-              placeholder="Cari Video..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onClear={() => setSearch("")}
-              className="mb-4 max-w-[550px]"
-            />
+              <Progress
+                value={10}
+                color="secondary"
+                label={
+                  <p className="text-sm font-medium text-gray">
+                    5 dari 25 selesai{" "}
+                    <span className="font-black text-purple">(9%)</span>
+                  </p>
+                }
+              />
+            </div>
 
-            {filteredData.length === 0 ? (
-              <div className="rounded-xl border-2 border-dashed border-gray/20 p-6">
-                <EmptyData text="Video Tidak Ditemukan 😥" />
+            {/* videos */}
+            <div className="grid gap-8 xl:grid-cols-[1fr_400px] xl:items-start">
+              <div className="grid gap-4">
+                <div className="flex aspect-video items-center justify-center rounded-xl bg-gray/5 p-8 ring-2 ring-gray/10">
+                  <span className="font-semibold capitalize text-gray">
+                    video here
+                  </span>
+                </div>
+
+                <Button
+                  size="sm"
+                  color="secondary"
+                  endContent={<Check weight="bold" size={14} />}
+                  className="w-max font-bold"
+                >
+                  Video Selesai
+                </Button>
               </div>
-            ) : (
-              <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-                {data?.pharmacist_admissions.map(
-                  (item: PharmacistAdmissionDetailsClassType) => (
-                    <div
-                      key={item.pa_id}
-                      className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+
+              <div className="grid">
+                <h2 className="text-xl font-black -tracking-wide text-black">
+                  Daftar Video 🔥
+                </h2>
+
+                <Accordion
+                  motionProps={{
+                    variants: {
+                      enter: {
+                        y: 0,
+                        opacity: 1,
+                        height: "auto",
+                        transition: {
+                          height: {
+                            type: "spring",
+                            stiffness: 500,
+                            damping: 30,
+                            duration: 1,
+                          },
+                          opacity: {
+                            easings: "ease",
+                            duration: 1,
+                          },
+                        },
+                      },
+                      exit: {
+                        y: -10,
+                        opacity: 0,
+                        height: 0,
+                        transition: {
+                          height: {
+                            easings: "ease",
+                            duration: 0.25,
+                          },
+                          opacity: {
+                            easings: "ease",
+                            duration: 0.3,
+                          },
+                        },
+                      },
+                    },
+                  }}
+                  defaultExpandedKeys={["1"]}
+                >
+                  {dummyVideoCourse.map((item) => (
+                    <AccordionItem
+                      key={item.segment_id}
+                      title={item.segment_name}
+                      classNames={{
+                        title: "text-black font-extrabold",
+                        indicator: "text-black",
+                      }}
                     >
-                      {isNewProduct(item.created_at) ? (
-                        <Chip
-                          color="danger"
-                          className="absolute right-8 top-8 z-10"
-                          classNames={{
-                            content: "font-bold px-4",
-                          }}
-                        >
-                          Baru
-                        </Chip>
-                      ) : null}
+                      <div className="grid">
+                        {item.segment_videos.map((video) => (
+                          <div
+                            key={video.video_id}
+                            className="flex items-center justify-between gap-2 rounded-xl p-4 hover:bg-gray/10"
+                          >
+                            <div className="flex items-center gap-2">
+                              <Button
+                                isIconOnly
+                                size="sm"
+                                radius="full"
+                                variant="solid"
+                                color="secondary"
+                                className="flex items-center justify-center"
+                              >
+                                <Play weight="fill" size={14} />
+                              </Button>
 
-                      {item.thumbnail_type === "video" ? (
-                        <>
-                          <div className="relative aspect-square size-full overflow-hidden rounded-xl">
-                            <Image
-                              src="/img/default-thumbnail.png"
-                              alt="thumbnail img"
-                              width={500}
-                              height={500}
-                              className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
-                            />
-
-                            <div
-                              onClick={() => handleOpenModal(item, "video")}
-                              className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
-                            >
-                              <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
-                                <PlayCircle
-                                  weight="fill"
-                                  size={56}
-                                  className="text-white"
-                                />
-                              </div>
+                              <h4 className="line-clamp-2 text-sm font-bold text-black">
+                                {video.video_name}
+                              </h4>
                             </div>
+
+                            <p className="text-sm font-semibold text-gray">
+                              {video.video_duration}
+                            </p>
                           </div>
-
-                          {selectedClass && (
-                            <Modal
-                              isDismissable={false}
-                              size="xl"
-                              placement="center"
-                              hideCloseButton={true}
-                              isOpen={isOpenVideo}
-                              onOpenChange={(open) => setIsOpenVideo(open)}
-                            >
-                              <ModalContent>
-                                {(onClose) => (
-                                  <>
-                                    <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                      Cuplikan Video
-                                    </ModalHeader>
-
-                                    <ModalBody>
-                                      <div className="aspect-video h-full w-full">
-                                        {isLoading && (
-                                          <div className="flex h-full w-full items-center justify-center">
-                                            <h1 className="font-semibold text-black">
-                                              Loading video...
-                                            </h1>
-                                          </div>
-                                        )}
-
-                                        {PreviewVideo(
-                                          selectedClass.thumbnail_url as string,
-                                        )}
-                                      </div>
-                                    </ModalBody>
-
-                                    <ModalFooter>
-                                      <Button
-                                        color="danger"
-                                        variant="light"
-                                        onPress={() => {
-                                          onClose(), setIsLoading(false);
-                                        }}
-                                        className="font-bold"
-                                      >
-                                        Tutup
-                                      </Button>
-                                    </ModalFooter>
-                                  </>
-                                )}
-                              </ModalContent>
-                            </Modal>
-                          )}
-                        </>
-                      ) : (
-                        <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
-                          <Image
-                            src={item.thumbnail_url as string}
-                            alt="thumbnail img"
-                            width={500}
-                            height={500}
-                            className="h-full w-full object-cover object-center"
-                          />
-                        </div>
-                      )}
-
-                      <div className="grid gap-8">
-                        <div className="grid gap-2">
-                          <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
-                            {item.title}
-                          </h1>
-
-                          <p className="font-bold text-purple">
-                            {formatRupiah(item.price)},-
-                          </p>
-                        </div>
-
-                        <div className="grid gap-2">
-                          <Button
-                            variant="bordered"
-                            onPress={() => handleOpenModal(item, "detail")}
-                            className="font-bold text-black"
-                          >
-                            Detail
-                          </Button>
-
-                          <Button
-                            variant="flat"
-                            color="secondary"
-                            onClick={() => {
-                              if (session.status == "unauthenticated") {
-                                ctx?.onOpenUnauthenticated();
-                              } else {
-                                window.open(item.link_order, "_blank");
-                              }
-                            }}
-                            className="font-bold"
-                          >
-                            Beli Video
-                          </Button>
-
-                          {selectedClass && (
-                            <Modal
-                              size="lg"
-                              scrollBehavior="inside"
-                              placement="center"
-                              isOpen={isOpenDetail}
-                              onOpenChange={(open) => setIsOpenDetail(open)}
-                            >
-                              <ModalContent>
-                                {(onClose) => (
-                                  <>
-                                    <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                      Deskripsi Video
-                                    </ModalHeader>
-
-                                    <ModalBody>
-                                      <p className="font-medium leading-[170%] text-gray">
-                                        {selectedClass.description}
-                                      </p>
-                                    </ModalBody>
-
-                                    <ModalFooter>
-                                      <Button
-                                        color="danger"
-                                        variant="light"
-                                        onPress={onClose}
-                                        className="font-bold"
-                                      >
-                                        Tutup
-                                      </Button>
-                                    </ModalFooter>
-                                  </>
-                                )}
-                              </ModalContent>
-                            </Modal>
-                          )}
-                        </div>
+                        ))}
                       </div>
-                    </div>
-                  ),
-                )}
+                    </AccordionItem>
+                  ))}
+                </Accordion>
               </div>
-            )}
+            </div>
           </div>
         </section>
 
-        {data?.mentors.length ? (
-          <section className="base-container gap-4 py-[100px]">
+        <section ref={subscribeRef} className="base-container gap-8 py-[100px]">
+          <div className="grid gap-1">
             <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-              Daftar Mentor 📢
+              Langganan 🌟
             </h2>
 
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-              {data?.mentors.map((mentor: MentorClassType) => (
-                <div
-                  key={mentor.class_mentor_id}
-                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
-                  <Image
-                    priority
-                    src={mentor.img_url as string}
-                    alt="mentor img"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                  />
+            <p className="font-medium leading-[170%] text-gray">
+              Tertarik? Ayo, berlangganan untuk mengakses semua video.
+            </p>
+          </div>
 
-                  <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
-                      {mentor.fullname}
-                    </h4>
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+            {dummyOfferSubscriptions.map((item) => (
+              <div
+                key={item.id}
+                className={`relative isolate grid gap-8 overflow-hidden rounded-xl shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_2rem] ${
+                  item.highlight ? "bg-purple" : "bg-white"
+                }`}
+              >
+                {item.highlight && (
+                  <div className="absolute left-0 top-0 z-50 rounded-br-xl bg-pink-500 text-center font-extrabold text-white [padding:0.5rem_3rem]">
+                    Populer
+                  </div>
+                )}
 
-                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                      {mentor.mentor_title}
-                    </p>
+                <div className="grid gap-2">
+                  <h1
+                    className={`text-center text-xl font-bold ${item.highlight ? "text-white" : "text-black"}`}
+                  >
+                    {item.name}
+                  </h1>
+
+                  <h1
+                    className={`text-center text-4xl font-black ${item.highlight ? "text-white" : "text-purple"}`}
+                  >
+                    {formatRupiah(item.price)}
+                  </h1>
+                </div>
+
+                <div className="grid gap-2">
+                  <h4
+                    className={`text-lg font-bold ${item.highlight ? "text-white" : "text-black"}`}
+                  >
+                    Keuntungan Berlangganan ✨
+                  </h4>
+
+                  <div className="grid gap-2">
+                    {item.features.map((feature, index) => (
+                      <div key={index} className="flex items-start gap-2">
+                        <CheckCircle
+                          weight="duotone"
+                          size={24}
+                          className={
+                            item.highlight ? "text-white" : "text-purple"
+                          }
+                        />
+
+                        <p
+                          className={`text-sm font-medium ${item.highlight ? "text-white" : "text-black"}`}
+                        >
+                          {feature}
+                        </p>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-        ) : null}
+
+                <Button
+                  onClick={() => window.open(item.order_link, "_blank")}
+                  className={`font-bold text-white ${item.highlight ? "bg-pink-500" : "bg-purple"}`}
+                >
+                  Mulai Berlangganan
+                </Button>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <section className="[padding:100px_0_156px]">
           <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
