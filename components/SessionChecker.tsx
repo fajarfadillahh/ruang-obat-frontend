@@ -17,37 +17,33 @@ export default function SessionChecker() {
     }
   }
 
+  function isExcludedPath(path: string): boolean {
+    const excludedPaths = [
+      "/auth",
+      "/tests",
+      "/company",
+      "/kelas-masuk-apoteker",
+      "/kelas-riset-farmasi",
+      "/kelas-skripsi-farmasi",
+      "/kelas-matkul-farmasi",
+      "/mentor",
+      "/",
+      "/reset",
+      "/500",
+      "/400",
+    ];
+    return excludedPaths.some((excluded) => path.startsWith(excluded));
+  }
+
   useEffect(() => {
     async function handleFocus() {
-      if (
-        !router.pathname.startsWith("/auth") &&
-        !router.pathname.startsWith("/tests") &&
-        !router.pathname.startsWith("/company") &&
-        !router.pathname.startsWith("/kelas-masuk-apoteker") &&
-        !router.pathname.startsWith("/kelas-riset-farmasi") &&
-        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
-        !router.pathname.startsWith("/kelas-matkul-farmasi") &&
-        !router.pathname.startsWith("/mentor") &&
-        router.pathname !== "/" &&
-        router.pathname !== "/reset"
-      ) {
+      if (!isExcludedPath(router.pathname)) {
         await checkSession();
       }
     }
 
     async function checkRouter() {
-      if (
-        !router.pathname.startsWith("/auth") &&
-        !router.pathname.startsWith("/tests") &&
-        !router.pathname.startsWith("/company") &&
-        !router.pathname.startsWith("/kelas-masuk-apoteker") &&
-        !router.pathname.startsWith("/kelas-riset-farmasi") &&
-        !router.pathname.startsWith("/kelas-skripsi-farmasi") &&
-        !router.pathname.startsWith("/kelas-matkul-farmasi") &&
-        !router.pathname.startsWith("/mentor") &&
-        router.pathname !== "/" &&
-        router.pathname !== "/reset"
-      ) {
+      if (!isExcludedPath(router.pathname)) {
         await checkSession();
       }
     }
