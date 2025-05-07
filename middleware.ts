@@ -37,5 +37,7 @@ export const config = {
     "/welcome",
     "/results/:path*",
     "/auth/:path*",
+    "/unverified",
+    "/verified",
   ],
 };
