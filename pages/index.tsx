@@ -50,7 +50,7 @@ export default function HomePage({
   return (
     <>
       <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
-        <section className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
+        <section className="base-container items-center gap-6 xl:grid-cols-[480px_1fr] xl:gap-8">
           <Image
             priority
             src="/img/base/main-img-1.svg"
@@ -62,15 +62,15 @@ export default function HomePage({
 
           <div className="grid gap-10">
             <div className="grid gap-4 justify-self-end">
-              <p className="font-medium text-gray">
+              <h5 className="text-2xl font-bold -tracking-wide text-purple">
                 👋 Selamat datang di RuangObat
-              </p>
+              </h5>
 
               <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-                Bimbel Farmasi No.1 di Indonesia Yang{" "}
+                Bimbel Private Farmasi No.1 di Indonesia Telah{" "}
                 <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
                   <span className="relative text-white">
-                    Fasilitasi 10.000+
+                    Memfasilitasi 10.000+
                   </span>
                 </span>
                 Mahasiswa Farmasi Seluruh Indonesia
@@ -79,30 +79,24 @@ export default function HomePage({
               <p className="font-medium leading-[170%] text-gray">
                 Dapatkan{" "}
                 <strong className="font-bold text-purple">
-                  Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
-                  Masuk Apoteker, OSCE dan UKMPPAI Sumatif
+                  akses lengkap video pembelajaran farmasi, bimbingan skripsi &
+                  riset, persiapan masuk profesi apoteker, OSCE, hingga UKMPPAI.
                 </strong>{" "}
-                untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
+                Semua yang kamu butuhkan untuk sukses menjadi{" "}
+                <strong className="font-bold text-purple">
+                  Sarjana Farmasi & Apoteker,
+                </strong>{" "}
+                ada di sini!
               </p>
             </div>
 
-            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
-              <Button
-                color="secondary"
-                onClick={() => scrollToSection(listClassRef)}
-                className="px-10 font-bold"
-              >
-                Lihat Daftar Kelas
-              </Button>
-
-              <Button
-                variant="bordered"
-                className="px-6 font-bold"
-                onClick={() => router.push("/dashboard")}
-              >
-                Dashboard Tryout CBT
-              </Button>
-            </div>
+            <Button
+              color="secondary"
+              onClick={() => scrollToSection(listClassRef)}
+              className="w-max px-16 font-bold"
+            >
+              Lihat Daftar Kelas
+            </Button>
           </div>
         </section>
 
@@ -114,7 +108,7 @@ export default function HomePage({
             Daftar Kelas di RuangObat
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
             {siteConfigHomePage.classes.map((item, index) => (
               <div
                 key={index}
@@ -130,7 +124,7 @@ export default function HomePage({
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="max-w-[250px] text-xl font-black text-black group-hover:text-purple">
+                  <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                     {item.title}
                   </h1>
 
@@ -148,7 +142,7 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px]">
+        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_480px] xl:gap-8">
           <div className="grid gap-4">
             <h1 className="mb-2 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Ruang Belajar Farmasi Super Lengkap, Bebas Akses Kapan Saja
@@ -187,7 +181,7 @@ export default function HomePage({
             alt="home img"
             width={396}
             height={512}
-            className="h-auto w-full justify-self-center"
+            className="h-auto w-[500px] justify-self-center lg:w-[580px] xl:w-[430px]"
           />
         </section>
 
