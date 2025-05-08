@@ -2,19 +2,19 @@ export const WarningTextModal = {
   has_start: [
     {
       id: 1,
-      text: "Anda hanya dapat mengerjakan ujian 1x (satu kali).",
+      text: "Kamu hanya dapat mengerjakan ujian 1x (satu kali).",
     },
     {
       id: 2,
-      text: "Anda harus meluangkan waktu sesuai durasi pengerjaan yang tertera.",
+      text: "Kamu harus meluangkan waktu sesuai durasi pengerjaan yang tertera.",
     },
     {
       id: 3,
-      text: "Anda harus memastikan koneksi internet stabil agar ujian berjalan lancar dan menghindari gangguan teknis.",
+      text: "Kamu harus memastikan koneksi internet stabil agar ujian berjalan lancar dan menghindari gangguan teknis.",
     },
     {
       id: 4,
-      text: "Jika anda berpindah device saat sedang mengerjakan ujian, jawaban pada device sebelumnya tidak akan terbawa karena jawaban tersimpan di device sebelumnya.",
+      text: "Jika kamu berpindah device saat sedang mengerjakan ujian, jawaban pada device sebelumnya tidak akan terbawa karena jawaban tersimpan di device sebelumnya.",
     },
     {
       id: 5,
@@ -27,10 +27,10 @@ export const WarningTextModal = {
   ],
   has_result: {
     expired:
-      "Sebelumnya anda sudah mengerjakan ujian ini, durasi pengerjaannya sampai dengan",
+      "Sebelumnya kamu sudah mengerjakan ujian ini, durasi pengerjaannya sampai dengan",
     continue:
-      "Durasi pengerjaan ujian telah selesai, silakan kumpulkan jawaban Anda.",
+      "Durasi pengerjaan ujian telah selesai, silakan kumpulkan jawaban kamu.",
   },
   change_device:
-    "Sebelumnya anda sudah mengerjakan ujian ini. Namun, kami tidak menemukan  data jawaban anda sebelumnya di device/browser anda sekarang. Jika anda melanjutkan ujian, maka anda akan menjawab soal-soal dari awal dengan durasi pengerjaan sampai dengan",
+    "Sebelumnya kamu sudah mengerjakan ujian ini. Namun, kami tidak menemukan  data jawaban kamu sebelumnya di device/browser kamu sekarang. Jika kamu melanjutkan ujian, maka kamu akan menjawab soal-soal dari awal dengan durasi pengerjaan sampai dengan",
 };

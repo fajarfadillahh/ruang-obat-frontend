@@ -45,7 +45,7 @@ const menuItemsMobile = [
     label: "Utama",
     list: [
       { label: "Beranda", href: "/" },
-      { label: "Tentang RuangObat", href: "/company/about-us" },
+      { label: "Tentang RuangObat", href: "/perusahaan/tentang-kami" },
     ],
   },
   {
@@ -53,15 +53,15 @@ const menuItemsMobile = [
     list: [
       {
         label: "Video Belajar",
-        href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+        href: "/video",
       },
       {
         label: "Kelas Private 1 on 1",
-        href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
+        href: "/kelas/private-1-on-1",
       },
-      { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
-      { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
-      { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
+      { label: "Kelas Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
+      { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
+      { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
       { label: "UKMPPAI & OSCE", href: "/dashboard" },
     ],
   },
@@ -70,11 +70,11 @@ const menuItemsMobile = [
 const menuItemsDesktop = [
   {
     label: "Kelas Private 1 on 1",
-    href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
+    href: "/kelas/private-1-on-1",
   },
-  { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
-  { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
-  { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
+  { label: "Kelas Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
+  { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
+  { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
 ];
 
 export default function NavbarMain() {
@@ -155,7 +155,7 @@ export default function NavbarMain() {
       <NavbarContent className="hidden gap-5 lg:flex" justify="center">
         <NavbarItem>
           <Link
-            href="/kelas-matkul-farmasi/video-matkul-farmasi"
+            href="/video"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Video Belajar
@@ -204,7 +204,7 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/company/about-us"
+            href="/perusahaan/tentang-kami"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Tentang RuangObat
@@ -343,7 +343,7 @@ export default function NavbarMain() {
             <ModalConfirm
               btnText="Logout"
               header="Pemberitahuan"
-              text="Apakah Anda Yakin Ingin Logout?"
+              text="Apakah kamu yakin ingin logout?"
               loading={loading}
               isOpen={isLogoutOpen}
               onClose={onLogoutClose}

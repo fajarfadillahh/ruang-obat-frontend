@@ -42,9 +42,9 @@ export default function PharmacyEntranceClassPage({
     <>
       <Layout
         title="Kelas Masuk Apoteker"
-        description="Kelas ini dirancang khusus untuk mempersiapkan Anda menghadapi seleksi masuk Program Profesi Apoteker, dengan materi komprehensif dan pembimbing berpengalaman."
+        description="Kelas ini dirancang khusus untuk mempersiapkan kamu menghadapi seleksi masuk Program Profesi Apoteker, dengan materi komprehensif dan pembimbing berpengalaman."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         {/* <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
           <div>
@@ -167,7 +167,7 @@ export default function PharmacyEntranceClassPage({
                       variant="flat"
                       color="secondary"
                       onClick={() =>
-                        router.push(`/kelas-masuk-apoteker/${item.slug}`)
+                        router.push(`/kelas/masuk-apoteker/${item.slug}`)
                       }
                       className="font-bold"
                     >

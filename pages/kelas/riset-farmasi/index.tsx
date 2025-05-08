@@ -10,6 +10,8 @@ import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { isNewProduct } from "@/utils/isNewProduct";
+import { scrollToSection } from "@/utils/scrollToSection";
+import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
   Chip,
@@ -19,12 +21,11 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { PlayCircle } from "@phosphor-icons/react";
+import { PlayCircle, ShareNetwork } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
 export default function PharmacyResearchClassPage({
   data,
@@ -32,6 +33,7 @@ export default function PharmacyResearchClassPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
   const ctx = useContext(AppContext);
+  const listClassRef = useRef<HTMLElement | null>(null);
   const [isOpenVideo, setIsOpenVideo] = useState(false);
   const [isOpenDetail, setIsOpenDetail] = useState(false);
   const [isOpenDetailMentor, setIsOpenDetailMentor] = useState(false);
@@ -85,17 +87,17 @@ export default function PharmacyResearchClassPage({
     <>
       <Layout
         title="Kelas Riset Farmasi"
-        description="Kelas ini dirancang untuk membekali Anda dengan keterampilan riset farmasi, mulai dari perencanaan penelitian hingga analisis data, dengan panduan dari para ahli berpengalaman."
+        description="Kelas ini dirancang untuk membekali kamu dengan keterampilan riset farmasi, mulai dari perencanaan penelitian hingga analisis data, dengan panduan dari para ahli berpengalaman."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
-          <div>
-            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+          <div className="grid gap-4">
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Kelas Riset Farmasi: Kupas Tuntas Teknik Penelitian
             </h1>
 
-            <p className="mb-10 font-medium leading-[170%] text-gray">
+            <p className="font-medium leading-[170%] text-gray">
               Untuk mahasiswa S1 ataupun S2 yang membutuhkan bimbingan terkait
               riset secara teknikal, kelas ini akan sangat membantu kalian,
               dikarenakan mentor-mentor yang mengajar berasal dari praktisi
@@ -111,14 +113,28 @@ export default function PharmacyResearchClassPage({
               perhatikan saat akan memulai penelitian 🤩 !
             </p>
 
-            <Button
-              color="secondary"
-              as={Link}
-              href="#list-class"
-              className="w-max px-16 font-bold"
-            >
-              Pilih Kelas
-            </Button>
+            <div className="mt-10 inline-flex items-center gap-4">
+              <Button
+                color="secondary"
+                onClick={() => scrollToSection(listClassRef)}
+                className="w-max px-16 font-bold"
+              >
+                Pilih Kelas
+              </Button>
+
+              <Button
+                isIconOnly
+                aria-label="Share Link"
+                variant="bordered"
+                onClick={handleShareClipboard}
+              >
+                <ShareNetwork
+                  weight="duotone"
+                  size={18}
+                  className="text-black"
+                />
+              </Button>
+            </div>
           </div>
 
           <Image
@@ -132,7 +148,7 @@ export default function PharmacyResearchClassPage({
         </section>
 
         <section
-          id="list-class"
+          ref={listClassRef}
           className="base-container gap-4 [padding:110px_0_100px]"
         >
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">

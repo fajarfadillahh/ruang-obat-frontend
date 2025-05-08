@@ -5,13 +5,14 @@ import { siteConfigHomePage, siteTestimonials } from "@/config/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
+import { scrollToSection } from "@/utils/scrollToSection";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -22,6 +23,7 @@ export default function HomePage({
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const listClassRef = useRef<HTMLElement | null>(null);
   const [client, setClient] = useState<boolean>(false);
 
   function getCardStyles(item: any, type: "reasons" | "programs") {
@@ -48,105 +50,105 @@ export default function HomePage({
   return (
     <>
       <Layout title="Ruang Belajar Farmasi Super Lengkap dan Fleksibel">
-        <section className="grid gap-16">
-          <div className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
-            <Image
-              priority
-              src="/img/base/main-img-1.svg"
-              alt="home img"
-              width={415}
-              height={567}
-              className="order-2 h-auto w-full justify-self-center xl:-order-1"
-            />
+        <section className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
+          <Image
+            priority
+            src="/img/base/main-img-1.svg"
+            alt="home img"
+            width={415}
+            height={567}
+            className="order-2 h-auto w-full justify-self-center xl:-order-1"
+          />
 
-            <div className="grid gap-10">
-              <div className="grid gap-4 justify-self-end">
-                <p className="font-medium text-gray">
-                  👋 Selamat datang di RuangObat
-                </p>
+          <div className="grid gap-10">
+            <div className="grid gap-4 justify-self-end">
+              <p className="font-medium text-gray">
+                👋 Selamat datang di RuangObat
+              </p>
 
-                <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-                  Bimbel Farmasi No.1 di Indonesia Yang{" "}
-                  <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
-                    <span className="relative text-white">
-                      Fasilitasi 10.000+
-                    </span>
+              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+                Bimbel Farmasi No.1 di Indonesia Yang{" "}
+                <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
+                  <span className="relative text-white">
+                    Fasilitasi 10.000+
                   </span>
-                  Mahasiswa Farmasi Seluruh Indonesia
-                </h1>
+                </span>
+                Mahasiswa Farmasi Seluruh Indonesia
+              </h1>
 
-                <p className="font-medium leading-[170%] text-gray">
-                  Dapatkan{" "}
-                  <strong className="font-bold text-purple">
-                    Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
-                    Masuk Apoteker, OSCE dan UKMPPAI Sumatif
-                  </strong>{" "}
-                  untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
-                </p>
-              </div>
-
-              <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
-                <Button
-                  color="secondary"
-                  as={Link}
-                  href="#list-class"
-                  className="px-10 font-bold"
-                >
-                  Lihat Daftar Kelas
-                </Button>
-
-                <Button
-                  variant="bordered"
-                  className="px-6 font-bold"
-                  onClick={() => router.push("/dashboard")}
-                >
-                  Dashboard Tryout CBT
-                </Button>
-              </div>
+              <p className="font-medium leading-[170%] text-gray">
+                Dapatkan{" "}
+                <strong className="font-bold text-purple">
+                  Akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
+                  Masuk Apoteker, OSCE dan UKMPPAI Sumatif
+                </strong>{" "}
+                untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker
+              </p>
             </div>
-          </div>
 
-          <div id="list-class" className="base-container gap-5">
-            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-              Daftar Kelas di RuangObat
-            </h2>
+            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+              <Button
+                color="secondary"
+                onClick={() => scrollToSection(listClassRef)}
+                className="px-10 font-bold"
+              >
+                Lihat Daftar Kelas
+              </Button>
 
-            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
-              {siteConfigHomePage.classes.map((item, index) => (
-                <div
-                  key={index}
-                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
-                  <Image
-                    priority
-                    src={item.image as string}
-                    alt="product img"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                  />
-
-                  <div className="grid gap-4">
-                    <h1 className="max-w-[250px] text-xl font-black text-black group-hover:text-purple">
-                      {item.title}
-                    </h1>
-
-                    <Button
-                      variant={item.id === 6 ? "solid" : "flat"}
-                      color="secondary"
-                      onClick={() => router.push(item.path as string)}
-                      className="font-bold"
-                    >
-                      {item.id === 6 ? "Mulai Ujian" : "Detail Kelas"}
-                    </Button>
-                  </div>
-                </div>
-              ))}
+              <Button
+                variant="bordered"
+                className="px-6 font-bold"
+                onClick={() => router.push("/dashboard")}
+              >
+                Dashboard Tryout CBT
+              </Button>
             </div>
           </div>
         </section>
 
-        <section className="base-container items-center gap-6 [padding:200px_0_100px] xl:grid-cols-[1fr_500px]">
+        <section
+          ref={listClassRef}
+          className="base-container gap-5 [padding:50px_0_100px]"
+        >
+          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+            Daftar Kelas di RuangObat
+          </h2>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
+            {siteConfigHomePage.classes.map((item, index) => (
+              <div
+                key={index}
+                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+              >
+                <Image
+                  priority
+                  src={item.image as string}
+                  alt="product img"
+                  width={304}
+                  height={304}
+                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                />
+
+                <div className="grid gap-4">
+                  <h1 className="max-w-[250px] text-xl font-black text-black group-hover:text-purple">
+                    {item.title}
+                  </h1>
+
+                  <Button
+                    variant={item.id === 6 ? "solid" : "flat"}
+                    color="secondary"
+                    onClick={() => router.push(item.path as string)}
+                    className="font-bold"
+                  >
+                    {item.id === 6 ? "Mulai Ujian" : "Detail Kelas"}
+                  </Button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px]">
           <div className="grid gap-4">
             <h1 className="mb-2 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Ruang Belajar Farmasi Super Lengkap, Bebas Akses Kapan Saja
@@ -167,7 +169,7 @@ export default function HomePage({
             <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
               <Button
                 color="secondary"
-                onClick={() => router.push("/company/about-us")}
+                onClick={() => router.push("/perusahaan/tentang-kami")}
                 className="w-full px-10 font-bold sm:w-max"
               >
                 Baca Selengkapnya

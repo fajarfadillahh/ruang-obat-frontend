@@ -14,6 +14,8 @@ import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
+import { scrollToSection } from "@/utils/scrollToSection";
+import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
   Modal,
@@ -22,19 +24,19 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { IconContext } from "@phosphor-icons/react";
+import { IconContext, ShareNetwork } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 
-export default function PhamacyPrivteClassPage({
+export default function Private1on1Page({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
   const ctx = useContext(AppContext);
+  const packagesRef = useRef<HTMLElement | null>(null);
   const [isOpenDetailMentor, setIsOpenDetailMentor] = useState(false);
   const [selectedMentor, setSelectedMentor] = useState<MentorClassType | null>(
     null,
@@ -49,20 +51,20 @@ export default function PhamacyPrivteClassPage({
     <>
       <Layout
         title="Kelas Privat 1 on 1 Farmasi"
-        description="Sesi pembelajaran privat satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar Anda."
+        description="Sesi pembelajaran privat satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar kamu."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container items-center gap-16 xl:grid-cols-2">
-          <div>
-            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+          <div className="grid gap-4">
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Kelas Private 1 on 1 Farmasi{" "}
               <span className="text-2xl font-extrabold text-purple">
                 by Ruang Obat
               </span>
             </h1>
 
-            <p className="mb-10 font-medium leading-[170%] text-gray">
+            <p className="font-medium leading-[170%] text-gray">
               Khusus kalian mahasiswa farmasi dan mahasiswa profesi apoteker
               yang masih bingung terkait materi kuliah, tugas, skill, praktikum,
               OSCE dan lain-lain. Tidak perlu khawatir, karena kami menyediakan
@@ -72,14 +74,28 @@ export default function PhamacyPrivteClassPage({
               bahasa yang mudah dipahami.
             </p>
 
-            <Button
-              color="secondary"
-              as={Link}
-              href="#list-package"
-              className="px-16 font-bold"
-            >
-              Pilih Paket
-            </Button>
+            <div className="mt-10 inline-flex items-center gap-4">
+              <Button
+                color="secondary"
+                onClick={() => scrollToSection(packagesRef)}
+                className="px-16 font-bold"
+              >
+                Pilih Paket
+              </Button>
+
+              <Button
+                isIconOnly
+                aria-label="Share Link"
+                variant="bordered"
+                onClick={handleShareClipboard}
+              >
+                <ShareNetwork
+                  weight="duotone"
+                  size={18}
+                  className="text-black"
+                />
+              </Button>
+            </div>
           </div>
 
           <Image
@@ -124,7 +140,7 @@ export default function PhamacyPrivteClassPage({
         </section>
 
         <section
-          id="list-package"
+          ref={packagesRef}
           className="base-container grid gap-6 py-[100px]"
         >
           <h2 className="text-center text-3xl font-black -tracking-wide text-black">

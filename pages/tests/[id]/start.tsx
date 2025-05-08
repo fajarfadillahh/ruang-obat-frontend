@@ -388,7 +388,7 @@ export default function StartTest({
                 <ModalConfirm
                   btnText="Kumpulkan Sekarang"
                   header="Pemberitahuan"
-                  text="Yakin Dengan Semua Jawaban Anda? Aksi tidak dapat dibatalkan jika anda telah mengumpulkan jawaban."
+                  text="Yakin dengan semua jawaban kamu? Aksi tidak dapat dibatalkan jika kamu telah mengumpulkan jawaban."
                   loading={loading}
                   isOpen={isSaveTestOpen}
                   onClose={onSaveTestClose}

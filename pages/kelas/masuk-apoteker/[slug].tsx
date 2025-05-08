@@ -29,7 +29,7 @@ export default function DetailPharmacyEntranceClassPage({
         <ButtonBack />
 
         <div className="mt-4">
-          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+          <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
         </div>
 
         <section className="base-container gap-20 [padding:2rem_0_100px]">

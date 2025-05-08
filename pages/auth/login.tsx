@@ -72,7 +72,7 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
-      toast.success("Yeay, Anda Berhasil Login");
+      toast.success("Yeay, kamu berhasil login!");
       return (window.location.href = "/");
     }
   }
