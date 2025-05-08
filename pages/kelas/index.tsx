@@ -18,7 +18,7 @@ export default function ListClassPage() {
   return (
     <>
       <Layout
-        title="Pusat Belajar Farmasi: Semuanya ada dalam satu tempat!"
+        title="Ruang Belajar Farmasi: Semuanya ada dalam satu tempat!"
         description="RuangObat menyajikan program belajar Farmasi yang lengkap dengan berbagai pilihan menarik, mulai dari: Video Pembelajaran, Kelas Private 1 on 1, Kelas Skripsi dan Riset Farmasi, Kelas Masuk Apoteker, serta UKMPPAI & OSCE di mana kamu bisa belajar langsung dengan mentor untuk menguasai materi lebih dalam."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
@@ -35,15 +35,18 @@ export default function ListClassPage() {
 
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Pusat Belajar Farmasi: Semuanya ada dalam satu tempat!
+              Ruang Belajar Farmasi: Semuanya ada dalam satu tempat!
             </h1>
 
             <p className="font-medium leading-[170%] text-gray">
-              RuangObat menyajikan program belajar Farmasi yang lengkap dengan
-              berbagai pilihan menarik, mulai dari: Video Pembelajaran, Kelas
-              Private 1 on 1, Kelas Skripsi dan Riset Farmasi, Kelas Masuk
-              Apoteker, serta UKMPPAI & OSCE di mana kamu bisa belajar langsung
-              dengan mentor untuk menguasai materi lebih dalam.
+              RuangObat menyajikan ruang belajar Farmasi yang lengkap dengan
+              berbagai pilihan menarik, mulai dari:{" "}
+              <strong className="font-bold text-purple">
+                video pembelajaran farmasi, bimbingan skripsi & riset, persiapan
+                masuk profesi apoteker, OSCE, hingga UKMPPAI
+              </strong>{" "}
+              di mana kamu bisa belajar langsung untuk menguasai materi lebih
+              dalam.
             </p>
 
             <div className="mt-10 inline-flex items-center gap-4">
