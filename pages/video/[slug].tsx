@@ -4,29 +4,29 @@ import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { dummyOfferSubscriptions, dummyVideoCourse } from "@/config/dummy";
-import { PharmacistAdmissionDetailsResponse } from "@/types/classes.type";
-import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Accordion, AccordionItem, Button, Progress } from "@nextui-org/react";
 import { Check, CheckCircle, Play, ShareNetwork } from "@phosphor-icons/react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
-export default function DetailPharmacyEntranceClassPage({
-  data,
-  error,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function DetailVideoPage() {
   const router = useRouter();
+  const { slug } = router.query;
   const subscribeRef = useRef<HTMLElement | null>(null);
+
+  const decodedSlug = decodeURIComponent(slug as string)
+    .replace(/-/g, " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
 
   return (
     <>
-      <Layout title={`Detail ${data?.name}`}>
+      <Layout title={`Detail ${decodedSlug}`}>
         <ButtonBack />
 
         <div className="mt-4">
@@ -36,8 +36,8 @@ export default function DetailPharmacyEntranceClassPage({
         <section className="base-container gap-20 [padding:2rem_0_100px]">
           <div className="grid gap-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-16">
             <Image
-              src={data?.img_url as string}
-              alt="logo university"
+              src="/img/default-thumbnail.png"
+              alt="thumbnail"
               width={1000}
               height={1000}
               className="w-full max-w-[350px] rounded-xl object-cover object-center"
@@ -46,7 +46,7 @@ export default function DetailPharmacyEntranceClassPage({
             <div className="grid max-w-[900px] gap-8">
               <div className="grid gap-4">
                 <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
-                  {data?.name}
+                  {decodedSlug}
                 </h1>
 
                 <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
@@ -65,7 +65,12 @@ export default function DetailPharmacyEntranceClassPage({
               </div>
 
               <p className="font-medium leading-[170%] text-gray">
-                {data?.description}
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry's standard dummy
+                text ever since the 1500s, when an unknown printer took a galley
+                of type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged.
               </p>
 
               <Button
@@ -300,33 +305,3 @@ export default function DetailPharmacyEntranceClassPage({
     </>
   );
 }
-
-type DataProps = {
-  data?: PharmacistAdmissionDetailsResponse;
-  error?: ErrorDataType;
-};
-
-export const getServerSideProps: GetServerSideProps<DataProps> = async ({
-  params,
-}) => {
-  try {
-    const response = (await fetcher({
-      method: "GET",
-      url: `/general/pharmacistadmission/${params?.slug}`,
-    })) as SuccessResponse<PharmacistAdmissionDetailsResponse>;
-
-    return {
-      props: {
-        data: response.data,
-      },
-    };
-  } catch (error: any) {
-    console.error(error);
-
-    return {
-      props: {
-        error,
-      },
-    };
-  }
-};

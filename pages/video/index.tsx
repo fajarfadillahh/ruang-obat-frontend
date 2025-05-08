@@ -1,4 +1,5 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
+import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
@@ -258,6 +259,8 @@ export default function LearningVideosPage() {
             ))}
           </div>
         </section>
+
+        <CTASecondary />
       </Layout>
 
       <Footer />
