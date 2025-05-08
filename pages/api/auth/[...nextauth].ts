@@ -9,6 +9,7 @@ type UserLogin = {
   access_token: string;
   expired: string;
   gender: "M" | "F";
+  is_verified: boolean;
 };
 
 export const authOptions: NextAuthOptions = {
@@ -51,6 +52,7 @@ export const authOptions: NextAuthOptions = {
         token.access_token = user.access_token;
         token.expired = user.expired;
         token.gender = user.gender;
+        token.is_verified = user.is_verified;
       }
       return token;
     },
@@ -61,6 +63,7 @@ export const authOptions: NextAuthOptions = {
       session.user.access_token = token.access_token;
       session.user.expired = token.expired;
       session.user.gender = token.gender;
+      session.user.is_verified = token.is_verified;
       return session;
     },
   },

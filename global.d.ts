@@ -8,6 +8,7 @@ declare module "next-auth/jwt" {
     access_token: string;
     expired: string;
     gender: "M" | "F";
+    is_verified: boolean;
   }
 }
 
@@ -18,6 +19,7 @@ declare module "next-auth" {
     access_token: string;
     expired: string;
     gender: "M" | "F";
+    is_verified: boolean;
     id?: string;
   }
 
@@ -28,6 +30,7 @@ declare module "next-auth" {
       access_token: string;
       expired: string;
       gender: "M" | "F";
+      is_verified: boolean;
     };
   }
 }
