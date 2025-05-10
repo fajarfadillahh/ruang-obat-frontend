@@ -1,4 +1,5 @@
 import { BreadcrumbItem, Breadcrumbs } from "@nextui-org/react";
+import Link from "next/link";
 import { useRouter } from "next/router";
 
 type BreadcrumbsUrlProps = {
@@ -35,24 +36,22 @@ export default function BreadcrumbsUrl({
       }}
     >
       <BreadcrumbItem
-        href={basePath}
         classNames={{
           base: "font-medium text-gray",
         }}
       >
-        {rootLabel}
+        <Link href={basePath}>{rootLabel}</Link>
       </BreadcrumbItem>
 
       {breadcrumbs.map((item, index) => (
         <BreadcrumbItem
           key={index}
-          href={item.href}
           isCurrent={index === breadcrumbs.length - 1}
           classNames={{
             base: "font-medium text-gray",
           }}
         >
-          {item.label}
+          <Link href={item.href}>{item.label}</Link>
         </BreadcrumbItem>
       ))}
     </Breadcrumbs>
