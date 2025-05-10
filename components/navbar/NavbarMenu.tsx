@@ -133,7 +133,7 @@ export default function NavbarMain() {
       onMenuOpenChange={setIsMenuOpen}
       height="96px"
       classNames={{
-        wrapper: "max-w-[1200px] px-6 xl:px-0",
+        wrapper: "max-w-[1440px] px-6 xl:px-0",
       }}
     >
       <NavbarContent justify="start">
