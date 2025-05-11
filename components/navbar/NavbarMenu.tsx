@@ -2,8 +2,6 @@ import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
-import { SuccessResponse } from "@/types/global.type";
-import { UserDataResponse } from "@/types/profile.type";
 import {
   Avatar,
   Button,
@@ -38,7 +36,6 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import useSWR from "swr";
 
 const menuItemsMobile = [
   { label: "Beranda", href: "/" },
@@ -69,12 +66,7 @@ const menuItemsDesktop = [
 
 export default function NavbarMain() {
   const router = useRouter();
-  const { data: token, status } = useSession();
-  const { data: user } = useSWR<SuccessResponse<UserDataResponse>>({
-    url: "/my/profile",
-    method: "GET",
-    token: token?.user.access_token,
-  });
+  const { data: session, status } = useSession();
 
   const {
     isOpen: isFeedbackOpen,
@@ -211,7 +203,7 @@ export default function NavbarMain() {
                     isBordered
                     showFallback
                     size="sm"
-                    src={`${status == "authenticated" ? (user?.data.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                    src={`${status == "authenticated" ? (session?.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
                     classNames={{
                       base: "ring-purple bg-purple/20",
                       icon: "text-purple",
@@ -222,12 +214,14 @@ export default function NavbarMain() {
                     <h6 className="text-sm font-bold text-black">
                       {status == "authenticated"
                         ? formatName(
-                            user?.data.fullname ? user?.data.fullname : "",
+                            session?.user.fullname
+                              ? session?.user.fullname
+                              : "",
                           )
                         : null}
                     </h6>
                     <p className="text-[12px] font-medium uppercase text-gray">
-                      {status == "authenticated" ? user?.data.user_id : null}
+                      {status == "authenticated" ? session?.user.user_id : null}
                     </p>
                   </div>
                 </div>
