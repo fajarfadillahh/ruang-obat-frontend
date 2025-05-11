@@ -29,7 +29,7 @@ export default function VerifiedPage() {
 
           <Button
             color="secondary"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/")}
             className="w-full font-bold"
           >
             Kembali
