@@ -377,10 +377,7 @@ export default function StartTest({
                   color="secondary"
                   onClick={onSaveTestOpen}
                   className="font-bold"
-                  isDisabled={Boolean(
-                    questions.filter((question) => !question.user_answer)
-                      .length,
-                  )}
+                  isDisabled={!questions.some((q) => q.user_answer)}
                 >
                   Kumpulkan Jawaban!
                 </Button>
