@@ -99,7 +99,7 @@ export default function PhamacyPrivteClassPage({
 
           <IconContext.Provider
             value={{
-              weight: "bold",
+              weight: "duotone",
               size: 48,
               className: "text-purple",
             }}
