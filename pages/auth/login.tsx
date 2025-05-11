@@ -73,7 +73,7 @@ export default function LoginPage() {
 
     if (response?.ok) {
       toast.success("Yeay, Anda Berhasil Login");
-      return (window.location.href = "/");
+      return (window.location.href = "/unverified");
     }
   }
 

@@ -152,10 +152,7 @@ export default function RegisterPage() {
   async function handleRegister(token?: string) {
     try {
       await fetcher({
-        url:
-          process.env.NEXT_PUBLIC_SEND_OTP == "true"
-            ? "/auth/register/users"
-            : "/auth/register/users/temporary",
+        url: "/auth/register/users",
         method: "POST",
         data: {
           ...input,
