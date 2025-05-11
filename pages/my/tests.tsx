@@ -25,7 +25,7 @@ export default function MyTestsPage({
   return (
     <Layout title="Ujian Saya">
       <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
-        <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
+        <h1 className="text-2xl font-extrabold -tracking-wide text-black">
           Ujian Saya 📋
         </h1>
 
@@ -37,12 +37,14 @@ export default function MyTestsPage({
               alt="no data img"
               width={1000}
               height={500}
-              className="h-[150px] w-auto justify-self-center"
+              className="h-[120px] w-auto justify-self-center"
             />
 
-            <div className="grid justify-items-center gap-3 text-center">
+            <div className="grid justify-items-center gap-4 text-center">
               <p className="font-medium leading-[170%] text-gray">
-                Kamu belum mengikuti ujian
+                Oops! Daftar ujian kamu masih kosong,
+                <br />
+                ayo ikuti ujian yang tersedia.
               </p>
 
               <Button
@@ -57,7 +59,7 @@ export default function MyTestsPage({
             </div>
           </div>
         ) : (
-          <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6 xl:grid-cols-3">
             {data?.data.map((test) => (
               <CardMyTest key={test.test_id} {...test} />
             ))}

@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import {
@@ -53,7 +54,9 @@ export default function ContactUsPage() {
         title="Kontak Kami"
         description="Punya pertanyaan, saran, atau butuh bantuan? Jangan ragu untuk menghubungi kami melalui formulir atau kontak yang tersedia. Tim kami siap membantu Anda."
       >
-        <section className="base-container gap-12 pt-[60px]">
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
+        <section className="base-container gap-12 pb-[100px]">
           <div className="flex flex-wrap items-center justify-center gap-4">
             <div className="aspect-square rounded-full bg-purple p-6">
               <Image

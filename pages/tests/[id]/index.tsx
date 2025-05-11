@@ -9,7 +9,7 @@ import { TestResponse } from "@/types/tests.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate, formatDateWithoutTime } from "@/utils/formatDate";
 import { getError } from "@/utils/getError";
-import { Button, Checkbox, Chip } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import {
   CheckCircle,
   ClockCountdown,
@@ -27,7 +27,6 @@ export default function DetailsTest({
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
-  const [isSelected, setIsSelected] = useState(false);
   const [loading, setLoading] = useState(false);
   const [expired, setExpired] = useState(false);
   const { data, isLoading } = useSWR<SuccessResponse<TestResponse>>(
@@ -104,6 +103,12 @@ export default function DetailsTest({
     };
   }, [data]);
 
+  useEffect(() => {
+    if (data?.data.remaining_tests === 0) {
+      router.push("/my/tests");
+    }
+  }, [data, router]);
+
   if (isLoading) return <Loading />;
 
   return (
@@ -114,9 +119,10 @@ export default function DetailsTest({
         <div className="grid items-end justify-center gap-10 lg:grid-cols-[1fr_300px] lg:justify-between lg:gap-4">
           <div className="grid max-w-[750px] divide-y-2 divide-dashed divide-gray/20">
             <div className="grid gap-4 pb-8">
-              <h4 className="text-[28px] font-bold capitalize leading-[120%] -tracking-wide text-black">
+              <h4 className="text-3xl font-bold capitalize -tracking-wide text-black">
                 {data?.data.title}
               </h4>
+
               <p className="font-medium leading-[170%] text-gray">
                 {data?.data.description}
               </p>
@@ -127,6 +133,7 @@ export default function DetailsTest({
                 <span className="text-sm font-medium text-gray">
                   Tanggal Mulai:
                 </span>
+
                 <h1 className="font-semibold text-black">
                   {formatDateWithoutTime(data?.data.start as string)}
                 </h1>
@@ -136,6 +143,7 @@ export default function DetailsTest({
                 <span className="text-sm font-medium text-gray">
                   Tanggal Selesai:
                 </span>
+
                 <h1 className="font-semibold text-black">
                   {formatDateWithoutTime(data?.data.end as string)}
                 </h1>
@@ -145,6 +153,7 @@ export default function DetailsTest({
                 <span className="text-sm font-medium text-gray">
                   Durasi Pengerjaan:
                 </span>
+
                 <h1 className="font-semibold text-black">
                   {data?.data.duration} Menit
                 </h1>
@@ -154,6 +163,7 @@ export default function DetailsTest({
                 <span className="text-sm font-medium text-gray">
                   Sisa Pengerjaan:
                 </span>
+
                 <h1 className="font-semibold text-black">
                   {data?.data.remaining_tests === 0 ? (
                     <Chip
@@ -176,6 +186,7 @@ export default function DetailsTest({
                 <span className="text-sm font-medium text-gray">
                   Jumlah Soal:
                 </span>
+
                 <h1 className="font-semibold text-black">
                   {data?.data.total_questions} Butir
                 </h1>
@@ -184,7 +195,7 @@ export default function DetailsTest({
           </div>
 
           <div className="grid gap-8">
-            <div className="grid gap-1">
+            <div className="grid gap-2">
               <span className="text-sm font-medium text-gray">
                 Status Ujian:
               </span>
@@ -202,14 +213,14 @@ export default function DetailsTest({
                   data?.data.status === "Belum dimulai" ? (
                     <ClockCountdown weight="bold" size={16} />
                   ) : data?.data.status === "Berlangsung" ? (
-                    <HourglassLow weight="fill" size={16} />
+                    <HourglassLow weight="duotone" size={16} />
                   ) : (
-                    <CheckCircle weight="fill" size={16} />
+                    <CheckCircle weight="duotone" size={16} />
                   )
                 }
                 classNames={{
                   base: "px-2 gap-1",
-                  content: "font-semibold capitalize",
+                  content: "font-bold capitalize",
                 }}
               >
                 {data?.data.status}
@@ -237,34 +248,22 @@ export default function DetailsTest({
                       Mulai Ujian
                     </Button>
                   }
-                  header={<h1 className="font-bold text-black">Peringatan!</h1>}
+                  header={
+                    <h1 className="text-xl font-bold text-black">
+                      Peringatan!
+                    </h1>
+                  }
                   body={
-                    <div className="grid gap-4">
-                      <h1 className="text-[22px] font-extrabold capitalize leading-[120%] text-black">
-                        Harap baca poin penting berikut ini ⚠️
+                    <div className="grid gap-4 pb-8">
+                      <h1 className="text-xl font-extrabold capitalize text-black">
+                        Harap baca poin penting berikut ini:
                       </h1>
 
-                      <div className="divide-y-2 divide-dashed divide-gray/20">
-                        <ol className="ml-4 grid list-outside list-decimal gap-1.5 pb-2 text-sm font-medium leading-[170%] text-gray">
-                          {WarningTextModal.has_start.map((item, index) => (
-                            <li key={index}>{item.text}</li>
-                          ))}
-                        </ol>
-
-                        <Checkbox
-                          size="md"
-                          color="secondary"
-                          isSelected={isSelected}
-                          onValueChange={setIsSelected}
-                          className="mt-4 pt-6"
-                          classNames={{
-                            label: "text-sm font-medium text-gray",
-                          }}
-                        >
-                          Ya, saya sudah membaca poin-poin tersebut dan siap
-                          untuk mengerjakan ujian.
-                        </Checkbox>
-                      </div>
+                      <ol className="ml-6 grid list-outside list-decimal gap-1 font-medium leading-[170%] text-gray">
+                        {WarningTextModal.has_start.map((item, index) => (
+                          <li key={index}>{item.text}</li>
+                        ))}
+                      </ol>
                     </div>
                   }
                   footer={(onClose: any) => (
@@ -272,24 +271,19 @@ export default function DetailsTest({
                       <Button
                         color="danger"
                         variant="light"
-                        onClick={() => {
-                          onClose();
-                          setIsSelected(false);
-                        }}
+                        onClick={onClose}
                         className="font-bold"
                       >
                         Tutup
                       </Button>
 
                       <Button
-                        isDisabled={!isSelected}
                         color="secondary"
                         className="font-bold"
                         onClick={() => {
                           document.documentElement.requestFullscreen();
                           router.push(`/tests/${data?.data.test_id}/start`);
                           onClose();
-                          setIsSelected(false);
                         }}
                       >
                         Mulai Sekarang!
@@ -307,18 +301,20 @@ export default function DetailsTest({
                     Lanjutkan Ujian
                   </Button>
                 }
-                header={<h1 className="font-bold text-black">Peringatan ⚠️</h1>}
+                header={
+                  <h1 className="text-xl font-bold text-black">Peringatan!</h1>
+                }
                 body={
                   <>
                     {!expired ? (
-                      <p className="text-sm font-medium leading-[170%] text-gray">
+                      <p className="font-medium leading-[170%] text-gray">
                         {WarningTextModal.has_result.expired}{" "}
                         <strong className="font-extrabold text-purple">
                           {formatDate(data?.data.end_time as string)}{" "}
                         </strong>
                       </p>
                     ) : (
-                      <p className="text-sm font-medium leading-[170%] text-gray">
+                      <p className="font-medium leading-[170%] text-gray">
                         {WarningTextModal.has_result.continue}
                       </p>
                     )}
@@ -355,7 +351,7 @@ export default function DetailsTest({
                         className="font-bold"
                         onClick={handleSaveTest}
                       >
-                        Kumpulkan Jawaban 🌟
+                        Kumpulkan Jawaban!
                       </Button>
                     )}
                   </>
@@ -371,9 +367,11 @@ export default function DetailsTest({
                     Lanjutkan Ujian
                   </Button>
                 }
-                header={<h1 className="font-bold text-black">Peringatan ⚠️</h1>}
+                header={
+                  <h1 className="text-xl font-bold text-black">Peringatan!</h1>
+                }
                 body={
-                  <p className="text-sm font-medium leading-[170%] text-gray">
+                  <p className="font-medium leading-[170%] text-gray">
                     {WarningTextModal.change_device}{" "}
                     <strong className="font-extrabold text-purple">
                       {formatDate(data?.data.end_time as string)}

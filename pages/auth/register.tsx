@@ -1,3 +1,4 @@
+import Loading from "@/components/Loading";
 import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
 import { SuccessResponse } from "@/types/global.type";
@@ -36,7 +37,6 @@ import { signIn } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -61,7 +61,6 @@ type ErrorsState = {
 };
 
 export default function RegisterPage() {
-  const router = useRouter();
   const {
     isOpen: isTermsPrivacyOpen,
     onOpen: onTermsPrivacyOpen,
@@ -90,6 +89,7 @@ export default function RegisterPage() {
     university: "",
     password: "",
   });
+  const [loadingScreen, setLoadingScreen] = useState(false);
 
   function handleInputChange(
     e: ChangeEvent<HTMLInputElement>,
@@ -124,6 +124,8 @@ export default function RegisterPage() {
       console.log(error);
       setUserId("");
       toast.error(getError(error));
+    } finally {
+      setLoadingScreen(false);
     }
   }
 
@@ -152,7 +154,7 @@ export default function RegisterPage() {
   async function handleRegister(token?: string) {
     try {
       await fetcher({
-        url: "/auth/register/users/temporary",
+        url: "/auth/register/users",
         method: "POST",
         data: {
           ...input,
@@ -234,6 +236,10 @@ export default function RegisterPage() {
 
   if (!client) {
     return;
+  }
+
+  if (loadingScreen) {
+    return <Loading />;
   }
 
   return (
@@ -470,13 +476,10 @@ export default function RegisterPage() {
                 isDisabled={!isFormEmpty()}
                 color="secondary"
                 onClick={() => {
-                  if (process.env.NEXT_PUBLIC_SEND_OTP == "true") {
-                    handleCodeVerification();
-                    setTime(60);
-                    onCodeVerificationOpen();
-                  } else {
-                    handleRegister();
-                  }
+                  setLoadingScreen(true);
+                  handleCodeVerification();
+                  setTime(60);
+                  onCodeVerificationOpen();
                 }}
                 className="font-bold"
               >

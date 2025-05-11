@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
@@ -86,6 +87,8 @@ export default function PharmacyThesisClassPage({
         title="Kelas Skripsi Farmasi"
         description="Kelas Bimbingan Skripsi super lengkap dan bersifat private one-by-one dengan mentor, sehingga akan membuatmu lebih fokus dalam mengerjakan skripsi."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
           <div>
             <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">

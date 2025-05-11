@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
@@ -50,6 +51,8 @@ export default function PhamacyPrivteClassPage({
         title="Kelas Privat 1 on 1 Farmasi"
         description="Sesi pembelajaran privat satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar Anda."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-16 xl:grid-cols-2">
           <div>
             <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">

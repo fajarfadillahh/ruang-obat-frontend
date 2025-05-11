@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import SearchInput from "@/components/SearchInput";
@@ -100,6 +101,8 @@ export default function ExamPreparationVideoClassPage({
         title="Video Pembelajaran Mata Kuliah Farmasi"
         description="Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja dengan video pembelajaran mata kuliah farmasi yang lengkap dan mudah dipahami."
       >
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
         <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
           <div>
             <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">

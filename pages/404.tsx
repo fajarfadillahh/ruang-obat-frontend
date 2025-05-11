@@ -1,43 +1,42 @@
-import { Button } from "@nextui-org/react";
+import { Button, Image } from "@nextui-org/react";
 import { ArrowLeft } from "@phosphor-icons/react";
-import Image from "next/image";
 import { useRouter } from "next/router";
 
 export default function NotFoundPage() {
   const router = useRouter();
 
   return (
-    <section className="flex h-screen w-full flex-col items-center justify-center gap-8 px-6">
-      <Image
-        priority
-        src="/img/404-img.svg"
-        alt="404 img"
-        width={1000}
-        height={500}
-        className="h-auto w-[420px]"
-      />
+    <main className="flex h-screen w-full items-center justify-center px-6">
+      <section className="grid justify-items-center gap-12">
+        <Image
+          src="/img/404-img.svg"
+          alt="404 img"
+          className="h-[250px] w-auto"
+        />
 
-      <div className="grid justify-center gap-6">
-        <div className="text-center">
-          <h1 className="mb-2 text-[38px] font-black leading-[120%] -tracking-wide text-black">
-            Ooppss, Halaman Tidak Ditemukan
-          </h1>
-          <p className="mx-auto max-w-[620px] font-medium leading-[170%] text-gray">
-            Sepertinya halaman yang anda cari tidak tersedia atau sudah
-            dipindahkan. Jangan khawatir, kami akan membantu anda menemukan
-            jalan kembali.
-          </p>
+        <div className="grid gap-6">
+          <div className="grid gap-2 text-center">
+            <h1 className="text-4xl font-black -tracking-wide text-black">
+              Oops, Halaman Tidak Ditemukan
+            </h1>
+
+            <p className="w-full max-w-[650px] font-medium leading-[170%] text-gray">
+              Sepertinya halaman yang anda cari tidak tersedia atau sudah
+              dipindahkan. Jangan khawatir, kami akan membantu anda menemukan
+              jalan kembali.
+            </p>
+          </div>
+
+          <Button
+            color="secondary"
+            startContent={<ArrowLeft weight="bold" size={18} />}
+            onClick={() => router.back()}
+            className="w-max justify-self-center px-12 font-bold"
+          >
+            Kembali
+          </Button>
         </div>
-
-        <Button
-          color="secondary"
-          startContent={<ArrowLeft weight="bold" size={18} />}
-          onClick={() => router.back()}
-          className="w-max justify-self-center px-4 font-bold"
-        >
-          Kembali
-        </Button>
-      </div>
-    </section>
+      </section>
+    </main>
   );
 }

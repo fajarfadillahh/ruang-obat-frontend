@@ -1,12 +1,12 @@
 import CardProgram from "@/components/card/CardProgram";
 import EmptyData from "@/components/EmptyData";
 import Loading from "@/components/Loading";
+import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
 import { DashboardResponse } from "@/types/dashboard.type";
 import { SuccessResponse } from "@/types/global.type";
-import { customInputClassnames } from "@/utils/customInputClassnames";
-import { Input, Pagination, Select, SelectItem } from "@nextui-org/react";
-import { Funnel, IconContext, MagnifyingGlass } from "@phosphor-icons/react";
+import { Pagination, Select, SelectItem } from "@nextui-org/react";
+import { Funnel, IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -51,8 +51,8 @@ export default function DashboardPage({
 
   return (
     <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Anda">
-      <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
-        <h1 className="text-[24px] font-extrabold -tracking-wide text-black">
+      <section className="base-container gap-6">
+        <h1 className="text-2xl font-extrabold -tracking-wide text-black">
           Daftar Program 📋
         </h1>
 
@@ -64,17 +64,10 @@ export default function DashboardPage({
             }}
           >
             <div className="flex items-center justify-between gap-4">
-              <Input
-                isClearable
+              <SearchInput
+                placeholder="Cari Program..."
                 onClear={() => setSearch("")}
                 defaultValue={query.q as string}
-                type="text"
-                variant="flat"
-                labelPlacement="outside"
-                placeholder="Cari Program..."
-                startContent={<MagnifyingGlass className="text-gray" />}
-                classNames={customInputClassnames}
-                className="max-w-[500px]"
                 onChange={(e) => setSearch(e.target.value)}
               />
 
@@ -82,8 +75,10 @@ export default function DashboardPage({
                 selectedKeys={[query.type as string]}
                 aria-label="filter program"
                 variant="flat"
-                placeholder="Filter"
-                startContent={<Funnel className="text-black" />}
+                placeholder="Semua"
+                startContent={
+                  <Funnel weight="duotone" className="text-black" />
+                }
                 labelPlacement="outside"
                 listboxProps={{
                   itemClasses: {
@@ -111,7 +106,7 @@ export default function DashboardPage({
           {searchValue && data?.data.programs.length === 0 ? (
             <EmptyData text="Program tidak ditemukan!" />
           ) : (
-            <div className="grid items-start justify-center gap-2 md:grid-cols-2 xl:grid-cols-3 xl:gap-6">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6 xl:grid-cols-3">
               {data?.data.programs.map((program) => (
                 <CardProgram key={program.program_id} {...program} />
               ))}

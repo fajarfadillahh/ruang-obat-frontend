@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
@@ -12,7 +13,9 @@ export default function AboutUsPage() {
         title="Tentang Kami"
         description="Bimbel private farmasi No. 1 yang telah memfasilitasi 10.000+ mahasiswa Farmasi di seluruh Indonesia"
       >
-        <section className="base-container gap-4 text-center [padding:40px_0_100px]">
+        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+
+        <section className="base-container gap-4 pb-[100px] text-center">
           <h1 className="text-4xl font-black capitalize -tracking-wide text-black md:text-6xl lg:text-7xl">
             RuangObat: Ruang Belajar Farmasi Super Lengkap dan Fleksibel
           </h1>
@@ -64,7 +67,7 @@ export default function AboutUsPage() {
         <section className="base-container py-[100px]">
           <IconContext.Provider
             value={{
-              weight: "bold",
+              weight: "duotone",
               size: 48,
               className: "text-purple",
             }}

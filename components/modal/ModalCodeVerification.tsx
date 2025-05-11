@@ -36,13 +36,14 @@ export default function ModalCodeVerification({
 }: ModalCodeVerificationProps) {
   return (
     <Modal
-      isDismissable={false}
+      hideCloseButton
       isOpen={isOpen}
+      isDismissable={false}
       onClose={() => {
         onClose();
         setCode("");
       }}
-      size="lg"
+      size="xl"
       placement="center"
     >
       <ModalContent>
@@ -52,15 +53,14 @@ export default function ModalCodeVerification({
           <ModalBody>
             <div className="grid gap-8">
               <div className="grid gap-1 text-center">
-                <h1 className="text-[24px] font-bold text-black">
-                  Masukan Kode Verifikasi 📨
+                <h1 className="text-3xl font-extrabold capitalize -tracking-wide text-black">
+                  Masukan Kode Verifikasi
                 </h1>
-                <p className="text-sm font-medium leading-[170%] text-gray">
-                  Kami telah mengirim kode verifikasi ke{" "}
-                  <span className="font-bold text-purple">{email}</span>
-                </p>
-                <p className="text-sm font-medium leading-[170%] text-gray">
-                  silahkan cek inbox atau spam email anda
+
+                <p className="font-medium leading-[170%] text-gray">
+                  Kode verifikasi telah kami kirim ke email{" "}
+                  <span className="text-purple">{email},</span> silakan cek
+                  inbox atau folder spam untuk melanjutkan.
                 </p>
               </div>
 
@@ -87,15 +87,15 @@ export default function ModalCodeVerification({
                   className="font-bold"
                   onClick={handleVerifyOtp}
                 >
-                  Submit
+                  Verifikasi
                 </Button>
               </div>
 
-              <p className="border-t-2 border-dashed border-gray/20 pt-8 text-center text-sm font-medium leading-[170%] text-gray">
+              <p className="border-t-2 border-dashed border-gray/20 pt-8 text-center font-medium leading-[170%] text-gray">
                 Tidak menerima kode?{" "}
                 {time ? (
                   <span className="font-bold text-purple hover:cursor-pointer hover:underline">
-                    Kirim ulang dalam {time}
+                    Kirim ulang {time}
                   </span>
                 ) : (
                   <span

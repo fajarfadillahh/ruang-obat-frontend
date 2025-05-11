@@ -79,7 +79,7 @@ export default function ModalFreeAccess({
         isDismissable={false}
         isOpen={isOpen}
         onOpenChange={onOpenChange}
-        size="lg"
+        size="xl"
         placement="center"
         onClose={() => {
           onClose();
@@ -91,13 +91,13 @@ export default function ModalFreeAccess({
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+              <ModalHeader className="text-xl font-bold text-black">
                 Pemberitahuan
               </ModalHeader>
 
               <ModalBody>
                 <div className="grid gap-6">
-                  <p className="max-w-[400px] text-sm font-medium leading-[170%] text-gray">
+                  <p className="font-medium leading-[170%] text-gray">
                     Untuk mengikuti program gratis ini, kamu harus memenuhi
                     persyaratan untuk upload bukti{" "}
                     <span className="font-extrabold">follow</span>,{" "}
@@ -117,8 +117,8 @@ export default function ModalFreeAccess({
                   </p>
 
                   <div className="grid gap-1">
-                    <p className="text-sm font-medium leading-[170%] text-gray">
-                      <span className="text-danger">*</span> (format gambar .jpg
+                    <p className="font-medium leading-[170%] text-gray">
+                      <span className="text-danger">*</span>(format gambar .jpg
                       .jpeg .png | max. 4mb)
                     </p>
 
@@ -139,7 +139,7 @@ export default function ModalFreeAccess({
                           />
 
                           <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
-                            <span className="text-sm">
+                            <span>
                               {followFile ? (
                                 <CheckCircle
                                   size={30}
@@ -153,7 +153,7 @@ export default function ModalFreeAccess({
                           </div>
                         </label>
 
-                        <p className="text-sm font-medium leading-[170%] text-gray">
+                        <p className="font-medium leading-[170%] text-gray">
                           Follow
                         </p>
                       </div>
@@ -174,7 +174,7 @@ export default function ModalFreeAccess({
                           />
 
                           <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
-                            <span className="text-sm">
+                            <span>
                               {commentFile ? (
                                 <CheckCircle
                                   size={30}
@@ -188,7 +188,7 @@ export default function ModalFreeAccess({
                           </div>
                         </label>
 
-                        <p className="text-sm font-medium leading-[170%] text-gray">
+                        <p className="font-medium leading-[170%] text-gray">
                           Comment
                         </p>
                       </div>
@@ -209,7 +209,7 @@ export default function ModalFreeAccess({
                           />
 
                           <div className="mt-2 flex items-center justify-center rounded-lg border-2 border-dashed border-gray/40 p-8 text-gray/50 sm:p-14">
-                            <span className="text-sm">
+                            <span>
                               {shareFile ? (
                                 <CheckCircle
                                   size={30}
@@ -223,7 +223,7 @@ export default function ModalFreeAccess({
                           </div>
                         </label>
 
-                        <p className="text-sm font-medium leading-[170%] text-gray">
+                        <p className="font-medium leading-[170%] text-gray">
                           Share
                         </p>
                       </div>

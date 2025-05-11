@@ -392,13 +392,13 @@ export const siteConfigAboutUsPage = {
 export const siteTestimonials = [
   {
     comment:
-      "Ruang Obat bener-bener ngebantu banget buat persiapan ujian. Materinya jelas, latihan soalnya juga mirip banget sama yang keluar di ujian kampus. Thanks to Ruang Obat, nilai gue naik signifikan!",
+      "Ruang Obat bener-bener ngebantu banget buat persiapan ujian. Materinya jelas, latihan soalnya juga mirip banget sama yang keluar di ujian kampus. Thanks to Ruang Obat, nilai saya naik signifikan!",
     name: "Dinda A.",
     university: "Universitas Indonesia",
   },
   {
     comment:
-      "Awalnya gue kira e-learning farmasi bakal boring, tapi Ruang Obat beda sih. Penjelasannya ringan, gampang dicerna, dan ada banyak latihan soal. Bikin belajar jadi lebih enjoy, gak berasa dipaksa.",
+      "Awalnya aku kira e-learning farmasi bakal boring, tapi Ruang Obat beda sih. Penjelasannya ringan, gampang dicerna, dan ada banyak latihan soal. Bikin belajar jadi lebih enjoy, gak berasa dipaksa.",
     name: "Aditya S.",
     university: "Universitas Padjadjaran",
   },
@@ -410,13 +410,13 @@ export const siteTestimonials = [
   },
   {
     comment:
-      "Pas lagi hectic sama tugas akhir, Ruang Obat jadi penyelamat. Gak cuma nyediain materi yang lengkap, tapi juga bantu gue buat latihan fokus lewat CBT yang modelnya mirip banget sama real test.",
+      "Pas lagi hectic sama tugas akhir, Ruang Obat jadi penyelamat. Gak cuma nyediain materi yang lengkap, tapi juga bantu saya buat latihan fokus lewat CBT yang modelnya mirip banget sama real test.",
     name: "Reza F.",
     university: "Universitas Gadjah Mada",
   },
   {
     comment:
-      "Sebagai mahasiswa baru, jujur awalnya gue ngerasa lost di dunia farmasi. Tapi ketemu Ruang Obat, gue bisa belajar step by step tanpa ngerasa overwhelmed. Cara ngajarnya friendly dan relatable banget.",
+      "Sebagai mahasiswa baru, jujur awalnya saya ngerasa lost di dunia farmasi. Tapi ketemu Ruang Obat, saya bisa belajar step by step tanpa ngerasa overwhelmed. Cara ngajarnya friendly dan relatable banget.",
     name: "Alya P.",
     university: "Universitas Hasanuddin",
   },
@@ -428,25 +428,25 @@ export const siteTestimonials = [
   },
   {
     comment:
-      "Udah cobain beberapa platform belajar, tapi Ruang Obat yang paling cocok buat gue. Modulnya update, soal-soalnya juga ngebantu banget buat persiapan ujian nasional farmasi.",
+      "Udah cobain beberapa platform belajar, tapi Ruang Obat yang paling cocok buat aku. Modulnya update, soal-soalnya juga ngebantu banget buat persiapan ujian nasional farmasi.",
     name: "Rani S.",
     university: "Universitas Muhammadiyah Yogyakarta",
   },
   {
     comment:
-      "CBT di Ruang Obat itu kayak simulasi beneran. Jadi pas ujian asli, gue udah terbiasa sama tipe-tipe soalnya. Gokil sih, ngebantu banget buat ngurangin rasa panik.",
+      "CBT di Ruang Obat itu kayak simulasi beneran. Jadi pas ujian asli, aku udah terbiasa sama tipe-tipe soalnya. Gokil sih, ngebantu banget buat ngurangin rasa panik.",
     name: "Fajar P.",
     university: "Universitas Andalas",
   },
   {
     comment:
-      "Materi farmasi itu kadang berat, tapi di Ruang Obat dibikin ringan tanpa ngurangin esensinya. Cara penyampaian yang simple bikin gue lebih cepet paham.",
+      "Materi farmasi itu kadang berat, tapi di Ruang Obat dibikin ringan tanpa ngurangin esensinya. Cara penyampaian yang simple bikin aku lebih cepet paham.",
     name: "Livia R.",
     university: "Universitas Sumatera Utara",
   },
   {
     comment:
-      "Pas lagi magang di apotek, banyak materi kuliah yang kepake. Untung ada Ruang Obat yang ngebekalin gue jauh-jauh hari. Jadi pas praktek, gue gak kaget lagi.",
+      "Pas lagi magang di apotek, banyak materi kuliah yang kepake. Untung ada Ruang Obat yang ngebekalin aku jauh-jauh hari. Jadi pas praktek, aku gak kaget lagi.",
     name: "Gibran M.",
     university: "Universitas Pancasila",
   },
@@ -458,13 +458,13 @@ export const siteTestimonials = [
   },
   {
     comment:
-      "Buat gue yang belajarnya suka nunda-nunda, Ruang Obat ngebantu banget buat stay on track. Ada reminder, ada progress tracker, jadi lebih termotivasi buat konsisten belajar.",
+      "Buat saya yang belajarnya suka nunda-nunda, Ruang Obat ngebantu banget buat stay on track. Ada reminder, ada progress tracker, jadi lebih termotivasi buat konsisten belajar.",
     name: "Zaky R.",
     university: "Universitas Jenderal Soedirman",
   },
   {
     comment:
-      "CBT dan e-learning di Ruang Obat dikemas dengan format yang fresh. Nggak kaku sama sekali. Seriusan, belajar farmasi di sini malah jadi salah satu aktivitas yang gue tunggu-tunggu.",
+      "CBT dan e-learning di Ruang Obat dikemas dengan format yang fresh. Nggak kaku sama sekali. Seriusan, belajar farmasi di sini malah jadi salah satu aktivitas yang saya tunggu-tunggu.",
     name: "Felicia N.",
     university: "Universitas Udayana",
   },
@@ -506,7 +506,7 @@ export const siteTestimonials = [
   },
   {
     comment:
-      "Ruang Obat selalu update materi terbaru, jadi gue gak pernah ketinggalan info penting. Cocok banget buat mahasiswa farmasi yang pengen stay ahead.",
+      "Ruang Obat selalu update materi terbaru, jadi saya gak pernah ketinggalan info penting. Cocok banget buat mahasiswa farmasi yang pengen stay ahead.",
     name: "Nadya P.",
     university: "Universitas Pelita Harapan",
   },

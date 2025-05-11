@@ -10,6 +10,20 @@ import {
 } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
+type CardTest = {
+  test_id: string;
+  title: string;
+  start: string;
+  end: string;
+  duration: number;
+  is_active: boolean;
+  has_result: boolean;
+  remaining_tests: number;
+  result_id: string;
+  status: string;
+  is_approved: boolean | null;
+};
+
 export default function CardTest(test: CardTest) {
   const router = useRouter();
 
@@ -45,18 +59,18 @@ export default function CardTest(test: CardTest) {
 
   return (
     <div
-      className={`hover:bg-purple/10" group grid gap-6 rounded-xl border-2 border-purple/10 bg-transparent p-6 hover:border-purple md:grid-cols-[1fr_max-content] md:items-center`}
+      className={`group grid gap-6 rounded-xl bg-white p-6 ring-2 ring-gray/5 hover:bg-purple/10 hover:ring-purple md:grid-cols-[1fr_max-content] md:items-center`}
     >
       <div className="flex flex-1 items-start gap-3">
         {test.is_active ? (
-          <ClipboardText weight="bold" size={28} className="text-purple" />
+          <ClipboardText weight="duotone" size={32} className="text-purple" />
         ) : (
-          <Prohibit weight="bold" size={28} className="text-danger" />
+          <Prohibit weight="duotone" size={32} className="text-danger" />
         )}
 
         <div className="grid flex-1 gap-6">
           <h4
-            className={`line-clamp-2 max-w-[620px] text-[20px] font-bold leading-[120%] -tracking-wide ${
+            className={`line-clamp-2 text-xl font-bold -tracking-wide ${
               test.is_active
                 ? "text-black group-hover:text-purple"
                 : "text-danger"
@@ -65,38 +79,42 @@ export default function CardTest(test: CardTest) {
             {test.title}
           </h4>
 
-          <div className="grid items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:inline-flex lg:gap-6">
-            <div className="grid gap-[2px]">
-              <span className="text-[12px] font-medium text-gray">
+          <div className="grid items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:gap-6">
+            <div className="grid gap-1">
+              <span className="text-xs font-medium text-gray">
                 Tanggal Mulai:
               </span>
+
               <h1 className="text-sm font-semibold text-black">
                 {formatDateWithoutTime(test.start)}
               </h1>
             </div>
 
-            <div className="grid gap-[2px]">
-              <span className="text-[12px] font-medium text-gray">
+            <div className="grid gap-1">
+              <span className="text-xs font-medium text-gray">
                 Tanggal Selesai:
               </span>
+
               <h1 className="text-sm font-semibold text-black">
                 {formatDateWithoutTime(test.end)}
               </h1>
             </div>
 
-            <div className="grid gap-[2px]">
-              <span className="text-[12px] font-medium text-gray">
+            <div className="grid gap-1">
+              <span className="text-xs font-medium text-gray">
                 Durasi Pengerjaan:
               </span>
+
               <h1 className="text-sm font-semibold text-black">
                 {test.duration} Menit
               </h1>
             </div>
 
-            <div className="grid gap-[2px]">
-              <span className="text-[12px] font-medium text-gray">
+            <div className="grid gap-1">
+              <span className="text-xs font-medium text-gray">
                 Sisa Pengerjaan:
               </span>
+
               <h1 className="text-sm font-semibold text-black">
                 {test.remaining_tests === 0
                   ? "-"
@@ -104,8 +122,8 @@ export default function CardTest(test: CardTest) {
               </h1>
             </div>
 
-            <div className="grid gap-[2px]">
-              <span className="text-[12px] font-medium text-gray">
+            <div className="grid gap-1">
+              <span className="text-xs font-medium text-gray">
                 Status Ujian:
               </span>
 
@@ -124,14 +142,14 @@ export default function CardTest(test: CardTest) {
                     test.status === "Belum dimulai" ? (
                       <ClockCountdown weight="bold" size={16} />
                     ) : test.status === "Berlangsung" ? (
-                      <HourglassLow weight="fill" size={16} />
+                      <HourglassLow weight="duotone" size={18} />
                     ) : (
-                      <CheckCircle weight="fill" size={16} />
+                      <CheckCircle weight="duotone" size={18} />
                     )
                   }
                   classNames={{
                     base: "px-2 gap-1",
-                    content: "font-semibold capitalize",
+                    content: "font-bold capitalize",
                   }}
                 >
                   {test.status}
@@ -142,10 +160,10 @@ export default function CardTest(test: CardTest) {
                     variant="flat"
                     color="success"
                     size="sm"
-                    startContent={<CheckCircle weight="fill" size={16} />}
+                    startContent={<CheckCircle weight="duotone" size={16} />}
                     classNames={{
                       base: "px-2 gap-1",
-                      content: "font-semibold capitalize",
+                      content: "font-bold capitalize",
                     }}
                   >
                     Sudah Mengerjakan
@@ -181,17 +199,3 @@ export default function CardTest(test: CardTest) {
     </div>
   );
 }
-
-type CardTest = {
-  test_id: string;
-  title: string;
-  start: string;
-  end: string;
-  duration: number;
-  is_active: boolean;
-  has_result: boolean;
-  remaining_tests: number;
-  result_id: string;
-  status: string;
-  is_approved: boolean | null;
-};

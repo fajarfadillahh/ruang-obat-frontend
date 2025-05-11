@@ -23,11 +23,11 @@ export default function ModalJoinGroup({ data }: ModalJoinGroupProps) {
   return (
     <>
       <Button
+        onPress={onOpen}
         startContent={
           <WhatsappLogo weight="bold" size={18} className="text-white" />
         }
-        onPress={onOpen}
-        className="fixed bottom-[70px] right-5 bg-success font-bold text-white md:right-16 xl:bottom-24 xl:right-24"
+        className="fixed bottom-10 right-5 bg-success font-bold text-white md:right-16 xl:bottom-20 xl:right-24"
       >
         Join Grup WhatsApp!
       </Button>
@@ -36,19 +36,19 @@ export default function ModalJoinGroup({ data }: ModalJoinGroupProps) {
         isDismissable={false}
         isOpen={isOpen}
         onOpenChange={onClose}
-        size="sm"
+        size="md"
         placement="center"
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex flex-col gap-1 font-bold text-black">
+              <ModalHeader className="text-xl font-bold text-black">
                 Join Grup WhatsApp
               </ModalHeader>
 
               <ModalBody>
                 <div className="grid gap-6">
-                  <p className="text-sm font-medium leading-[170%] text-gray">
+                  <p className="font-medium leading-[170%] text-gray">
                     Klik link di bawah ini atau scan QR Code untuk join di grup
                     kita guys! 👋
                     <br />
@@ -62,7 +62,7 @@ export default function ModalJoinGroup({ data }: ModalJoinGroupProps) {
                           toast.error("Maaf, Link Grup Tidak Tersedia!");
                         }
                       }}
-                      className="w-max text-sm font-semibold leading-[170%] text-purple underline"
+                      className="w-max font-bold leading-[170%] text-purple underline"
                     >
                       Link Join Grup!
                     </Link>
