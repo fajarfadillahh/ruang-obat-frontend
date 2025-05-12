@@ -16,6 +16,7 @@ import {
   RocketLaunch,
   Target,
   TiktokLogo,
+  Video,
   WhatsappLogo,
 } from "@phosphor-icons/react";
 
@@ -43,32 +44,38 @@ export const siteConfigHomePage = {
   classes: [
     {
       id: 1,
-      title: "Kelas Matkul Farmasi",
-      image: "/img/products/kelas-1.png",
-      path: "/kelas-matkul-farmasi",
+      title: "Video Pembelajaran",
+      image: "/img/products/video-pembelajaran.svg",
+      path: "/kelas-matkul-farmasi/video-matkul-farmasi",
     },
     {
       id: 2,
-      title: "Kelas Skripsi Farmasi",
-      image: "/img/products/kelas-2.png",
-      path: "/kelas-skripsi-farmasi",
+      title: "Kelas Private 1 on 1",
+      image: "/img/products/kelas-private-1-on-1.svg",
+      path: "/kelas-matkul-farmasi/kelas-privat-farmasi",
     },
     {
       id: 3,
-      title: "Kelas Riset Farmasi",
-      image: "/img/products/kelas-3.png",
-      path: "/kelas-riset-farmasi",
+      title: "Kelas Skripsi Farmasi",
+      image: "/img/products/kelas-skripsi-farmasi.svg",
+      path: "/kelas-skripsi-farmasi",
     },
     {
       id: 4,
-      title: "Kelas Masuk Apoteker",
-      image: "/img/products/kelas-4.png",
-      path: "/kelas-masuk-apoteker",
+      title: "Kelas Riset Farmasi",
+      image: "/img/products/kelas-riset-farmasi.svg",
+      path: "/kelas-riset-farmasi",
     },
     {
       id: 5,
-      title: "Tryout UKMPPAI",
-      image: "/img/products/kelas-5.png",
+      title: "Kelas Masuk Apoteker",
+      image: "/img/products/kelas-masuk-apoteker.svg",
+      path: "/kelas-masuk-apoteker",
+    },
+    {
+      id: 6,
+      title: "UKMPPAI & OSCE",
+      image: "/img/products/ukmppai-osce.svg",
       path: "/dashboard",
     },
   ],
@@ -150,7 +157,7 @@ export const siteConfigHomePage = {
     {
       id: 1,
       title: "Apa itu Ruang Obat?",
-      text: "Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang pendidikan, antara lain; Kelas Mata Kuliah, Kelas Skripsi Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker & OSCE, dan Tryout UKMPPAI.",
+      text: "Ruang Obat merupakan platform Bimbel Private Farmasi No. 1 yang telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh Indonesia. Terdapat berbagai kelas menarik untuk semua jenjang pendidikan, antara lain; Kelas Mata Kuliah, Kelas Skripsi Farmasi, Kelas Riset Farmasi, Kelas Masuk Apoteker, dan UKMPPAI & OSCE.",
       icon: Pill,
     },
     {
@@ -168,7 +175,7 @@ export const siteConfigHomePage = {
     {
       id: 4,
       title: "Bagaimana cara mengikuti tryout di Ruang Obat?",
-      text: "Kamu bisa ikut tryout UKMPPAI di program khusus yang sudah disediakan. Cukup pilih program tryout, ikuti instruksi, dan selamat kamu bisa mengerjakan soal-soal tryout yang sesuai dengan standar terbaru.",
+      text: "Kamu bisa ikut UKMPPAI & OSCE di program khusus yang sudah disediakan. Cukup pilih program tryout, ikuti instruksi, dan selamat kamu bisa mengerjakan soal-soal tryout yang sesuai dengan standar terbaru.",
       icon: Target,
     },
     {
@@ -191,12 +198,12 @@ export const siteConfigHomePage = {
         label: "Produk Kami",
         list: [
           {
-            label: "Tryout UKMPPAI (CBT)",
-            href: "/dashboard",
+            label: "Video Belajar",
+            href: "/kelas-matkul-farmasi/video-matkul-farmasi",
           },
           {
-            label: "Kelas Matkul Farmasi",
-            href: "/kelas-matkul-farmasi",
+            label: "Kelas Private 1 on 1",
+            href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
           },
           {
             label: "Kelas Skripsi Farmasi",
@@ -211,8 +218,8 @@ export const siteConfigHomePage = {
             href: "/kelas-masuk-apoteker",
           },
           {
-            label: "Video Belajar",
-            href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+            label: "UKMPPAI & OSCE",
+            href: "/dashboard",
           },
         ],
       },
@@ -354,11 +361,12 @@ export const siteConfigPhamacyPrivteClassPage = {
 
 export const siteConfigAboutUsPage = {
   products: [
-    { label: "Kelas Matkul Farmasi", icon: GraduationCap },
+    { label: "Video Pembelajaran", icon: Video },
+    { label: "Kelas Private 1 on 1", icon: ClipboardText },
     { label: "Kelas Skripsi Farmasi", icon: BookBookmark },
     { label: "Kelas Riset Farmasi", icon: MagnifyingGlass },
-    { label: "Kelas Masuk Farmasi", icon: Pill },
-    { label: "TryOut UKMPPAI", icon: PencilRuler },
+    { label: "Kelas Masuk Apoteker", icon: Pill },
+    { label: "UKMPPAI & OSCE", icon: PencilRuler },
   ],
   data: {
     vision: {

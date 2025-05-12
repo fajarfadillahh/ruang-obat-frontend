@@ -38,26 +38,36 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const menuItemsMobile = [
-  { label: "Beranda", href: "/" },
-  { label: "Tentang RuangObat", href: "/company/about-us" },
   {
-    label: "Video Belajar",
-    href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+    label: "Utama",
+    list: [
+      { label: "Beranda", href: "/" },
+      { label: "Tentang RuangObat", href: "/company/about-us" },
+    ],
   },
   {
-    label: "Kelas Matkul Farmasi",
-    href: "/kelas-matkul-farmasi",
+    label: "Produk",
+    list: [
+      {
+        label: "Video Belajar",
+        href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+      },
+      {
+        label: "Kelas Private 1 on 1",
+        href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
+      },
+      { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
+      { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
+      { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
+      { label: "UKMPPAI & OSCE", href: "/dashboard" },
+    ],
   },
-  { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
-  { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
-  { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
-  { label: "TryOut UKMPPAI", href: "/dashboard" },
 ];
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Matkul Farmasi",
-    href: "/kelas-matkul-farmasi",
+    label: "Kelas Private 1 on 1",
+    href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
   },
   { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
   { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
@@ -151,6 +161,7 @@ export default function NavbarMain() {
                 <p className="text-sm font-medium text-gray hover:text-purple">
                   Daftar Kelas
                 </p>
+
                 <CaretDown
                   weight="bold"
                   size={14}
@@ -179,7 +190,7 @@ export default function NavbarMain() {
             href="/dashboard"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            TryOut UKMPPAI
+            UKMPPAI & OSCE
           </Link>
         </NavbarItem>
 
@@ -356,15 +367,26 @@ export default function NavbarMain() {
       </NavbarContent>
 
       {/* mobile view */}
-      <NavbarMenu className="gap-1">
+      <NavbarMenu className="gap-8">
         {menuItemsMobile.map((item, index) => (
           <NavbarMenuItem key={index}>
-            <Link
-              href={item.href}
-              className="flex rounded-lg text-sm font-medium text-gray [padding:8px_12px] hover:bg-gray/20"
-            >
-              {item.label}
-            </Link>
+            <div className="grid gap-2">
+              <span className="text-xs font-extrabold uppercase tracking-[4px] text-purple">
+                {item.label}
+              </span>
+
+              <div className="grid gap-1">
+                {item.list.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className="flex rounded-lg text-sm font-medium text-gray [padding:8px_12px] hover:bg-gray/20"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </NavbarMenuItem>
         ))}
       </NavbarMenu>

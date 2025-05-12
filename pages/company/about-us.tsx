@@ -72,15 +72,15 @@ export default function AboutUsPage() {
               className: "text-purple",
             }}
           >
-            <div className="flex flex-wrap items-center justify-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-8">
               {siteConfigAboutUsPage.products.map((item, index) => (
                 <div
                   key={index}
-                  className="grid h-auto w-full max-w-[220px] gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                  className="grid h-auto w-full max-w-[320px] gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
                 >
                   <item.icon />
 
-                  <h4 className="medium text-2xl font-extrabold text-black">
+                  <h4 className="medium text-xl font-extrabold text-black">
                     {item.label}
                   </h4>
                 </div>

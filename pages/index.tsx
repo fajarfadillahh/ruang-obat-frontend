@@ -132,12 +132,12 @@ export default function HomePage({
                     </h1>
 
                     <Button
-                      variant={item.id === 5 ? "solid" : "flat"}
+                      variant={item.id === 6 ? "solid" : "flat"}
                       color="secondary"
                       onClick={() => router.push(item.path as string)}
                       className="font-bold"
                     >
-                      {item.id === 5 ? "Mulai Ujian" : "Detail Kelas"}
+                      {item.id === 6 ? "Mulai Ujian" : "Detail Kelas"}
                     </Button>
                   </div>
                 </div>
