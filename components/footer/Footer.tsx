@@ -1,11 +1,12 @@
 import { siteConfigHomePage } from "@/config/site";
+import { Image } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="grid overflow-hidden bg-purple">
-      <div className="relative mx-auto h-full w-full max-w-[1200px] px-6 xl:p-0">
+    <footer className="isolate grid gap-4 overflow-hidden bg-purple">
+      <div className="relative mx-auto h-full w-full max-w-[1440px] px-6 xl:p-0">
         <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
           <div className="flex flex-wrap items-start gap-16">
             {siteConfigHomePage.footer.menu.map((item, index) => (
@@ -53,14 +54,18 @@ export default function Footer() {
           </IconContext.Provider>
         </div>
 
-        <p className="pb-8 text-center font-medium capitalize text-white/80 xl:relative xl:-mb-10 xl:pb-0">
+        <p className="text-center font-medium capitalize text-white/80">
           &copy; {siteConfigHomePage.footer.copyright}
         </p>
       </div>
 
-      <h1 className="hidden select-none justify-self-center text-center text-[240px] font-black leading-tight -tracking-[12px] text-white/20 xl:flex">
-        RuangObat.
-      </h1>
+      <div className="flex max-w-[100vw] justify-center opacity-20">
+        <Image
+          src="/img/text-footer-img.svg"
+          alt="footer img"
+          className="h-auto w-full max-w-[100vw]"
+        />
+      </div>
     </footer>
   );
 }

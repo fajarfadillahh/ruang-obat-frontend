@@ -14,13 +14,13 @@ export default function TermsPage() {
     <>
       <NextSeo
         title="Ketentuan Layanan | RuangObat"
-        description="Dengan menggunakan layanan kami, Anda menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami."
+        description="Dengan menggunakan layanan kami, kamu menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami."
         canonical={currentUrl}
         openGraph={{
           url: currentUrl,
           title: "Ketentuan Layanan | RuangObat",
           description:
-            "Dengan menggunakan layanan kami, Anda menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami.",
+            "Dengan menggunakan layanan kami, kamu menyetujui persyaratan yang mengatur hak dan kewajiban kedua belah pihak, termasuk batasan penggunaan, tanggung jawab pengguna, dan hak kekayaan intelektual yang berlaku dalam platform kami.",
           site_name: "RuangObat",
         }}
       />
@@ -33,7 +33,7 @@ export default function TermsPage() {
         <div className="grid min-h-screen gap-4 pb-24 pt-12">
           <ButtonBack />
 
-          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+          <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
           <section className="mx-auto grid max-w-[700px] gap-6">
             <h1 className="text-[28px] font-extrabold text-black">
@@ -44,7 +44,7 @@ export default function TermsPage() {
               <p className="font-medium leading-[180%] text-gray">
                 Selamat datang di Ruangobat.id, aplikasi ujian online yang
                 dikelola oleh PT. Pharmacy Cone Group. Dengan menggunakan
-                layanan kami, Anda setuju untuk mematuhi dan terikat oleh
+                layanan kami, kamu setuju untuk mematuhi dan terikat oleh
                 ketentuan layanan berikut ini. Mohon baca dengan seksama sebelum
                 menggunakan layanan kami.
               </p>
@@ -54,9 +54,9 @@ export default function TermsPage() {
                   <strong className="font-bold text-black">
                     Penerimaan Ketentuan
                   </strong>{" "}
-                  Dengan mengakses atau menggunakan Ruangobat.id, Anda
+                  Dengan mengakses atau menggunakan Ruangobat.id, kamu
                   menyetujui untuk terikat dengan Ketentuan Layanan ini. Jika
-                  Anda tidak setuju dengan salah satu ketentuan ini, Anda tidak
+                  kamu tidak setuju dengan salah satu ketentuan ini, kamu tidak
                   diperkenankan menggunakan layanan kami.
                 </li>
 
@@ -74,19 +74,19 @@ export default function TermsPage() {
                   <strong className="font-bold text-black">
                     Akun Pengguna
                   </strong>{" "}
-                  Untuk mengakses layanan kami, Anda harus membuat akun
-                  pengguna. Anda bertanggung jawab untuk menjaga kerahasiaan
-                  informasi akun Anda, termasuk kata sandi, dan bertanggung
-                  jawab atas semua aktivitas yang terjadi di akun Anda.
+                  Untuk mengakses layanan kami, kamu harus membuat akun
+                  pengguna. kamu bertanggung jawab untuk menjaga kerahasiaan
+                  informasi akun kamu, termasuk kata sandi, dan bertanggung
+                  jawab atas semua aktivitas yang terjadi di akun kamu.
                 </li>
 
                 <li>
                   <strong className="font-bold text-black">
                     Penggunaan yang Dilarang
                   </strong>{" "}
-                  Anda setuju untuk tidak menggunakan layanan kami untuk tujuan
+                  kamu setuju untuk tidak menggunakan layanan kami untuk tujuan
                   yang melanggar hukum, tidak sah, atau merugikan pihak lain.
-                  Anda juga dilarang untuk:
+                  kamu juga dilarang untuk:
                   <ul className="list-outside list-disc pl-4">
                     <li>Mengakses sistem kami secara ilegal.</li>
                     <li>Menyebarkan virus atau kode berbahaya lainnya.</li>
@@ -102,7 +102,7 @@ export default function TermsPage() {
                     Pembayaran dan Langganan
                   </strong>{" "}
                   Beberapa fitur di Ruangobat.id mungkin memerlukan pembayaran
-                  atau langganan. Anda setuju untuk memberikan informasi
+                  atau langganan. kamu setuju untuk memberikan informasi
                   pembayaran yang akurat dan membayar semua biaya yang berlaku
                   sesuai dengan ketentuan yang berlaku pada saat pembelian.
                 </li>
@@ -111,7 +111,7 @@ export default function TermsPage() {
                   <strong className="font-bold text-black">
                     Kebijakan Privasi
                   </strong>{" "}
-                  Penggunaan informasi pribadi Anda diatur oleh Kebijakan
+                  Penggunaan informasi pribadi kamu diatur oleh Kebijakan
                   Privasi kami, yang merupakan bagian dari Ketentuan Layanan
                   ini. Silakan baca Kebijakan Privasi kami untuk informasi lebih
                   lanjut.
@@ -131,9 +131,9 @@ export default function TermsPage() {
                     Perubahan Ketentuan Layanan
                   </strong>{" "}
                   Kami berhak mengubah Ketentuan Layanan ini kapan saja.
-                  Perubahan akan diberitahukan melalui aplikasi atau email. Anda
+                  Perubahan akan diberitahukan melalui aplikasi atau email. kamu
                   diharapkan untuk meninjau Ketentuan Layanan secara berkala.
-                  Penggunaan layanan setelah perubahan berarti Anda setuju
+                  Penggunaan layanan setelah perubahan berarti kamu setuju
                   dengan ketentuan yang telah diubah.
                 </li>
 
@@ -149,7 +149,7 @@ export default function TermsPage() {
 
                 <li>
                   <strong className="font-bold text-black">Kontak</strong> Jika
-                  Anda memiliki pertanyaan mengenai Ketentuan Layanan ini,
+                  kamu memiliki pertanyaan mengenai Ketentuan Layanan ini,
                   silakan hubungi kami di:
                   <ul className="list-outside list-disc pl-4">
                     <li>
@@ -171,7 +171,7 @@ export default function TermsPage() {
               </ul>
 
               <p className="font-medium leading-[180%] text-gray">
-                Dengan menggunakan layanan Ruangobat.id, Anda dianggap telah
+                Dengan menggunakan layanan Ruangobat.id, kamu dianggap telah
                 memahami dan menyetujui seluruh ketentuan yang tercantum di
                 atas. Terima kasih telah menggunakan layanan kami!
               </p>

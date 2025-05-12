@@ -14,13 +14,13 @@ export default function PrivacyPage() {
     <>
       <NextSeo
         title="Kebijakan Privasi | RuangObat"
-        description="Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang Anda berikan saat menggunakan layanan kami."
+        description="Kami sangat menghargai privasi kamu dan berkomitmen untuk melindungi data pribadi kamu dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang kamu berikan saat menggunakan layanan kami."
         canonical={currentUrl}
         openGraph={{
           url: currentUrl,
           title: "Kebijakan Privasi | RuangObat",
           description:
-            "Kami sangat menghargai privasi Anda dan berkomitmen untuk melindungi data pribadi Anda dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang Anda berikan saat menggunakan layanan kami.",
+            "Kami sangat menghargai privasi kamu dan berkomitmen untuk melindungi data pribadi kamu dengan transparan menjelaskan bagaimana kami mengumpulkan, menggunakan, dan menjaga informasi yang kamu berikan saat menggunakan layanan kami.",
           site_name: "RuangObat",
         }}
       />
@@ -33,7 +33,7 @@ export default function PrivacyPage() {
         <div className="grid min-h-screen gap-4 pb-24 pt-12">
           <ButtonBack />
 
-          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+          <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
           <section className="mx-auto grid max-w-[700px] gap-6">
             <h1 className="text-[28px] font-extrabold text-black">
@@ -43,11 +43,11 @@ export default function PrivacyPage() {
             <div className="grid gap-4">
               <p className="font-medium leading-[180%] text-gray">
                 Selamat datang di Ruangobat.id! Kami sangat menghargai privasi
-                Anda dan berkomitmen untuk melindungi data pribadi yang Anda
+                kamu dan berkomitmen untuk melindungi data pribadi yang kamu
                 berikan kepada kami. Kebijakan Privasi ini menjelaskan bagaimana
-                kami mengumpulkan, menggunakan, dan melindungi informasi Anda
-                saat Anda menggunakan layanan kami. Dengan mengakses dan
-                menggunakan Ruangobat.id, Anda menyetujui ketentuan yang
+                kami mengumpulkan, menggunakan, dan melindungi informasi kamu
+                saat kamu menggunakan layanan kami. Dengan mengakses dan
+                menggunakan Ruangobat.id, kamu menyetujui ketentuan yang
                 diuraikan dalam Kebijakan Privasi ini.
               </p>
 
@@ -65,22 +65,22 @@ export default function PrivacyPage() {
                         Informasi Pribadi:
                       </strong>{" "}
                       Nama lengkap, alamat email, nomor telepon, dan data lain
-                      yang Anda berikan saat mendaftar.
+                      yang kamu berikan saat mendaftar.
                     </li>
                     <li>
                       <strong className="font-bold text-black">
                         Informasi Penggunaan:
                       </strong>{" "}
-                      Data tentang bagaimana Anda menggunakan layanan kami,
+                      Data tentang bagaimana kamu menggunakan layanan kami,
                       seperti waktu akses, halaman yang dikunjungi, dan
-                      preferensi Anda.
+                      preferensi kamu.
                     </li>
                     <li>
                       <strong className="font-bold text-black">
                         Informasi Teknis:
                       </strong>{" "}
                       Alamat IP, jenis perangkat, jenis browser, dan informasi
-                      teknis lainnya yang dikirimkan oleh perangkat Anda.
+                      teknis lainnya yang dikirimkan oleh perangkat kamu.
                     </li>
                   </ul>
                 </li>
@@ -117,7 +117,7 @@ export default function PrivacyPage() {
                     Pembagian Informasi
                   </strong>{" "}
                   Kami tidak akan menjual, menukar, atau membagikan informasi
-                  pribadi Anda kepada pihak ketiga tanpa persetujuan Anda,
+                  pribadi kamu kepada pihak ketiga tanpa persetujuan kamu,
                   kecuali dalam situasi berikut:
                   <ul className="list-outside list-disc pl-4">
                     <li>
@@ -143,11 +143,11 @@ export default function PrivacyPage() {
                     Keamanan Data
                   </strong>{" "}
                   Kami menerapkan langkah-langkah keamanan yang wajar untuk
-                  melindungi informasi pribadi Anda dari akses, pengungkapan,
+                  melindungi informasi pribadi kamu dari akses, pengungkapan,
                   perubahan, atau penghancuran yang tidak sah. Namun, tidak ada
                   metode transmisi melalui internet atau metode penyimpanan
                   elektronik yang sepenuhnya aman. Oleh karena itu, kami tidak
-                  dapat menjamin keamanan mutlak informasi yang Anda berikan
+                  dapat menjamin keamanan mutlak informasi yang kamu berikan
                   kepada kami.
                 </li>
 
@@ -157,10 +157,10 @@ export default function PrivacyPage() {
                   </strong>{" "}
                   Ruangobat.id menggunakan cookie dan teknologi pelacakan serupa
                   untuk meningkatkan pengalaman pengguna, menganalisis
-                  penggunaan, dan menyediakan konten yang relevan. Anda dapat
-                  mengatur browser Anda untuk menolak semua cookie atau memberi
+                  penggunaan, dan menyediakan konten yang relevan. kamu dapat
+                  mengatur browser kamu untuk menolak semua cookie atau memberi
                   tahu saat cookie dikirim. Namun, beberapa fitur layanan kami
-                  mungkin tidak berfungsi dengan baik jika Anda menonaktifkan
+                  mungkin tidak berfungsi dengan baik jika kamu menonaktifkan
                   cookie.
                 </li>
 
@@ -168,8 +168,8 @@ export default function PrivacyPage() {
                   <strong className="font-bold text-black">
                     Hak Akses dan Pembaruan Informasi
                   </strong>{" "}
-                  Anda berhak untuk mengakses, memperbarui, atau menghapus
-                  informasi pribadi Anda kapan saja. Jika Anda ingin mengubah
+                  kamu berhak untuk mengakses, memperbarui, atau menghapus
+                  informasi pribadi kamu kapan saja. Jika kamu ingin mengubah
                   atau menghapus informasi, silakan hubungi kami melalui kontak
                   yang tersedia.
                 </li>
@@ -180,15 +180,15 @@ export default function PrivacyPage() {
                   </strong>{" "}
                   Kami berhak untuk memperbarui Kebijakan Privasi ini dari waktu
                   ke waktu. Setiap perubahan akan diberitahukan melalui email
-                  atau pemberitahuan di aplikasi kami. Kami mendorong Anda untuk
+                  atau pemberitahuan di aplikasi kami. Kami mendorong kamu untuk
                   meninjau Kebijakan Privasi ini secara berkala untuk tetap
                   mengetahui informasi terbaru tentang bagaimana kami melindungi
-                  data pribadi Anda.
+                  data pribadi kamu.
                 </li>
 
                 <li>
                   <strong className="font-bold text-black">Kontak</strong> Jika
-                  Anda memiliki pertanyaan mengenai Kebijakan Privasi ini,
+                  kamu memiliki pertanyaan mengenai Kebijakan Privasi ini,
                   silakan hubungi kami di:
                   <ul className="list-outside list-disc pl-4">
                     <li>
@@ -210,10 +210,10 @@ export default function PrivacyPage() {
               </ul>
 
               <p className="font-medium leading-[180%] text-gray">
-                Dengan menggunakan Ruangobat.id, Anda menyetujui Kebijakan
+                Dengan menggunakan Ruangobat.id, kamu menyetujui Kebijakan
                 Privasi ini dan setuju dengan pengumpulan, penggunaan, dan
-                pembagian informasi pribadi Anda seperti yang dijelaskan di
-                atas. Terima kasih telah mempercayakan data Anda kepada kami!
+                pembagian informasi pribadi kamu seperti yang dijelaskan di
+                atas. Terima kasih telah mempercayakan data kamu kepada kami!
               </p>
             </div>
           </section>
