@@ -12,8 +12,8 @@ export default function WelcomePage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
   const [dimensions, setDimensions] = useState({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
   });
 
   useEffect(() => {
@@ -93,6 +93,8 @@ export default function WelcomePage({
             src="/img/happy-img.svg"
             alt="happy img"
             className="lg:h-[550px] lg:w-auto"
+            width="0"
+            height="0"
           />
         </section>
       </main>
