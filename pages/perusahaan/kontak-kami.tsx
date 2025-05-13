@@ -52,9 +52,9 @@ export default function ContactUsPage() {
     <>
       <Layout
         title="Kontak Kami"
-        description="Punya pertanyaan, saran, atau butuh bantuan? Jangan ragu untuk menghubungi kami melalui formulir atau kontak yang tersedia. Tim kami siap membantu Anda."
+        description="Punya pertanyaan, saran, atau butuh bantuan? Jangan ragu untuk menghubungi kami melalui formulir atau kontak yang tersedia. Tim kami siap membantu kamu."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container gap-12 pb-[100px]">
           <div className="flex flex-wrap items-center justify-center gap-4">

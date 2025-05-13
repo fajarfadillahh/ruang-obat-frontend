@@ -14,15 +14,23 @@ import {
 import { useRouter } from "next/router";
 
 const data = [
-  { label: "Tentang RuangObat", icon: Pill, url: "/company/about-us" },
-  { label: "Kontak Kami", icon: PhoneCall, url: "/company/contact-us" },
-  { label: "Testimonial", icon: ChatCircleDots, url: "/company/testimonials" },
+  { label: "Tentang RuangObat", icon: Pill, url: "/perusahaan/tentang-kami" },
+  { label: "Kontak Kami", icon: PhoneCall, url: "/perusahaan/kontak-kami" },
+  {
+    label: "Testimonial",
+    icon: ChatCircleDots,
+    url: "/perusahaan/testimonial",
+  },
   {
     label: "Ketentuan Layanan ",
     icon: ClipboardText,
-    url: "/company/terms-conditions",
+    url: "/perusahaan/ketentuan-layanan",
   },
-  { label: "Kebijakan Privasi", icon: LockKey, url: "/company/privacy-policy" },
+  {
+    label: "Kebijakan Privasi",
+    icon: LockKey,
+    url: "/perusahaan/kebijakan-privasi",
+  },
 ];
 
 export default function CompanyPage() {
@@ -34,7 +42,7 @@ export default function CompanyPage() {
         title="PT. Pharmacy Cone Group"
         description="Inovasi di bidang farmasi untuk kualitas hidup yang lebih baik. PT. Pharmacy Cone Group hadir sebagai solusi edukasi farmasi yang relevan dan terpercaya."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container gap-24 pb-[100px]">
           <div className="grid gap-4 text-center">
@@ -82,7 +90,7 @@ export default function CompanyPage() {
                     </div>
 
                     <Button
-                      variant="light"
+                      variant="flat"
                       color="secondary"
                       endContent={<ArrowRight weight="bold" size={18} />}
                       onClick={() => router.push(item.url)}

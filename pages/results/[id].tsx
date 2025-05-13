@@ -288,7 +288,7 @@ export default function ResultTest({
                   </div>
 
                   <div className="grid gap-1">
-                    <p className="text-sm font-medium text-gray">Nilai Anda</p>
+                    <p className="text-sm font-medium text-gray">Nilai Kamu</p>
 
                     <h4 className="text-4xl font-extrabold text-black">
                       🏆 {data?.data.score}

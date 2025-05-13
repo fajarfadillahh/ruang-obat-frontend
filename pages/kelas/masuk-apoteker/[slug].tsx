@@ -1,5 +1,6 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import ButtonBack from "@/components/button/ButtonBack";
+import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { dummyOfferSubscriptions, dummyVideoCourse } from "@/config/dummy";
@@ -29,7 +30,7 @@ export default function DetailPharmacyEntranceClassPage({
         <ButtonBack />
 
         <div className="mt-4">
-          <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+          <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
         </div>
 
         <section className="base-container gap-20 [padding:2rem_0_100px]">
@@ -292,30 +293,7 @@ export default function DetailPharmacyEntranceClassPage({
           </div>
         </section>
 
-        <section className="[padding:100px_0_156px]">
-          <div className="mx-auto flex max-w-[600px] flex-col flex-wrap gap-8 rounded-xl border-2 border-l-[16px] border-black px-6 py-12 sm:px-16 lg:max-w-[700px] lg:flex-row lg:items-center lg:justify-between xl:max-w-[950px]">
-            <div className="flex-1 lg:max-w-[500px]">
-              <h2 className="pb-2 text-3xl font-black capitalize -tracking-wide text-black">
-                Masih Kesulitan??? Kurang Paham??
-              </h2>
-
-              <p className="font-medium leading-[170%] text-gray">
-                Kamu bisa booking Kelas Private 1 on 1 Farmasi dengan mentor
-                pilihanmu sekarang!!!
-              </p>
-            </div>
-
-            <Button
-              color="secondary"
-              onClick={() =>
-                router.push("/kelas-matkul-farmasi/kelas-privat-farmasi")
-              }
-              className="px-4 font-bold"
-            >
-              Booking Kelas Private
-            </Button>
-          </div>
-        </section>
+        <CTAPrivateClass />
       </Layout>
 
       <Footer />

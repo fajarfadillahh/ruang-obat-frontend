@@ -238,7 +238,7 @@ export default function UnverifiedPage({
       </Modal>
 
       <Head>
-        <title>Verifikasi Email Anda! | RuangObat</title>
+        <title>Verifikasi Email Kamu! | RuangObat</title>
       </Head>
 
       <main className="flex h-screen w-full items-center justify-center px-6">
@@ -255,7 +255,7 @@ export default function UnverifiedPage({
               belum diverifikasi. Klik{" "}
               <span className="font-bold text-purple">Kirim Kode OTP</span> di
               bawah untuk mendapatkan kode OTP. Jika sudah, silakan cek inbox
-              atau folder spam pada email anda.
+              atau folder spam pada email kamu.
             </p>
           </div>
 

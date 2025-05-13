@@ -46,31 +46,31 @@ export const siteConfigHomePage = {
       id: 1,
       title: "Video Pembelajaran",
       image: "/img/products/video-pembelajaran.svg",
-      path: "/kelas-matkul-farmasi/video-matkul-farmasi",
+      path: "/video",
     },
     {
       id: 2,
       title: "Kelas Private 1 on 1",
       image: "/img/products/kelas-private-1-on-1.svg",
-      path: "/kelas-matkul-farmasi/kelas-privat-farmasi",
+      path: "/kelas/private-1-on-1",
     },
     {
       id: 3,
       title: "Kelas Skripsi Farmasi",
       image: "/img/products/kelas-skripsi-farmasi.svg",
-      path: "/kelas-skripsi-farmasi",
+      path: "/kelas/skripsi-farmasi",
     },
     {
       id: 4,
       title: "Kelas Riset Farmasi",
       image: "/img/products/kelas-riset-farmasi.svg",
-      path: "/kelas-riset-farmasi",
+      path: "/kelas/riset-farmasi",
     },
     {
       id: 5,
       title: "Kelas Masuk Apoteker",
       image: "/img/products/kelas-masuk-apoteker.svg",
-      path: "/kelas-masuk-apoteker",
+      path: "/kelas/masuk-apoteker",
     },
     {
       id: 6,
@@ -199,23 +199,23 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Video Belajar",
-            href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+            href: "/video",
           },
           {
             label: "Kelas Private 1 on 1",
-            href: "/kelas-matkul-farmasi/kelas-privat-farmasi",
+            href: "/kelas/private-1-on-1",
           },
           {
             label: "Kelas Skripsi Farmasi",
-            href: "/kelas-skripsi-farmasi",
+            href: "/kelas/skripsi-farmasi",
           },
           {
             label: "Kelas Riset Farmasi",
-            href: "/kelas-riset-farmasi",
+            href: "/kelas/riset-farmasi",
           },
           {
             label: "Kelas Masuk Apoteker",
-            href: "/kelas-masuk-apoteker",
+            href: "/kelas/masuk-apoteker",
           },
           {
             label: "UKMPPAI & OSCE",
@@ -228,11 +228,11 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Ketentuan Layanan",
-            href: "/company/terms-conditions",
+            href: "/perusahaan/ketentuan-layanan",
           },
           {
             label: "Kebijakan Privasi",
-            href: "/company/privacy-policy",
+            href: "/perusahaan/kebijakan-privasi",
           },
         ],
       },
@@ -241,15 +241,15 @@ export const siteConfigHomePage = {
         list: [
           {
             label: "Tentang RuangObat",
-            href: "/company/about-us",
+            href: "/perusahaan/tentang-kami",
           },
           {
             label: "Kontak Kami",
-            href: "/company/contact-us",
+            href: "/perusahaan/kontak-kami",
           },
           {
             label: "Testimonial",
-            href: "/company/testimonials",
+            href: "/perusahaan/testimonial",
           },
         ],
       },
@@ -299,7 +299,7 @@ export const siteConfigPhamacyPrivteClassPage = {
     {
       id: 4,
       icon: Medal,
-      text: "Persiapa untuk lomba, intern dan karir di Farmasi",
+      text: "Persiapan untuk lomba, intern dan karir di Farmasi",
     },
     {
       id: 5,

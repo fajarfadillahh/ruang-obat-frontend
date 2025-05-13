@@ -12,7 +12,7 @@ export default function TestimonialsPage() {
         title="Testimonial Mereka Tentang Kami"
         description="Simak cerita dan pengalaman para mahasiswa yang telah mengikuti program kami. Testimoni nyata dari mereka yang telah merasakan manfaat langsung dari pembelajaran di RuangObat."
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container gap-8 pb-[100px]">
           <div className="grid justify-items-center gap-2 text-center">

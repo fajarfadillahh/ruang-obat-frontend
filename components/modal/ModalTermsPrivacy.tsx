@@ -56,7 +56,7 @@ export default function ModalTermsPrivacy({
                       <p className="font-medium leading-[180%] text-gray">
                         Selamat datang di Ruangobat.id, aplikasi ujian online
                         yang dikelola oleh PT. Pharmacy Cone Group. Dengan
-                        menggunakan layanan kami, Anda setuju untuk mematuhi dan
+                        menggunakan layanan kami, kamu setuju untuk mematuhi dan
                         terikat oleh ketentuan layanan berikut ini. Mohon baca
                         dengan seksama sebelum menggunakan layanan kami.
                       </p>
@@ -66,10 +66,10 @@ export default function ModalTermsPrivacy({
                           <strong className="font-bold text-black">
                             Penerimaan Ketentuan
                           </strong>{" "}
-                          Dengan mengakses atau menggunakan Ruangobat.id, Anda
+                          Dengan mengakses atau menggunakan Ruangobat.id, kamu
                           menyetujui untuk terikat dengan Ketentuan Layanan ini.
-                          Jika Anda tidak setuju dengan salah satu ketentuan
-                          ini, Anda tidak diperkenankan menggunakan layanan
+                          Jika kamu tidak setuju dengan salah satu ketentuan
+                          ini, kamu tidak diperkenankan menggunakan layanan
                           kami.
                         </li>
 
@@ -87,20 +87,20 @@ export default function ModalTermsPrivacy({
                           <strong className="font-bold text-black">
                             Akun Pengguna
                           </strong>{" "}
-                          Untuk mengakses layanan kami, Anda harus membuat akun
-                          pengguna. Anda bertanggung jawab untuk menjaga
-                          kerahasiaan informasi akun Anda, termasuk kata sandi,
+                          Untuk mengakses layanan kami, kamu harus membuat akun
+                          pengguna. kamu bertanggung jawab untuk menjaga
+                          kerahasiaan informasi akun kamu, termasuk kata sandi,
                           dan bertanggung jawab atas semua aktivitas yang
-                          terjadi di akun Anda.
+                          terjadi di akun kamu.
                         </li>
 
                         <li>
                           <strong className="font-bold text-black">
                             Penggunaan yang Dilarang
                           </strong>{" "}
-                          Anda setuju untuk tidak menggunakan layanan kami untuk
+                          kamu setuju untuk tidak menggunakan layanan kami untuk
                           tujuan yang melanggar hukum, tidak sah, atau merugikan
-                          pihak lain. Anda juga dilarang untuk:
+                          pihak lain. kamu juga dilarang untuk:
                           <ul className="list-inside list-disc pl-4">
                             <li>Mengakses sistem kami secara ilegal.</li>
                             <li>
@@ -118,7 +118,7 @@ export default function ModalTermsPrivacy({
                             Pembayaran dan Langganan
                           </strong>{" "}
                           Beberapa fitur di Ruangobat.id mungkin memerlukan
-                          pembayaran atau langganan. Anda setuju untuk
+                          pembayaran atau langganan. kamu setuju untuk
                           memberikan informasi pembayaran yang akurat dan
                           membayar semua biaya yang berlaku sesuai dengan
                           ketentuan yang berlaku pada saat pembelian.
@@ -128,7 +128,7 @@ export default function ModalTermsPrivacy({
                           <strong className="font-bold text-black">
                             Kebijakan Privasi
                           </strong>{" "}
-                          Penggunaan informasi pribadi Anda diatur oleh
+                          Penggunaan informasi pribadi kamu diatur oleh
                           Kebijakan Privasi kami, yang merupakan bagian dari
                           Ketentuan Layanan ini. Silakan baca Kebijakan Privasi
                           kami untuk informasi lebih lanjut.
@@ -150,9 +150,9 @@ export default function ModalTermsPrivacy({
                           </strong>{" "}
                           Kami berhak mengubah Ketentuan Layanan ini kapan saja.
                           Perubahan akan diberitahukan melalui aplikasi atau
-                          email. Anda diharapkan untuk meninjau Ketentuan
+                          email. kamu diharapkan untuk meninjau Ketentuan
                           Layanan secara berkala. Penggunaan layanan setelah
-                          perubahan berarti Anda setuju dengan ketentuan yang
+                          perubahan berarti kamu setuju dengan ketentuan yang
                           telah diubah.
                         </li>
 
@@ -171,7 +171,7 @@ export default function ModalTermsPrivacy({
                           <strong className="font-bold text-black">
                             Kontak
                           </strong>{" "}
-                          Jika Anda memiliki pertanyaan mengenai Ketentuan
+                          Jika kamu memiliki pertanyaan mengenai Ketentuan
                           Layanan ini, silakan hubungi kami di:
                           <ul className="list-inside list-disc pl-4">
                             <li>
@@ -197,7 +197,7 @@ export default function ModalTermsPrivacy({
                       </ul>
 
                       <p className="font-medium leading-[180%] text-gray">
-                        Dengan menggunakan layanan Ruangobat.id, Anda dianggap
+                        Dengan menggunakan layanan Ruangobat.id, kamu dianggap
                         telah memahami dan menyetujui seluruh ketentuan yang
                         tercantum di atas. Terima kasih telah menggunakan
                         layanan kami!
@@ -223,12 +223,12 @@ export default function ModalTermsPrivacy({
                     <div className="grid gap-4">
                       <p className="font-medium leading-[180%] text-gray">
                         Selamat datang di Ruangobat.id! Kami sangat menghargai
-                        privasi Anda dan berkomitmen untuk melindungi data
-                        pribadi yang Anda berikan kepada kami. Kebijakan Privasi
+                        privasi kamu dan berkomitmen untuk melindungi data
+                        pribadi yang kamu berikan kepada kami. Kebijakan Privasi
                         ini menjelaskan bagaimana kami mengumpulkan,
-                        menggunakan, dan melindungi informasi Anda saat Anda
+                        menggunakan, dan melindungi informasi kamu saat kamu
                         menggunakan layanan kami. Dengan mengakses dan
-                        menggunakan Ruangobat.id, Anda menyetujui ketentuan yang
+                        menggunakan Ruangobat.id, kamu menyetujui ketentuan yang
                         diuraikan dalam Kebijakan Privasi ini.
                       </p>
 
@@ -246,15 +246,15 @@ export default function ModalTermsPrivacy({
                                 Informasi Pribadi:
                               </strong>{" "}
                               Nama lengkap, alamat email, nomor telepon, dan
-                              data lain yang Anda berikan saat mendaftar.
+                              data lain yang kamu berikan saat mendaftar.
                             </li>
                             <li>
                               <strong className="font-bold text-black">
                                 Informasi Penggunaan:
                               </strong>{" "}
-                              Data tentang bagaimana Anda menggunakan layanan
+                              Data tentang bagaimana kamu menggunakan layanan
                               kami, seperti waktu akses, halaman yang
-                              dikunjungi, dan preferensi Anda.
+                              dikunjungi, dan preferensi kamu.
                             </li>
                             <li>
                               <strong className="font-bold text-black">
@@ -262,7 +262,7 @@ export default function ModalTermsPrivacy({
                               </strong>{" "}
                               Alamat IP, jenis perangkat, jenis browser, dan
                               informasi teknis lainnya yang dikirimkan oleh
-                              perangkat Anda.
+                              perangkat kamu.
                             </li>
                           </ul>
                         </li>
@@ -302,8 +302,8 @@ export default function ModalTermsPrivacy({
                             Pembagian Informasi
                           </strong>{" "}
                           Kami tidak akan menjual, menukar, atau membagikan
-                          informasi pribadi Anda kepada pihak ketiga tanpa
-                          persetujuan Anda, kecuali dalam situasi berikut:
+                          informasi pribadi kamu kepada pihak ketiga tanpa
+                          persetujuan kamu, kecuali dalam situasi berikut:
                           <ul className="list-inside list-disc pl-4">
                             <li>
                               <strong className="font-bold text-black">
@@ -330,12 +330,12 @@ export default function ModalTermsPrivacy({
                             Keamanan Data
                           </strong>{" "}
                           Kami menerapkan langkah-langkah keamanan yang wajar
-                          untuk melindungi informasi pribadi Anda dari akses,
+                          untuk melindungi informasi pribadi kamu dari akses,
                           pengungkapan, perubahan, atau penghancuran yang tidak
                           sah. Namun, tidak ada metode transmisi melalui
                           internet atau metode penyimpanan elektronik yang
                           sepenuhnya aman. Oleh karena itu, kami tidak dapat
-                          menjamin keamanan mutlak informasi yang Anda berikan
+                          menjamin keamanan mutlak informasi yang kamu berikan
                           kepada kami.
                         </li>
 
@@ -346,10 +346,10 @@ export default function ModalTermsPrivacy({
                           Ruangobat.id menggunakan cookie dan teknologi
                           pelacakan serupa untuk meningkatkan pengalaman
                           pengguna, menganalisis penggunaan, dan menyediakan
-                          konten yang relevan. Anda dapat mengatur browser Anda
+                          konten yang relevan. kamu dapat mengatur browser kamu
                           untuk menolak semua cookie atau memberi tahu saat
                           cookie dikirim. Namun, beberapa fitur layanan kami
-                          mungkin tidak berfungsi dengan baik jika Anda
+                          mungkin tidak berfungsi dengan baik jika kamu
                           menonaktifkan cookie.
                         </li>
 
@@ -357,8 +357,8 @@ export default function ModalTermsPrivacy({
                           <strong className="font-bold text-black">
                             Hak Akses dan Pembaruan Informasi
                           </strong>{" "}
-                          Anda berhak untuk mengakses, memperbarui, atau
-                          menghapus informasi pribadi Anda kapan saja. Jika Anda
+                          kamu berhak untuk mengakses, memperbarui, atau
+                          menghapus informasi pribadi kamu kapan saja. Jika kamu
                           ingin mengubah atau menghapus informasi, silakan
                           hubungi kami melalui kontak yang tersedia.
                         </li>
@@ -370,17 +370,17 @@ export default function ModalTermsPrivacy({
                           Kami berhak untuk memperbarui Kebijakan Privasi ini
                           dari waktu ke waktu. Setiap perubahan akan
                           diberitahukan melalui email atau pemberitahuan di
-                          aplikasi kami. Kami mendorong Anda untuk meninjau
+                          aplikasi kami. Kami mendorong kamu untuk meninjau
                           Kebijakan Privasi ini secara berkala untuk tetap
                           mengetahui informasi terbaru tentang bagaimana kami
-                          melindungi data pribadi Anda.
+                          melindungi data pribadi kamu.
                         </li>
 
                         <li>
                           <strong className="font-bold text-black">
                             Kontak
                           </strong>{" "}
-                          Jika Anda memiliki pertanyaan mengenai Kebijakan
+                          Jika kamu memiliki pertanyaan mengenai Kebijakan
                           Privasi ini, silakan hubungi kami di:
                           <ul className="list-inside list-disc pl-4">
                             <li>
@@ -406,11 +406,11 @@ export default function ModalTermsPrivacy({
                       </ul>
 
                       <p className="font-medium leading-[180%] text-gray">
-                        Dengan menggunakan Ruangobat.id, Anda menyetujui
+                        Dengan menggunakan Ruangobat.id, kamu menyetujui
                         Kebijakan Privasi ini dan setuju dengan pengumpulan,
-                        penggunaan, dan pembagian informasi pribadi Anda seperti
+                        penggunaan, dan pembagian informasi pribadi kamu seperti
                         yang dijelaskan di atas. Terima kasih telah
-                        mempercayakan data Anda kepada kami!
+                        mempercayakan data kamu kepada kami!
                       </p>
                     </div>
                   </section>

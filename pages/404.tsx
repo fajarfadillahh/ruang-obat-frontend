@@ -21,8 +21,8 @@ export default function NotFoundPage() {
             </h1>
 
             <p className="w-full max-w-[650px] font-medium leading-[170%] text-gray">
-              Sepertinya halaman yang anda cari tidak tersedia atau sudah
-              dipindahkan. Jangan khawatir, kami akan membantu anda menemukan
+              Sepertinya halaman yang kamu cari tidak tersedia atau sudah
+              dipindahkan. Jangan khawatir, kami akan membantu kamu menemukan
               jalan kembali.
             </p>
           </div>

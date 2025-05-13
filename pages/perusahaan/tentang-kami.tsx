@@ -13,7 +13,7 @@ export default function AboutUsPage() {
         title="Tentang Kami"
         description="Bimbel private farmasi No. 1 yang telah memfasilitasi 10.000+ mahasiswa Farmasi di seluruh Indonesia"
       >
-        <BreadcrumbsUrl rootLabel="Home" basePath="/" />
+        <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container gap-4 pb-[100px] text-center">
           <h1 className="text-4xl font-black capitalize -tracking-wide text-black md:text-6xl lg:text-7xl">
