@@ -172,13 +172,11 @@ export default function NavbarMain() {
 
             <DropdownMenu items={menuItemsDesktop}>
               {(item) => (
-                <DropdownItem key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="w-full text-sm font-medium text-gray"
-                  >
-                    {item.label}
-                  </Link>
+                <DropdownItem
+                  key={item.href}
+                  onClick={() => router.push(item.href)}
+                >
+                  {item.label}
                 </DropdownItem>
               )}
             </DropdownMenu>

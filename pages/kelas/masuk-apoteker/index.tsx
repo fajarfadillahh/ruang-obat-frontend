@@ -1,6 +1,5 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
-import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
@@ -11,16 +10,22 @@ import {
 import { PharmacistAdmissionClassType } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
-import { filterData } from "@/utils/filterData";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { isNewProduct } from "@/utils/isNewProduct";
 import { scrollToSection } from "@/utils/scrollToSection";
+import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button, Chip } from "@nextui-org/react";
-import { CheckCircle } from "@phosphor-icons/react";
+import {
+  CheckCircle,
+  ClipboardText,
+  IconContext,
+  ShareNetwork,
+  VideoCamera,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
 export default function PharmacyEntranceClassPage({
   data,
@@ -29,14 +34,6 @@ export default function PharmacyEntranceClassPage({
   const router = useRouter();
   const subscribeRef = useRef<HTMLElement | null>(null);
   const tryoutRef = useRef<HTMLElement | null>(null);
-  const [search, setSearch] = useState("");
-
-  // for search product/class
-  const keysToFilter: (keyof PharmacistAdmissionClassType)[] = [
-    "university_id",
-    "name",
-  ];
-  const filteredData = filterData(data || [], search, keysToFilter);
 
   return (
     <>
@@ -46,9 +43,9 @@ export default function PharmacyEntranceClassPage({
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        {/* <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
-          <div>
-            <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+        <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
+          <div className="grid gap-4">
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Kelas Siap Masuk Apoteker: Upgrade Skill, Raih Mimpi
             </h1>
 
@@ -60,13 +57,34 @@ export default function PharmacyEntranceClassPage({
               dan terarah.
             </p>
 
-            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
-              <Button color="secondary" className="w-max px-12 font-bold">
-                Pilih Video Belajar
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
+              <Button
+                color="secondary"
+                onClick={() => scrollToSection(subscribeRef)}
+                className="px-6 font-bold"
+              >
+                Langganan Sekarang
               </Button>
 
-              <Button variant="bordered" className="w-max px-12 font-bold">
-                Lihat Bonus Tryout
+              <Button
+                variant="bordered"
+                onClick={() => scrollToSection(tryoutRef)}
+                className="px-6 font-bold"
+              >
+                Pilih Bonus Tryout
+              </Button>
+
+              <Button
+                isIconOnly
+                aria-label="Share Link"
+                variant="bordered"
+                onClick={handleShareClipboard}
+              >
+                <ShareNetwork
+                  weight="duotone"
+                  size={18}
+                  className="text-black"
+                />
               </Button>
             </div>
           </div>
@@ -79,105 +97,85 @@ export default function PharmacyEntranceClassPage({
             height={619}
             className="h-[600px] w-full justify-self-center"
           />
-        </section> */}
-
-        <section className="base-container gap-6 border-b-2 border-dashed border-gray/20 pb-[50px] xl:flex xl:flex-wrap xl:items-center xl:justify-between xl:gap-4">
-          <div className="grid gap-2">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-              Kelas Masuk Apoteker
-            </h1>
-
-            <p className="text-lg font-medium text-gray">
-              Bersiaplah menghadapi seleksi masuk program profesi apoteker.
-            </p>
-          </div>
-
-          <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
-            <Button
-              color="secondary"
-              onClick={() => scrollToSection(subscribeRef)}
-              className="px-6 font-bold"
-            >
-              Langganan Sekarang
-            </Button>
-
-            <Button
-              variant="bordered"
-              onClick={() => scrollToSection(tryoutRef)}
-              className="px-6 font-bold"
-            >
-              Pilih Bonus Tryout
-            </Button>
-          </div>
         </section>
 
-        <section className="base-container gap-4 [padding:50px_0_100px]">
-          <div className="grid gap-2">
+        <section className="base-container gap-8 [padding:50px_0_100px] xl:gap-4">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Daftar Video 🔥
             </h2>
 
             <SearchInput
               placeholder="Cari Video..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onClear={() => setSearch("")}
-              className="mb-4 max-w-[550px]"
+              className="w-full xl:max-w-[350px]"
             />
           </div>
 
-          {filteredData.length === 0 ? (
-            <div className="rounded-xl border-2 border-dashed border-gray/20 p-6">
-              <EmptyData text="Kelas Tidak Ditemukan 😥" />
-            </div>
-          ) : (
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
-              {data?.map((item: PharmacistAdmissionClassType) => (
-                <div
-                  key={item.university_id}
-                  className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
-                  {isNewProduct(item.created_at) ? (
-                    <Chip
-                      color="danger"
-                      className="absolute right-8 top-8 z-10"
-                      classNames={{
-                        content: "font-bold px-4",
-                      }}
-                    >
-                      Baru
-                    </Chip>
-                  ) : null}
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+            {data?.map((item: PharmacistAdmissionClassType) => (
+              <div
+                key={item.university_id}
+                onClick={() =>
+                  router.push(`/kelas/masuk-apoteker/${item.slug}`)
+                }
+                className="group relative isolate grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
+              >
+                {isNewProduct(item.created_at) ? (
+                  <Chip
+                    color="danger"
+                    size="sm"
+                    className="absolute right-4 top-4 z-10"
+                    classNames={{
+                      content: "font-bold px-4",
+                    }}
+                  >
+                    Baru
+                  </Chip>
+                ) : null}
 
-                  <Image
-                    priority
-                    src="/img/default-thumbnail.png"
-                    alt="thumbnail"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                  />
+                <Image
+                  priority
+                  src={item.img_url as string}
+                  alt="thumbnail"
+                  width={304}
+                  height={304}
+                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
+                />
 
-                  <div className="grid gap-4">
-                    <h1 className="line-clamp-2 text-xl font-black text-black group-hover:text-purple">
-                      {item.name}
-                    </h1>
+                <div className="grid gap-4 [padding:1.5rem_1rem]">
+                  <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                    {item.name}
+                  </h1>
 
-                    <Button
-                      variant="flat"
-                      color="secondary"
-                      onClick={() =>
-                        router.push(`/kelas/masuk-apoteker/${item.slug}`)
-                      }
-                      className="font-bold"
-                    >
-                      Detail Video
-                    </Button>
-                  </div>
+                  <IconContext.Provider
+                    value={{
+                      weight: "duotone",
+                      size: 18,
+                      className: "text-purple",
+                    }}
+                  >
+                    <div className="grid gap-1">
+                      {[
+                        [<VideoCamera />, "30 video"],
+                        [<ClipboardText />, "15 quiz"],
+                      ].map(([icon, label], index) => (
+                        <div
+                          key={index}
+                          className="inline-flex items-center gap-2"
+                        >
+                          {icon}
+
+                          <p className="text-sm font-semibold capitalize text-gray">
+                            {label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </IconContext.Provider>
                 </div>
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </section>
 
         <section ref={tryoutRef} className="base-container gap-8 py-[100px]">
@@ -191,45 +189,37 @@ export default function PharmacyEntranceClassPage({
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyTryoutPerUniversity.map((item) => (
               <div
                 key={item.tryout_id}
-                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
               >
-                {isNewProduct(item.created_at) ? (
-                  <Chip
-                    color="danger"
-                    className="absolute right-8 top-8 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
-                  >
-                    Baru
-                  </Chip>
-                ) : null}
-
                 <Image
                   priority
                   src="/img/default-thumbnail.png"
                   alt="thumbnail"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  className="aspect-square size-[100px] rounded-md object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="line-clamp-2 text-xl font-black text-black group-hover:text-purple">
+                  <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
                     {item.tryout_name}
                   </h1>
 
-                  <Button
-                    variant={item.tryout_accessed ? "solid" : "flat"}
-                    color="secondary"
-                    className="font-bold"
-                  >
-                    {item.tryout_accessed ? "Detail Tryout" : "Akses Tryout"}
-                  </Button>
+                  <div className="inline-flex items-center gap-2">
+                    <ClipboardText
+                      weight="duotone"
+                      size={18}
+                      className="text-purple"
+                    />
+
+                    <p className="text-sm font-semibold capitalize text-gray">
+                      10 ujian
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}
