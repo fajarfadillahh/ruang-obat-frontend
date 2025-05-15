@@ -20,13 +20,16 @@ import {
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 
-export default function DetailPharmacyEntranceClassPage({
+export default function DetailPharmacistEntranceClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
-      <Layout title={`Detail ${data?.name}`}>
+      <Layout
+        title={`Detail Kelas Video ${data?.name}`}
+        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+      >
         <ButtonBack />
 
         <div className="mt-4">

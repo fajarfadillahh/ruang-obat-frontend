@@ -1,5 +1,6 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
+import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
@@ -14,82 +15,111 @@ import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { isNewProduct } from "@/utils/isNewProduct";
 import { scrollToSection } from "@/utils/scrollToSection";
+import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button, Chip } from "@nextui-org/react";
-import { CheckCircle } from "@phosphor-icons/react";
+import {
+  CheckCircle,
+  ClipboardText,
+  IconContext,
+  ShareNetwork,
+  VideoCamera,
+} from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 
-export default function LearningVideosPage() {
+export default function VideoLearningClassPage() {
   const router = useRouter();
   const subscribeRef = useRef<HTMLElement | null>(null);
   const quizRef = useRef<HTMLElement | null>(null);
-  const [search, setSearch] = useState("");
 
   return (
     <>
       <Layout
-        title="Video Pembelajaran Farmasi"
-        description="Akses seluruh video pembelajaran eksklusif dari RuangObat untuk mendukung proses belajarmu. Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja dengan sangat lengkap dan mudah dipahami."
+        title="Video Pembelajaran Lengkap untuk Mahasiswa Farmasi"
+        description="Dikelas ini kami menyediakan video pembelajaran mata kuliah farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container gap-6 border-b-2 border-dashed border-gray/20 pb-[50px] xl:flex xl:flex-wrap xl:items-center xl:justify-between xl:gap-4">
-          <div className="grid gap-2">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-              Video Pembelajaran Farmasi
+        <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
+          <div className="grid gap-4">
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Video Pembelajaran Lengkap untuk Mahasiswa Farmasi
             </h1>
 
-            <p className="text-lg font-medium text-gray">
-              Ayo, akses semua video pembelajaran yang tersedia sekarang!
+            <p className="mb-10 font-medium leading-[170%] text-gray">
+              Dikelas ini kami menyediakan video pembelajaran mata kuliah
+              farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk
+              membantu kamu belajar kapan saja dan di mana saja.
             </p>
+
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
+              <Button
+                color="secondary"
+                onClick={() => scrollToSection(subscribeRef)}
+                className="px-6 font-bold"
+              >
+                Langganan Sekarang!
+              </Button>
+
+              <Button
+                variant="bordered"
+                onClick={() => scrollToSection(quizRef)}
+                className="px-6 font-bold"
+              >
+                Pilih Bonus Quiz
+              </Button>
+
+              <Button
+                isIconOnly
+                aria-label="Share Link"
+                variant="bordered"
+                onClick={handleShareClipboard}
+              >
+                <ShareNetwork
+                  weight="duotone"
+                  size={18}
+                  className="text-black"
+                />
+              </Button>
+            </div>
           </div>
 
-          <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
-            <Button
-              color="secondary"
-              onClick={() => scrollToSection(subscribeRef)}
-              className="px-6 font-bold"
-            >
-              Langganan Sekarang
-            </Button>
-
-            <Button
-              variant="bordered"
-              onClick={() => scrollToSection(quizRef)}
-              className="px-6 font-bold"
-            >
-              Pilih Bonus Quiz
-            </Button>
-          </div>
+          <Image
+            priority
+            src="/img/base/video-pembelajaran-img.svg"
+            alt="class subject img"
+            width={510}
+            height={340}
+            className="h-[600px] w-full justify-self-center"
+          />
         </section>
 
         <section className="base-container gap-4 [padding:50px_0_100px]">
-          <div className="grid gap-2">
+          <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Daftar Video 🔥
             </h2>
 
             <SearchInput
               placeholder="Cari Video..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              onClear={() => setSearch("")}
-              className="mb-4 max-w-[550px]"
+              className="w-full xl:max-w-[350px]"
             />
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
             {dummyListVideo.map((item) => (
               <div
                 key={item.video_id}
-                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                onClick={() => router.push(`/video/${item.slug}`)}
+                className="group relative isolate grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
               >
                 {isNewProduct(item.created_at) ? (
                   <Chip
                     color="danger"
-                    className="absolute right-8 top-8 z-10"
+                    size="sm"
+                    className="absolute right-4 top-4 z-10"
                     classNames={{
                       content: "font-bold px-4",
                     }}
@@ -104,22 +134,39 @@ export default function LearningVideosPage() {
                   alt="thumbnail"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
-                <div className="grid gap-4">
-                  <h1 className="line-clamp-2 text-xl font-black text-black group-hover:text-purple">
+                <div className="grid gap-4 [padding:1.5rem_1rem]">
+                  <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                     {item.video_title}
                   </h1>
 
-                  <Button
-                    variant="flat"
-                    color="secondary"
-                    onClick={() => router.push(`/video/${item.slug}`)}
-                    className="font-bold"
+                  <IconContext.Provider
+                    value={{
+                      weight: "duotone",
+                      size: 18,
+                      className: "text-purple",
+                    }}
                   >
-                    Detail Video
-                  </Button>
+                    <div className="grid gap-1">
+                      {[
+                        [<VideoCamera />, "30 video"],
+                        [<ClipboardText />, "15 quiz"],
+                      ].map(([icon, label], index) => (
+                        <div
+                          key={index}
+                          className="inline-flex items-center gap-2"
+                        >
+                          {icon}
+
+                          <p className="text-sm font-semibold capitalize text-gray">
+                            {label}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </IconContext.Provider>
                 </div>
               </div>
             ))}
@@ -137,45 +184,34 @@ export default function LearningVideosPage() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyQuiz.map((item) => (
               <div
                 key={item.quiz_id}
-                className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
               >
-                {isNewProduct(item.created_at) ? (
-                  <Chip
-                    color="danger"
-                    className="absolute right-8 top-8 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
-                  >
-                    Baru
-                  </Chip>
-                ) : null}
-
-                <Image
-                  priority
-                  src="/img/default-thumbnail.png"
-                  alt="thumbnail"
-                  width={304}
-                  height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
-                />
+                <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-6xl">
+                  📚
+                </div>
 
                 <div className="grid gap-4">
-                  <h1 className="line-clamp-2 text-xl font-black text-black group-hover:text-purple">
-                    {item.quiz_name}
-                  </h1>
+                  <CustomTooltip content={item.quiz_name}>
+                    <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+                      {item.quiz_name}
+                    </h1>
+                  </CustomTooltip>
 
-                  <Button
-                    variant={item.quiz_accessed ? "solid" : "flat"}
-                    color="secondary"
-                    className="font-bold"
-                  >
-                    {item.quiz_accessed ? "Detail Quiz" : "Akses Quiz"}
-                  </Button>
+                  <div className="inline-flex items-center gap-2">
+                    <ClipboardText
+                      weight="duotone"
+                      size={18}
+                      className="text-purple"
+                    />
+
+                    <p className="text-sm font-semibold capitalize text-gray">
+                      {item.total_questions} soal
+                    </p>
+                  </div>
                 </div>
               </div>
             ))}

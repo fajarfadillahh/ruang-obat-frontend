@@ -138,6 +138,7 @@ export const dummyQuiz = [
     quiz_description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     created_at: "2025-05-25T00:00:00.000Z",
+    total_questions: 50,
   },
   {
     quiz_id: 2,
@@ -146,6 +147,7 @@ export const dummyQuiz = [
     quiz_description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
     created_at: "2025-05-25T00:00:00.000Z",
+    total_questions: 75,
   },
 ];
 

@@ -27,7 +27,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
-export default function PharmacyEntranceClassPage({
+export default function PharmacistEntranceClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -38,8 +38,8 @@ export default function PharmacyEntranceClassPage({
   return (
     <>
       <Layout
-        title="Kelas Masuk Apoteker"
-        description="Kelas ini dirancang khusus untuk mempersiapkan kamu menghadapi seleksi masuk Program Profesi Apoteker, dengan materi komprehensif dan pembimbing berpengalaman."
+        title="Kelas Siap Masuk Apoteker: Upgrade Skill, Raih Mimpi"
+        description="Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami menyediakan program khusus yang disesuaikan dengan kebutuhan menjadi seorang Apoteker yang handal dan profesional. Kelas ini pula dirancang untuk membantu kamu memahami materi secara mendalam dan terarah."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
@@ -63,7 +63,7 @@ export default function PharmacyEntranceClassPage({
                 onClick={() => scrollToSection(subscribeRef)}
                 className="px-6 font-bold"
               >
-                Langganan Sekarang
+                Langganan Sekarang!
               </Button>
 
               <Button
