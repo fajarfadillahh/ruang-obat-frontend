@@ -7,6 +7,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const content =
   "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure autem odio nam commodi voluptates nihil praesentium sunt quod assumenda provident?";
@@ -17,24 +18,29 @@ export default function RosaPage() {
   const [value, setValue] = useState<string>("");
 
   let role = "user";
-  let credit = 1;
+  let credit = 10;
 
-  function submitChat() {
-    if (credit >= 1) {
-      console.log("Submit chat:", value);
-      setValue("");
+  function validateInput(input: string): boolean {
+    return input.trim().length > 0;
+  }
+
+  function handleSubmitChat() {
+    if (!validateInput(value)) {
+      toast.error("Pertanyaan tidak valid! masukan minimal 1 kata");
+      return;
     }
+
+    if (credit < 1) return;
+
+    console.log("Submit chat:", value);
+    setValue("");
   }
 
   function handleKeyDown(e: any) {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      submitChat();
+      handleSubmitChat();
     }
-  }
-
-  function handleSubmitQuestion() {
-    submitChat();
   }
 
   return (
@@ -64,7 +70,7 @@ export default function RosaPage() {
           {role == "user" ? (
             <div
               dangerouslySetInnerHTML={{ __html: content }}
-              className="h-max w-max max-w-[600px] self-end whitespace-pre-wrap bg-gray/5 p-4 font-medium leading-[170%] text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/10"
+              className="h-max w-full max-w-[600px] self-end bg-gray/5 p-4 font-medium leading-[170%] text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/10"
             />
           ) : (
             <div className="mb-4 flex items-start gap-4">
@@ -97,12 +103,13 @@ export default function RosaPage() {
             </div>
 
             <p className="hidden text-[10px] font-medium italic text-gray/70 before:text-danger/70 before:content-['*'] md:flex md:text-xs">
-              ROSA (AI) bisa melakukan kelasahan, harap periksa kembali!
+              ROSA (AI) bisa melakukan kelasahan, harap cek kembali!
             </p>
           </div>
 
           <div className="grid gap-2">
             <Textarea
+              isDisabled={!credit}
               minRows={2}
               maxRows={6}
               type="text"
@@ -116,10 +123,10 @@ export default function RosaPage() {
             />
 
             <Button
-              isDisabled={!value || credit < 1}
+              isDisabled={!value || !credit}
               color="secondary"
               endContent={<PaperPlaneRight weight="bold" size={18} />}
-              onClick={handleSubmitQuestion}
+              onClick={handleSubmitChat}
               className="font-bold"
             >
               Tanyakan
