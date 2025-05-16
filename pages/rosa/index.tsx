@@ -157,8 +157,6 @@ export default function RosaPage() {
     }
   }
 
-  console.log(onProgressAi);
-
   return (
     <>
       <NextSeo
