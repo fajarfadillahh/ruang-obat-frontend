@@ -60,6 +60,7 @@ const menuItemsMobile = [
       { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
       { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
       { label: "UKMPPAI & OSCE", href: "/dashboard" },
+      { label: "Tanya ROSA", href: "/rosa" },
     ],
   },
 ];
@@ -144,7 +145,7 @@ export default function NavbarMain() {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-5 lg:flex" justify="center">
+      <NavbarContent className="hidden gap-4 lg:flex" justify="center">
         <NavbarItem>
           <Link
             href="/video"
@@ -189,6 +190,15 @@ export default function NavbarMain() {
             className="text-sm font-medium text-gray hover:text-purple"
           >
             UKMPPAI & OSCE
+          </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link
+            href="/rosa"
+            className="text-sm font-medium text-gray hover:text-purple"
+          >
+            Tanya ROSA
           </Link>
         </NavbarItem>
 

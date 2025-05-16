@@ -221,6 +221,10 @@ export const siteConfigHomePage = {
             label: "UKMPPAI & OSCE",
             href: "/dashboard",
           },
+          {
+            label: "Tanya ROSA",
+            href: "/rosa",
+          },
         ],
       },
       {
