@@ -1,47 +1,163 @@
+import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import NavbarMenu from "@/components/navbar/NavbarMenu";
+import { SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
-import { Button, Textarea } from "@nextui-org/react";
+import { fetcher } from "@/utils/fetcher";
+import { Button, Textarea, useDisclosure } from "@nextui-org/react";
 import { CreditCard, PaperPlaneRight } from "@phosphor-icons/react";
+import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useState } from "react";
-import toast from "react-hot-toast";
+import { MutableRefObject, useEffect, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import useSWR from "swr";
 
-const content =
-  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure autem odio nam commodi voluptates nihil praesentium sunt quod assumenda provident?";
+type TypingTextProps = {
+  text: string;
+  speed?: number;
+  onDone?: () => void;
+  divRef: MutableRefObject<null>;
+};
+
+function TypingText(props: TypingTextProps) {
+  const { text, speed = 10, onDone } = props;
+  const [displayedText, setDisplayedText] = useState("");
+  const [index, setIndex] = useState(0);
+
+  useEffect(
+    function () {
+      if (index < text.length) {
+        const timeout = setTimeout(() => {
+          setDisplayedText((prev) => prev + text[index]);
+          setIndex((prev) => prev + 1);
+
+          props.divRef.current?.scrollIntoView({ behavior: "smooth" });
+        }, speed);
+
+        return () => clearTimeout(timeout);
+      } else {
+        if (onDone) {
+          onDone();
+        }
+      }
+    },
+    [index, text, speed, onDone, props.divRef],
+  );
+
+  return (
+    <ReactMarkdown
+      components={{
+        ol: ({ children, ...props }) => (
+          <ol className="list-decimal pl-4" {...props}>
+            {children}
+          </ol>
+        ),
+        ul: ({ children, ...props }) => (
+          <ul className="list-disc pl-4" {...props}>
+            {children}
+          </ul>
+        ),
+      }}
+    >
+      {displayedText}
+    </ReactMarkdown>
+  );
+}
 
 export default function RosaPage() {
+  const { status, data } = useSession();
+
+  const { data: user, mutate } = useSWR<
+    SuccessResponse<{ total: number; remaining: number }>
+  >(
+    status == "authenticated"
+      ? {
+          url: "/ai/limits/check",
+          method: "GET",
+          token: data.user.access_token,
+        }
+      : null,
+  );
+
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const divRef = useRef(null);
+
   const router = useRouter();
   const currentUrl = `https://ruangobat.id${router.asPath}`;
-  const [value, setValue] = useState<string>("");
+  const [input, setInput] = useState<string>("");
+  const [messages, setMessages] = useState<
+    { role: string; content: string; is_loading?: boolean; id?: number }[]
+  >([]);
+  const [onProgressAi, setOnProgressAi] = useState(false);
 
-  let role = "user";
-  let credit = 10;
-
-  function validateInput(input: string): boolean {
-    return input.trim().length > 0;
-  }
-
-  function handleSubmitChat() {
-    if (!validateInput(value)) {
-      toast.error("Pertanyaan tidak valid! masukan minimal 1 kata");
-      return;
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      onOpen();
     }
+  }, [status, onOpen]);
 
-    if (credit < 1) return;
+  async function handleSubmitChat() {
+    const id = Date.now();
+    if (!user?.data.remaining) return;
 
-    console.log("Submit chat:", value);
-    setValue("");
-  }
+    setOnProgressAi(true);
+    setMessages((prev) => [
+      ...prev,
+      { role: "user", content: input },
+      { role: "assistant", content: "", is_loading: true, id },
+    ]);
 
-  function handleKeyDown(e: any) {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      handleSubmitChat();
+    setTimeout(() => {
+      divRef.current?.scrollIntoView({ behavior: "smooth" });
+    }, 250);
+
+    try {
+      const response: SuccessResponse<{ role: string; content: string }> =
+        await fetcher({
+          url: "/ai/chat",
+          method: "POST",
+          token: data?.user.access_token,
+          data: {
+            input,
+          },
+        });
+
+      mutate();
+
+      setMessages((prev) =>
+        prev.map((msg) => {
+          return msg.id == id
+            ? {
+                role: "assistant",
+                content: response.data.content,
+                is_loading: false,
+                id: 0,
+              }
+            : msg;
+        }),
+      );
+    } catch (error) {
+      console.log(error);
+
+      setMessages((prev) =>
+        prev.map((msg) => {
+          return msg.id == id
+            ? {
+                role: "assistant",
+                content:
+                  "Ups sepertinya server kita ada masalah. Maaf ya atas ketidaknyamanannya 😫",
+                is_loading: false,
+                id: 0,
+              }
+            : msg;
+        }),
+      );
     }
   }
+
+  console.log(onProgressAi);
 
   return (
     <>
@@ -64,69 +180,114 @@ export default function RosaPage() {
 
       <NavbarMenu />
 
-      <main className="mx-auto grid h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
-        {/* content chat (user & ai) */}
-        <div className="flex flex-col gap-6 overflow-y-scroll bg-white scrollbar-hide">
-          {role == "user" ? (
-            <div
-              dangerouslySetInnerHTML={{ __html: content }}
-              className="h-max w-full max-w-[600px] self-end bg-gray/5 p-4 font-medium leading-[170%] text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/10"
-            />
-          ) : (
-            <div className="mb-4 flex items-start gap-4">
-              <Image
-                src="/img/default-thumbnail.png"
-                alt="icon"
-                width={100}
-                height={100}
-                className="aspect-square size-9 rounded-full"
-              />
+      <ModalUnauthenticated
+        isOpen={isOpen}
+        onClose={() => {
+          router.back();
+          onClose();
+        }}
+      />
 
+      <main className="mx-auto grid h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
+        <div className="flex flex-col justify-center gap-6 overflow-y-scroll bg-white scrollbar-hide">
+          {messages.map((message, index) => {
+            return message.role == "user" ? (
+              <div className="h-max w-auto max-w-[600px] self-end bg-gray/5 p-4 font-medium leading-[170%] text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/10">
+                {message.content}
+              </div>
+            ) : (
               <div
-                dangerouslySetInnerHTML={{ __html: content }}
-                className="h-max flex-1 whitespace-pre-wrap font-medium leading-[170%] text-black"
-              />
-            </div>
-          )}
+                className={`mb-4 flex ${message.is_loading ? "items-center" : "items-start"} gap-4`}
+              >
+                <Image
+                  src="/img/default-thumbnail.png"
+                  alt="icon"
+                  width={100}
+                  height={100}
+                  className="aspect-square size-9 rounded-full"
+                />
+
+                <div className="h-max flex-1 font-medium leading-[170%] text-black">
+                  {message.is_loading ? (
+                    <div className="flex justify-start space-x-1">
+                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0s] [animation-duration:0.5s]"></div>
+                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.1s] [animation-duration:0.5s]"></div>
+                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.2s] [animation-duration:0.5s]"></div>
+                    </div>
+                  ) : (
+                    <TypingText
+                      text={message.content}
+                      key={index}
+                      divRef={divRef}
+                      onDone={() => {
+                        setOnProgressAi(false);
+                      }}
+                    />
+                  )}
+                </div>
+              </div>
+            );
+          })}
+
+          <div ref={divRef}></div>
         </div>
 
-        {/* field input user */}
         <div className="mb-4 mt-2 grid gap-4 rounded-xl border-2 border-gray/10 bg-white p-4 md:mb-8">
           <div className="flex items-end justify-between gap-4">
             <div className="inline-flex items-center gap-2">
               <CreditCard weight="duotone" size={22} className="text-purple" />
 
               <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                Sisa kredit anda:{" "}
-                <span className="font-black text-purple">{credit}</span>
+                Sisa akses AI Anda hari ini:{" "}
+                <span className="font-black text-purple">
+                  {status == "authenticated" ? user?.data.remaining : "-"}
+                </span>
               </p>
             </div>
 
             <p className="hidden text-[10px] font-medium italic text-gray/70 before:text-danger/70 before:content-['*'] md:flex md:text-xs">
-              ROSA (AI) bisa melakukan kelasahan, harap cek kembali!
+              ROSA (AI) bisa melakukan kesalahan, dimohon untuk selalu
+              cross-check jawaban.
             </p>
           </div>
 
           <div className="grid gap-2">
             <Textarea
-              isDisabled={!credit}
+              isDisabled={
+                status == "authenticated" ? !user?.data.remaining : onProgressAi
+              }
               minRows={2}
               maxRows={6}
               type="text"
               variant="flat"
               labelPlacement="outside"
-              placeholder="Tanyakan seputar dunia Farmasi dan RuangObat..."
-              value={value}
-              onChange={(e) => setValue(e.target.value)}
-              onKeyDown={handleKeyDown}
+              placeholder="Tanyakan Seputar Dunia Farmasi dan Ruang Obat..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
+                  e.preventDefault();
+                  handleSubmitChat();
+                  setInput("");
+                }
+              }}
               classNames={customInputClassnames}
             />
 
             <Button
-              isDisabled={!value || !credit}
+              isDisabled={
+                !input ||
+                !user?.data.remaining ||
+                status == "unauthenticated" ||
+                onProgressAi ||
+                messages.some((msg) => msg.is_loading)
+              }
               color="secondary"
               endContent={<PaperPlaneRight weight="bold" size={18} />}
-              onClick={handleSubmitChat}
+              onClick={() => {
+                handleSubmitChat();
+                setInput("");
+              }}
               className="font-bold"
             >
               Tanyakan
