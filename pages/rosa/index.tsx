@@ -18,7 +18,7 @@ type TypingTextProps = {
   text: string;
   speed?: number;
   onDone?: () => void;
-  divRef: MutableRefObject<null>;
+  divRef: MutableRefObject<HTMLDivElement | null>;
 };
 
 function TypingText(props: TypingTextProps) {
@@ -81,15 +81,46 @@ export default function RosaPage() {
       : null,
   );
 
+  const { data: chats } = useSWR<
+    SuccessResponse<{ role: string; content: string }[]>
+  >(
+    status == "authenticated"
+      ? {
+          url: "/ai/chat",
+          method: "GET",
+          token: data.user.access_token,
+        }
+      : null,
+    status == "authenticated"
+      ? {
+          revalidateOnFocus: false,
+          revalidateOnReconnect: false,
+          refreshInterval: 0,
+          dedupingInterval: 0,
+          keepPreviousData: false,
+        }
+      : {},
+  );
+
   const { onOpen, isOpen, onClose } = useDisclosure();
-  const divRef = useRef(null);
+  const divRef = useRef<HTMLDivElement>(null);
 
   const router = useRouter();
   const currentUrl = `https://ruangobat.id${router.asPath}`;
   const [input, setInput] = useState<string>("");
   const [messages, setMessages] = useState<
-    { role: string; content: string; is_loading?: boolean; id?: number }[]
-  >([]);
+    {
+      role: string;
+      content: string;
+      is_loading?: boolean;
+      id?: number;
+      is_typing?: boolean;
+    }[]
+  >(
+    chats?.data.length
+      ? chats.data.map((chat) => ({ ...chat, is_typing: false }))
+      : [],
+  );
   const [onProgressAi, setOnProgressAi] = useState(false);
 
   useEffect(() => {
@@ -97,6 +128,18 @@ export default function RosaPage() {
       onOpen();
     }
   }, [status, onOpen]);
+
+  useEffect(() => {
+    if (chats?.data?.length) {
+      setMessages(chats.data.map((chat) => ({ ...chat, is_typing: false })));
+    }
+  }, [chats?.data]);
+
+  useEffect(() => {
+    if (messages.length) {
+      divRef.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   async function handleSubmitChat() {
     const id = Date.now();
@@ -134,6 +177,7 @@ export default function RosaPage() {
                 content: response.data.content,
                 is_loading: false,
                 id: 0,
+                is_typing: true,
               }
             : msg;
         }),
@@ -212,15 +256,34 @@ export default function RosaPage() {
                       <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.1s] [animation-duration:0.5s]"></div>
                       <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.2s] [animation-duration:0.5s]"></div>
                     </div>
-                  ) : (
+                  ) : null}
+
+                  {message.is_typing ? (
                     <TypingText
                       text={message.content}
-                      key={index}
+                      key={message.id ?? index}
                       divRef={divRef}
                       onDone={() => {
                         setOnProgressAi(false);
                       }}
                     />
+                  ) : (
+                    <ReactMarkdown
+                      components={{
+                        ol: ({ children, ...props }) => (
+                          <ol className="list-decimal pl-4" {...props}>
+                            {children}
+                          </ol>
+                        ),
+                        ul: ({ children, ...props }) => (
+                          <ul className="list-disc pl-4" {...props}>
+                            {children}
+                          </ul>
+                        ),
+                      }}
+                    >
+                      {message.content}
+                    </ReactMarkdown>
                   )}
                 </div>
               </div>
@@ -252,7 +315,9 @@ export default function RosaPage() {
           <div className="grid gap-2">
             <Textarea
               isDisabled={
-                status == "authenticated" ? !user?.data.remaining : onProgressAi
+                status == "authenticated"
+                  ? !user?.data.remaining || onProgressAi
+                  : onProgressAi
               }
               minRows={2}
               maxRows={6}
