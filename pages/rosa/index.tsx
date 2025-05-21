@@ -232,65 +232,77 @@ export default function RosaPage() {
 
       <main className="relative isolate mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
         {/* message */}
-        <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
-          {messages.map((message, index) => {
-            return message.role == "user" ? (
-              <div className="h-max w-auto max-w-[600px] self-end bg-gray/10 p-4 font-medium text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/20">
-                {message.content}
-              </div>
-            ) : (
-              <div
-                className={`mb-4 flex ${message.is_loading ? "items-center" : "items-start"} gap-4`}
-              >
-                <Image
-                  src="/img/default-thumbnail.png"
-                  alt="icon"
-                  width={100}
-                  height={100}
-                  className="aspect-square size-9 rounded-full"
-                />
-
-                <div className="h-max flex-1 font-medium leading-[170%] text-black">
-                  {message.is_loading ? (
-                    <div className="flex justify-start space-x-1">
-                      <div className="loader"></div>
-                    </div>
-                  ) : null}
-
-                  {message.is_typing ? (
-                    <TypingText
-                      text={message.content}
-                      key={message.id ?? index}
-                      divRef={divRef}
-                      onDone={() => {
-                        setOnProgressAi(false);
-                      }}
-                    />
-                  ) : (
-                    <ReactMarkdown
-                      components={{
-                        ol: ({ children, ...props }) => (
-                          <ol className="list-decimal pl-4" {...props}>
-                            {children}
-                          </ol>
-                        ),
-                        ul: ({ children, ...props }) => (
-                          <ul className="list-disc pl-4" {...props}>
-                            {children}
-                          </ul>
-                        ),
-                      }}
-                    >
-                      {message.content}
-                    </ReactMarkdown>
-                  )}
+        {messages.length ? (
+          <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
+            {messages.map((message, index) => {
+              return message.role == "user" ? (
+                <div className="h-max w-auto max-w-[600px] self-end bg-gray/10 p-4 font-medium text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/20">
+                  {message.content}
                 </div>
-              </div>
-            );
-          })}
+              ) : (
+                <div
+                  className={`mb-4 flex ${message.is_loading ? "items-center" : "items-start"} gap-4`}
+                >
+                  <Image
+                    src="/img/default-thumbnail.png"
+                    alt="icon"
+                    width={100}
+                    height={100}
+                    className="aspect-square size-9 rounded-full"
+                  />
 
-          <div ref={divRef}></div>
-        </div>
+                  <div className="h-max flex-1 font-medium leading-[170%] text-black">
+                    {message.is_loading ? (
+                      <div className="flex justify-start space-x-1">
+                        <div className="loader"></div>
+                      </div>
+                    ) : null}
+
+                    {message.is_typing ? (
+                      <TypingText
+                        text={message.content}
+                        key={message.id ?? index}
+                        divRef={divRef}
+                        onDone={() => {
+                          setOnProgressAi(false);
+                        }}
+                      />
+                    ) : (
+                      <ReactMarkdown
+                        components={{
+                          ol: ({ children, ...props }) => (
+                            <ol className="list-decimal pl-4" {...props}>
+                              {children}
+                            </ol>
+                          ),
+                          ul: ({ children, ...props }) => (
+                            <ul className="list-disc pl-4" {...props}>
+                              {children}
+                            </ul>
+                          ),
+                        }}
+                      >
+                        {message.content}
+                      </ReactMarkdown>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+
+            <div ref={divRef}></div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center justify-center gap-2">
+            <h1 className="text-2xl font-extrabold text-black">
+              ROSA (Ruang Obat Smart Assistant) 💊
+            </h1>
+            <p className="max-w-[600px] text-center font-medium leading-[170%] text-gray">
+              Hi, aku ROSA yang siap bantu kamu menjawab berbagai pertanyaan
+              seputar dunia Farmasi dan layanan belajar di Ruang Obat ✨.
+            </p>
+          </div>
+        )}
 
         {/* input field */}
         <div className="sticky bottom-0 left-0 bg-white pb-4 md:pb-8">
