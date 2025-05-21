@@ -22,7 +22,7 @@ type TypingTextProps = {
 };
 
 function TypingText(props: TypingTextProps) {
-  const { text, speed = 10, onDone } = props;
+  const { text, speed = 0.2, onDone } = props;
   const [displayedText, setDisplayedText] = useState("");
   const [index, setIndex] = useState(0);
 
@@ -230,11 +230,12 @@ export default function RosaPage() {
         }}
       />
 
-      <main className="mx-auto grid h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
-        <div className="flex flex-col justify-center gap-6 overflow-y-scroll bg-white scrollbar-hide">
+      <main className="relative isolate mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
+        {/* message */}
+        <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
           {messages.map((message, index) => {
             return message.role == "user" ? (
-              <div className="h-max w-auto max-w-[600px] self-end bg-gray/5 p-4 font-medium leading-[170%] text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/10">
+              <div className="h-max w-auto max-w-[600px] self-end bg-gray/10 p-4 font-medium text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/20">
                 {message.content}
               </div>
             ) : (
@@ -252,9 +253,7 @@ export default function RosaPage() {
                 <div className="h-max flex-1 font-medium leading-[170%] text-black">
                   {message.is_loading ? (
                     <div className="flex justify-start space-x-1">
-                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0s] [animation-duration:0.5s]"></div>
-                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.1s] [animation-duration:0.5s]"></div>
-                      <div className="h-2 w-2 animate-bounce rounded-full bg-purple [animation-delay:0.2s] [animation-duration:0.5s]"></div>
+                      <div className="loader"></div>
                     </div>
                   ) : null}
 
@@ -293,8 +292,9 @@ export default function RosaPage() {
           <div ref={divRef}></div>
         </div>
 
-        <div className="mb-4 mt-2 grid gap-4 rounded-xl border-2 border-gray/10 bg-white p-4 md:mb-8">
-          <div className="flex items-end justify-between gap-4">
+        {/* input field */}
+        <div className="sticky bottom-0 left-0 bg-white pb-4 md:pb-8">
+          <div className="grid gap-4 rounded-xl border-2 border-gray/10 p-4">
             <div className="inline-flex items-center gap-2">
               <CreditCard weight="duotone" size={22} className="text-purple" />
 
@@ -306,55 +306,50 @@ export default function RosaPage() {
               </p>
             </div>
 
-            <p className="hidden text-[10px] font-medium italic text-gray/70 before:text-danger/70 before:content-['*'] md:flex md:text-xs">
-              ROSA (AI) bisa melakukan kesalahan, dimohon untuk selalu
-              cross-check jawaban.
-            </p>
-          </div>
+            <div className="grid gap-2">
+              <Textarea
+                isDisabled={
+                  status == "authenticated"
+                    ? !user?.data.remaining || onProgressAi
+                    : onProgressAi
+                }
+                minRows={2}
+                maxRows={6}
+                type="text"
+                variant="flat"
+                labelPlacement="outside"
+                placeholder="Tanyakan Seputar Dunia Farmasi dan Ruang Obat..."
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
+                    e.preventDefault();
+                    handleSubmitChat();
+                    setInput("");
+                  }
+                }}
+                classNames={customInputClassnames}
+              />
 
-          <div className="grid gap-2">
-            <Textarea
-              isDisabled={
-                status == "authenticated"
-                  ? !user?.data.remaining || onProgressAi
-                  : onProgressAi
-              }
-              minRows={2}
-              maxRows={6}
-              type="text"
-              variant="flat"
-              labelPlacement="outside"
-              placeholder="Tanyakan Seputar Dunia Farmasi dan Ruang Obat..."
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
-                  e.preventDefault();
+              <Button
+                isDisabled={
+                  !input ||
+                  !user?.data.remaining ||
+                  status == "unauthenticated" ||
+                  onProgressAi ||
+                  messages.some((msg) => msg.is_loading)
+                }
+                color="secondary"
+                endContent={<PaperPlaneRight weight="bold" size={18} />}
+                onClick={() => {
                   handleSubmitChat();
                   setInput("");
-                }
-              }}
-              classNames={customInputClassnames}
-            />
-
-            <Button
-              isDisabled={
-                !input ||
-                !user?.data.remaining ||
-                status == "unauthenticated" ||
-                onProgressAi ||
-                messages.some((msg) => msg.is_loading)
-              }
-              color="secondary"
-              endContent={<PaperPlaneRight weight="bold" size={18} />}
-              onClick={() => {
-                handleSubmitChat();
-                setInput("");
-              }}
-              className="font-bold"
-            >
-              Tanyakan
-            </Button>
+                }}
+                className="font-bold"
+              >
+                Tanyakan
+              </Button>
+            </div>
           </div>
         </div>
       </main>

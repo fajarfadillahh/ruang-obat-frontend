@@ -48,7 +48,7 @@ export default function Layout({
 
       <NavbarMenu />
 
-      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
+      <div className="mx-auto grid w-full max-w-[1200px] px-6">
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           <ModalUnauthenticated
             isOpen={ctx?.isOpenUnauthenticated as boolean}
