@@ -1,5 +1,6 @@
 import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import NavbarMenu from "@/components/navbar/NavbarMenu";
+import { TypingText } from "@/components/TypingText";
 import { SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
@@ -10,68 +11,32 @@ import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import useSWR from "swr";
 
-type TypingTextProps = {
-  text: string;
-  speed?: number;
-  onDone?: () => void;
-  divRef: MutableRefObject<HTMLDivElement | null>;
+type CheckResponse = {
+  total: number;
+  remaining: number;
 };
 
-function TypingText(props: TypingTextProps) {
-  const { text, speed = 0.2, onDone } = props;
-  const [displayedText, setDisplayedText] = useState("");
-  const [index, setIndex] = useState(0);
+type ChatResponse = {
+  role: string;
+  content: string;
+};
 
-  useEffect(
-    function () {
-      if (index < text.length) {
-        const timeout = setTimeout(() => {
-          setDisplayedText((prev) => prev + text[index]);
-          setIndex((prev) => prev + 1);
-
-          props.divRef.current?.scrollIntoView({ behavior: "smooth" });
-        }, speed);
-
-        return () => clearTimeout(timeout);
-      } else {
-        if (onDone) {
-          onDone();
-        }
-      }
-    },
-    [index, text, speed, onDone, props.divRef],
-  );
-
-  return (
-    <ReactMarkdown
-      components={{
-        ol: ({ children, ...props }) => (
-          <ol className="list-decimal pl-4" {...props}>
-            {children}
-          </ol>
-        ),
-        ul: ({ children, ...props }) => (
-          <ul className="list-disc pl-4" {...props}>
-            {children}
-          </ul>
-        ),
-      }}
-    >
-      {displayedText}
-    </ReactMarkdown>
-  );
-}
+type MessageState = {
+  role: string;
+  content: string;
+  is_loading?: boolean;
+  id?: number;
+  is_typing?: boolean;
+};
 
 export default function RosaPage() {
   const { status, data } = useSession();
 
-  const { data: user, mutate } = useSWR<
-    SuccessResponse<{ total: number; remaining: number }>
-  >(
+  const { data: user, mutate } = useSWR<SuccessResponse<CheckResponse>>(
     status == "authenticated"
       ? {
           url: "/ai/limits/check",
@@ -81,9 +46,7 @@ export default function RosaPage() {
       : null,
   );
 
-  const { data: chats } = useSWR<
-    SuccessResponse<{ role: string; content: string }[]>
-  >(
+  const { data: chats } = useSWR<SuccessResponse<ChatResponse[]>>(
     status == "authenticated"
       ? {
           url: "/ai/chat",
@@ -107,20 +70,9 @@ export default function RosaPage() {
 
   const router = useRouter();
   const currentUrl = `https://ruangobat.id${router.asPath}`;
-  const [input, setInput] = useState<string>("");
-  const [messages, setMessages] = useState<
-    {
-      role: string;
-      content: string;
-      is_loading?: boolean;
-      id?: number;
-      is_typing?: boolean;
-    }[]
-  >(
-    chats?.data.length
-      ? chats.data.map((chat) => ({ ...chat, is_typing: false }))
-      : [],
-  );
+  const [input, setInput] = useState("");
+  const [messages, setMessages] = useState<MessageState[]>([]);
+
   const [onProgressAi, setOnProgressAi] = useState(false);
 
   useEffect(() => {
@@ -152,20 +104,15 @@ export default function RosaPage() {
       { role: "assistant", content: "", is_loading: true, id },
     ]);
 
-    setTimeout(() => {
-      divRef.current?.scrollIntoView({ behavior: "smooth" });
-    }, 250);
-
     try {
-      const response: SuccessResponse<{ role: string; content: string }> =
-        await fetcher({
-          url: "/ai/chat",
-          method: "POST",
-          token: data?.user.access_token,
-          data: {
-            input,
-          },
-        });
+      const response: SuccessResponse<ChatResponse> = await fetcher({
+        url: "/ai/chat",
+        method: "POST",
+        token: data?.user.access_token,
+        data: {
+          input,
+        },
+      });
 
       mutate();
 
@@ -231,8 +178,17 @@ export default function RosaPage() {
       />
 
       <main className="relative isolate mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
-        {/* message */}
-        {messages.length ? (
+        {!messages.length ? (
+          <div className="flex flex-col items-center justify-center gap-2">
+            <h1 className="text-2xl font-extrabold text-black">
+              ROSA (Ruang Obat Smart Assistant) 💊
+            </h1>
+            <p className="max-w-[600px] text-center font-medium leading-[170%] text-gray">
+              Hi, aku ROSA yang siap bantu kamu menjawab berbagai pertanyaan
+              seputar dunia Farmasi dan layanan belajar di Ruang Obat ✨.
+            </p>
+          </div>
+        ) : (
           <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
             {messages.map((message, index) => {
               return message.role == "user" ? (
@@ -292,19 +248,8 @@ export default function RosaPage() {
 
             <div ref={divRef}></div>
           </div>
-        ) : (
-          <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="text-2xl font-extrabold text-black">
-              ROSA (Ruang Obat Smart Assistant) 💊
-            </h1>
-            <p className="max-w-[600px] text-center font-medium leading-[170%] text-gray">
-              Hi, aku ROSA yang siap bantu kamu menjawab berbagai pertanyaan
-              seputar dunia Farmasi dan layanan belajar di Ruang Obat ✨.
-            </p>
-          </div>
         )}
 
-        {/* input field */}
         <div className="sticky bottom-0 left-0 bg-white pb-4 md:pb-8">
           <div className="grid gap-4 rounded-xl border-2 border-gray/10 p-4">
             <div className="inline-flex items-center gap-2">
