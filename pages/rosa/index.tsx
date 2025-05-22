@@ -49,7 +49,7 @@ export default function RosaPage() {
   const { data: chats } = useSWR<SuccessResponse<ChatResponse[]>>(
     status == "authenticated"
       ? {
-          url: "/ai/chat",
+          url: `/ai/chat?timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
           method: "GET",
           token: data.user.access_token,
         }
