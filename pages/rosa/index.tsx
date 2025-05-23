@@ -2,16 +2,15 @@ import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import NavbarMenu from "@/components/navbar/NavbarMenu";
 import { TypingText } from "@/components/TypingText";
 import { SuccessResponse } from "@/types/global.type";
-import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
-import { Button, Textarea, useDisclosure } from "@nextui-org/react";
-import { CreditCard, PaperPlaneRight } from "@phosphor-icons/react";
+import { Button, useDisclosure } from "@nextui-org/react";
+import { ArrowUp } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
 import useSWR from "swr";
 
@@ -93,7 +92,7 @@ export default function RosaPage() {
     }
   }, [messages]);
 
-  async function handleSubmitChat() {
+  const handleSubmitChat = useCallback(async () => {
     const id = Date.now();
     if (!user?.data.remaining) return;
 
@@ -109,16 +108,14 @@ export default function RosaPage() {
         url: "/ai/chat",
         method: "POST",
         token: data?.user.access_token,
-        data: {
-          input,
-        },
+        data: { input },
       });
 
       mutate();
 
       setMessages((prev) =>
-        prev.map((msg) => {
-          return msg.id == id
+        prev.map((msg) =>
+          msg.id === id
             ? {
                 role: "assistant",
                 content: response.data.content,
@@ -126,15 +123,15 @@ export default function RosaPage() {
                 id: 0,
                 is_typing: true,
               }
-            : msg;
-        }),
+            : msg,
+        ),
       );
     } catch (error) {
-      console.log(error);
+      console.error(error);
 
       setMessages((prev) =>
-        prev.map((msg) => {
-          return msg.id == id
+        prev.map((msg) =>
+          msg.id === id
             ? {
                 role: "assistant",
                 content:
@@ -142,11 +139,11 @@ export default function RosaPage() {
                 is_loading: false,
                 id: 0,
               }
-            : msg;
-        }),
+            : msg,
+        ),
       );
     }
-  }
+  }, [user?.data.remaining, input, data?.user.access_token, mutate]);
 
   return (
     <>
@@ -251,61 +248,65 @@ export default function RosaPage() {
         )}
 
         <div className="sticky bottom-0 left-0 bg-white pb-4 md:pb-8">
-          <div className="grid gap-4 rounded-xl border-2 border-gray/10 p-4">
-            <div className="inline-flex items-center gap-2">
-              <CreditCard weight="duotone" size={22} className="text-purple" />
-
-              <p className="text-sm font-medium capitalize leading-[170%] text-gray">
-                Sisa akses AI Anda hari ini:{" "}
-                <span className="font-black text-purple">
-                  {status == "authenticated" ? user?.data.remaining : "-"}
-                </span>
-              </p>
-            </div>
-
-            <div className="grid gap-2">
-              <Textarea
-                isDisabled={
-                  status == "authenticated"
-                    ? !user?.data.remaining || onProgressAi
-                    : onProgressAi
-                }
-                minRows={2}
-                maxRows={6}
-                type="text"
-                variant="flat"
-                labelPlacement="outside"
-                placeholder="Tanyakan Seputar Dunia Farmasi dan Ruang Obat..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
-                    e.preventDefault();
-                    handleSubmitChat();
-                    setInput("");
-                  }
-                }}
-                classNames={customInputClassnames}
-              />
-
-              <Button
-                isDisabled={
-                  !input ||
-                  !user?.data.remaining ||
-                  status == "unauthenticated" ||
-                  onProgressAi ||
-                  messages.some((msg) => msg.is_loading)
-                }
-                color="secondary"
-                endContent={<PaperPlaneRight weight="bold" size={18} />}
-                onClick={() => {
+          <div className="flex flex-col gap-2 rounded-2xl border border-gray-300 bg-gray-100 p-5 shadow-sm">
+            <input
+              placeholder="Tanyakan Seputar Farmasi dan Ruang Obat..."
+              className="bg-gray-100 font-semibold outline-none placeholder:text-sm placeholder:font-semibold placeholder:text-gray"
+              disabled={
+                status == "authenticated"
+                  ? !user?.data.remaining || onProgressAi
+                  : onProgressAi
+              }
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
+                  e.preventDefault();
                   handleSubmitChat();
                   setInput("");
-                }}
-                className="font-bold"
-              >
-                Tanyakan
-              </Button>
+                }
+              }}
+            />
+
+            <div className="mt-2 flex items-center justify-between">
+              <div className="flex gap-2">
+                <p className="text-xs font-medium capitalize leading-[170%] text-gray">
+                  Sisa Pertanyaan Kamu Hari Ini:{" "}
+                  <span className="font-black text-purple">
+                    {status == "authenticated" ? user?.data.remaining : "-"}
+                  </span>
+                </p>
+              </div>
+
+              <div className="flex items-center gap-2">
+                {/* <Button
+                  variant="flat"
+                  size="sm"
+                  className="rounded-lg bg-gray-300 font-bold"
+                  isIconOnly
+                >
+                  <Paperclip size={18} weight="bold" />
+                </Button> */}
+                <Button
+                  isDisabled={
+                    !input ||
+                    !user?.data.remaining ||
+                    status == "unauthenticated" ||
+                    onProgressAi ||
+                    messages.some((msg) => msg.is_loading)
+                  }
+                  variant="flat"
+                  size="sm"
+                  isIconOnly
+                  className="rounded-lg bg-purple font-bold text-white"
+                  onClick={() => {
+                    handleSubmitChat();
+                    setInput("");
+                  }}
+                >
+                  <ArrowUp size={18} weight="bold" />
+                </Button>
+              </div>
             </div>
           </div>
         </div>
