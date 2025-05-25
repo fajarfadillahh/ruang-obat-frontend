@@ -7,7 +7,6 @@ import {
   Clock,
   SealCheck,
   Tag,
-  Users,
 } from "@phosphor-icons/react";
 import Link from "next/link";
 
@@ -20,44 +19,46 @@ export default function CardProgram(program: ProgramsType) {
       <BookBookmark weight="duotone" size={32} className="text-purple" />
 
       <div className="flex-1 divide-y-2 divide-dashed divide-gray/20">
-        <div className="grid gap-2 pb-4">
-          <h4 className="line-clamp-2 text-lg font-bold -tracking-wide text-black group-hover:text-purple">
-            {program.title}
-          </h4>
+        <h4 className="line-clamp-2 pb-4 text-lg font-bold -tracking-wide text-black group-hover:text-purple">
+          {program.title}
+        </h4>
 
-          {program.type === "free" ? (
-            <Chip
-              variant="flat"
-              size="sm"
-              color="default"
-              startContent={<Tag weight="duotone" size={14} />}
-              classNames={{
-                base: "px-2 gap-1",
-                content: "font-bold capitalize",
-              }}
-            >
-              Gratis
-            </Chip>
-          ) : (
-            <div className="text-sm font-bold text-purple">
-              {formatRupiah(program.price)}
-            </div>
-          )}
-        </div>
+        <div className="flex items-start justify-between gap-2 pt-4">
+          <div className="grid gap-1">
+            <span className="text-xs font-medium text-gray">
+              Harga Program:
+            </span>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-4">
-          <div className="inline-flex items-center gap-1 text-gray">
-            <ClipboardText weight="duotone" size={18} />
-
-            <p className="text-sm font-semibold">{program.total_tests} Ujian</p>
+            {program.type === "free" ? (
+              <Chip
+                variant="flat"
+                size="sm"
+                color="default"
+                startContent={<Tag weight="duotone" size={16} />}
+                classNames={{
+                  base: "px-2 gap-1",
+                  content: "font-bold capitalize",
+                }}
+              >
+                Gratis
+              </Chip>
+            ) : (
+              <div className="text-sm font-bold text-purple">
+                {formatRupiah(program.price)}
+              </div>
+            )}
           </div>
 
-          <div className="inline-flex items-center gap-1 text-gray">
-            <Users weight="duotone" size={18} />
+          <div className="grid gap-1">
+            <span className="text-xs font-medium text-gray">Jumlah Ujian:</span>
 
-            <p className="text-sm font-semibold">
-              {program.total_users} Mahasiswa
-            </p>
+            <div className="flex items-center gap-1">
+              <ClipboardText weight="duotone" size={16} />
+
+              <p className="text-sm font-semibold text-black">
+                {program.total_tests} Ujian
+              </p>
+            </div>
           </div>
         </div>
       </div>

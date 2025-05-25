@@ -15,7 +15,6 @@ import {
   IconContext,
   SealCheck,
   Tag,
-  Users,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { ParsedUrlQuery } from "querystring";
@@ -49,8 +48,8 @@ export default function DetailsProgram({
                 className="text-purple"
               />
 
-              <div className="grid flex-1 gap-4">
-                <h1 className="max-w-[700px] text-[24px] font-bold leading-[120%] -tracking-wide text-black lg:text-[28px]">
+              <div className="grid flex-1 gap-6">
+                <h1 className="max-w-[700px] text-2xl font-bold -tracking-wide text-black lg:text-[28px]">
                   {data?.data.title}
                 </h1>
 
@@ -60,37 +59,43 @@ export default function DetailsProgram({
                     size: 20,
                   }}
                 >
-                  <div className="flex flex-wrap items-center gap-4 lg:gap-10">
-                    {data?.data.type == "free" ? (
-                      <Chip
-                        variant="flat"
-                        color="default"
-                        startContent={<Tag className="text-black" />}
-                        classNames={{
-                          base: "px-2 gap-1",
-                          content: "font-bold text-black",
-                        }}
-                      >
-                        Gratis
-                      </Chip>
-                    ) : (
-                      <h2 className="text-xl font-extrabold text-purple">
-                        {formatRupiah(data?.data.price as number)}
-                      </h2>
-                    )}
+                  <div className="flex flex-wrap items-start gap-4 lg:gap-10">
+                    <div className="grid gap-2">
+                      <span className="text-sm font-medium text-gray">
+                        Harga Program:
+                      </span>
 
-                    <div className="inline-flex items-center gap-1 text-gray">
-                      <ClipboardText />
-                      <p className="font-semibold">
-                        {data?.data.total_tests} Ujian
-                      </p>
+                      {data?.data.type == "free" ? (
+                        <Chip
+                          variant="flat"
+                          color="default"
+                          startContent={<Tag className="text-black" />}
+                          classNames={{
+                            base: "px-2 gap-1",
+                            content: "font-bold text-black",
+                          }}
+                        >
+                          Gratis
+                        </Chip>
+                      ) : (
+                        <h2 className="text-xl font-extrabold text-purple">
+                          {formatRupiah(data?.data.price as number)}
+                        </h2>
+                      )}
                     </div>
 
-                    <div className="inline-flex items-center gap-1 text-gray">
-                      <Users />
-                      <p className="font-semibold">
-                        {data?.data.total_users} Mahasiswa
-                      </p>
+                    <div className="grid gap-2">
+                      <span className="text-sm font-medium text-gray">
+                        Jumlah Ujian:
+                      </span>
+
+                      <div className="inline-flex items-center gap-1 text-black">
+                        <ClipboardText />
+
+                        <p className="font-semibold">
+                          {data?.data.total_tests} Ujian
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </IconContext.Provider>
