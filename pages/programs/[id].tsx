@@ -17,20 +17,29 @@ import {
   Tag,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect } from "react";
 import useSWR from "swr";
 
 export default function DetailsProgram({
   token,
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const { data, isLoading, mutate } = useSWR<
+  const router = useRouter();
+  const { data, isLoading, mutate, error } = useSWR<
     SuccessResponse<DetailsProgramResponse>
   >({
     url: `/programs/${params.id}`,
     method: "GET",
     token,
   });
+
+  useEffect(() => {
+    if (error?.status_code == 404) {
+      router.push("/404");
+    }
+  }, [error, router]);
 
   if (isLoading) return <Loading />;
 
