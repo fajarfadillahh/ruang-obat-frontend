@@ -314,7 +314,7 @@ export default function RegisterPage() {
 
             <IconContext.Provider
               value={{
-                weight: "bold",
+                weight: "duotone",
                 size: 18,
                 className: "text-gray",
               }}

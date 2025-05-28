@@ -161,7 +161,7 @@ export default function LoginPage() {
 
             <IconContext.Provider
               value={{
-                weight: "bold",
+                weight: "duotone",
                 size: 18,
                 className: "text-gray",
               }}
