@@ -20,6 +20,7 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import {
+  ArrowRight,
   CaretDown,
   ChatCircleText,
   ClipboardText,
@@ -29,6 +30,7 @@ import {
   Medal,
   SignIn,
   SignOut,
+  Sparkle,
   UserCircle,
 } from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
@@ -60,7 +62,6 @@ const menuItemsMobile = [
       { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
       { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
       { label: "UKMPPAI & OSCE", href: "/dashboard" },
-      { label: "Tanya ROSA", href: "/rosa" },
     ],
   },
 ];
@@ -145,7 +146,7 @@ export default function NavbarMain() {
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-4 lg:flex" justify="center">
+      <NavbarContent className="hidden gap-4 lg:flex lg:gap-8" justify="center">
         <NavbarItem>
           <Link
             href="/video"
@@ -196,18 +197,11 @@ export default function NavbarMain() {
         <NavbarItem>
           <Link
             href="/rosa"
-            className="text-sm font-medium text-gray hover:text-purple"
+            className="flex items-center gap-1 text-sm font-medium text-gray hover:text-purple"
           >
-            Tanya ROSA
-          </Link>
-        </NavbarItem>
+            <Sparkle weight="duotone" size={18} className="text-purple" />
 
-        <NavbarItem>
-          <Link
-            href="/perusahaan/tentang-kami"
-            className="text-sm font-medium text-gray hover:text-purple"
-          >
-            Tentang RuangObat
+            <span>Apoteker ROSA</span>
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -397,6 +391,27 @@ export default function NavbarMain() {
             </div>
           </NavbarMenuItem>
         ))}
+
+        {/* ai highlight */}
+        <Link
+          href="/rosa"
+          className="flex items-start gap-6 rounded-xl border-l-8 border-pink-500 bg-purple p-6 hover:bg-purple/90"
+        >
+          <Sparkle weight="duotone" size={32} className="text-white" />
+
+          <div className="grid flex-1 gap-1">
+            <h4 className="flex w-max items-center gap-2 text-lg font-bold text-white">
+              <span>Apoteker ROSA</span>
+
+              <ArrowRight weight="bold" size={16} />
+            </h4>
+
+            <p className="text-sm font-medium text-white/80">
+              AI Assistant yang siap bantu kamu menjawab berbagai pertanyaan
+              seputar dunia Farmasi dan layanan belajar di RuangObat!
+            </p>
+          </div>
+        </Link>
       </NavbarMenu>
     </Navbar>
   );
