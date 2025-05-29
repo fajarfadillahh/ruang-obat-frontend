@@ -8,7 +8,6 @@ import {
   Tab,
   Tabs,
 } from "@nextui-org/react";
-import { ClipboardText, ShieldCheck } from "@phosphor-icons/react";
 import Link from "next/link";
 
 type ModalTermsPrivacyProps = {
@@ -41,10 +40,7 @@ export default function ModalTermsPrivacy({
                 <Tab
                   key="terms"
                   title={
-                    <div className="flex items-center gap-1">
-                      <ClipboardText weight="bold" size={18} />
-                      <span className="font-semibold">Ketentuan Layanan</span>
-                    </div>
+                    <span className="font-semibold">Ketentuan Layanan</span>
                   }
                 >
                   <section className="grid gap-6">
@@ -209,10 +205,7 @@ export default function ModalTermsPrivacy({
                 <Tab
                   key="privacy"
                   title={
-                    <div className="flex items-center gap-1">
-                      <ShieldCheck weight="bold" size={18} />
-                      <span className="font-semibold">Kebijakan Privasi</span>
-                    </div>
+                    <span className="font-semibold">Kebijakan Privasi</span>
                   }
                 >
                   <section className="grid gap-6">
