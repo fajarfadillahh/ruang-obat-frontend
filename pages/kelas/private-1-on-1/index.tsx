@@ -60,7 +60,7 @@ export default function Private1on1Page({
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Kelas Private 1 on 1 Farmasi{" "}
               <span className="text-2xl font-extrabold text-purple">
-                by Ruang Obat
+                by RuangObat
               </span>
             </h1>
 
@@ -120,12 +120,12 @@ export default function Private1on1Page({
               className: "text-purple",
             }}
           >
-            <div className="flex flex-wrap items-center justify-center gap-6">
+            <div className="flex flex-wrap items-center justify-center gap-4 xl:grid xl:grid-cols-5">
               {siteConfigPhamacyPrivteClassPage.consultation_list.map(
                 (item, index) => (
                   <div
                     key={index}
-                    className="grid h-auto max-w-[220px] gap-6 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:2rem_1rem]"
+                    className="grid h-auto max-w-[210px] gap-6 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:2rem_1rem] xl:max-w-none"
                   >
                     <item.icon />
 
@@ -152,14 +152,14 @@ export default function Private1on1Page({
               <EmptyData text="Paket Kelas Tidak Ditemukan 😥" />
             </div>
           ) : (
-            <div className="grid justify-center gap-4">
+            <div className="grid items-start justify-center gap-4 xl:grid-cols-2">
               {data?.private_classes.map((item: PrivateClassType) => (
                 <div
                   key={item.subject_id}
-                  className="grid max-w-[600px] gap-6 rounded-xl border-2 border-l-8 border-purple bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px] xl:max-w-[950px]"
+                  className="grid max-w-[600px] gap-8 rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_3rem] lg:max-w-[700px]"
                 >
-                  <div>
-                    <h3 className="mb-1 text-2xl font-black text-purple">
+                  <div className="grid gap-2">
+                    <h3 className="text-2xl font-black text-purple">
                       {item.title}
                     </h3>
 
@@ -168,21 +168,21 @@ export default function Private1on1Page({
                     </p>
                   </div>
 
-                  <div className="grid gap-4 xs:gap-1 md:mx-10">
+                  <div className="grid gap-4">
                     {item.private_sub_classes.map(
                       (subitem: PrivateSubClassType) => (
                         <div
                           key={subitem.subject_part_id}
-                          className="flex items-center gap-2"
+                          className="flex items-center gap-4"
                         >
-                          <div className="inline-flex flex-wrap items-end xs:gap-1">
+                          <div className="grid">
                             <h4 className="text-lg font-extrabold text-purple">
                               {formatRupiah(subitem.price)}
                             </h4>
 
-                            <span className="text-sm font-medium text-gray md:text-base">
+                            <p className="text-xs font-medium leading-[170%] text-gray">
                               {subitem.description}
-                            </span>
+                            </p>
                           </div>
 
                           <div className="h-2 w-full flex-1 border-b-2 border-dashed border-gray/20" />
