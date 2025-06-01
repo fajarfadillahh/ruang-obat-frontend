@@ -24,6 +24,7 @@ import {
   CaretDown,
   ChatCircleText,
   ClipboardText,
+  CreditCard,
   Headset,
   House,
   IconContext,
@@ -290,6 +291,15 @@ export default function NavbarMain() {
                       onClick={() => router.push("/my/tests")}
                     >
                       Ujian Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="mysubscribe"
+                      color="secondary"
+                      startContent={<CreditCard />}
+                      onClick={() => router.push("/my/subscribes")}
+                    >
+                      Langganan Saya
                     </DropdownItem>
                   </DropdownSection>
 
