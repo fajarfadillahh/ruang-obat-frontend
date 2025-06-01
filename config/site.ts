@@ -138,38 +138,45 @@ export const siteConfigHomePage = {
       title: "Video Pembelajaran",
       image: "/img/products/video-pembelajaran.svg",
       path: "/video",
+      tagline: "Belajar fleksibel, materi lengkap & bebas akses kapan saja.",
     },
     {
       id: 2,
       title: "Kelas Private 1 on 1",
       image: "/img/products/kelas-private-1-on-1.svg",
       path: "/kelas/private-1-on-1",
+      tagline: "Pendampingan intensif untuk hasil belajar maksimal.",
     },
     {
       id: 3,
       title: "Kelas Skripsi Farmasi",
       image: "/img/products/kelas-skripsi-farmasi.svg",
       path: "/kelas/skripsi-farmasi",
+      tagline: "Bimbingan skripsi terarah dari awal hingga tuntas.",
     },
     {
       id: 4,
       title: "Kelas Riset Farmasi",
       image: "/img/products/kelas-riset-farmasi.svg",
       path: "/kelas/riset-farmasi",
+      tagline: "Tingkatkan skill risetmu dengan metode yang tepat.",
     },
     {
       id: 5,
       title: "Kelas Masuk Apoteker",
       image: "/img/products/kelas-masuk-apoteker.svg",
       path: "/kelas/masuk-apoteker",
+      tagline: "Persiapan matang menuju profesi apoteker impianmu.",
     },
     {
       id: 6,
       title: "UKMPPAI & OSCE",
       image: "/img/products/ukmppai-osce.svg",
       path: "/dashboard",
+      tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
     },
   ],
+
   mentors: [
     {
       id: 1,

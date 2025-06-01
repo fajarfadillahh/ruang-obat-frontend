@@ -7,7 +7,7 @@ import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
-import { IconContext } from "@phosphor-icons/react";
+import { ArrowRight, IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,6 +50,7 @@ export default function HomePage({
   return (
     <>
       <Layout title="Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia">
+        {/* hero section */}
         <section className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
           <Image
             priority
@@ -106,6 +107,7 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* classes section */}
         <section
           ref={listClassRef}
           className="base-container gap-5 [padding:50px_0_100px]"
@@ -114,11 +116,12 @@ export default function HomePage({
             Daftar Kelas di RuangObat
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
             {siteConfigHomePage.classes.map((item, index) => (
-              <div
+              <Link
                 key={index}
-                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                href={item.path}
+                className="group grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
                 <Image
                   priority
@@ -126,28 +129,24 @@ export default function HomePage({
                   alt="product img"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
-                <div className="grid gap-4">
+                <div className="grid gap-1 [padding:1.5rem_1rem]">
                   <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                     {item.title}
                   </h1>
 
-                  <Button
-                    variant={item.id === 6 ? "solid" : "flat"}
-                    color="secondary"
-                    onClick={() => router.push(item.path as string)}
-                    className="font-bold"
-                  >
-                    {item.id === 6 ? "Mulai Ujian" : "Detail Kelas"}
-                  </Button>
+                  <p className="text-sm font-medium leading-[170%] text-gray">
+                    {item.tagline}
+                  </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
 
+        {/* summary section */}
         <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-8">
           <div className="grid gap-4">
             <h1 className="mb-2 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
@@ -191,12 +190,13 @@ export default function HomePage({
           />
         </section>
 
+        {/* reasoning section */}
         <section className="base-container gap-8 py-[100px]">
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Kenapa Harus Pilih RuangObat?
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 xl:gap-12">
+          <div className="flex flex-wrap items-center justify-center gap-4 xl:gap-8">
             {siteConfigHomePage.reasons.map((item, index) => {
               const { cardWrapper, cardIcon, cardTitle, cardText } =
                 getCardStyles(item, "reasons");
@@ -205,7 +205,7 @@ export default function HomePage({
                 <IconContext.Provider
                   key={index}
                   value={{
-                    weight: "bold",
+                    weight: "duotone",
                     size: 64,
                     className: cardIcon,
                   }}
@@ -233,6 +233,7 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* mentor section */}
         <section className="grid gap-8 py-[100px]">
           <div className="base-container place-items-center gap-2 text-center">
             <h1 className="text-4xl font-black -tracking-wide text-black">
@@ -250,8 +251,8 @@ export default function HomePage({
             <Swiper
               loop={true}
               slidesPerView={"auto"}
-              spaceBetween={32}
-              centeredSlides={true}
+              spaceBetween={16}
+              // centeredSlides={true}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
@@ -264,25 +265,25 @@ export default function HomePage({
               {data?.mentors.map((mentor: MentorType) => (
                 <SwiperSlide
                   key={mentor.mentor_id}
-                  className="max-w-[300px] xs:max-w-[330px] lg:max-w-[368px]"
+                  className="max-w-[330px] lg:max-w-[276px]"
                 >
                   <Link
                     href={`/mentor/${mentor.mentor_id}`}
-                    className="group mt-4 grid overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                    className="group mt-4 grid overflow-hidden rounded-xl bg-white [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
                   >
                     <Image
                       src={mentor.img_url as string}
                       alt={`image ${mentor.fullname}`}
                       width={500}
                       height={500}
-                      className="aspect-square rounded-xl group-hover:grayscale-[0.5]"
+                      className="aspect-square group-hover:grayscale-[0.5]"
                       priority
                     />
 
-                    <div className="mt-8 grid flex-1 gap-1">
-                      <h4 className="line-clamp-1 text-xl font-black text-black group-hover:text-purple">
+                    <div className="grid flex-1 gap-1 [padding:1.5rem_1rem]">
+                      <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                         {mentor.fullname}
-                      </h4>
+                      </h1>
 
                       <p className="line-clamp-1 text-sm font-medium capitalize leading-[170%] text-gray">
                         {mentor.mentor_title}
@@ -295,6 +296,7 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* testimonial section */}
         <section className="base-container gap-8 py-[100px]">
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Kata Mereka Tentang RuangObat
@@ -304,8 +306,8 @@ export default function HomePage({
             <Swiper
               loop={true}
               slidesPerView={"auto"}
-              spaceBetween={32}
-              centeredSlides={true}
+              spaceBetween={16}
+              // centeredSlides={true}
               autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
@@ -313,34 +315,34 @@ export default function HomePage({
               modules={[Autoplay]}
             >
               {siteConfigTestimonialsPage
-                .slice(0, 8)
+                .slice(0, 12)
                 .map((testimonial, index) => (
                   <SwiperSlide
                     key={index}
-                    className="max-w-[300px] xs:max-w-[330px] lg:max-w-[368px]"
+                    className="max-w-[330px] lg:max-w-[276px]"
                   >
                     <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
-                      <div className="flex items-center gap-4 pb-4">
+                      <div className="flex items-start gap-4 pb-4">
                         <Image
                           src="/img/avatar-male.svg"
                           alt="avatar"
                           width={100}
                           height={100}
-                          className="aspect-square size-12 rounded-full bg-purple/20"
+                          className="aspect-square size-10 rounded-full bg-purple/20"
                         />
 
-                        <div className="grid">
-                          <h5 className="font-bold text-black">
+                        <div className="grid flex-1">
+                          <h1 className="text-sm font-bold text-black">
                             {testimonial.name}
-                          </h5>
+                          </h1>
 
-                          <p className="text-xs leading-[170%] text-gray">
+                          <p className="line-clamp-1 text-xs font-medium leading-[170%] text-gray">
                             {testimonial.university}
                           </p>
                         </div>
                       </div>
 
-                      <p className="pt-4 font-medium leading-[170%] text-gray">
+                      <p className="line-clamp-5 pt-4 text-sm font-medium leading-[170%] text-gray">
                         {testimonial.comment}
                       </p>
                     </div>
@@ -348,8 +350,18 @@ export default function HomePage({
                 ))}
             </Swiper>
           </div>
+
+          <Button
+            color="secondary"
+            endContent={<ArrowRight weight="bold" size={18} />}
+            onClick={() => router.push("/perusahaan/testimonial")}
+            className="mx-auto -mt-4 px-8 font-bold"
+          >
+            Lihat Testimonial
+          </Button>
         </section>
 
+        {/* faq section */}
         <section className="base-container gap-8 py-[100px]">
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
