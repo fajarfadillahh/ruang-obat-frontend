@@ -12,6 +12,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { useCallback, useEffect, useRef, useState } from "react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import useSWR from "swr";
 
 type CheckResponse = {
@@ -222,6 +223,8 @@ export default function RosaPage() {
                       />
                     ) : (
                       <ReactMarkdown
+                        children={message.content}
+                        remarkPlugins={[remarkGfm]}
                         components={{
                           ol: ({ children, ...props }) => (
                             <ol className="list-decimal pl-4" {...props}>
@@ -233,10 +236,18 @@ export default function RosaPage() {
                               {children}
                             </ul>
                           ),
+                          table: ({ children, ...props }) => (
+                            <div className="overflow-x-scroll scrollbar-hide">
+                              <table
+                                className="my-4 table-auto border border-black [&_td]:border [&_td]:p-4 [&_th]:whitespace-nowrap [&_th]:border [&_th]:bg-gray/20 [&_th]:p-4 [&_tr:last-child]:border-b-0 [&_tr]:border-b"
+                                {...props}
+                              >
+                                {children}
+                              </table>
+                            </div>
+                          ),
                         }}
-                      >
-                        {message.content}
-                      </ReactMarkdown>
+                      />
                     )}
                   </div>
                 </div>
