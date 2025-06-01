@@ -42,7 +42,7 @@ export default function VideoLearningClassPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
+        <section className="base-container items-center gap-16 xl:grid-cols-[1fr_500px] xl:gap-16">
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Video Pembelajaran Lengkap untuk Mahasiswa Farmasi
@@ -68,7 +68,7 @@ export default function VideoLearningClassPage() {
                 onClick={() => scrollToSection(quizRef)}
                 className="px-6 font-bold"
               >
-                Pilih Bonus Quiz
+                Pilih Bonus Kuis
               </Button>
 
               <Button
@@ -149,20 +149,23 @@ export default function VideoLearningClassPage() {
                       className: "text-purple",
                     }}
                   >
-                    <div className="grid gap-1">
+                    <div className="flex items-start justify-between gap-1">
                       {[
-                        [<VideoCamera />, "30 video"],
-                        [<ClipboardText />, "15 quiz"],
-                      ].map(([icon, label], index) => (
-                        <div
-                          key={index}
-                          className="inline-flex items-center gap-2"
-                        >
-                          {icon}
+                        ["Jumlah Video", <VideoCamera />, "30 video"],
+                        ["Jumlah Kuis", <ClipboardText />, "15 kuis"],
+                      ].map(([label, icon, value], index) => (
+                        <div key={index} className="grid gap-1">
+                          <span className="text-xs font-medium text-gray">
+                            {label}:
+                          </span>
 
-                          <p className="text-sm font-semibold capitalize text-gray">
-                            {label}
-                          </p>
+                          <div className="flex items-center gap-1">
+                            {icon}
+
+                            <p className="text-sm font-semibold capitalize text-black">
+                              {value}
+                            </p>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -176,11 +179,11 @@ export default function VideoLearningClassPage() {
         <section ref={quizRef} className="base-container gap-8 py-[100px]">
           <div className="grid gap-1 text-center xl:text-left">
             <h2 className="text-3xl font-black -tracking-wide text-black">
-              Bonus Quiz ✍
+              Bonus Kuis ✍
             </h2>
 
             <p className="font-medium leading-[170%] text-gray">
-              Dapatkan bonus quiz untuk kamu yang telah berlangganan kelas ini.
+              Dapatkan bonus kuis untuk kamu yang telah berlangganan kelas ini.
             </p>
           </div>
 
@@ -201,16 +204,22 @@ export default function VideoLearningClassPage() {
                     </h1>
                   </CustomTooltip>
 
-                  <div className="inline-flex items-center gap-2">
-                    <ClipboardText
-                      weight="duotone"
-                      size={18}
-                      className="text-purple"
-                    />
+                  <div className="grid gap-1">
+                    <span className="text-xs font-medium text-gray">
+                      Jumlah Soal:
+                    </span>
 
-                    <p className="text-sm font-semibold capitalize text-gray">
-                      {item.total_questions} soal
-                    </p>
+                    <div className="flex items-center gap-1">
+                      <ClipboardText
+                        weight="duotone"
+                        size={18}
+                        className="text-purple"
+                      />
+
+                      <p className="text-sm font-semibold capitalize text-black">
+                        {item.total_questions} butir
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -229,7 +238,7 @@ export default function VideoLearningClassPage() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyOfferSubscriptions.map((item) => (
               <div
                 key={item.id}

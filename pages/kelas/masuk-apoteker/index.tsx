@@ -1,5 +1,6 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
+import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
@@ -154,20 +155,23 @@ export default function PharmacistEntranceClassPage({
                       className: "text-purple",
                     }}
                   >
-                    <div className="grid gap-1">
+                    <div className="flex items-start justify-between gap-1">
                       {[
-                        [<VideoCamera />, "30 video"],
-                        [<ClipboardText />, "15 quiz"],
-                      ].map(([icon, label], index) => (
-                        <div
-                          key={index}
-                          className="inline-flex items-center gap-2"
-                        >
-                          {icon}
+                        ["Jumlah Video", <VideoCamera />, "30 video"],
+                        ["Jumlah Kuis", <ClipboardText />, "15 kuis"],
+                      ].map(([label, icon, value], index) => (
+                        <div key={index} className="grid gap-1">
+                          <span className="text-xs font-medium text-gray">
+                            {label}:
+                          </span>
 
-                          <p className="text-sm font-semibold capitalize text-gray">
-                            {label}
-                          </p>
+                          <div className="flex items-center gap-1">
+                            {icon}
+
+                            <p className="text-sm font-semibold capitalize text-black">
+                              {value}
+                            </p>
+                          </div>
                         </div>
                       ))}
                     </div>
@@ -205,20 +209,28 @@ export default function PharmacistEntranceClassPage({
                 />
 
                 <div className="grid gap-4">
-                  <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
-                    {item.tryout_name}
-                  </h1>
+                  <CustomTooltip content={item.tryout_name}>
+                    <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+                      {item.tryout_name}
+                    </h1>
+                  </CustomTooltip>
 
-                  <div className="inline-flex items-center gap-2">
-                    <ClipboardText
-                      weight="duotone"
-                      size={18}
-                      className="text-purple"
-                    />
+                  <div className="grid gap-1">
+                    <span className="text-xs font-medium text-gray">
+                      Jumlah Ujian:
+                    </span>
 
-                    <p className="text-sm font-semibold capitalize text-gray">
-                      10 ujian
-                    </p>
+                    <div className="flex items-center gap-1">
+                      <ClipboardText
+                        weight="duotone"
+                        size={18}
+                        className="text-purple"
+                      />
+
+                      <p className="text-sm font-semibold capitalize text-black">
+                        10 ujian
+                      </p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -237,7 +249,7 @@ export default function PharmacistEntranceClassPage({
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyOfferSubscriptions.map((item) => (
               <div
                 key={item.id}
