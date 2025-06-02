@@ -72,6 +72,7 @@ export default function RosaPage() {
   const currentUrl = `https://ruangobat.id${router.asPath}`;
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<MessageState[]>([]);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const [onProgressAi, setOnProgressAi] = useState(false);
 
@@ -113,6 +114,7 @@ export default function RosaPage() {
       });
 
       mutate();
+      inputRef.current?.focus();
 
       setMessages((prev) =>
         prev.map((msg) =>
@@ -223,7 +225,6 @@ export default function RosaPage() {
                       />
                     ) : (
                       <ReactMarkdown
-                        children={message.content}
                         remarkPlugins={[remarkGfm]}
                         components={{
                           ol: ({ children, ...props }) => (
@@ -247,7 +248,9 @@ export default function RosaPage() {
                             </div>
                           ),
                         }}
-                      />
+                      >
+                        {message.content}
+                      </ReactMarkdown>
                     )}
                   </div>
                 </div>
@@ -277,6 +280,7 @@ export default function RosaPage() {
                   setInput("");
                 }
               }}
+              ref={inputRef}
             />
 
             <div className="mt-2 flex items-center justify-between">
