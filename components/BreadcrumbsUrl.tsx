@@ -13,43 +13,36 @@ export default function BreadcrumbsUrl({
 }: BreadcrumbsUrlProps) {
   const { asPath } = useRouter();
 
-  // clear basePath dari URL dan split jadi segment
   const cleanPath = asPath.replace(basePath === "/" ? "" : basePath, "");
   const segments = cleanPath.split("/").filter(Boolean);
 
-  // Build breadcrumbs array
-  const breadcrumbs = segments.map((segment, index) => ({
-    key: segment,
-    label: segment
+  const breadcrumbs = segments.map((segment, index) => {
+    const decoded = decodeURIComponent(segment);
+    const label = decoded
       .split("-")
-      .map((label) => label[0].toUpperCase() + label.slice(1))
-      .join(" "),
-    href: `${basePath}${basePath.endsWith("/") ? "" : "/"}${segments
-      .slice(0, index + 1)
-      .join("/")}`,
-  }));
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+
+    return {
+      key: segment,
+      label,
+      href: `${basePath}${basePath.endsWith("/") ? "" : "/"}${segments
+        .slice(0, index + 1)
+        .join("/")}`,
+    };
+  });
 
   return (
-    <Breadcrumbs
-      classNames={{
-        base: "mb-8",
-      }}
-    >
-      <BreadcrumbItem
-        classNames={{
-          base: "font-medium text-gray",
-        }}
-      >
-        <Link href={basePath}>{rootLabel}</Link>
+    <Breadcrumbs classNames={{ base: "mb-8" }}>
+      <BreadcrumbItem classNames={{ base: "font-medium text-gray" }}>
+        <Link href={basePath}>{decodeURIComponent(rootLabel)}</Link>
       </BreadcrumbItem>
 
       {breadcrumbs.map((item, index) => (
         <BreadcrumbItem
-          key={index}
+          key={item.key}
           isCurrent={index === breadcrumbs.length - 1}
-          classNames={{
-            base: "font-medium text-gray",
-          }}
+          classNames={{ base: "font-medium text-gray" }}
         >
           <Link href={item.href}>{item.label}</Link>
         </BreadcrumbItem>

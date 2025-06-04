@@ -26,6 +26,7 @@ import {
 } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -189,8 +190,9 @@ export default function VideoLearningClassPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyQuiz.map((item) => (
-              <div
+              <Link
                 key={item.quiz_id}
+                href={`/video/kuis/${item.quiz_name}/start`}
                 className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
               >
                 <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-6xl">
@@ -222,7 +224,7 @@ export default function VideoLearningClassPage() {
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

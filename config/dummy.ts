@@ -133,7 +133,7 @@ export const dummyListVideo = [
 export const dummyQuiz = [
   {
     quiz_id: 1,
-    quiz_name: "Quick Quiz: Evaluasi Pemahaman Dasar Ilmu Farmasi",
+    quiz_name: "Evaluasi Pemahaman Dasar Ilmu Farmasi",
     quiz_accessed: true,
     quiz_description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
@@ -142,7 +142,7 @@ export const dummyQuiz = [
   },
   {
     quiz_id: 2,
-    quiz_name: "Quiz: Mengulas Ulang Mekanisme Kerja dan Indikasi Obat",
+    quiz_name: "Mengulas Ulang Mekanisme Kerja dan Indikasi Obat",
     quiz_accessed: false,
     quiz_description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
