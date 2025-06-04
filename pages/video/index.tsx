@@ -16,7 +16,15 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { isNewProduct } from "@/utils/isNewProduct";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
-import { Button, Chip } from "@nextui-org/react";
+import {
+  Button,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+} from "@nextui-org/react";
 import {
   CheckCircle,
   ClipboardText,
@@ -25,15 +33,32 @@ import {
   VideoCamera,
 } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+
+type QuizType = {
+  quiz_id: number;
+  quiz_name: string;
+  quiz_description: string;
+  created_at: string;
+  total_questions: number;
+};
 
 export default function VideoLearningClassPage() {
   const router = useRouter();
+  const session = useSession();
+  const [selectedQuiz, setSelectedQuiz] = useState<QuizType | null>(null);
+  const [isOpenModalQuiz, setIsOpenModalQuiz] = useState<boolean>(false);
+
   const subscribeRef = useRef<HTMLElement | null>(null);
   const quizRef = useRef<HTMLElement | null>(null);
+
+  function handleOpenModalQuiz(prepQuiz: QuizType) {
+    setSelectedQuiz(prepQuiz);
+    setIsOpenModalQuiz(true);
+  }
 
   return (
     <>
@@ -190,10 +215,10 @@ export default function VideoLearningClassPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyQuiz.map((item) => (
-              <Link
+              <div
                 key={item.quiz_id}
-                href={`/video/kuis/${item.quiz_name}/start`}
                 className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
+                onClick={() => handleOpenModalQuiz(item as QuizType)}
               >
                 <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-6xl">
                   📚
@@ -224,10 +249,105 @@ export default function VideoLearningClassPage() {
                     </div>
                   </div>
                 </div>
-              </Link>
+              </div>
             ))}
+
+            {selectedQuiz && (
+              <Modal
+                size="lg"
+                placement="center"
+                scrollBehavior="inside"
+                isOpen={isOpenModalQuiz}
+                onOpenChange={(open) => setIsOpenModalQuiz(open)}
+              >
+                <ModalContent>
+                  <ModalHeader className="font-bold text-black">
+                    Detail Kuis
+                  </ModalHeader>
+
+                  <ModalBody>
+                    <div className="grid items-start gap-8 sm:flex">
+                      <div className="text-5xl">📚</div>
+
+                      <div className="grid gap-6">
+                        <div className="grid gap-2">
+                          <h1 className="text-xl font-extrabold text-black">
+                            {selectedQuiz.quiz_name}
+                          </h1>
+
+                          <p className="text-sm font-medium leading-[170%] text-gray">
+                            {selectedQuiz.quiz_description}
+                          </p>
+                        </div>
+
+                        <IconContext.Provider
+                          value={{
+                            weight: "duotone",
+                            size: 24,
+                            className: "text-purple",
+                          }}
+                        >
+                          <div>
+                            {[
+                              [
+                                "Jumlah Soal",
+                                <ClipboardText />,
+                                `${selectedQuiz.total_questions}`,
+                              ],
+                            ].map(([label, icon, value], index) => (
+                              <div key={index} className="grid gap-1">
+                                <span className="text-sm font-medium text-gray">
+                                  {label}:
+                                </span>
+
+                                <div className="flex items-center gap-1">
+                                  {icon}
+
+                                  <p className="text-sm font-semibold capitalize text-black">
+                                    {value} butir
+                                  </p>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </IconContext.Provider>
+
+                        <Button
+                          isDisabled={session.status == "unauthenticated"}
+                          color="secondary"
+                          onClick={() => {
+                            router.push(
+                              `/video/kuis/${selectedQuiz.quiz_name}/start`,
+                            );
+                          }}
+                          className="font-bold"
+                        >
+                          Mulai Kuis!
+                        </Button>
+                      </div>
+                    </div>
+                  </ModalBody>
+
+                  <ModalFooter />
+                </ModalContent>
+              </Modal>
+            )}
           </div>
         </section>
+
+        {/* <section className="base-container gap-8 py-[100px]">
+          <div className="grid gap-1 text-center xl:text-left">
+            <h2 className="text-3xl font-black -tracking-wide text-black">
+              Riwayat Kuis 🕐
+            </h2>
+
+            <p className="font-medium leading-[170%] text-gray">
+              Pantau semua jawaban kuis kamu untuk bahan belajar.
+            </p>
+          </div>
+
+          <div>list quiz card</div>
+        </section> */}
 
         <section ref={subscribeRef} className="base-container gap-8 py-[100px]">
           <div className="grid gap-1 text-center xl:text-left">
