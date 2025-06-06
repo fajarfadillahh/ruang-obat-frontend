@@ -25,6 +25,7 @@ import {
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -100,7 +101,7 @@ export default function PharmacistEntranceClassPage({
           />
         </section>
 
-        <section className="base-container gap-8 [padding:50px_0_100px] xl:gap-4">
+        <section className="base-container gap-4 [padding:50px_0_100px]">
           <div className="flex flex-wrap items-center justify-between gap-2">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Daftar Video 🔥
@@ -182,10 +183,10 @@ export default function PharmacistEntranceClassPage({
           </div>
         </section>
 
-        <section ref={tryoutRef} className="base-container gap-8 py-[100px]">
-          <div className="grid gap-1 text-center xl:text-left">
+        <section ref={tryoutRef} className="base-container gap-4 py-[100px]">
+          <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
-              Bonus Tryout ✍
+              Bonus Tryout Universitas ✍
             </h2>
 
             <p className="font-medium leading-[170%] text-gray">
@@ -195,8 +196,9 @@ export default function PharmacistEntranceClassPage({
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyTryoutPerUniversity.map((item) => (
-              <div
+              <Link
                 key={item.tryout_id}
+                href={`/kelas/masuk-apoteker/universitas/${item.tryout_name}`}
                 className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
               >
                 <Image
@@ -233,13 +235,13 @@ export default function PharmacistEntranceClassPage({
                     </div>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
 
-        <section ref={subscribeRef} className="base-container gap-8 py-[100px]">
-          <div className="grid gap-1 text-center xl:text-left">
+        <section ref={subscribeRef} className="base-container gap-4 py-[100px]">
+          <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Langganan 🌟
             </h2>

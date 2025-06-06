@@ -30,13 +30,14 @@ import {
   ClipboardText,
   IconContext,
   ShareNetwork,
+  Trophy,
   VideoCamera,
 } from "@phosphor-icons/react";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useRef, useState } from "react";
+import { HTMLAttributes, useRef, useState } from "react";
 
 type QuizType = {
   quiz_id: number;
@@ -139,7 +140,7 @@ export default function VideoLearningClassPage() {
               <div
                 key={item.video_id}
                 onClick={() => router.push(`/video/${item.slug}`)}
-                className="group relative isolate grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
+                className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] hover:cursor-pointer hover:bg-purple/10"
               >
                 {isNewProduct(item.created_at) ? (
                   <Chip
@@ -202,8 +203,8 @@ export default function VideoLearningClassPage() {
           </div>
         </section>
 
-        <section ref={quizRef} className="base-container gap-8 py-[100px]">
-          <div className="grid gap-1 text-center xl:text-left">
+        <section ref={quizRef} className="base-container gap-4 py-[100px]">
+          <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Bonus Kuis ✍
             </h2>
@@ -215,41 +216,13 @@ export default function VideoLearningClassPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {dummyQuiz.map((item) => (
-              <div
+              <CardQuiz
                 key={item.quiz_id}
-                className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
+                type="bonus"
+                title={item.quiz_name}
+                data={item.total_questions}
                 onClick={() => handleOpenModalQuiz(item as QuizType)}
-              >
-                <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-6xl">
-                  📚
-                </div>
-
-                <div className="grid gap-4">
-                  <CustomTooltip content={item.quiz_name}>
-                    <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
-                      {item.quiz_name}
-                    </h1>
-                  </CustomTooltip>
-
-                  <div className="grid gap-1">
-                    <span className="text-xs font-medium text-gray">
-                      Jumlah Soal:
-                    </span>
-
-                    <div className="flex items-center gap-1">
-                      <ClipboardText
-                        weight="duotone"
-                        size={18}
-                        className="text-purple"
-                      />
-
-                      <p className="text-sm font-semibold capitalize text-black">
-                        {item.total_questions} butir
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              />
             ))}
 
             {selectedQuiz && (
@@ -316,9 +289,7 @@ export default function VideoLearningClassPage() {
                           isDisabled={session.status == "unauthenticated"}
                           color="secondary"
                           onClick={() => {
-                            router.push(
-                              `/video/kuis/${selectedQuiz.quiz_name}/start`,
-                            );
+                            router.push(`/quiz/${selectedQuiz.quiz_id}/start`);
                           }}
                           className="font-bold"
                         >
@@ -335,22 +306,34 @@ export default function VideoLearningClassPage() {
           </div>
         </section>
 
-        {/* <section className="base-container gap-8 py-[100px]">
-          <div className="grid gap-1 text-center xl:text-left">
-            <h2 className="text-3xl font-black -tracking-wide text-black">
-              Riwayat Kuis 🕐
-            </h2>
+        {session.status == "authenticated" && (
+          <section className="base-container gap-4 py-[100px]">
+            <div className="grid">
+              <h2 className="text-3xl font-black -tracking-wide text-black">
+                Riwayat Kuis 🕐
+              </h2>
 
-            <p className="font-medium leading-[170%] text-gray">
-              Pantau semua jawaban kuis kamu untuk bahan belajar.
-            </p>
-          </div>
+              <p className="font-medium leading-[170%] text-gray">
+                Pantau semua jawaban kuis kamu untuk bahan belajar.
+              </p>
+            </div>
 
-          <div>list quiz card</div>
-        </section> */}
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
+              {Array.from({ length: 1 }, (_, index) => (
+                <CardQuiz
+                  key={index}
+                  type="history"
+                  title="Ini Adalah Judul History Bonus Kuis..."
+                  data={100}
+                  onClick={() => router.push(`/quiz/${index + 1}/result`)}
+                />
+              ))}
+            </div>
+          </section>
+        )}
 
-        <section ref={subscribeRef} className="base-container gap-8 py-[100px]">
-          <div className="grid gap-1 text-center xl:text-left">
+        <section ref={subscribeRef} className="base-container gap-4 py-[100px]">
+          <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
               Langganan 🌟
             </h2>
@@ -432,6 +415,58 @@ export default function VideoLearningClassPage() {
 
       <Footer />
     </>
+  );
+}
+
+interface CardQuizProps extends HTMLAttributes<HTMLDivElement> {
+  type: "bonus" | "history";
+  title: string;
+  data: number;
+}
+
+function CardQuiz({ type, title, data, ...props }: CardQuizProps) {
+  const emoji = type == "bonus" ? "📚" : "🏆";
+  const icon = type == "bonus" ? <ClipboardText /> : <Trophy />;
+  const label = type == "bonus" ? "Jumlah Soal:" : "Nilai:";
+  const labelData = type == "bonus" ? `${data} butir` : `${data} poin`;
+
+  return (
+    <div
+      className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] hover:cursor-pointer hover:bg-purple/10"
+      {...props}
+    >
+      <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-5xl">
+        {emoji}
+      </div>
+
+      <div className="grid gap-4">
+        <CustomTooltip content={title}>
+          <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+            {title}
+          </h1>
+        </CustomTooltip>
+
+        <div className="grid gap-1">
+          <span className="text-xs font-medium text-gray">{label}</span>
+
+          <div className="flex items-center gap-1">
+            <IconContext.Provider
+              value={{
+                weight: "duotone",
+                size: 18,
+                className: "text-purple",
+              }}
+            >
+              {icon}
+            </IconContext.Provider>
+
+            <p className="text-sm font-semibold capitalize text-black">
+              {labelData}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 
