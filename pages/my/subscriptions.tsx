@@ -1,3 +1,4 @@
+import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { Button } from "@nextui-org/react";
@@ -20,9 +21,7 @@ export default function MySubscriptionsPage() {
             </p>
           </div>
 
-          <div className="flex min-h-[200px] items-center justify-center rounded-xl border-2 border-dashed border-gray/20 p-8 text-center font-medium text-gray sm:text-left">
-            Kamu belum berlangganan apapun...
-          </div>
+          <EmptyData text="Kamu belum berlangganan apapun 😥" />
 
           {/* <div className="grid items-start gap-4 xl:grid-cols-2">
             <CardHasSubscription />
