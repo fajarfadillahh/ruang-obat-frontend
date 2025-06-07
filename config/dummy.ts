@@ -137,14 +137,51 @@ export const dummyTryout = [
 export const dummyListVideo = [
   {
     video_id: 1,
-    video_title: "Matematika",
-    slug: "matematika",
+    video_title: "Pengenalan Farmakoterapi Kardiovaskular",
+    slug: "pengenalan-farmakoterapi-kardiovaskular",
     created_at: "2025-05-25T00:00:00.000Z",
   },
   {
     video_id: 2,
-    video_title: "Bahasa Indonesia",
-    slug: "bahasa-indonesia",
+    video_title: "Obat Antihipertensi: Klasifikasi dan Mekanisme Kerja",
+    slug: "obat-antihipertensi-klasifikasi-dan-mekanisme-kerja",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 3,
+    video_title: "Penatalaksanaan Hipertensi Berdasarkan JNC 8",
+    slug: "penatalaksanaan-hipertensi-berdasarkan-jnc-8",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 4,
+    video_title:
+      "Farmakoterapi Gagal Jantung: ACE Inhibitor, ARB, dan Beta Blocker",
+    slug: "farmakoterapi-gagal-jantung-ace-arb-beta-blocker",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 5,
+    video_title: "Antikoagulan dan Antiplatelet dalam Penyakit Jantung Koroner",
+    slug: "antikoagulan-antiplatelet-penyakit-jantung-koroner",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 6,
+    video_title: "Statin dan Terapi Dislipidemia",
+    slug: "statin-dan-terapi-dislipidemia",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 7,
+    video_title: "Farmakoterapi Aritmia: Kelas Obat dan Penggunaannya",
+    slug: "farmakoterapi-aritmia-kelas-obat-dan-penggunaan",
+    created_at: "2025-05-25T00:00:00.000Z",
+  },
+  {
+    video_id: 8,
+    video_title: "Interaksi Obat pada Pasien Kardiovaskular",
+    slug: "interaksi-obat-pada-pasien-kardiovaskular",
     created_at: "2025-05-25T00:00:00.000Z",
   },
 ];
@@ -210,5 +247,154 @@ export const dummyOfferSubscriptions = [
     ],
     highlight: false,
     order_link: "https://github.com",
+  },
+];
+
+export const dummyCategories = [
+  {
+    category_id: 1,
+    category_name: "Farmakoterapi",
+    category_slug: "farmakoterapi",
+  },
+  {
+    category_id: 2,
+    category_name: "Teknologi Farmasi",
+    category_slug: "teknologi-farmasi",
+  },
+  {
+    category_id: 3,
+    category_name: "Kimia Farmasi",
+    category_slug: "kimia-farmasi",
+  },
+  {
+    category_id: 4,
+    category_name: "Botani Farmasi",
+    category_slug: "botani-farmasi",
+  },
+  {
+    category_id: 5,
+    category_name: "Manajemen dan Pelayanan Farmasi",
+    category_slug: "manajemen-dan-pelayanan-farmasi",
+  },
+  {
+    category_id: 6,
+    category_name: "Biologi Farmasi",
+    category_slug: "biologi-farmasi",
+  },
+  {
+    category_id: 7,
+    category_name: "Regulasi dan Perundangan Farmasi",
+    category_slug: "regulasi-dan-perundangan-farmasi",
+  },
+  {
+    category_id: 8,
+    category_name: "Kompetensi Farmasi",
+    category_slug: "kompetensi-farmasi",
+  },
+  {
+    category_id: 9,
+    category_name: "Ilmu Dasar Farmasi",
+    category_slug: "ilmu-dasar-farmasi",
+  },
+  {
+    category_id: 10,
+    category_name: "Herbal Farmasi dan Obat Tradisional",
+    category_slug: "herbal-farmasi-dan-obat-tradisional",
+  },
+  {
+    category_id: 11,
+    category_name: "Kimia Analisis",
+    category_slug: "kimia-analisis",
+  },
+  {
+    category_id: 12,
+    category_name: "Farmakokinetik",
+    category_slug: "farmakokinetik",
+  },
+  {
+    category_id: 13,
+    category_name: "Metodologi Penelitian",
+    category_slug: "metodologi-penelitian",
+  },
+];
+
+export const dummySubCategories = [
+  {
+    subcategory_id: 1,
+    subcategory_name: "Farmakoterapi Kardiovaskular",
+    subcategory_slug: "farmakoterapi-kardiovaskular",
+    subcategory_type: "videocourse",
+  },
+  {
+    subcategory_id: 2,
+    subcategory_name: "Farmakoterapi Infeksi",
+    subcategory_slug: "farmakoterapi-infeksi",
+    subcategory_type: "videocourse",
+  },
+  {
+    subcategory_id: 3,
+    subcategory_name: "Farmakoterapi Sistem Endokrin",
+    subcategory_slug: "farmakoterapi-sistem-endokrin",
+    subcategory_type: "videocourse-endokrin",
+  },
+  {
+    subcategory_id: 4,
+    subcategory_name: "Farmakoterapi Sistem Pernafasan",
+    subcategory_slug: "farmakoterapi-sistem-pernafasan",
+    subcategory_type: "videocourse-pernafasan",
+  },
+  {
+    subcategory_id: 5,
+    subcategory_name: "Farmakoterapi Sistem Gastrointestinal",
+    subcategory_slug: "farmakoterapi-sistem-gastrointestinal",
+    subcategory_type: "videocourse-gastrointestinal",
+  },
+  {
+    subcategory_id: 7,
+    subcategory_name: "Farmakoterapi Sistem Saraf",
+    subcategory_slug: "farmakoterapi-sistem-saraf",
+    subcategory_type: "videocourse-saraf",
+  },
+  {
+    subcategory_id: 8,
+    subcategory_name: "Farmakoterapi Psikiatri (Kesehatan Jiwa)",
+    subcategory_slug: "farmakoterapi-psikiatri-kesehatan-jiwa",
+    subcategory_type: "videocourse-kesehatan-jiwa",
+  },
+  {
+    subcategory_id: 9,
+    subcategory_name: "Farmakoterapi Tulang dan Persendian",
+    subcategory_slug: "farmakoterapi-tulang-dan-persendian",
+    subcategory_type: "videocourse-dan-persendian",
+  },
+  {
+    subcategory_id: 10,
+    subcategory_name: "Farmakoterapi Integument (Kulit)",
+    subcategory_slug: "farmakoterapi-integument-kulit",
+    subcategory_type: "videocourse-kulit",
+  },
+  {
+    subcategory_id: 11,
+    subcategory_name: "Farmakoterapi Mata Telinga Hidung Tenggorokan",
+    subcategory_slug: "farmakoterapi-mata-telinga-hidung-tenggorokan",
+    subcategory_type: "videocourse-telinga-hidung-tenggorokan",
+  },
+  {
+    subcategory_id: 13,
+    subcategory_name: "Organ Hati",
+    subcategory_slug: "organ-hati",
+    subcategory_type: "videocourse",
+  },
+  {
+    subcategory_id: 14,
+    subcategory_name: "Gangguan Darah",
+    subcategory_slug: "gangguan-darah",
+    subcategory_type: "videocourse",
+  },
+  {
+    subcategory_id: 15,
+    subcategory_name: "Bioregulator",
+    subcategory_slug: "bioregulator",
+    subcategory_type: "videocourse",
   },
 ];
