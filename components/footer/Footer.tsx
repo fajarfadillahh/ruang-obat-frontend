@@ -1,4 +1,4 @@
-import { footerConfigContent } from "@/config/site";
+import { footer } from "@/data/footer";
 import { Image } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import Link from "next/link";
@@ -9,7 +9,7 @@ export default function Footer() {
       <div className="relative mx-auto h-full w-full max-w-[1440px] px-6">
         <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
           <div className="flex flex-wrap items-start gap-16">
-            {footerConfigContent.menu.map((item, index) => (
+            {footer.menu.map((item, index) => (
               <div key={index} className="grid gap-4">
                 <h4 className="text-xl font-extrabold text-white">
                   {item.label}
@@ -40,7 +40,7 @@ export default function Footer() {
             }}
           >
             <div className="flex items-center gap-6">
-              {footerConfigContent.sosmed.map((item) => (
+              {footer.sosmed.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href as string}
@@ -55,7 +55,7 @@ export default function Footer() {
         </div>
 
         <p className="text-center font-medium capitalize text-white/80">
-          &copy; {footerConfigContent.copyright}
+          &copy; {footer.copyright}
         </p>
       </div>
 

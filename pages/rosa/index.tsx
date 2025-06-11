@@ -2,7 +2,7 @@ import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
-import { siteROSAPage } from "@/config/site";
+import { siteROSAPage } from "@/data/site";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { Accordion, AccordionItem, Button } from "@nextui-org/react";
 import { Sparkle } from "@phosphor-icons/react";

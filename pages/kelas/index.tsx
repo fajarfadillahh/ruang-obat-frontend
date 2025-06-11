@@ -2,7 +2,7 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigHomePage } from "@/config/site";
+import { siteConfigHomePage } from "@/data/site";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button } from "@nextui-org/react";

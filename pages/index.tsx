@@ -1,7 +1,7 @@
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigHomePage, siteConfigTestimonialsPage } from "@/config/site";
+import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
@@ -313,7 +313,7 @@ export default function HomePage({
               }}
               modules={[Autoplay]}
             >
-              {siteConfigTestimonialsPage
+              {siteConfigCompanyPage.testimonials
                 .slice(0, 12)
                 .map((testimonial, index) => (
                   <SwiperSlide

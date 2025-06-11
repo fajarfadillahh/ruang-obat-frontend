@@ -1,7 +1,7 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigTestimonialsPage } from "@/config/site";
+import { siteConfigCompanyPage } from "@/data/site";
 import { Quotes } from "@phosphor-icons/react";
 import Image from "next/image";
 
@@ -28,7 +28,7 @@ export default function TestimonialsPage() {
           </div>
 
           <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-4">
-            {siteConfigTestimonialsPage.map((testimonial, index) => (
+            {siteConfigCompanyPage.testimonials.map((testimonial, index) => (
               <div
                 key={index}
                 className="grid gap-12 rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"

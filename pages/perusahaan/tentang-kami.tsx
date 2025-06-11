@@ -2,7 +2,7 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigAboutUsPage } from "@/config/site";
+import { siteConfigCompanyPage } from "@/data/site";
 import { IconContext } from "@phosphor-icons/react";
 import Image from "next/image";
 
@@ -73,7 +73,7 @@ export default function AboutUsPage() {
             }}
           >
             <div className="flex flex-wrap items-center justify-center gap-4">
-              {siteConfigAboutUsPage.products.map((item, index) => (
+              {siteConfigCompanyPage.about.products.map((item, index) => (
                 <div
                   key={index}
                   className="grid h-auto w-full max-w-[320px] gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
@@ -132,21 +132,21 @@ export default function AboutUsPage() {
           <div className="base-container gap-8 lg:grid-cols-2 lg:items-start xl:gap-16">
             <div className="grid gap-4">
               <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-                {siteConfigAboutUsPage.data.vision.title}
+                {siteConfigCompanyPage.about.data.vision.title}
               </h1>
 
               <p className="font-medium leading-[170%] text-gray">
-                {siteConfigAboutUsPage.data.vision.text}
+                {siteConfigCompanyPage.about.data.vision.text}
               </p>
             </div>
 
             <div className="grid gap-4">
               <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-                {siteConfigAboutUsPage.data.mission.title}
+                {siteConfigCompanyPage.about.data.mission.title}
               </h1>
 
               <ul className="grid list-outside list-decimal gap-2 pl-4">
-                {siteConfigAboutUsPage.data.mission.list.map((item) => (
+                {siteConfigCompanyPage.about.data.mission.list.map((item) => (
                   <li
                     key={item.key}
                     className="font-medium leading-[170%] text-gray"

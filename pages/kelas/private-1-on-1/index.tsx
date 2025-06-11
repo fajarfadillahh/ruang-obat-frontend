@@ -3,8 +3,8 @@ import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { siteConfigPhamacyPrivteClassPage } from "@/config/site";
 import { AppContext } from "@/context/AppContext";
+import { siteConfigPhamacyPrivteClassPage } from "@/data/site";
 import {
   PrivateClassType,
   PrivateResponse,

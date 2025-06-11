@@ -1,37 +1,10 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
+import { siteConfigCompanyPage } from "@/data/site";
 import { Button } from "@nextui-org/react";
-import {
-  ArrowRight,
-  ChatCircleDots,
-  ClipboardText,
-  IconContext,
-  LockKey,
-  PhoneCall,
-  Pill,
-} from "@phosphor-icons/react";
+import { ArrowRight, IconContext } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
-
-const data = [
-  { label: "Tentang RuangObat", icon: Pill, url: "/perusahaan/tentang-kami" },
-  { label: "Kontak Kami", icon: PhoneCall, url: "/perusahaan/kontak-kami" },
-  {
-    label: "Testimonial",
-    icon: ChatCircleDots,
-    url: "/perusahaan/testimonial",
-  },
-  {
-    label: "Ketentuan Layanan ",
-    icon: ClipboardText,
-    url: "/perusahaan/ketentuan-layanan",
-  },
-  {
-    label: "Kebijakan Privasi",
-    icon: LockKey,
-    url: "/perusahaan/kebijakan-privasi",
-  },
-];
 
 export default function CompanyPage() {
   const router = useRouter();
@@ -76,7 +49,7 @@ export default function CompanyPage() {
               }}
             >
               <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-                {data.map((item, index) => (
+                {siteConfigCompanyPage.data.map((item, index) => (
                   <div
                     key={index}
                     className="grid gap-6 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
