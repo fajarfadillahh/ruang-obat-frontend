@@ -93,7 +93,7 @@ export default function AboutUsPage() {
           <div className="base-container items-center gap-4 xl:grid-cols-2">
             <Image
               priority
-              src="/img/aboutus/about-img-1.png"
+              src="/img/about/about-img-1.webp"
               alt="img"
               width={900}
               height={900}
@@ -198,7 +198,7 @@ export default function AboutUsPage() {
 
             <Image
               priority
-              src="/img/aboutus/about-img-3.png"
+              src="/img/about/about-img-3.webp"
               alt="home img"
               width={396}
               height={512}
