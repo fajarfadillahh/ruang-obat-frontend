@@ -286,6 +286,8 @@ export default function SubCategoryPage() {
           </section>
         )}
 
+        {/* flash card / summary card */}
+
         <section ref={subscribeRef}>
           <SectionSubscription />
         </section>

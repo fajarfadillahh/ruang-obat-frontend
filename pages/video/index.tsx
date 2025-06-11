@@ -22,7 +22,7 @@ export default function VideoLearningClassPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-[1fr_500px] xl:gap-16">
+        <section className="base-container items-center gap-6 xl:grid-cols-[1fr_500px] xl:gap-16">
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Video Pembelajaran Lengkap untuk Mahasiswa Farmasi

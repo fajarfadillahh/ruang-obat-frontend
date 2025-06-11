@@ -1,327 +1,262 @@
-import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
-import NavbarMenu from "@/components/navbar/NavbarMenu";
-import { TypingText } from "@/components/TypingText";
-import { SuccessResponse } from "@/types/global.type";
-import { fetcher } from "@/utils/fetcher";
-import { Button, useDisclosure } from "@nextui-org/react";
-import { ArrowUp } from "@phosphor-icons/react";
-import { useSession } from "next-auth/react";
-import { NextSeo } from "next-seo";
-import Head from "next/head";
+import CTASecondary from "@/components/cta/CTASecondary";
+import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/TextHighlight";
+import Layout from "@/components/wrapper/Layout";
+import { siteROSAPage } from "@/config/site";
+import { scrollToSection } from "@/utils/scrollToSection";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { Sparkle } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useRef, useState } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-import useSWR from "swr";
-
-type CheckResponse = {
-  total: number;
-  remaining: number;
-};
-
-type ChatResponse = {
-  role: string;
-  content: string;
-};
-
-type MessageState = {
-  role: string;
-  content: string;
-  is_loading?: boolean;
-  id?: number;
-  is_typing?: boolean;
-};
+import { useRef } from "react";
+import "swiper/css";
+import "swiper/css/pagination";
+import { Autoplay } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export default function RosaPage() {
-  const { status, data } = useSession();
-
-  const { data: user, mutate } = useSWR<SuccessResponse<CheckResponse>>(
-    status == "authenticated"
-      ? {
-          url: "/ai/limits/check",
-          method: "GET",
-          token: data.user.access_token,
-        }
-      : null,
-  );
-
-  const { data: chats } = useSWR<SuccessResponse<ChatResponse[]>>(
-    status == "authenticated"
-      ? {
-          url: `/ai/chat?timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
-          method: "GET",
-          token: data.user.access_token,
-        }
-      : null,
-    status == "authenticated"
-      ? {
-          revalidateOnFocus: false,
-          revalidateOnReconnect: false,
-          refreshInterval: 0,
-          dedupingInterval: 0,
-          keepPreviousData: false,
-        }
-      : {},
-  );
-
-  const { onOpen, isOpen, onClose } = useDisclosure();
-  const divRef = useRef<HTMLDivElement>(null);
-
   const router = useRouter();
-  const currentUrl = `https://ruangobat.id${router.asPath}`;
-  const [input, setInput] = useState("");
-  const [messages, setMessages] = useState<MessageState[]>([]);
-
-  const [onProgressAi, setOnProgressAi] = useState(false);
-
-  useEffect(() => {
-    if (status === "unauthenticated") {
-      onOpen();
-    }
-  }, [status, onOpen]);
-
-  useEffect(() => {
-    if (chats?.data?.length) {
-      setMessages(chats.data.map((chat) => ({ ...chat, is_typing: false })));
-    }
-  }, [chats?.data]);
-
-  useEffect(() => {
-    if (messages.length) {
-      divRef.current?.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
-
-  const handleSubmitChat = useCallback(async () => {
-    const id = Date.now();
-    if (!user?.data.remaining) return;
-
-    setOnProgressAi(true);
-    setMessages((prev) => [
-      ...prev,
-      { role: "user", content: input },
-      { role: "assistant", content: "", is_loading: true, id },
-    ]);
-
-    try {
-      const response: SuccessResponse<ChatResponse> = await fetcher({
-        url: "/ai/chat",
-        method: "POST",
-        token: data?.user.access_token,
-        data: { input },
-      });
-
-      mutate();
-
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === id
-            ? {
-                role: "assistant",
-                content: response.data.content,
-                is_loading: false,
-                id: 0,
-                is_typing: true,
-              }
-            : msg,
-        ),
-      );
-    } catch (error) {
-      console.error(error);
-
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.id === id
-            ? {
-                role: "assistant",
-                content:
-                  "Ups sepertinya server kita ada masalah. Maaf ya atas ketidaknyamanannya 😫",
-                is_loading: false,
-                id: 0,
-              }
-            : msg,
-        ),
-      );
-    }
-  }, [user?.data.remaining, input, data?.user.access_token, mutate]);
+  const learnMore = useRef<HTMLElement | null>(null);
 
   return (
     <>
-      <NextSeo
-        title="Ruang Obat Smart Assistant (ROSA)"
-        description="Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi."
-        canonical={currentUrl}
-        openGraph={{
-          url: currentUrl,
-          title: "Ruang Obat Smart Assistant (ROSA)",
-          description:
-            "Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi.",
-          site_name: "RuangObat",
-        }}
-      />
-
-      <Head>
-        <title>Ruang Obat Smart Assistant (ROSA)</title>
-      </Head>
-
-      <NavbarMenu />
-
-      <ModalUnauthenticated
-        isOpen={isOpen}
-        onClose={() => {
-          router.back();
-          onClose();
-        }}
-      />
-
-      <main className="relative isolate mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
-        {!messages.length ? (
-          <div className="flex flex-col items-center justify-center gap-2">
-            <h1 className="text-2xl font-extrabold text-black">
-              ROSA (Ruang Obat Smart Assistant) 💊
+      <Layout
+        title="Apoteker ROSA"
+        description="Apoteker ROSA adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
+      >
+        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_500px] xl:gap-0">
+          <div className="grid gap-4">
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Apoteker ROSA:{" "}
+              <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
+                <span className="relative text-white">Smart Assistant</span>
+              </span>
+              Pendamping Belajar Mahasiswa Farmasi
             </h1>
-            <p className="max-w-[600px] text-center font-medium leading-[170%] text-gray">
-              Hi, aku ROSA yang siap bantu kamu menjawab berbagai pertanyaan
-              seputar dunia Farmasi dan layanan belajar di Ruang Obat ✨.
+
+            <p className="mb-8 font-medium leading-[170%] text-gray">
+              Apoteker ROSA adalah{" "}
+              <TextHighlight text="smart assistant berbasis AI" />
+              yang dirancang khusus untuk membantu kamu dalam{" "}
+              <TextHighlight
+                text="proses
+              pembelajaran secara praktis, cepat, dan efisien."
+                className="lowercase"
+              />{" "}
+              Dengan kecerdasan buatan yang terus berkembang, ROSA mampu
+              menjawab berbagai pertanyaan seputar dunia farmasi, persiapan
+              masuk profesi apoteker, hingga rekomendasi sumber belajar yang
+              relevan.
             </p>
-          </div>
-        ) : (
-          <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
-            {messages.map((message, index) => {
-              return message.role == "user" ? (
-                <div className="h-max w-auto max-w-[600px] self-end bg-gray/10 p-4 font-medium text-black [border-radius:1.5rem_1.5rem_2px_1.5rem] hover:bg-gray/20">
-                  {message.content}
-                </div>
-              ) : (
-                <div
-                  className={`mb-4 flex ${message.is_loading ? "items-center" : "items-start"} gap-4`}
-                >
-                  <Image
-                    src="/img/default-thumbnail.png"
-                    alt="icon"
-                    width={100}
-                    height={100}
-                    className="aspect-square size-9 rounded-full"
-                  />
 
-                  <div className="h-max flex-1 font-medium leading-[170%] text-black">
-                    {message.is_loading ? (
-                      <div className="flex justify-start space-x-1">
-                        <div className="loader"></div>
-                      </div>
-                    ) : null}
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
+              <Button
+                color="secondary"
+                endContent={<Sparkle weight="duotone" size={20} />}
+                onClick={() => router.push("/rosa/chat")}
+                className="px-6 font-bold"
+              >
+                Tanya ROSA Sekarang
+              </Button>
 
-                    {message.is_typing ? (
-                      <TypingText
-                        text={message.content}
-                        key={message.id ?? index}
-                        divRef={divRef}
-                        onDone={() => {
-                          setOnProgressAi(false);
-                        }}
-                      />
-                    ) : (
-                      <ReactMarkdown
-                        children={message.content}
-                        remarkPlugins={[remarkGfm]}
-                        components={{
-                          ol: ({ children, ...props }) => (
-                            <ol className="list-decimal pl-4" {...props}>
-                              {children}
-                            </ol>
-                          ),
-                          ul: ({ children, ...props }) => (
-                            <ul className="list-disc pl-4" {...props}>
-                              {children}
-                            </ul>
-                          ),
-                          table: ({ children, ...props }) => (
-                            <div className="overflow-x-scroll scrollbar-hide">
-                              <table
-                                className="my-4 table-auto border border-black [&_td]:border [&_td]:p-4 [&_th]:whitespace-nowrap [&_th]:border [&_th]:bg-gray/20 [&_th]:p-4 [&_tr:last-child]:border-b-0 [&_tr]:border-b"
-                                {...props}
-                              >
-                                {children}
-                              </table>
-                            </div>
-                          ),
-                        }}
-                      />
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-
-            <div ref={divRef}></div>
-          </div>
-        )}
-
-        <div className="sticky bottom-0 left-0 bg-white pb-4 md:pb-8">
-          <div className="flex flex-col gap-2 rounded-2xl border border-gray-300 bg-gray-100 p-5 shadow-sm">
-            <input
-              placeholder="Tanyakan Seputar Farmasi dan Ruang Obat..."
-              className="bg-gray-100 font-semibold outline-none placeholder:text-sm placeholder:font-semibold placeholder:text-gray"
-              disabled={
-                status == "authenticated"
-                  ? !user?.data.remaining || onProgressAi
-                  : onProgressAi
-              }
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey && !onProgressAi) {
-                  e.preventDefault();
-                  handleSubmitChat();
-                  setInput("");
-                }
-              }}
-            />
-
-            <div className="mt-2 flex items-center justify-between">
-              <div className="flex gap-2">
-                <p className="text-xs font-medium capitalize leading-[170%] text-gray">
-                  Sisa Pertanyaan Kamu Hari Ini:{" "}
-                  <span className="font-black text-purple">
-                    {status == "authenticated" ? user?.data.remaining : "-"}
-                  </span>
-                </p>
-              </div>
-
-              <div className="flex items-center gap-2">
-                {/* <Button
-                  variant="flat"
-                  size="sm"
-                  className="rounded-lg bg-gray-300 font-bold"
-                  isIconOnly
-                >
-                  <Paperclip size={18} weight="bold" />
-                </Button> */}
-                <Button
-                  isDisabled={
-                    !input ||
-                    !user?.data.remaining ||
-                    status == "unauthenticated" ||
-                    onProgressAi ||
-                    messages.some((msg) => msg.is_loading)
-                  }
-                  variant="flat"
-                  size="sm"
-                  isIconOnly
-                  className="rounded-lg bg-purple font-bold text-white"
-                  onClick={() => {
-                    handleSubmitChat();
-                    setInput("");
-                  }}
-                >
-                  <ArrowUp size={18} weight="bold" />
-                </Button>
-              </div>
+              <Button
+                variant="bordered"
+                onClick={() => scrollToSection(learnMore)}
+                className="px-6 font-bold"
+              >
+                Pelajari Lebih Lanjut!
+              </Button>
             </div>
           </div>
-        </div>
-      </main>
+
+          <Image
+            priority
+            src="/img/ai/APOTEKER-ROSA-1.webp"
+            alt="apoteker rosa image"
+            width={1000}
+            height={1000}
+            className="justify-self-center"
+          />
+        </section>
+
+        <section ref={learnMore} className="base-container gap-12 py-[100px]">
+          <h1 className="max-w-[900px] justify-self-center text-center text-4xl font-black capitalize -tracking-wide text-black">
+            Belajar udah berkali-kali,{" "}
+            <span className="text-purple">tapi masih bingung?</span> Materi
+            diulang, <span className="text-purple">tetap aja belum masuk?</span>
+          </h1>
+
+          <Image
+            priority
+            src="/img/ai/APOTEKER-ROSA-3.webp"
+            alt="apoteker rosa image"
+            width={900}
+            height={1000}
+            className="justify-self-center"
+          />
+
+          <h4 className="text-center text-3xl font-medium leading-[140%] text-black">
+            Kini saatnya beralih ke solusi yang lebih cerdas. Apoteker ROSA
+            hadir sebagai{" "}
+            <TextHighlight
+              text="asisten pintar yang siap membantu menjawab berbagai
+            pertanyaan seputar dunia farmasi."
+              className="font-extrabold lowercase"
+            />{" "}
+            Dengan penjelasan yang mudah dipahami dan akses 24 jam, kamu tidak
+            perlu lagi belajar sendirian. ROSA akan menemani proses belajarmu,{" "}
+            <TextHighlight
+              text="kapan pun kamu butuh."
+              className="font-extrabold lowercase"
+            />
+          </h4>
+
+          <Button
+            color="secondary"
+            endContent={<Sparkle weight="duotone" size={20} />}
+            onClick={() => router.push("/rosa/chat")}
+            className="justify-self-center px-6 font-bold"
+          >
+            Tanya ROSA Sekarang
+          </Button>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="max-w-[600px] justify-self-center text-center text-4xl font-black capitalize -tracking-wide text-black">
+            Mengapa Pilih <span className="text-purple">Apoteker ROSA</span>{" "}
+            sebagai Asisten Belajar?
+          </h1>
+
+          <div className="grid items-start gap-4 sm:grid-cols-2">
+            {siteROSAPage.reasoning.map((item, index) => (
+              <div
+                key={index}
+                className="grid h-auto w-full gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+              >
+                <item.icon weight="duotone" size={64} className="text-purple" />
+
+                <div className="grid gap-2">
+                  <h4 className="text-xl font-extrabold capitalize text-black">
+                    {item.title}
+                  </h4>
+
+                  <p className="font-medium leading-[170%] text-gray">
+                    {item.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <Button
+            color="secondary"
+            endContent={<Sparkle weight="duotone" size={20} />}
+            onClick={() => router.push("/rosa/chat")}
+            className="justify-self-center px-6 font-bold"
+          >
+            Tanya ROSA Sekarang
+          </Button>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="max-w-[700px] justify-self-center text-center text-4xl font-black capitalize -tracking-wide text-black">
+            Saat bingung belajar,{" "}
+            <span className="text-purple">Apoteker ROSA</span> yang selalu siap
+            bantu.
+          </h1>
+
+          <Image
+            priority
+            src="/img/ai/APOTEKER-ROSA-2.webp"
+            alt="apoteker rosa image"
+            width={3056}
+            height={2000}
+            className="justify-self-center"
+          />
+
+          <Button
+            color="secondary"
+            endContent={<Sparkle weight="duotone" size={20} />}
+            onClick={() => router.push("/rosa/chat")}
+            className="justify-self-center px-6 font-bold"
+          >
+            Tanya ROSA Sekarang
+          </Button>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="text-center text-4xl font-black capitalize -tracking-wide text-black">
+            <span className="text-purple">1000+</span> Mahasiswa Sudah Mencoba
+          </h1>
+
+          <div className="testimonial-container overflow-hidden">
+            <Swiper
+              loop={true}
+              slidesPerView={"auto"}
+              spaceBetween={16}
+              // centeredSlides={true}
+              autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+              }}
+              modules={[Autoplay]}
+            >
+              {siteROSAPage.testimonial.map((item, index) => (
+                <SwiperSlide
+                  key={index}
+                  className="max-w-[330px] lg:max-w-[276px]"
+                >
+                  <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
+                    <div className="flex items-center gap-4 pb-4">
+                      <Image
+                        src="/img/avatar-male.svg"
+                        alt="avatar"
+                        width={100}
+                        height={100}
+                        className="aspect-square size-10 rounded-full bg-purple/20"
+                      />
+
+                      <h1 className="font-bold text-black">{item.name}</h1>
+                    </div>
+
+                    <p className="line-clamp-3 pt-4 text-sm font-medium leading-[170%] text-gray">
+                      {item.comment}
+                    </p>
+                  </div>
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+        </section>
+
+        <section className="base-container gap-8 py-[100px]">
+          <h1 className="max-w-[700px] justify-self-center text-center text-4xl font-black capitalize -tracking-wide text-black">
+            Pertanyaan yang sering ditanyakan tentang{" "}
+            <span className="text-purple">Apoteker ROSA</span>
+          </h1>
+
+          <Accordion defaultExpandedKeys={["0"]}>
+            {siteROSAPage.faqs.map((item, index) => (
+              <AccordionItem
+                key={index}
+                title={item.question}
+                // startContent={<item.icon />}
+                classNames={{
+                  title: "text-lg text-black font-bold xs:text-xl",
+                  indicator: "text-black",
+                  content: "text-gray leading-[170%] font-medium pb-8",
+                }}
+              >
+                {item.answer}
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </section>
+
+        <CTASecondary />
+      </Layout>
+
+      <Footer />
     </>
   );
 }
