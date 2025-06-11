@@ -2,7 +2,7 @@ import ButtonBack from "@/components/button/ButtonBack";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { dummySubCategories } from "@/config/dummy";
+import { dummySubCategories } from "@/data/dummy";
 import { Asclepius, Heartbeat } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/router";

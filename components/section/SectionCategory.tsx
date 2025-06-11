@@ -1,4 +1,4 @@
-import { dummyCategories } from "@/config/dummy";
+import { dummyCategories } from "@/data/dummy";
 import { Heartbeat } from "@phosphor-icons/react";
 import Link from "next/link";
 import { twMerge } from "tailwind-merge";

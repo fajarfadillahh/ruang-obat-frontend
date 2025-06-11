@@ -4,7 +4,7 @@ import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
-import { dummyListVideo, dummyQuiz } from "@/config/dummy";
+import { dummyListVideo, dummyQuiz } from "@/data/dummy";
 import { scrollToSection } from "@/utils/scrollToSection";
 import {
   Button,

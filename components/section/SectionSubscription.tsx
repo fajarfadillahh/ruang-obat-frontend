@@ -1,11 +1,11 @@
-import { dummyOfferSubscriptions } from "@/config/dummy";
+import { dummyOfferSubscriptions } from "@/data/dummy";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Button } from "@nextui-org/react";
 import { CheckCircle } from "@phosphor-icons/react";
 
 export default function SectionSubscription() {
   return (
-    <div className="base-container gap-4 py-[100px]">
+    <section className="base-container gap-4 py-[100px]">
       <div className="grid">
         <h2 className="text-3xl font-black -tracking-wide text-black">
           Langganan 🌟
@@ -79,6 +79,6 @@ export default function SectionSubscription() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 }

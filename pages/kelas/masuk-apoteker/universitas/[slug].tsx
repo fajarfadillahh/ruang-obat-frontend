@@ -3,7 +3,7 @@ import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { dummyTryout } from "@/config/dummy";
+import { dummyTryout } from "@/data/dummy";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,

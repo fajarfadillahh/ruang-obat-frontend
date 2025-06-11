@@ -4,7 +4,7 @@ import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { dummyVideoCourse } from "@/config/dummy";
+import { dummyVideoCourse } from "@/data/dummy";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Accordion,
