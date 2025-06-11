@@ -1,0 +1,17 @@
+export const loadingTexts: string[] = [
+  "Izinkan aku memproses dulu ya...",
+  "Sedang diproses, mohon tunggu sebentar 😊",
+  "Aku lagi nyusun jawabannya nih...",
+  "Tunggu sebentar, aku sedang mencari jawaban terbaik untuk kamu ✨",
+  "Otak AI-ku lagi bekerja nih... 🧠",
+  "Aku sedang mencari informasi yang paling tepat, sebentar ya!",
+  "Lagi aku olah dulu datanya... 🔄",
+  "Sabar ya, aku sedang memahami pertanyaan kamu 😌",
+  "Sebentar, aku sedang menyiapkan jawabannya untukmu 💭",
+  "Aku sedang berpikir keras agar jawabannya bisa membantu kamu 😎",
+  "Lagi mikir nih, supaya hasilnya bener-bener pas buat kamu!",
+  "Tunggu sebentar ya, sedang dalam proses ✨",
+  "Aku sedang mencocokkan data untuk jawaban yang akurat 🧩",
+  "Aku sedang mengumpulkan jawaban terbaik buat kamu 🔍",
+  "Tenang aja, jawabannya akan segera siap 😇",
+];
