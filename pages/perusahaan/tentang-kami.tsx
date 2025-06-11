@@ -72,7 +72,7 @@ export default function AboutUsPage() {
               className: "text-purple",
             }}
           >
-            <div className="flex flex-wrap items-center justify-center gap-8">
+            <div className="flex flex-wrap items-center justify-center gap-4">
               {siteConfigAboutUsPage.products.map((item, index) => (
                 <div
                   key={index}

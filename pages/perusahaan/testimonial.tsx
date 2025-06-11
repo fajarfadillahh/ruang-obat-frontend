@@ -27,7 +27,7 @@ export default function TestimonialsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-8">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start gap-4">
             {siteConfigTestimonialsPage.map((testimonial, index) => (
               <div
                 key={index}

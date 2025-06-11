@@ -63,10 +63,10 @@ export default function CompanyPage() {
             </p>
           </div>
 
-          <div className="grid gap-4">
-            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-              Apa Yang Kalian Ingin Tahu?
-            </h2>
+          <div className="grid gap-8">
+            <h1 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+              Apa Yang Kamu Ingin Tahu?
+            </h1>
 
             <IconContext.Provider
               value={{
@@ -75,7 +75,7 @@ export default function CompanyPage() {
                 className: "text-purple",
               }}
             >
-              <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {data.map((item, index) => (
                   <div
                     key={index}
@@ -84,15 +84,20 @@ export default function CompanyPage() {
                     <div className="flex items-center gap-4">
                       <item.icon />
 
-                      <h4 className="flex-1 text-2xl font-extrabold text-black">
+                      <h4 className="text-xl font-extrabold text-black">
                         {item.label}
                       </h4>
                     </div>
 
                     <Button
-                      variant="flat"
                       color="secondary"
-                      endContent={<ArrowRight weight="bold" size={18} />}
+                      endContent={
+                        <ArrowRight
+                          weight="bold"
+                          size={18}
+                          className="text-white"
+                        />
+                      }
                       onClick={() => router.push(item.url)}
                       className="w-full font-bold"
                     >
