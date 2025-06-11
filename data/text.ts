@@ -1,4 +1,4 @@
-export const WarningTextModal = {
+export const warningTextModal = {
   has_start: [
     {
       id: 1,
