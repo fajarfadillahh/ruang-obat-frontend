@@ -1,5 +1,8 @@
 import {
+  Alarm,
   BookBookmark,
+  Brain,
+  ChatDots,
   ClipboardText,
   CloudSun,
   Gift,
@@ -561,3 +564,166 @@ export const siteConfigTestimonialsPage = [
     university: "Universitas Esa Unggul",
   },
 ];
+
+export const siteROSAPage = {
+  reasoning: [
+    {
+      icon: ChatDots,
+      title: "Menjawab Keraguan dengan Cepat",
+      description:
+        "ROSA hadir untuk menjawab pertanyaan-pertanyaan yang muncul dari kebingungan atau rasa kurang yakin selama proses belajar. Tidak perlu berlama-lama lagi, langsung tanyakan saja.",
+    },
+    {
+      icon: Brain,
+      title: "Dirancang Khusus untuk Mahasiswa Farmasi",
+      description:
+        "ROSA bukan AI biasa — ia dibuat dan dioptimalkan untuk membantu mahasiswa farmasi secara spesifik. Jadi jawabannya lebih relevan, fokus, dan sesuai dengan kebutuhan kamu.",
+    },
+    {
+      icon: RocketLaunch,
+      title: "Mendampingi Proses Belajar Secara Interaktif",
+      description:
+        "Tidak hanya memberikan jawaban, ROSA bisa mengajak kamu belajar lebih aktif lewat diskusi, penjelasan konsep, sampai latihan soal. Cocok untuk kamu yang suka belajar dinamis.",
+    },
+    {
+      icon: Alarm,
+      title: "Efisien dan Praktis 24/7",
+      description:
+        "Belajar kapan pun dan di mana pun tanpa menunggu siapapun. ROSA selalu siap membantu kamu, bahkan di jam-jam begadang menjelang ujian.",
+    },
+  ],
+  testimonial: [
+    {
+      name: "Alya Putri",
+      comment:
+        "Aku suka banget pake ROSA, jawabannya cepet dan jelas. Bikin belajar farmasi jadi nggak pusing.",
+    },
+    {
+      name: "Rizky Maulana",
+      comment:
+        "ROSA ngebantu banget pas aku lagi belajar tengah malam. Nggak perlu nunggu temen buat diskusi.",
+    },
+    {
+      name: "Dian Sari",
+      comment:
+        "Awalnya iseng nyoba, ternyata ROSA bisa jawab semua pertanyaanku dengan cara yang gampang dipahami.",
+    },
+    {
+      name: "Bagas Pratama",
+      comment:
+        "Gue sering pake ROSA kalo lagi stuck ngerjain tugas. Jawabannya nggak ribet dan langsung to the point.",
+    },
+    {
+      name: "Nadya Rahma",
+      comment:
+        "Aku terbantu banget sama ROSA, apalagi pas lagi belajar sendirian. Nggak ngerasa clueless lagi.",
+    },
+    {
+      name: "Taufik Hidayat",
+      comment:
+        "Gue ngerasa ROSA tuh kaya temen belajar yang ngerti banget materi farmasi. Serius enak banget!",
+    },
+    {
+      name: "Salsabila Nur",
+      comment:
+        "Dulu aku suka bingung sama istilah farmasi, sekarang tinggal tanya ke ROSA, langsung ngerti.",
+    },
+    {
+      name: "Fadli Nugraha",
+      comment:
+        "ROSA bener-bener ngebantu pas gue butuh penjelasan yang nggak bertele-tele. Mantap sih!",
+    },
+    {
+      name: "Citra Anggraini",
+      comment:
+        "Aku ngerasa belajar jadi lebih santai. ROSA jawabnya nggak cuma benar, tapi juga bikin paham.",
+    },
+    {
+      name: "Ilham Setiawan",
+      comment:
+        "ROSA ngebantu banget pas gue nyiapin presentasi. Jawabannya lengkap dan gampang diserap.",
+    },
+    {
+      name: "Laras Widya",
+      comment:
+        "Aku biasanya pake ROSA pas mau ujian. Ngebantu banget buat review materi cepet.",
+    },
+    {
+      name: "Andhika Prasetyo",
+      comment:
+        "Gue lebih paham konsep-konsep rumit kayak farmakokinetik gara-gara ROSA. Keren sih!",
+    },
+    {
+      name: "Rina Oktaviani",
+      comment:
+        "Belajar sendirian jadi nggak serem lagi karena aku bisa langsung nanya ke ROSA kalau bingung.",
+    },
+    {
+      name: "Farhan Aulia",
+      comment:
+        "Penjelasannya simpel tapi dalam. Gue jadi lebih ngerti daripada baca slide dosen doang.",
+    },
+    {
+      name: "Dewi Melati",
+      comment:
+        "Aku suka karena ROSA bisa bantu kapan aja. Cocok buat aku yang sering belajar malem-malem.",
+    },
+    {
+      name: "Akbar Fauzi",
+      comment:
+        "Waktu ngerjain laporan, gue sempet bingung, tapi ROSA bantu jelasin step-nya satu per satu. Gokil!",
+    },
+    {
+      name: "Tiara Kusuma",
+      comment:
+        "Beneran kaya punya tutor pribadi. ROSA selalu ada pas aku butuh bantuan belajar.",
+    },
+    {
+      name: "Yusuf Rachman",
+      comment:
+        "Belajar farmasi jadi nggak ngebosenin lagi. ROSA tuh penyelamat banget waktu deadline mepet.",
+    },
+    {
+      name: "Mei Linawati",
+      comment:
+        "Aku bisa belajar mandiri tapi tetap merasa ditemani. ROSA selalu siap bantu tanpa ribet.",
+    },
+    {
+      name: "Gilang Saputra",
+      comment:
+        "Gue jadi lebih enjoy belajar karena bisa langsung diskusi sama ROSA kalau nggak ngerti materi.",
+    },
+  ],
+  faqs: [
+    {
+      question: "Apa itu Apoteker ROSA?",
+      answer:
+        "Apoteker ROSA adalah smart assistant berbasis AI dari RuangObat yang dirancang khusus untuk membantu mahasiswa farmasi dalam belajar, mengerjakan tugas, dan memahami konsep-konsep kompleks seputar dunia farmasi.",
+    },
+    {
+      question: "Apa saja yang bisa ditanyakan ke ROSA?",
+      answer:
+        "Kamu bisa tanya apapun seputar farmasi—dari penjelasan materi kuliah, referensi jurnal, sampai bantu ngerangkum topik atau nyari ide skripsi. Tinggal ketik aja pertanyaannya!",
+    },
+    {
+      question: "Kapan saja ROSA bisa diakses?",
+      answer:
+        "ROSA bisa kamu akses 24 jam nonstop. Jadi kapan pun kamu butuh bantuan belajar, tinggal buka dan tanya aja.",
+    },
+    {
+      question: "Apakah jawaban ROSA bisa dipercaya?",
+      answer:
+        "Jawaban dari ROSA berbasis sumber terpercaya, terutama buat hal-hal penting atau teknis banget.",
+    },
+    {
+      question: "Apakah ROSA bisa diakses lewat HP?",
+      answer:
+        "Bisa banget! ROSA bisa kamu akses langsung dari browser di HP atau laptop, tinggal login ke akun RuangObat kamu.",
+    },
+    {
+      question: "Gimana caranya mulai pakai ROSA?",
+      answer:
+        "Cukup login ke akun RuangObat, lalu klik tombol 'Tanya ROSA Sekarang'. Kamu langsung bisa mulai menulis pertanyaan kamu di kolom chat-nya.",
+    },
+  ],
+};

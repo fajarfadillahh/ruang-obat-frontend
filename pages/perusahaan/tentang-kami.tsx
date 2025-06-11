@@ -80,7 +80,7 @@ export default function AboutUsPage() {
                 >
                   <item.icon />
 
-                  <h4 className="medium text-xl font-extrabold text-black">
+                  <h4 className="text-xl font-extrabold text-black">
                     {item.label}
                   </h4>
                 </div>

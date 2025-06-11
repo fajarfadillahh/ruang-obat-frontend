@@ -8,6 +8,7 @@ import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button } from "@nextui-org/react";
 import { ShareNetwork } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRef } from "react";
 
@@ -42,8 +43,8 @@ export default function ListClassPage() {
               RuangObat menyajikan ruang belajar Farmasi yang lengkap dengan
               berbagai pilihan menarik, mulai dari:{" "}
               <strong className="font-bold text-purple">
-                video pembelajaran farmasi, bimbingan skripsi & riset, persiapan
-                masuk profesi apoteker, OSCE, hingga UKMPPAI
+                Video Pembelajaran Farmasi, Bimbingan Skripsi & Riset, Persiapan
+                Masuk Profesi Apoteker, OSCE, hingga UKMPPAI
               </strong>{" "}
               di mana kamu bisa belajar langsung untuk menguasai materi lebih
               dalam.
@@ -82,11 +83,12 @@ export default function ListClassPage() {
             Daftar Kelas di RuangObat
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3 xl:gap-8">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
             {siteConfigHomePage.classes.map((item, index) => (
-              <div
+              <Link
                 key={index}
-                className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                href={item.path}
+                className="group grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
               >
                 <Image
                   priority
@@ -94,24 +96,19 @@ export default function ListClassPage() {
                   alt="product img"
                   width={304}
                   height={304}
-                  className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
                 />
 
-                <div className="grid gap-4">
-                  <h1 className="max-w-[250px] text-xl font-black text-black group-hover:text-purple">
+                <div className="grid gap-1 [padding:1.5rem_1rem]">
+                  <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                     {item.title}
                   </h1>
 
-                  <Button
-                    variant={item.id === 6 ? "solid" : "flat"}
-                    color="secondary"
-                    onClick={() => router.push(item.path as string)}
-                    className="font-bold"
-                  >
-                    {item.id === 6 ? "Mulai Ujian" : "Detail Kelas"}
-                  </Button>
+                  <p className="text-sm font-medium leading-[170%] text-gray">
+                    {item.tagline}
+                  </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

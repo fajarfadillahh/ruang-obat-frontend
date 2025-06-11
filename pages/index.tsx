@@ -157,12 +157,11 @@ export default function HomePage({
             <p className="font-medium leading-[170%] text-gray">
               RuangObat merupakan platform Bimbel Private Farmasi No. 1 yang
               telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
-              Indonesia. Terdapat berbagai kelas menarik untSumatifa jenjang
-              pendidikan, antara lain: Video Pembelajaran Farmasi, Persiapan
-              Skripsi & Riset, Masuk Apoteker, OSCE dan UKMPPAI Sumatif.
-              <div />
-              Di website ini kalian dapat mengakses berbagai program. Mari raih
-              gelar sarjana dan apotekermu bersama RuangObat.
+              Indonesia. Terdapat berbagai kelas menarik, antara lain: Video
+              Pembelajaran Farmasi, Persiapan Skripsi & Riset, Masuk Apoteker,
+              OSCE dan UKMPPAI Sumatif. Di website ini kalian dapat mengakses
+              berbagai program. Mari raih gelar sarjana dan apotekermu bersama
+              RuangObat.
             </p>
 
             <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">

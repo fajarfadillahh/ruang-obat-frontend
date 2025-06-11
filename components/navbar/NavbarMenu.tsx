@@ -297,7 +297,7 @@ export default function NavbarMain() {
                       key="mysubscribe"
                       color="secondary"
                       startContent={<CreditCard />}
-                      onClick={() => router.push("/my/subscribes")}
+                      onClick={() => router.push("/my/subscriptions")}
                     >
                       Langganan Saya
                     </DropdownItem>
