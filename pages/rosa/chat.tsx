@@ -1,5 +1,7 @@
 import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import NavbarMenu from "@/components/navbar/NavbarMenu";
+import { ChatInput } from "@/components/rosa/ChatInput";
+import ChatWelcome from "@/components/rosa/ChatWelcome";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { loadingTexts } from "@/utils/loadingTexts";
@@ -48,7 +50,9 @@ export default function RosaChatPage() {
       : null,
   );
 
-  const { data: chats } = useSWR<SuccessResponse<ChatResponse[]>>(
+  const { data: chats, mutate: mutateChat } = useSWR<
+    SuccessResponse<ChatResponse[]>
+  >(
     status == "authenticated"
       ? {
           url: `/ai/chat?timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
@@ -85,7 +89,7 @@ export default function RosaChatPage() {
 
   useEffect(() => {
     if (chats?.data?.length) {
-      setMessages(chats.data.map((chat) => ({ ...chat })));
+      setMessages(chats.data);
     }
   }, [chats?.data]);
 
@@ -95,7 +99,34 @@ export default function RosaChatPage() {
     }
   }, [messages]);
 
+  const handleFileUpload = useCallback(
+    async function (images: File[]) {
+      try {
+        const form = new FormData();
+
+        for (const image of images) {
+          form.append("images", image);
+        }
+
+        const result: SuccessResponse<{ url: string }[]> = await fetcher({
+          url: "/ai/chat/images",
+          method: "POST",
+          data: form,
+          file: true,
+          token: data?.user.access_token,
+        });
+
+        return result.data;
+      } catch (error) {
+        console.log(error);
+        return "Ups sepertinya ada kesalahan ketika upload gambar" as string;
+      }
+    },
+    [data?.user.access_token],
+  );
+
   const handleSubmitChat = useCallback(async () => {
+    setInput("");
     const id = Date.now();
     if (!user?.data.remaining) return;
 
@@ -147,7 +178,7 @@ export default function RosaChatPage() {
         },
       );
 
-      const reader = response.body?.getReader();
+      const reader = response.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
 
@@ -167,6 +198,8 @@ export default function RosaChatPage() {
 
             if (data === "[DONE]") {
               reader?.cancel();
+              mutate();
+              mutateChat();
               break;
             }
 
@@ -185,8 +218,6 @@ export default function RosaChatPage() {
           }
         }
       }
-
-      mutate();
     } catch (error) {
       console.error(error);
 
@@ -204,7 +235,15 @@ export default function RosaChatPage() {
         ),
       );
     }
-  }, [user?.data.remaining, input, data?.user.access_token, mutate, images]);
+  }, [
+    user?.data.remaining,
+    data?.user.access_token,
+    input,
+    mutate,
+    images,
+    mutateChat,
+    handleFileUpload,
+  ]);
 
   function handleFileInput(e: ChangeEvent<HTMLInputElement>) {
     const files = e.target.files;
@@ -238,29 +277,6 @@ export default function RosaChatPage() {
     setImages(validFiles);
   }
 
-  async function handleFileUpload(images: File[]) {
-    try {
-      const form = new FormData();
-
-      for (const image of images) {
-        form.append("images", image);
-      }
-
-      const result: SuccessResponse<{ url: string }[]> = await fetcher({
-        url: "/ai/chat/images",
-        method: "POST",
-        data: form,
-        file: true,
-        token: data?.user.access_token,
-      });
-
-      return result.data;
-    } catch (error) {
-      console.log(error);
-      return "Ups sepertinya ada kesalahan ketika upload gambar" as string;
-    }
-  }
-
   return (
     <>
       <NextSeo
@@ -292,33 +308,16 @@ export default function RosaChatPage() {
 
       <main className="relative isolate mx-auto grid min-h-[calc(100vh-96px)] w-full max-w-[900px] grid-rows-[1fr_max-content] px-6 pt-6 xl:px-0">
         {!messages.length ? (
-          <div className="mt-8 grid h-max gap-4 xl:mt-0">
-            <Image
-              priority
-              src="/img/ai/APOTEKER-ROSA-4.webp"
-              alt="apoteker rosa image"
-              width={250}
-              height={250}
-              className="justify-self-center"
-            />
-
-            <div className="grid justify-items-center gap-2 text-center">
-              <h1 className="text-2xl font-extrabold text-black">
-                ROSA (Ruang Obat Smart Assistant) 💊
-              </h1>
-
-              <p className="max-w-[600px] font-medium leading-[170%] text-gray">
-                Hi, aku ROSA yang siap bantu kamu menjawab berbagai pertanyaan
-                seputar dunia Farmasi dan layanan belajar di Ruang Obat ✨.
-              </p>
-            </div>
-          </div>
+          <ChatWelcome />
         ) : (
           <div className="flex flex-col justify-center gap-6 overflow-y-scroll scrollbar-hide">
-            {messages.map((message, index) => {
+            {messages.map((message) => {
               return message.role == "user" ? (
                 <>
-                  <div className="-mb-4 flex w-auto max-w-max flex-wrap justify-end gap-1 self-end">
+                  <div
+                    className="-mb-4 flex w-auto max-w-max flex-wrap justify-end gap-1 self-end"
+                    key={message.id}
+                  >
                     {message.images?.map((image) => (
                       <Image
                         key={image.image_id}
@@ -340,6 +339,7 @@ export default function RosaChatPage() {
               ) : (
                 <div
                   className={`mb-4 flex ${message.is_loading ? "items-center" : "items-start"} gap-4`}
+                  key={message.id}
                 >
                   <Image
                     src="/img/default-thumbnail.png"
@@ -439,21 +439,13 @@ export default function RosaChatPage() {
               </div>
             ) : null}
 
-            <input
-              placeholder="Tanyakan Seputar Farmasi dan Ruang Obat..."
-              className="bg-gray-100 font-semibold outline-none placeholder:text-sm placeholder:font-semibold placeholder:text-gray"
+            <ChatInput
+              input={input}
+              setInput={setInput}
+              handleSubmitChat={handleSubmitChat}
               disabled={
                 status == "authenticated" ? !user?.data.remaining : false
               }
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSubmitChat();
-                  setInput("");
-                }
-              }}
             />
 
             <div className="mt-2 flex items-center justify-between">
@@ -494,10 +486,7 @@ export default function RosaChatPage() {
                   size="sm"
                   isIconOnly
                   className="rounded-lg bg-purple font-bold text-white"
-                  onClick={() => {
-                    handleSubmitChat();
-                    setInput("");
-                  }}
+                  onClick={() => handleSubmitChat()}
                 >
                   <ArrowUp size={18} weight="bold" />
                 </Button>
