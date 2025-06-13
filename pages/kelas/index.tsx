@@ -1,4 +1,5 @@
 import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
+import CardProduct from "@/components/card/CardProduct";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
@@ -8,12 +9,9 @@ import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button } from "@nextui-org/react";
 import { ShareNetwork } from "@phosphor-icons/react";
 import Image from "next/image";
-import Link from "next/link";
-import { useRouter } from "next/router";
 import { useRef } from "react";
 
 export default function ListClassPage() {
-  const router = useRouter();
   const listClassRef = useRef<HTMLElement | null>(null);
 
   return (
@@ -85,30 +83,18 @@ export default function ListClassPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
             {siteConfigHomePage.classes.map((item, index) => (
-              <Link
+              <CardProduct
                 key={index}
-                href={item.path}
-                className="group grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-              >
-                <Image
-                  priority
-                  src={item.image as string}
-                  alt="product img"
-                  width={304}
-                  height={304}
-                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
-                />
-
-                <div className="grid gap-1 [padding:1.5rem_1rem]">
-                  <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
-                    {item.title}
-                  </h1>
-
-                  <p className="text-sm font-medium leading-[170%] text-gray">
-                    {item.tagline}
-                  </p>
-                </div>
-              </Link>
+                title={item.title}
+                icon={
+                  <item.icon
+                    weight="duotone"
+                    className="size-[calc(100%-7rem)] justify-self-end text-white/30"
+                  />
+                }
+                path={item.path}
+                tagline={item.tagline}
+              />
             ))}
           </div>
         </section>
