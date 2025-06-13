@@ -1,17 +1,17 @@
 const seoConfig = {
   title:
-    "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia | RuangObat",
+    "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi | RuangObat",
   description:
-    "RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI.",
+    "RuangObat merupakan platform bimbel No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI.",
   canonical: "https://ruangobat.id/",
   openGraph: {
     type: "website",
     locale: "id_ID",
     url: "https://ruangobat.id/",
     title:
-      "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia | RuangObat",
+      "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi | RuangObat",
     description:
-      "RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI.",
+      "RuangObat merupakan platform bimbel No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI.",
     site_name: "RuangObat",
   },
   additionalMetaTags: [

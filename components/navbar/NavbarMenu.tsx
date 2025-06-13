@@ -52,29 +52,29 @@ const menuItemsMobile = [
     label: "Produk",
     list: [
       {
-        label: "Video Belajar",
+        label: "Video Pembelajaran",
         href: "/video",
       },
       {
-        label: "Kelas Private 1 on 1",
+        label: "Ruang Private 1 on 1",
         href: "/kelas/private-1-on-1",
       },
-      { label: "Kelas Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
-      { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
-      { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
-      { label: "UKMPPAI & OSCE", href: "/dashboard" },
+      { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
+      { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
+      { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
+      { label: "Ruang OSCE & Tryout UKMPPAI", href: "/dashboard" },
     ],
   },
 ];
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Private 1 on 1",
+    label: "Ruang Private 1 on 1",
     href: "/kelas/private-1-on-1",
   },
-  { label: "Kelas Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
-  { label: "Kelas Riset Farmasi", href: "/kelas/riset-farmasi" },
-  { label: "Kelas Masuk Apoteker", href: "/kelas/masuk-apoteker" },
+  { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
+  { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
+  { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
 ];
 
 export default function NavbarMain() {
@@ -153,7 +153,7 @@ export default function NavbarMain() {
             href="/video"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            Video Belajar
+            Video Pembelajaran
           </Link>
         </NavbarItem>
 
@@ -191,7 +191,7 @@ export default function NavbarMain() {
             href="/dashboard"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            UKMPPAI & OSCE
+            OSCE & UKMPPAI
           </Link>
         </NavbarItem>
 

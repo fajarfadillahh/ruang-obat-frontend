@@ -29,7 +29,7 @@ export default function Layout({
         title={title ? `${title} | RuangObat` : "RuangObat"}
         description={
           description ||
-          "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia"
+          "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi"
         }
         canonical={currentUrl}
         openGraph={{
@@ -37,7 +37,7 @@ export default function Layout({
           title: title ? `${title} | RuangObat` : "RuangObat",
           description:
             description ||
-            "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia",
+            "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi",
           site_name: "RuangObat",
         }}
       />

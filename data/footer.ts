@@ -12,27 +12,27 @@ export const footer = {
       label: "Produk Kami",
       list: [
         {
-          label: "Video Belajar",
+          label: "Video Pembelajaran",
           href: "/video",
         },
         {
-          label: "Kelas Private 1 on 1",
+          label: "Ruang Private 1 on 1",
           href: "/kelas/private-1-on-1",
         },
         {
-          label: "Kelas Skripsi Farmasi",
+          label: "Ruang Skripsi Farmasi",
           href: "/kelas/skripsi-farmasi",
         },
         {
-          label: "Kelas Riset Farmasi",
+          label: "Ruang Riset Farmasi",
           href: "/kelas/riset-farmasi",
         },
         {
-          label: "Kelas Masuk Apoteker",
+          label: "Ruang Masuk Apoteker",
           href: "/kelas/masuk-apoteker",
         },
         {
-          label: "UKMPPAI & OSCE",
+          label: "Ruang OSCE & Tryout UKMPPAI",
           href: "/dashboard",
         },
         {

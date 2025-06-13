@@ -1,14 +1,20 @@
 import CardProduct from "@/components/card/CardProduct";
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
-import { Accordion, AccordionItem, Button } from "@nextui-org/react";
-import { ArrowRight, IconContext } from "@phosphor-icons/react";
+import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
+import {
+  ArrowRight,
+  Heartbeat,
+  IconContext,
+  Sparkle,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -50,47 +56,59 @@ export default function HomePage({
 
   return (
     <>
-      <Layout title="Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia">
+      <Layout title="Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi">
         {/* hero section */}
-        <section className="base-container items-center gap-6 xl:grid-cols-[500px_1fr] xl:gap-16">
-          <Image
-            priority
-            src="/img/base/main-img-1.svg"
-            alt="home img"
-            width={415}
-            height={567}
-            className="order-2 h-auto w-full justify-self-center xl:-order-1"
+        <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
+          <Sparkle
+            weight="duotone"
+            className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple lg:flex"
           />
 
-          <div className="grid gap-10">
-            <div className="grid gap-4 justify-self-end">
-              <p className="font-medium text-gray">
-                👋 Selamat datang di RuangObat
-              </p>
+          <Heartbeat
+            weight="duotone"
+            className="absolute bottom-64 right-0 hidden size-16 rotate-12 text-purple lg:flex"
+          />
 
-              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-                Bimbel Farmasi No.1 di Indonesia Yang{" "}
-                <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
-                  <span className="relative text-white">
-                    Fasilitasi 10.000+
-                  </span>
+          <div className="grid justify-items-center gap-4 text-center">
+            <Chip
+              color="secondary"
+              variant="flat"
+              size="lg"
+              classNames={{
+                content: "font-bold",
+              }}
+            >
+              🔥 Selamat datang di RuangObat
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              Bimbel Private Farmasi No. 1 di Indonesia Yang{" "}
+              <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
+                <span className="relative text-white">
+                  Memfasilitasi 10.000+
                 </span>
-                Mahasiswa Farmasi Seluruh Indonesia
-              </h1>
+              </span>
+              Mahasiswa Farmasi Seluruh Indonesia
+            </h1>
 
-              <p className="font-medium leading-[170%] text-gray">
-                Dapatkan{" "}
-                <strong className="font-bold text-purple">
-                  akses Video Pembelajaran Farmasi, Persiapan Skripsi & Riset,
-                  Masuk Apoteker, OSCE dan UKMPPAI Sumatif
-                </strong>{" "}
-                untuk membantu kamu meraih gelar Sarjana Farmasi & Apoteker.
-              </p>
-            </div>
+            <p className="max-w-[800px] font-medium leading-[170%] text-gray">
+              Dapatkan{" "}
+              <TextHighlight
+                text="akses lengkap video pembelajaran farmasi, bimbingan skripsi & riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
+                className="normal-case"
+              />{" "}
+              Semua yang kamu butuhkan untuk sukses menjadi{" "}
+              <TextHighlight
+                text="Sarjana Farmasi & Apoteker,"
+                className="lowercase"
+              />{" "}
+              ada di sini!
+            </p>
 
-            <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
+            <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(listClassRef)}
                 className="px-10 font-bold"
               >
@@ -99,20 +117,40 @@ export default function HomePage({
 
               <Button
                 variant="bordered"
-                className="px-6 font-bold"
-                onClick={() => router.push("/dashboard")}
+                endContent={<ArrowRight weight="bold" size={18} />}
+                onClick={() => router.push("/perusahaan")}
+                className="px-8 font-bold"
               >
-                Dashboard Tryout CBT
+                Jelajahi RuangObat
               </Button>
             </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+            {siteConfigHomePage.statistics.map((item, index) => (
+              <div
+                key={index}
+                className="grid gap-1 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+              >
+                <h3 className="text-4xl font-extrabold text-purple">
+                  {item.amount}
+                </h3>
+
+                <p className="font-medium leading-[170%] text-gray">
+                  {item.label}{" "}
+                  <ArrowRight
+                    weight="bold"
+                    size={16}
+                    className="ml-1 inline-flex text-purple"
+                  />
+                </p>
+              </div>
+            ))}
           </div>
         </section>
 
         {/* classes section */}
-        <section
-          ref={listClassRef}
-          className="base-container gap-5 [padding:50px_0_100px]"
-        >
+        <section ref={listClassRef} className="base-container gap-5 py-[100px]">
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Kelas di RuangObat
           </h2>
@@ -136,26 +174,58 @@ export default function HomePage({
         </section>
 
         {/* summary section */}
-        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-8">
+        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-0">
           <div className="grid gap-4">
-            <h1 className="mb-2 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Ruang Belajar Farmasi Super Lengkap, Bebas Akses Kapan Saja
-              <span className="text-purple">.</span>
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Ruang Belajar Farmasi Paling Lengkap Bebas Akses, Kapan dan Dimana
+              Aja Kamu Butuh.
             </h1>
 
-            <p className="font-medium leading-[170%] text-gray">
-              RuangObat merupakan platform Bimbel Private Farmasi No. 1 yang
-              telah memfasilitasi 10.000+ Mahasiswa Farmasi di seluruh
-              Indonesia. Terdapat berbagai kelas menarik, antara lain: Video
-              Pembelajaran Farmasi, Persiapan Skripsi & Riset, Masuk Apoteker,
-              OSCE dan UKMPPAI Sumatif. Di website ini kalian dapat mengakses
-              berbagai program. Mari raih gelar sarjana dan apotekermu bersama
-              RuangObat.
-            </p>
+            <div className="grid gap-2">
+              <p className="font-medium leading-[170%] text-gray">
+                RuangObat adalah platform{" "}
+                <TextHighlight
+                  text="Bimbel Private Farmasi No. 1 di
+                Indonesia,"
+                  className="normal-case"
+                />{" "}
+                telah memfasilitasi 10.000+ mahasiswa farmasi dari Sabang sampai
+                Merauke! Mau belajar buat ujian, skripsi, OSCE, atau UKMPPAI?
+                Tenang, semua ada disini.
+              </p>
+
+              <ul className="grid gap-1 xl:ml-4">
+                {[
+                  ["📚 Ruang Video Pembelajaran Interaktif", "/video"],
+                  ["🔐 Ruang Private 1 on 1", "/kelas/private-1-on-1"],
+                  ["🧪 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
+                  ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
+                  [
+                    "👨‍⚕️ Ruang Persiapan Masuk Profesi Apoteker",
+                    "/kelas/masuk-apoteker",
+                  ],
+                  ["💉 Ruang OSCE & UKMPPAI Sumatif", "/dashboard"],
+                ].map(([title, path], index) => (
+                  <Link
+                    key={index}
+                    href={path}
+                    className="w-max font-medium leading-[170%] text-gray hover:text-purple hover:underline"
+                  >
+                    {title}
+                  </Link>
+                ))}
+              </ul>
+
+              <p className="font-medium leading-[170%] text-gray">
+                Cukup satu tempat buat semua jenjang pendidikan farmasi. Yuk,
+                raih gelar sarjana dan profesi apoteker bareng RuangObat!
+              </p>
+            </div>
 
             <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
               <Button
                 color="secondary"
+                endContent={<ArrowRight weight="bold" size={18} />}
                 onClick={() => router.push("/perusahaan/tentang-kami")}
                 className="w-full px-10 font-bold sm:w-max"
               >
@@ -184,7 +254,7 @@ export default function HomePage({
             Kenapa Harus Pilih RuangObat?
           </h1>
 
-          <div className="flex flex-wrap items-center justify-center gap-4 xl:gap-8">
+          <div className="flex flex-wrap items-start justify-center gap-4 xl:gap-8">
             {siteConfigHomePage.reasons.map((item, index) => {
               const { cardWrapper, cardIcon, cardTitle, cardText } =
                 getCardStyles(item, "reasons");
@@ -225,13 +295,13 @@ export default function HomePage({
         <section className="grid gap-8 py-[100px]">
           <div className="base-container place-items-center gap-2 text-center">
             <h1 className="text-4xl font-black -tracking-wide text-black">
-              Ayo, Kenalan Dengan Mentor RuangObat
+              Kenalan Yuk Sama Mentor Keren di RuangObat
             </h1>
 
             <p className="max-w-[700px] font-medium leading-[170%] text-gray">
-              RuangObat memiliki mentor yang sangat berpengalaman dan siap bantu
-              kamu mencapai target belajar. Dari praktisi, peneliti, sampai
-              apoteker senior, semuanya ada di sini.
+              Dari Klinis hingga Industri, berbagai mentor di ruangobat siap
+              bantu kamu capai target. Belajar dengan pengalaman dan insight
+              langsung dari lapangan!
             </p>
           </div>
 
@@ -362,50 +432,12 @@ export default function HomePage({
               className: "text-black",
             }}
           >
-            <Accordion
-              motionProps={{
-                variants: {
-                  enter: {
-                    y: 0,
-                    opacity: 1,
-                    height: "auto",
-                    transition: {
-                      height: {
-                        type: "spring",
-                        stiffness: 500,
-                        damping: 30,
-                        duration: 1,
-                      },
-                      opacity: {
-                        easings: "ease",
-                        duration: 1,
-                      },
-                    },
-                  },
-                  exit: {
-                    y: -10,
-                    opacity: 0,
-                    height: 0,
-                    transition: {
-                      height: {
-                        easings: "ease",
-                        duration: 0.25,
-                      },
-                      opacity: {
-                        easings: "ease",
-                        duration: 0.3,
-                      },
-                    },
-                  },
-                },
-              }}
-              defaultExpandedKeys={["0"]}
-            >
+            <Accordion defaultExpandedKeys={["0"]}>
               {siteConfigHomePage.faqs.map((item, index) => (
                 <AccordionItem
                   key={index}
                   title={item.title}
-                  // startContent={<item.icon />}
+                  startContent={<item.icon />}
                   classNames={{
                     title: "text-lg text-black font-bold xs:text-xl",
                     indicator: "text-black",

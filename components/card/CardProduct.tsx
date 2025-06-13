@@ -23,7 +23,7 @@ export default function CardProduct({
       <div className="relative isolate aspect-square h-auto w-full bg-purple object-cover object-center group-hover:grayscale-[0.5]">
         {icon}
 
-        <h2 className="absolute bottom-4 left-4 text-2xl font-black text-white sm:text-xl">
+        <h2 className="absolute bottom-0 left-0 m-4 text-2xl font-black text-white sm:text-xl">
           {title}
         </h2>
       </div>
