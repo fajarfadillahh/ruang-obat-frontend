@@ -1,6 +1,6 @@
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
-import TextHighlight from "@/components/TextHighlight";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteROSAPage } from "@/data/site";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -36,8 +36,8 @@ export default function RosaPage() {
 
             <p className="mb-8 font-medium leading-[170%] text-gray">
               Apoteker ROSA adalah{" "}
-              <TextHighlight text="smart assistant berbasis AI" />
-              yang dirancang khusus untuk membantu kamu dalam{" "}
+              <TextHighlight text="smart assistant berbasis AI" /> yang
+              dirancang khusus untuk membantu kamu dalam{" "}
               <TextHighlight
                 text="proses
               pembelajaran secara praktis, cepat, dan efisien."

@@ -18,7 +18,7 @@ export default function CardProduct({
   return (
     <Link
       href={path}
-      className="group grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+      className="group grid overflow-hidden rounded-xl border-2 border-gray/10"
     >
       <div className="relative isolate aspect-square h-auto w-full bg-purple object-cover object-center group-hover:grayscale-[0.5]">
         {icon}

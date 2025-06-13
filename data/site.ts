@@ -36,7 +36,7 @@ export const siteConfigHomePage = {
     },
     {
       id: 3,
-      amount: "5+",
+      amount: "6",
       label: "Bimbel Unggulan",
     },
     {

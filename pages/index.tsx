@@ -1,7 +1,9 @@
 import CardProduct from "@/components/card/CardProduct";
 import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
-import TextHighlight from "@/components/TextHighlight";
+import Balatro from "@/components/reactbits/Balatro";
+import TextHighlight from "@/components/text/TextHighlight";
+import TextHighlightBackground from "@/components/text/TextHighlightBackground";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
@@ -11,9 +13,12 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
 import {
   ArrowRight,
-  Heartbeat,
   IconContext,
+  Microscope,
   Sparkle,
+  Star,
+  Syringe,
+  TestTube,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
@@ -40,7 +45,7 @@ export default function HomePage({
 
     const cardWrapper = cardItem
       ? "bg-purple"
-      : "bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)]";
+      : "bg-white border-2 border-gray/10";
     const cardIcon = cardItem ? "text-white" : "text-purple";
     const cardTitle = cardItem ? "text-white" : "text-black";
     const cardText = cardItem ? "text-gray-200" : "text-gray";
@@ -64,7 +69,7 @@ export default function HomePage({
             className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple lg:flex"
           />
 
-          <Heartbeat
+          <Microscope
             weight="duotone"
             className="absolute bottom-64 right-0 hidden size-16 rotate-12 text-purple lg:flex"
           />
@@ -83,12 +88,8 @@ export default function HomePage({
 
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Bimbel Private Farmasi No. 1 di Indonesia Yang{" "}
-              <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
-                <span className="relative text-white">
-                  Memfasilitasi 10.000+
-                </span>
-              </span>
-              Mahasiswa Farmasi Seluruh Indonesia
+              <TextHighlightBackground text="Memfasilitasi 10.000+" /> Mahasiswa
+              Farmasi Seluruh Indonesia
             </h1>
 
             <p className="max-w-[800px] font-medium leading-[170%] text-gray">
@@ -130,7 +131,7 @@ export default function HomePage({
             {siteConfigHomePage.statistics.map((item, index) => (
               <div
                 key={index}
-                className="grid gap-1 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="grid gap-1 rounded-xl border-2 border-gray/10 p-8"
               >
                 <h3 className="text-4xl font-extrabold text-purple">
                   {item.amount}
@@ -174,11 +175,17 @@ export default function HomePage({
         </section>
 
         {/* summary section */}
-        <section className="base-container items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-0">
+        <section className="base-container relative isolate items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-0">
+          <Syringe
+            weight="duotone"
+            className="absolute right-0 top-0 hidden size-20 text-purple lg:flex"
+          />
+
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-              Ruang Belajar Farmasi Paling Lengkap Bebas Akses, Kapan dan Dimana
-              Aja Kamu Butuh.
+              Ruang Belajar Farmasi{" "}
+              <TextHighlightBackground text="Paling Lengkap" /> Bebas Akses,
+              Kapan dan Dimana Aja Kamu Butuh.
             </h1>
 
             <div className="grid gap-2">
@@ -249,7 +256,17 @@ export default function HomePage({
         </section>
 
         {/* reasoning section */}
-        <section className="base-container gap-8 py-[100px]">
+        <section className="base-container relative isolate gap-8 py-[100px]">
+          <Star
+            weight="duotone"
+            className="absolute left-0 top-12 hidden size-16 -rotate-12 text-purple lg:flex"
+          />
+
+          <TestTube
+            weight="duotone"
+            className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
+          />
+
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Kenapa Harus Pilih RuangObat?
           </h1>
@@ -291,6 +308,56 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* apoteker rosa section */}
+        <section className="base-container py-[100px]">
+          <div className="relative isolate h-[700px] overflow-hidden rounded-3xl lg:h-[600px]">
+            <Balatro
+              isRotate={false}
+              mouseInteraction={false}
+              pixelFilter={1750}
+              color1="#ffffff"
+              color2="#ec4899"
+              color3="#6238C3"
+              className="w-auto overflow-hidden rounded-xl"
+            />
+
+            <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
+              <div className="grid gap-4">
+                <p className="text-xl font-semibold capitalize text-white">
+                  RuangObat mempersembahkan! 🎉🎉🎉
+                </p>
+
+                <h1 className="text-4xl font-black text-white lg:text-5xl">
+                  Apoteker ROSA: AI Farmasi Pertama Di Indonesia
+                </h1>
+
+                <p className="font-medium leading-[170%] text-white">
+                  Smart assistant berbasis AI yang dirancang khusus untuk
+                  membantu kamu dalam proses pembelajaran secara praktis, cepat,
+                  dan efisien.
+                </p>
+
+                <Button
+                  endContent={<Sparkle weight="duotone" size={20} />}
+                  onClick={() => router.push("/rosa/chat")}
+                  className="mt-4 w-max bg-pink-500 px-12 font-bold text-white"
+                >
+                  Tanya ROSA Sekarang
+                </Button>
+              </div>
+
+              <Image
+                priority
+                src="/img/ai/APOTEKER-ROSA-1.webp"
+                alt="apoteker rosa image"
+                width={1000}
+                height={1000}
+                className="hidden h-auto w-[400px] justify-self-center xl:flex"
+              />
+            </div>
+          </div>
+        </section>
+
         {/* mentor section */}
         <section className="grid gap-8 py-[100px]">
           <div className="base-container place-items-center gap-2 text-center">
@@ -327,7 +394,7 @@ export default function HomePage({
                 >
                   <Link
                     href={`/mentor/${mentor.mentor_id}`}
-                    className="group mt-4 grid overflow-hidden rounded-xl bg-white [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                    className="group mt-4 grid overflow-hidden rounded-xl border-2 border-gray/10"
                   >
                     <Image
                       src={mentor.img_url as string}
@@ -379,7 +446,7 @@ export default function HomePage({
                     key={index}
                     className="max-w-[330px] lg:max-w-[276px]"
                   >
-                    <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
+                    <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/10 p-6 [margin:1rem_0]">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
                           src="/img/avatar-male.svg"
@@ -427,9 +494,9 @@ export default function HomePage({
 
           <IconContext.Provider
             value={{
-              weight: "bold",
-              size: 24,
-              className: "text-black",
+              weight: "duotone",
+              size: 28,
+              className: "text-purple",
             }}
           >
             <Accordion defaultExpandedKeys={["0"]}>
