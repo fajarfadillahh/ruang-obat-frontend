@@ -2,10 +2,23 @@ import { dummyOfferSubscriptions } from "@/data/dummy";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Button } from "@nextui-org/react";
 import { CheckCircle } from "@phosphor-icons/react";
+import { MutableRefObject } from "react";
+import { twMerge } from "tailwind-merge";
 
-export default function SectionSubscription() {
+interface SectionSubscriptionProps {
+  className?: string;
+  sectionRef?: MutableRefObject<HTMLElement | null>;
+}
+
+export default function SectionSubscription({
+  className,
+  sectionRef,
+}: SectionSubscriptionProps) {
   return (
-    <section className="base-container gap-4 py-[100px]">
+    <section
+      className={twMerge("base-container gap-4 py-[100px]", `${className}`)}
+      ref={sectionRef}
+    >
       <div className="grid">
         <h2 className="text-3xl font-black -tracking-wide text-black">
           Langganan 🌟
@@ -20,8 +33,8 @@ export default function SectionSubscription() {
         {dummyOfferSubscriptions.map((item) => (
           <div
             key={item.id}
-            className={`relative isolate grid gap-8 overflow-hidden rounded-xl shadow-[4px_4px_36px_rgba(0,0,0,0.1)] [padding:4rem_2rem] ${
-              item.highlight ? "bg-purple" : "bg-white"
+            className={`relative isolate grid gap-8 overflow-hidden rounded-xl [padding:4rem_2rem] ${
+              item.highlight ? "bg-purple" : "border-2 border-gray/10"
             }`}
           >
             {item.highlight && (

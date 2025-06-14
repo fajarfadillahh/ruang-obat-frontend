@@ -1,16 +1,19 @@
 import { dummyCategories } from "@/data/dummy";
 import { Heartbeat } from "@phosphor-icons/react";
 import Link from "next/link";
+import { MutableRefObject } from "react";
 import { twMerge } from "tailwind-merge";
 
 interface SectionCategoryProps {
   type?: "videocourse" | "apotekerclass" | "videoukmppai";
   className?: string;
+  sectionRef?: MutableRefObject<HTMLElement | null>;
 }
 
 export default function SectionCategory({
   className,
   type,
+  sectionRef,
 }: SectionCategoryProps) {
   return (
     <section
@@ -18,6 +21,7 @@ export default function SectionCategory({
         "base-container gap-4 [padding:50px_0_100px]",
         `${className}`,
       )}
+      ref={sectionRef}
     >
       <div className="grid">
         <h2 className="text-3xl font-black -tracking-wide text-black">
@@ -34,7 +38,7 @@ export default function SectionCategory({
           <Link
             key={item.category_id}
             href={`/kategori/${item.category_slug}?type=${type}`}
-            className="group grid justify-items-center gap-4 overflow-hidden rounded-xl bg-white text-sm shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
+            className="group grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
           >
             <Heartbeat
               weight="duotone"

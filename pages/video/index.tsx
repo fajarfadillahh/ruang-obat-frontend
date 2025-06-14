@@ -67,9 +67,7 @@ export default function VideoLearningClassPage() {
 
         <SectionCategory type="videocourse" />
 
-        <section ref={subscribeRef}>
-          <SectionSubscription />
-        </section>
+        <SectionSubscription sectionRef={subscribeRef} />
 
         <CTASecondary />
       </Layout>

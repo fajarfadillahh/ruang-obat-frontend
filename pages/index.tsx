@@ -394,7 +394,7 @@ export default function HomePage({
                 >
                   <Link
                     href={`/mentor/${mentor.mentor_id}`}
-                    className="group mt-4 grid overflow-hidden rounded-xl border-2 border-gray/10"
+                    className="group mt-4 grid overflow-hidden rounded-xl border-2 border-gray/10 hover:bg-purple/10"
                   >
                     <Image
                       src={mentor.img_url as string}
@@ -446,7 +446,7 @@ export default function HomePage({
                     key={index}
                     className="max-w-[330px] lg:max-w-[276px]"
                   >
-                    <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/10 p-6 [margin:1rem_0]">
+                    <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/10 p-6 [margin:1rem_0] hover:bg-purple/10">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
                           src="/img/avatar-male.svg"

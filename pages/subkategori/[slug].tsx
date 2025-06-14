@@ -94,7 +94,7 @@ export default function SubCategoryPage() {
               <div
                 key={index}
                 onClick={() => router.push(`/video/${item.slug}`)}
-                className="group relative isolate grid overflow-hidden rounded-xl bg-white shadow-[4px_4px_36px_rgba(0,0,0,0.1)] ring-2 ring-gray/5 hover:cursor-pointer hover:bg-purple/10"
+                className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
               >
                 {/* {isNewProduct(item.created_at) ? (
                   <Chip
@@ -287,10 +287,7 @@ export default function SubCategoryPage() {
         )}
 
         {/* flash card / summary card */}
-
-        <section ref={subscribeRef}>
-          <SectionSubscription />
-        </section>
+        <SectionSubscription sectionRef={subscribeRef} />
 
         <CTASecondary />
       </Layout>
@@ -314,7 +311,7 @@ function CardQuiz({ type, title, data, ...props }: CardQuizProps) {
 
   return (
     <div
-      className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] hover:cursor-pointer hover:bg-purple/10"
+      className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 p-4 hover:cursor-pointer hover:bg-purple/10"
       {...props}
     >
       <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-5xl">
