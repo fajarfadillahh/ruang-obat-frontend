@@ -31,17 +31,17 @@ export default function TestimonialsPage() {
             {siteConfigCompanyPage.testimonials.map((testimonial, index) => (
               <div
                 key={index}
-                className="grid gap-12 rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                className="grid gap-12 rounded-xl border-2 border-gray/10 p-8"
               >
                 <div className="grid gap-1">
                   <Quotes weight="fill" size={48} className="text-purple" />
 
-                  <h4 className="text-xl font-black text-black">
+                  <h4 className="text-xl font-extrabold text-black">
                     {testimonial.comment}
                   </h4>
                 </div>
 
-                <div className="grid gap-4">
+                <div className="grid gap-6">
                   <Image
                     src="/img/avatar-male.svg"
                     alt="avatar"
@@ -53,7 +53,7 @@ export default function TestimonialsPage() {
                   <div className="grid">
                     <h5 className="font-bold text-black">{testimonial.name}</h5>
 
-                    <p className="leading-[170%] text-gray">
+                    <p className="-mt-1 font-medium leading-[170%] text-gray">
                       {testimonial.university}
                     </p>
                   </div>

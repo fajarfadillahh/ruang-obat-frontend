@@ -80,13 +80,13 @@ export default function ContactUsPage() {
               className: "text-purple",
             }}
           >
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-center gap-4 xl:gap-8">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] items-center gap-4">
               {data.map((item, index) => (
                 <Link
                   key={index}
                   href={item.url}
                   target="_blank"
-                  className="group flex flex-wrap items-center gap-4 rounded-2xl bg-white p-8 [box-shadow:0_0_12px_rgba(0,0,0,0.1)]"
+                  className="group flex flex-wrap items-center gap-4 rounded-2xl border-2 border-gray/10 p-8"
                 >
                   <item.icon />
 

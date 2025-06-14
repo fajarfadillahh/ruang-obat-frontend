@@ -3,8 +3,9 @@ import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage } from "@/data/site";
-import { IconContext } from "@phosphor-icons/react";
+import { ArrowRight, IconContext } from "@phosphor-icons/react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function AboutUsPage() {
   return (
@@ -76,13 +77,23 @@ export default function AboutUsPage() {
               {siteConfigCompanyPage.about.products.map((item, index) => (
                 <div
                   key={index}
-                  className="grid h-auto w-full max-w-[320px] gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                  className="grid h-auto w-full max-w-[320px] gap-6 rounded-xl border-2 border-gray/10 p-8"
                 >
                   <item.icon />
 
-                  <h4 className="text-xl font-extrabold text-black">
-                    {item.label}
-                  </h4>
+                  <div className="grid gap-1">
+                    <h4 className="text-xl font-extrabold text-black">
+                      {item.label}
+                    </h4>
+
+                    <Link
+                      href={item.url}
+                      className="inline-flex w-max items-center gap-1 text-sm font-bold text-purple hover:underline"
+                    >
+                      Lihat Selengkapnya
+                      <ArrowRight weight="bold" size={16} className="mt-1" />
+                    </Link>
+                  </div>
                 </div>
               ))}
             </div>

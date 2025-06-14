@@ -245,12 +245,28 @@ export const siteConfigCompanyPage = {
   ],
   about: {
     products: [
-      { label: "Video Pembelajaran", icon: Video },
-      { label: "Kelas Private 1 on 1", icon: ClipboardText },
-      { label: "Kelas Skripsi Farmasi", icon: BookBookmark },
-      { label: "Kelas Riset Farmasi", icon: MagnifyingGlass },
-      { label: "Kelas Masuk Apoteker", icon: Pill },
-      { label: "UKMPPAI & OSCE", icon: PencilRuler },
+      { label: "Video Pembelajaran", url: "/video", icon: Video },
+      {
+        label: "Kelas Private 1 on 1",
+        url: "/kelas/private-1-on-1",
+        icon: ClipboardText,
+      },
+      {
+        label: "Kelas Skripsi Farmasi",
+        url: "/kelas/skripsi-farmasi",
+        icon: BookBookmark,
+      },
+      {
+        label: "Kelas Riset Farmasi",
+        url: "/kelas/riset-farmasi",
+        icon: MagnifyingGlass,
+      },
+      {
+        label: "Kelas Masuk Apoteker",
+        url: "/kelas/masuk-apoteker",
+        icon: Pill,
+      },
+      { label: "UKMPPAI & OSCE", url: "/dashboard", icon: PencilRuler },
     ],
     data: {
       vision: {
