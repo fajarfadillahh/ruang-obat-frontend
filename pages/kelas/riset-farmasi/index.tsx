@@ -117,22 +117,19 @@ export default function PharmacyResearchClassPage({
               <Button
                 color="secondary"
                 onClick={() => scrollToSection(listClassRef)}
-                className="w-max px-16 font-bold"
+                className="w-max px-10 font-bold"
               >
-                Pilih Kelas
+                Pilih Kelas Sekarang!
               </Button>
 
               <Button
-                isIconOnly
                 aria-label="Share Link"
                 variant="bordered"
+                startContent={<ShareNetwork weight="duotone" size={18} />}
                 onClick={handleShareClipboard}
+                className="px-6 font-bold"
               >
-                <ShareNetwork
-                  weight="duotone"
-                  size={18}
-                  className="text-black"
-                />
+                Bagikan
               </Button>
             </div>
           </div>
