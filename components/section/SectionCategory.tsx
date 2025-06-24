@@ -37,7 +37,11 @@ export default function SectionCategory({
         {dummyCategories.map((item) => (
           <Link
             key={item.category_id}
-            href={`/kategori/${item.category_slug}?type=${type}`}
+            href={
+              type === "apotekerclass"
+                ? `/materi/${item.category_slug}?type=${type}`
+                : `/kategori/${item.category_slug}?type=${type}`
+            }
             className="group grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
           >
             <Heartbeat

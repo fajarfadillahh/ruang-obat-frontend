@@ -34,7 +34,7 @@ type QuizType = {
   total_questions: number;
 };
 
-export default function SubCategoryPage() {
+export default function CoursePage() {
   const router = useRouter();
   const session = useSession();
   const { slug } = router.query;
@@ -93,7 +93,11 @@ export default function SubCategoryPage() {
             {dummyListVideo.map((item, index) => (
               <div
                 key={index}
-                onClick={() => router.push(`/video/${item.slug}`)}
+                onClick={() =>
+                  router.push(
+                    `/materi/${item.slug}/detail?type=${router.query.type}`,
+                  )
+                }
                 className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
               >
                 {/* {isNewProduct(item.created_at) ? (
@@ -132,8 +136,16 @@ export default function SubCategoryPage() {
                   >
                     <div className="flex items-start justify-between gap-1">
                       {[
-                        ["Jumlah Video", <VideoCamera />, "30 video"],
-                        ["Jumlah Kuis", <ClipboardText />, "15 kuis"],
+                        [
+                          "Jumlah Video",
+                          <VideoCamera key={item.video_id} />,
+                          "30 video",
+                        ],
+                        [
+                          "Jumlah Kuis",
+                          <ClipboardText key={item.video_id} />,
+                          "15 kuis",
+                        ],
                       ].map(([label, icon, value], index) => (
                         <div key={index} className="grid gap-1">
                           <span className="text-xs font-medium text-gray">
@@ -218,7 +230,7 @@ export default function SubCategoryPage() {
                             {[
                               [
                                 "Jumlah Soal",
-                                <ClipboardText />,
+                                <ClipboardText key={selectedQuiz.quiz_id} />,
                                 `${selectedQuiz.total_questions}`,
                               ],
                             ].map(([label, icon, value], index) => (
