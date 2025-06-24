@@ -28,9 +28,10 @@ export default function RosaPage() {
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Apoteker ROSA:{" "}
-              <span className="relative inline-block before:absolute before:-inset-1 before:-z-10 before:block before:bg-purple">
-                <span className="relative text-white">Smart Assistant</span>
-              </span>
+              <TextHighlight
+                text="Smart Assistant"
+                className="inline-flex font-black"
+              />
               Pendamping Belajar Mahasiswa Farmasi
             </h1>
 
@@ -131,7 +132,7 @@ export default function RosaPage() {
             {siteROSAPage.reasoning.map((item, index) => (
               <div
                 key={index}
-                className="grid h-auto w-full gap-4 rounded-xl bg-white p-8 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                className="grid h-auto w-full gap-4 rounded-xl border-2 border-gray/10 p-8"
               >
                 <item.icon weight="duotone" size={64} className="text-purple" />
 
@@ -206,7 +207,7 @@ export default function RosaPage() {
                   key={index}
                   className="max-w-[330px] lg:max-w-[276px]"
                 >
-                  <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl bg-white p-6 [box-shadow:0_0_12px_rgba(0,0,0,0.1)] [margin:1rem_0]">
+                  <div className="base-card group divide-y-2 divide-dashed divide-gray/20 p-6 [margin:1rem_0]">
                     <div className="flex items-center gap-4 pb-4">
                       <Image
                         src="/img/avatar-male.svg"

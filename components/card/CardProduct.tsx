@@ -16,10 +16,7 @@ export default function CardProduct({
   tagline,
 }: CardProductProps) {
   return (
-    <Link
-      href={path}
-      className="group grid overflow-hidden rounded-xl border-2 border-gray/10 hover:bg-purple/10"
-    >
+    <Link href={path} className="base-card group">
       <div className="relative isolate aspect-square h-auto w-full bg-purple object-cover object-center group-hover:grayscale-[0.5]">
         {icon}
 

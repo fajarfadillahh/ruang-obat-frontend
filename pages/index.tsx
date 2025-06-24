@@ -3,7 +3,6 @@ import CTAMain from "@/components/cta/CTAMain";
 import Footer from "@/components/footer/Footer";
 import Balatro from "@/components/reactbits/Balatro";
 import TextHighlight from "@/components/text/TextHighlight";
-import TextHighlightBackground from "@/components/text/TextHighlightBackground";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
@@ -88,8 +87,11 @@ export default function HomePage({
 
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
               Bimbel Private Farmasi No. 1 di Indonesia Yang{" "}
-              <TextHighlightBackground text="Memfasilitasi 10.000+" /> Mahasiswa
-              Farmasi Seluruh Indonesia
+              <TextHighlight
+                text="Memfasilitasi 10.000+"
+                className="font-black"
+              />{" "}
+              Mahasiswa Farmasi Seluruh Indonesia
             </h1>
 
             <p className="max-w-[800px] font-medium leading-[170%] text-gray">
@@ -184,8 +186,8 @@ export default function HomePage({
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
               Ruang Belajar Farmasi{" "}
-              <TextHighlightBackground text="Paling Lengkap" /> Bebas Akses,
-              Kapan dan Dimana Aja Kamu Butuh.
+              <TextHighlight text="Paling Lengkap" className="font-black" />{" "}
+              Bebas Akses, Kapan dan Dimana Aja Kamu Butuh.
             </h1>
 
             <div className="grid gap-2">
@@ -394,7 +396,7 @@ export default function HomePage({
                 >
                   <Link
                     href={`/mentor/${mentor.mentor_id}`}
-                    className="group mt-4 grid overflow-hidden rounded-xl border-2 border-gray/10 hover:bg-purple/10"
+                    className="base-card group mt-4"
                   >
                     <Image
                       src={mentor.img_url as string}
@@ -446,7 +448,7 @@ export default function HomePage({
                     key={index}
                     className="max-w-[330px] lg:max-w-[276px]"
                   >
-                    <div className="group grid divide-y-2 divide-dashed divide-gray/20 overflow-hidden rounded-xl border-2 border-gray/10 p-6 [margin:1rem_0] hover:bg-purple/10">
+                    <div className="base-card group divide-y-2 divide-dashed divide-gray/20 p-6 [margin:1rem_0]">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
                           src="/img/avatar-male.svg"

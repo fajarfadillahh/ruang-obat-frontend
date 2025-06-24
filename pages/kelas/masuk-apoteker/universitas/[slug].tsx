@@ -241,7 +241,7 @@ function CardTryout({ type, title, data, ...props }: CardTryoutProps) {
 
   return (
     <div
-      className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 bg-white p-4 shadow-[4px_4px_36px_rgba(0,0,0,0.1)] hover:cursor-pointer hover:bg-purple/10"
+      className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 p-4 hover:cursor-pointer hover:bg-purple/10"
       {...props}
     >
       <div className="flex aspect-square size-full items-center justify-center rounded-md bg-purple/5 p-2 text-5xl">

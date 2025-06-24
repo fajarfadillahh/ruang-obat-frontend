@@ -59,7 +59,7 @@ export default function CardTest(test: CardTest) {
 
   return (
     <div
-      className={`group grid gap-6 rounded-xl bg-white p-6 ring-2 ring-gray/5 hover:bg-purple/10 hover:ring-purple md:grid-cols-[1fr_max-content] md:items-center`}
+      className={`group grid gap-6 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10 md:grid-cols-[1fr_max-content] md:items-center`}
     >
       <div className="flex flex-1 items-start gap-3">
         {test.is_active ? (
