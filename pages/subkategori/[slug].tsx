@@ -23,6 +23,7 @@ import {
 } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { HTMLAttributes, useRef, useState } from "react";
 
@@ -91,10 +92,10 @@ export default function SubCategoryPage() {
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
             {dummyListVideo.map((item, index) => (
-              <div
+              <Link
                 key={index}
-                onClick={() => router.push(`/video/${item.slug}`)}
-                className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
+                href={`/video/${item.slug}`}
+                className="base-card group relative isolate"
               >
                 {/* {isNewProduct(item.created_at) ? (
                   <Chip
@@ -152,7 +153,7 @@ export default function SubCategoryPage() {
                     </div>
                   </IconContext.Provider>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>

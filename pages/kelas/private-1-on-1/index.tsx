@@ -153,7 +153,7 @@ export default function Private1on1Page({
               {data?.private_classes.map((item: PrivateClassType) => (
                 <div
                   key={item.subject_id}
-                  className="grid max-w-[600px] gap-8 rounded-xl border-2 border-gray/10 [padding:4rem_3rem] hover:bg-purple/10 lg:max-w-[700px]"
+                  className="base-card max-w-[600px] gap-8 [padding:4rem_3rem] lg:max-w-[700px]"
                 >
                   <div className="grid gap-2">
                     <h3 className="text-2xl font-black text-purple">

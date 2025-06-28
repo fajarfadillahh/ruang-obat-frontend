@@ -9,19 +9,17 @@ import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { isNewProduct } from "@/utils/isNewProduct";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
-  Chip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { PlayCircle, ShareNetwork } from "@phosphor-icons/react";
+import { ArrowRight, ShareNetwork } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -157,113 +155,35 @@ export default function PharmacyResearchClassPage({
               <EmptyData text="Kelas Riset Farmasi Tidak Ditemukan 😥" />
             </div>
           ) : (
-            <div className="mx-auto grid max-w-[600px] gap-4 sm:grid-cols-2 sm:items-start lg:max-w-[700px] xl:mx-0 xl:max-w-none xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
               {data?.research.map((item: ResearchClassType) => (
                 <div
                   key={item.research_id}
-                  className="group relative grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
+                  className="base-card group relative"
                 >
-                  {isNewProduct(item.created_at) ? (
+                  {/* {isNewProduct(item.created_at) ? (
                     <Chip
                       color="danger"
-                      className="absolute right-8 top-8 z-10"
+                      className="absolute right-4 top-4 z-10"
                       classNames={{
                         content: "font-bold px-4",
                       }}
                     >
                       Baru
                     </Chip>
-                  ) : null}
+                  ) : null} */}
 
-                  {item.thumbnail_type === "video" ? (
-                    <>
-                      <div className="relative aspect-square size-full overflow-hidden rounded-xl">
-                        <Image
-                          src="/img/default-thumbnail.png"
-                          alt="thumbnail img"
-                          width={500}
-                          height={500}
-                          className="h-full w-full object-cover object-center group-hover:grayscale-[0.5]"
-                        />
+                  <Image
+                    priority
+                    src={item.thumbnail_url as string}
+                    alt="thumbnail"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
+                  />
 
-                        <div
-                          onClick={() => handleOpenModal(item, "video")}
-                          className="absolute left-0 top-0 flex h-full w-full items-center justify-center"
-                        >
-                          <div className="flex size-14 items-center justify-center rounded-full bg-white/10 p-[2px] backdrop-blur-md hover:cursor-pointer hover:bg-white/30">
-                            <PlayCircle
-                              weight="fill"
-                              size={56}
-                              className="text-white"
-                            />
-                          </div>
-                        </div>
-                      </div>
-
-                      {selectedClass && (
-                        <Modal
-                          isDismissable={false}
-                          size="xl"
-                          placement="center"
-                          hideCloseButton={true}
-                          isOpen={isOpenVideo}
-                          onOpenChange={(open) => setIsOpenVideo(open)}
-                        >
-                          <ModalContent>
-                            {(onClose) => (
-                              <>
-                                <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                  Cuplikan Video
-                                </ModalHeader>
-
-                                <ModalBody>
-                                  <div className="aspect-video h-full w-full">
-                                    {isLoading && (
-                                      <div className="flex h-full w-full items-center justify-center">
-                                        <h1 className="font-semibold text-black">
-                                          Loading video...
-                                        </h1>
-                                      </div>
-                                    )}
-
-                                    {PreviewVideo(
-                                      selectedClass.thumbnail_url as string,
-                                    )}
-                                  </div>
-                                </ModalBody>
-
-                                <ModalFooter>
-                                  <Button
-                                    color="danger"
-                                    variant="light"
-                                    onPress={() => {
-                                      onClose(), setIsLoading(false);
-                                    }}
-                                    className="font-bold"
-                                  >
-                                    Tutup
-                                  </Button>
-                                </ModalFooter>
-                              </>
-                            )}
-                          </ModalContent>
-                        </Modal>
-                      )}
-                    </>
-                  ) : (
-                    <div className="aspect-square size-full overflow-hidden rounded-xl bg-purple group-hover:grayscale-[0.5]">
-                      <Image
-                        src={item.thumbnail_url as string}
-                        alt="thumbnail img"
-                        width={500}
-                        height={500}
-                        className="h-full w-full object-cover object-center"
-                      />
-                    </div>
-                  )}
-
-                  <div className="grid gap-8">
-                    <div className="grid gap-2">
+                  <div className="grid gap-6 [padding:1.5rem_1rem]">
+                    <div className="grid gap-1">
                       <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                         {item.title}
                       </h1>
@@ -273,65 +193,21 @@ export default function PharmacyResearchClassPage({
                       </p>
                     </div>
 
-                    <div className="grid gap-2">
-                      <Button
-                        variant="bordered"
-                        onPress={() => handleOpenModal(item, "detail")}
-                        className="font-bold text-black"
-                      >
-                        Detail Kelas
-                      </Button>
-
-                      <Button
-                        variant="flat"
-                        color="secondary"
-                        onClick={() => {
-                          if (session.status == "unauthenticated") {
-                            ctx?.onOpenUnauthenticated();
-                          } else {
-                            window.open(item.link_order, "_blank");
-                          }
-                        }}
-                        className="font-bold"
-                      >
-                        Booking Kelas
-                      </Button>
-
-                      <Modal
-                        size="lg"
-                        scrollBehavior="inside"
-                        placement="center"
-                        isOpen={isOpenDetail}
-                        onOpenChange={(open) => setIsOpenDetail(open)}
-                      >
-                        <ModalContent>
-                          {(onClose) => (
-                            <>
-                              <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
-                                Deskripsi Kelas
-                              </ModalHeader>
-
-                              <ModalBody>
-                                <p className="font-medium leading-[170%] text-gray">
-                                  {selectedClass?.description}
-                                </p>
-                              </ModalBody>
-
-                              <ModalFooter>
-                                <Button
-                                  color="danger"
-                                  variant="light"
-                                  onPress={onClose}
-                                  className="font-bold"
-                                >
-                                  Tutup
-                                </Button>
-                              </ModalFooter>
-                            </>
-                          )}
-                        </ModalContent>
-                      </Modal>
-                    </div>
+                    <Button
+                      variant="light"
+                      color="secondary"
+                      endContent={<ArrowRight weight="bold" size={16} />}
+                      onClick={() => {
+                        if (session.status == "unauthenticated") {
+                          ctx?.onOpenUnauthenticated();
+                        } else {
+                          window.open(item.link_order, "_blank");
+                        }
+                      }}
+                      className="font-bold"
+                    >
+                      Booking Kelas
+                    </Button>
                   </div>
                 </div>
               ))}
