@@ -82,7 +82,7 @@ export default function HomePage({
                 content: "font-bold",
               }}
             >
-              🔥 Selamat datang di RuangObat
+              🔥 Selamat Datang Di RuangObat
             </Chip>
 
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">

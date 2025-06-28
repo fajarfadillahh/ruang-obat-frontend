@@ -39,7 +39,7 @@ export default function CategoryPage() {
             {dummySubCategories.map((item, index) => (
               <Link
                 key={index}
-                href={`/subkategori/${item.subcategory_slug}?type=${item.subcategory_type}`}
+                href={`/materi/${item.subcategory_slug}?type=videocourse`}
                 className="group grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
               >
                 <Asclepius

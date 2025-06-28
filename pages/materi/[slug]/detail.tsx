@@ -1,13 +1,9 @@
-import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import ButtonBack from "@/components/button/ButtonBack";
 import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { dummyVideoCourse } from "@/data/dummy";
-import { PharmacistAdmissionDetailsResponse } from "@/types/classes.type";
-import { ErrorDataType, SuccessResponse } from "@/types/global.type";
-import { fetcher } from "@/utils/fetcher";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Accordion,
@@ -25,29 +21,31 @@ import {
   Play,
   ShareNetwork,
 } from "@phosphor-icons/react";
-import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
-export default function DetailPharmacistEntranceClassPage({
-  data,
-  error,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+export default function DetailCoursePage() {
+  const router = useRouter();
+  const { slug } = router.query;
+
+  const decodedSlug = decodeURIComponent(slug as string)
+    .replace(/-/g, " ")
+    .split(" ")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
   return (
     <>
       <Layout
-        title={`Detail Kelas Video ${data?.name}`}
+        title={`Detail Kelas Video ${decodedSlug}`}
         description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
       >
         <ButtonBack />
 
-        <div className="mt-4">
-          <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
-        </div>
-
         <section className="base-container gap-8 pt-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-16">
           <Image
-            src={data?.img_url as string}
-            alt="logo university"
+            src="/img/default-thumbnail.png"
+            alt="thumbnail"
             width={1000}
             height={1000}
             className="w-full max-w-[350px] rounded-xl object-cover object-center"
@@ -56,11 +54,16 @@ export default function DetailPharmacistEntranceClassPage({
           <div className="grid max-w-[900px] gap-8">
             <div className="grid gap-4">
               <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
-                {data?.name}
+                {decodedSlug}
               </h1>
 
               <p className="font-medium leading-[170%] text-gray">
-                {data?.description}
+                Lorem Ipsum is simply dummy text of the printing and typesetting
+                industry. Lorem Ipsum has been the industry standard dummy text
+                ever since the 1500s, when an unknown printer took a galley of
+                type and scrambled it to make a type specimen book. It has
+                survived not only five centuries, but also the leap into
+                electronic typesetting, remaining essentially unchanged.
               </p>
             </div>
 
@@ -258,33 +261,3 @@ export default function DetailPharmacistEntranceClassPage({
     </>
   );
 }
-
-type DataProps = {
-  data?: PharmacistAdmissionDetailsResponse;
-  error?: ErrorDataType;
-};
-
-export const getServerSideProps: GetServerSideProps<DataProps> = async ({
-  params,
-}) => {
-  try {
-    const response = (await fetcher({
-      method: "GET",
-      url: `/general/pharmacistadmission/${params?.slug}`,
-    })) as SuccessResponse<PharmacistAdmissionDetailsResponse>;
-
-    return {
-      props: {
-        data: response.data,
-      },
-    };
-  } catch (error: any) {
-    console.error(error);
-
-    return {
-      props: {
-        error,
-      },
-    };
-  }
-};
