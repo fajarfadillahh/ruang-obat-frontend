@@ -4,14 +4,41 @@ import Footer from "@/components/footer/Footer";
 import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
+import { SuccessResponse } from "@/types/global.type";
+import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button } from "@nextui-org/react";
 import { ShareNetwork } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { useRef } from "react";
 
-export default function VideoLearningClassPage() {
+type VideoCourseResponse = {
+  categories: {
+    category_id: string;
+    name: string;
+    slug: string;
+    img_url: string;
+  }[];
+  subscriptions: {
+    package_id: string;
+    name: string;
+    price: number;
+    duration: number;
+    type: string;
+    link_order: string;
+    benefits: {
+      benefit_id: string;
+      description: string;
+    }[];
+  }[];
+  is_login: boolean;
+};
+
+export default function VideoLearningClassPage({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const subscribeRef = useRef<HTMLElement | null>(null);
 
   return (
@@ -65,9 +92,14 @@ export default function VideoLearningClassPage() {
           />
         </section>
 
-        <SectionCategory type="videocourse" />
+        <SectionCategory type="videocourse" categories={data?.categories} />
 
-        <SectionSubscription sectionRef={subscribeRef} />
+        {data?.subscriptions.length ? (
+          <SectionSubscription
+            subscriptions={data.subscriptions}
+            sectionRef={subscribeRef}
+          />
+        ) : null}
 
         <CTASecondary />
       </Layout>
@@ -76,3 +108,32 @@ export default function VideoLearningClassPage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<{
+  data?: VideoCourseResponse;
+  error?: any;
+}> = async ({ req }) => {
+  const token = req.headers["access_token"] as string;
+
+  try {
+    const response: SuccessResponse<VideoCourseResponse> = await fetcher({
+      url: "/videocourse",
+      method: "GET",
+      token,
+    });
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
