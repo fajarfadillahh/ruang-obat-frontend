@@ -4,7 +4,8 @@ import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
-import { dummyListVideo, dummyQuiz } from "@/data/dummy";
+import { SuccessResponse } from "@/types/global.type";
+import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
 import {
   Button,
@@ -15,58 +16,101 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import {
-  Asclepius,
   ClipboardText,
   IconContext,
   Trophy,
   VideoCamera,
 } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { HTMLAttributes, useRef, useState } from "react";
 
-type QuizType = {
-  quiz_id: number;
-  quiz_name: string;
-  quiz_description: string;
-  created_at: string;
+type Quiz = {
+  ass_id: string;
+  description: string;
+  title: string;
   total_questions: number;
 };
 
-export default function CoursePage() {
+type ContentResponse = {
+  name: string;
+  slug: string;
+  img_url: string;
+  type: string;
+  courses: {
+    course_id: string;
+    title: string;
+    slug: string;
+    thumbnail_url: string;
+    total_videos: number;
+    total_tests: number;
+  }[];
+  quizzes: Quiz[];
+  histories: {
+    assr_id: string;
+    score: number;
+    created_at: string;
+    ass_id: string;
+    title: string;
+  }[];
+  cards: {
+    card_id: string;
+    text?: string;
+    url?: string;
+    type: string;
+  }[];
+  subscriptions: {
+    package_id: string;
+    name: string;
+    price: number;
+    duration: number;
+    type: string;
+    link_order: string;
+    benefits: {
+      benefit_id: string;
+      description: string;
+    }[];
+  }[];
+  is_login: boolean;
+};
+
+export default function CoursePage({
+  data,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const session = useSession();
-  const { slug } = router.query;
-  const [selectedQuiz, setSelectedQuiz] = useState<QuizType | null>(null);
+  const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
   const [isOpenModalQuiz, setIsOpenModalQuiz] = useState<boolean>(false);
 
   const subscribeRef = useRef<HTMLElement | null>(null);
   const quizRef = useRef<HTMLElement | null>(null);
 
-  function handleOpenModalQuiz(prepQuiz: QuizType) {
+  function handleOpenModalQuiz(prepQuiz: Quiz) {
     setSelectedQuiz(prepQuiz);
     setIsOpenModalQuiz(true);
   }
 
-  const decodedSlug = decodeURIComponent(slug as string)
-    .replace(/-/g, " ")
-    .split(" ")
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(" ");
-
   return (
     <>
-      <Layout title={decodedSlug}>
+      <Layout title={data?.name as string}>
         <ButtonBack />
 
         <section className="base-container gap-16 [padding:50px_0_100px]">
           <div className="flex items-start gap-4">
-            <Asclepius weight="duotone" size={72} className="text-purple" />
+            <div className="relative h-16 w-16">
+              <Image
+                src={data?.img_url as string}
+                alt={data?.name as string}
+                className="object-cover"
+                fill
+              />
+            </div>
 
             <div className="grid gap-6">
               <h1 className="flex-1 text-3xl font-black text-black xl:text-4xl">
-                {decodedSlug}
+                {data?.name as string}
               </h1>
 
               <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
@@ -90,12 +134,12 @@ export default function CoursePage() {
           </div>
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
-            {dummyListVideo.map((item, index) => (
+            {data?.courses.map((course) => (
               <div
-                key={index}
+                key={course.course_id}
                 onClick={() =>
                   router.push(
-                    `/materi/${item.slug}/detail?type=${router.query.type}`,
+                    `/materi/${course.slug}/detail?type=${router.query.type}`,
                   )
                 }
                 className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
@@ -115,7 +159,7 @@ export default function CoursePage() {
 
                 <Image
                   priority
-                  src="/img/default-thumbnail.png"
+                  src={course.thumbnail_url}
                   alt="thumbnail"
                   width={304}
                   height={304}
@@ -124,7 +168,7 @@ export default function CoursePage() {
 
                 <div className="grid gap-4 [padding:1.5rem_1rem]">
                   <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
-                    {item.video_title}
+                    {course.title}
                   </h1>
 
                   <IconContext.Provider
@@ -138,13 +182,13 @@ export default function CoursePage() {
                       {[
                         [
                           "Jumlah Video",
-                          <VideoCamera key={item.video_id} />,
-                          "30 video",
+                          <VideoCamera key={course.course_id} />,
+                          `${course.total_videos} video`,
                         ],
                         [
                           "Jumlah Kuis",
-                          <ClipboardText key={item.video_id} />,
-                          "15 kuis",
+                          <ClipboardText key={course.course_id} />,
+                          `${course.total_tests} kuis`,
                         ],
                       ].map(([label, icon, value], index) => (
                         <div key={index} className="grid gap-1">
@@ -180,99 +224,103 @@ export default function CoursePage() {
             </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
-            {dummyQuiz.map((item) => (
-              <CardQuiz
-                key={item.quiz_id}
-                type="bonus"
-                title={item.quiz_name}
-                data={item.total_questions}
-                onClick={() => handleOpenModalQuiz(item as QuizType)}
-              />
-            ))}
+          {data?.quizzes.length ? (
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
+              {data.quizzes.map((quiz) => (
+                <CardQuiz
+                  key={quiz.ass_id}
+                  type="bonus"
+                  title={quiz.title}
+                  data={quiz.total_questions}
+                  onClick={() => handleOpenModalQuiz(quiz as Quiz)}
+                />
+              ))}
 
-            {selectedQuiz && (
-              <Modal
-                size="lg"
-                placement="center"
-                scrollBehavior="inside"
-                isOpen={isOpenModalQuiz}
-                onOpenChange={(open) => setIsOpenModalQuiz(open)}
-              >
-                <ModalContent>
-                  <ModalHeader className="font-bold text-black">
-                    Detail Kuis
-                  </ModalHeader>
+              {selectedQuiz && (
+                <Modal
+                  size="lg"
+                  placement="center"
+                  scrollBehavior="inside"
+                  isOpen={isOpenModalQuiz}
+                  onOpenChange={(open) => setIsOpenModalQuiz(open)}
+                >
+                  <ModalContent>
+                    <ModalHeader className="font-bold text-black">
+                      Detail Kuis
+                    </ModalHeader>
 
-                  <ModalBody>
-                    <div className="grid items-start gap-8 sm:flex">
-                      <div className="text-5xl">📚</div>
+                    <ModalBody>
+                      <div className="grid items-start gap-8 sm:flex">
+                        <div className="text-5xl">📚</div>
 
-                      <div className="grid gap-6">
-                        <div className="grid gap-2">
-                          <h1 className="text-xl font-extrabold text-black">
-                            {selectedQuiz.quiz_name}
-                          </h1>
+                        <div className="grid gap-6">
+                          <div className="grid gap-2">
+                            <h1 className="text-xl font-extrabold text-black">
+                              {selectedQuiz.title}
+                            </h1>
 
-                          <p className="text-sm font-medium leading-[170%] text-gray">
-                            {selectedQuiz.quiz_description}
-                          </p>
-                        </div>
-
-                        <IconContext.Provider
-                          value={{
-                            weight: "duotone",
-                            size: 24,
-                            className: "text-purple",
-                          }}
-                        >
-                          <div>
-                            {[
-                              [
-                                "Jumlah Soal",
-                                <ClipboardText key={selectedQuiz.quiz_id} />,
-                                `${selectedQuiz.total_questions}`,
-                              ],
-                            ].map(([label, icon, value], index) => (
-                              <div key={index} className="grid gap-1">
-                                <span className="text-sm font-medium text-gray">
-                                  {label}:
-                                </span>
-
-                                <div className="flex items-center gap-1">
-                                  {icon}
-
-                                  <p className="text-sm font-semibold capitalize text-black">
-                                    {value} butir
-                                  </p>
-                                </div>
-                              </div>
-                            ))}
+                            {selectedQuiz.description ? (
+                              <p className="text-sm font-medium leading-[170%] text-gray">
+                                {selectedQuiz.description}
+                              </p>
+                            ) : null}
                           </div>
-                        </IconContext.Provider>
 
-                        <Button
-                          isDisabled={session.status == "unauthenticated"}
-                          color="secondary"
-                          onClick={() => {
-                            router.push(`/quiz/${selectedQuiz.quiz_id}/start`);
-                          }}
-                          className="font-bold"
-                        >
-                          Mulai Kuis!
-                        </Button>
+                          <IconContext.Provider
+                            value={{
+                              weight: "duotone",
+                              size: 24,
+                              className: "text-purple",
+                            }}
+                          >
+                            <div>
+                              {[
+                                [
+                                  "Jumlah Soal",
+                                  <ClipboardText key={selectedQuiz.ass_id} />,
+                                  `${selectedQuiz.total_questions}`,
+                                ],
+                              ].map(([label, icon, value], index) => (
+                                <div key={index} className="grid gap-1">
+                                  <span className="text-sm font-medium text-gray">
+                                    {label}:
+                                  </span>
+
+                                  <div className="flex items-center gap-1">
+                                    {icon}
+
+                                    <p className="text-sm font-semibold capitalize text-black">
+                                      {value} butir
+                                    </p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </IconContext.Provider>
+
+                          <Button
+                            isDisabled={session.status == "unauthenticated"}
+                            color="secondary"
+                            onClick={() => {
+                              router.push(`/quiz/${selectedQuiz.ass_id}/start`);
+                            }}
+                            className="font-bold"
+                          >
+                            Mulai Kuis!
+                          </Button>
+                        </div>
                       </div>
-                    </div>
-                  </ModalBody>
+                    </ModalBody>
 
-                  <ModalFooter />
-                </ModalContent>
-              </Modal>
-            )}
-          </div>
+                    <ModalFooter />
+                  </ModalContent>
+                </Modal>
+              )}
+            </div>
+          ) : null}
         </section>
 
-        {session.status == "authenticated" && (
+        {data?.histories.length ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid">
               <h2 className="text-3xl font-black -tracking-wide text-black">
@@ -285,21 +333,26 @@ export default function CoursePage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
-              {Array.from({ length: 1 }, (_, index) => (
+              {data.histories.map((history) => (
                 <CardQuiz
-                  key={index}
+                  key={history.assr_id}
                   type="history"
-                  title="Ini Adalah Judul History Bonus Kuis..."
-                  data={100}
-                  onClick={() => router.push(`/quiz/${index + 1}/result`)}
+                  title={history.title}
+                  data={history.score}
+                  onClick={() => router.push(`/quiz/${history.assr_id}/result`)}
                 />
               ))}
             </div>
           </section>
-        )}
+        ) : null}
 
         {/* flash card / summary card */}
-        <SectionSubscription sectionRef={subscribeRef} />
+        {data?.subscriptions.length ? (
+          <SectionSubscription
+            sectionRef={subscribeRef}
+            subscriptions={data.subscriptions}
+          />
+        ) : null}
 
         <CTASecondary />
       </Layout>
@@ -308,6 +361,47 @@ export default function CoursePage() {
     </>
   );
 }
+
+export const getServerSideProps: GetServerSideProps<{
+  data?: ContentResponse;
+  error?: any;
+}> = async ({ req, params, query }) => {
+  const token = req.headers["access_token"] as string;
+  const slug = params?.slug as string;
+  const type = query.type as string;
+
+  if (!["apotekerclass", "videocourse", "videoukmppai"].includes(type)) {
+    return {
+      props: {
+        error: {
+          message: "Ups sepertinya parameter web tidak valid",
+        },
+      },
+    };
+  }
+
+  try {
+    const response: SuccessResponse<ContentResponse> = await fetcher({
+      url: `/contents/${slug}/${type}`,
+      method: "GET",
+      token,
+    });
+
+    return {
+      props: {
+        data: response.data,
+      },
+    };
+  } catch (error: any) {
+    console.error(error);
+
+    return {
+      props: {
+        error,
+      },
+    };
+  }
+};
 
 interface CardQuizProps extends HTMLAttributes<HTMLDivElement> {
   type: "bonus" | "history";
