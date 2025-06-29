@@ -1,5 +1,4 @@
-import { dummyCategories } from "@/data/dummy";
-import { Heartbeat } from "@phosphor-icons/react";
+import Image from "next/image";
 import Link from "next/link";
 import { MutableRefObject } from "react";
 import { twMerge } from "tailwind-merge";
@@ -8,12 +7,21 @@ interface SectionCategoryProps {
   type?: "videocourse" | "apotekerclass" | "videoukmppai";
   className?: string;
   sectionRef?: MutableRefObject<HTMLElement | null>;
+  categories?: CategoryProps[];
 }
+
+type CategoryProps = {
+  category_id: string;
+  name: string;
+  slug: string;
+  img_url: string;
+};
 
 export default function SectionCategory({
   className,
   type,
   sectionRef,
+  categories,
 }: SectionCategoryProps) {
   return (
     <section
@@ -34,23 +42,27 @@ export default function SectionCategory({
       </div>
 
       <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
-        {dummyCategories.map((item) => (
+        {categories?.map((item) => (
           <Link
             key={item.category_id}
             href={
               type === "apotekerclass"
-                ? `/materi/${item.category_slug}?type=${type}`
-                : `/kategori/${item.category_slug}?type=${type}`
+                ? `/materi/${item.slug}?type=${type}`
+                : `/kategori/${item.slug}?type=${type}`
             }
-            className="group grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
+            className="group relative grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
           >
-            <Heartbeat
-              weight="duotone"
-              className="text-5xl text-purple sm:text-6xl"
-            />
+            <div className="relative h-20 w-20">
+              <Image
+                src={item.img_url}
+                alt={item.name}
+                className="object-cover"
+                fill
+              />
+            </div>
 
             <h4 className="line-clamp-2 text-center font-extrabold text-black group-hover:line-clamp-none">
-              {item.category_name}
+              {item.name}
             </h4>
           </Link>
         ))}
