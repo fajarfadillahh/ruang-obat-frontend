@@ -112,7 +112,7 @@ export default function RegisterPage() {
     try {
       const response: SuccessResponse<{ user_id: string; message: string }> =
         await fetcher({
-          url: "/general/email/register",
+          url: "/email/register",
           method: "POST",
           data: {
             email: input.email,
@@ -138,7 +138,7 @@ export default function RegisterPage() {
 
     try {
       const response: SuccessResponse<{ token: string }> = await fetcher({
-        url: "/general/otp/verify",
+        url: "/otp/verify",
         method: "POST",
         data: {
           user_id: userId,

@@ -19,7 +19,7 @@ export default function ResetPasswordPage({
     setLoading(true);
     try {
       await fetcher({
-        url: "/general/reset/password",
+        url: "/reset/password",
         method: "PATCH",
         data: {
           token: query?.token,

@@ -317,7 +317,7 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
   try {
     const response = (await fetcher({
       method: "GET",
-      url: "/general/research",
+      url: "/research",
     })) as SuccessResponse<ResearchResponse>;
 
     return {

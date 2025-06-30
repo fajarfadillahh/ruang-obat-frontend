@@ -80,7 +80,7 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async ({
   try {
     const response = (await fetcher({
       method: "GET",
-      url: `/general/mentors/${encodeURIComponent(params?.id as string)}`,
+      url: `/mentors/${encodeURIComponent(params?.id as string)}`,
     })) as SuccessResponse<MentorDetailsType>;
 
     return {

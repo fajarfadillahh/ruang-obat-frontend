@@ -537,7 +537,7 @@ export const getServerSideProps: GetServerSideProps<DataProps> = async () => {
   try {
     const response = (await fetcher({
       method: "GET",
-      url: "/general/homepage",
+      url: "/homepage",
     })) as SuccessResponse<HomepageResponse>;
 
     return {
