@@ -1,8 +1,10 @@
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Button } from "@nextui-org/react";
+import { Button, useDisclosure } from "@nextui-org/react";
 import { CheckCircle } from "@phosphor-icons/react";
+import { useSession } from "next-auth/react";
 import { MutableRefObject } from "react";
 import { twMerge } from "tailwind-merge";
+import ModalUnauthenticated from "../modal/ModalUnauthenticated";
 
 interface SectionSubscriptionProps {
   className?: string;
@@ -28,6 +30,9 @@ export default function SectionSubscription({
   sectionRef,
   subscriptions,
 }: SectionSubscriptionProps) {
+  const { onOpen, isOpen, onClose } = useDisclosure();
+  const { status } = useSession();
+
   return (
     <section
       className={twMerge("base-container gap-4 py-[100px]", `${className}`)}
@@ -100,8 +105,21 @@ export default function SectionSubscription({
               </div>
             </div>
 
+            <ModalUnauthenticated
+              isOpen={isOpen}
+              onClose={() => {
+                onClose();
+              }}
+            />
+
             <Button
-              onClick={() => window.open(item.link_order, "_blank")}
+              onClick={() => {
+                if (status === "unauthenticated") {
+                  onOpen();
+                } else {
+                  window.open(item.link_order, "_blank");
+                }
+              }}
               className={`font-bold text-white ${item.link_order ? "bg-pink-500" : "bg-purple"}`}
             >
               Mulai Berlangganan
