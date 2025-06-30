@@ -4,6 +4,7 @@ import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -22,6 +23,7 @@ import {
   VideoCamera,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -365,8 +367,8 @@ export default function CoursePage({
 export const getServerSideProps: GetServerSideProps<{
   data?: ContentResponse;
   error?: any;
-}> = async ({ req, params, query }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, params, query, res }) => {
+  const session = await getServerSession(req, res, authOptions);
   const slug = params?.slug as string;
   const type = query.type as string;
 
@@ -384,7 +386,7 @@ export const getServerSideProps: GetServerSideProps<{
     const response: SuccessResponse<ContentResponse> = await fetcher({
       url: `/contents/${slug}/${type}`,
       method: "GET",
-      token,
+      token: session?.user.access_token,
     });
 
     return {

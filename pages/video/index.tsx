@@ -11,8 +11,10 @@ import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button } from "@nextui-org/react";
 import { ShareNetwork } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { useRef } from "react";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type VideoCourseResponse = {
   categories: {
@@ -112,14 +114,14 @@ export default function VideoLearningClassPage({
 export const getServerSideProps: GetServerSideProps<{
   data?: VideoCourseResponse;
   error?: any;
-}> = async ({ req }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   try {
     const response: SuccessResponse<VideoCourseResponse> = await fetcher({
       url: "/videocourse",
       method: "GET",
-      token,
+      token: session?.user.access_token,
     });
 
     return {

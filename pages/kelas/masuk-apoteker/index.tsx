@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -16,6 +17,7 @@ import {
   ShareNetwork,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useRef } from "react";
@@ -194,14 +196,14 @@ export default function ApotekerClassPage({
 export const getServerSideProps: GetServerSideProps<{
   data?: ApotekerClassResponse;
   error?: any;
-}> = async ({ req }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
 
   try {
     const response: SuccessResponse<ApotekerClassResponse> = await fetcher({
       url: "/apotekerclass",
       method: "GET",
-      token,
+      token: session?.user.access_token,
     });
 
     return {
