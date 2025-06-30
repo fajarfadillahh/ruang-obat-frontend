@@ -6,6 +6,7 @@ import { Question } from "@/types/questions.type";
 import { TestResponse } from "@/types/tests.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
+import { getColorClass } from "@/utils/string.util";
 import useNetworkStatus from "@/utils/useNetworkStatus";
 import {
   Button,
@@ -40,28 +41,6 @@ type StartTestResponse = {
   total_questions: number;
   end_time: string;
 };
-
-function getColor({
-  user_answer,
-  is_hesitant,
-}: {
-  user_answer: string;
-  is_hesitant: boolean;
-}) {
-  if (user_answer) {
-    if (is_hesitant) {
-      return "bg-yellow-500 text-white";
-    } else {
-      return "bg-purple text-white";
-    }
-  } else {
-    if (is_hesitant) {
-      return "bg-yellow-500 text-white";
-    } else {
-      return "bg-gray/10 text-gray hover:bg-gray/20";
-    }
-  }
-}
 
 export default function StartTest({
   token,
@@ -228,8 +207,8 @@ export default function StartTest({
                             question.number == number
                               ? !question.user_answer && !question.is_hesitant
                                 ? "bg-gray/30 text-gray"
-                                : getColor(question)
-                              : getColor(question)
+                                : getColorClass(question)
+                              : getColorClass(question)
                           }`}
                         >
                           {question.number}
