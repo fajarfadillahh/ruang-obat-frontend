@@ -361,7 +361,9 @@ export default function NavbarMain() {
             <Button
               variant="bordered"
               startContent={<SignIn weight="bold" size={18} />}
-              onClick={() => router.push("/auth/login")}
+              onClick={() =>
+                router.push(`/auth/login?callback=${router.asPath}`)
+              }
               className="px-7 font-bold text-black"
             >
               Login
@@ -369,7 +371,9 @@ export default function NavbarMain() {
 
             <Button
               color="secondary"
-              onClick={() => router.push("/auth/register")}
+              onClick={() =>
+                router.push(`/auth/register?callback=${router.asPath}`)
+              }
               className="px-8 font-bold"
             >
               Register

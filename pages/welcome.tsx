@@ -82,7 +82,13 @@ export default function WelcomePage({
 
               <Button
                 variant="bordered"
-                onClick={() => router.push("/")}
+                onClick={() =>
+                  router.push(
+                    router.query.callback
+                      ? (router.query.callback as string)
+                      : "/",
+                  )
+                }
                 className="px-6 font-bold"
               >
                 Kembali Ke Beranda
