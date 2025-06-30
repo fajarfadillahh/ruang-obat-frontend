@@ -1,5 +1,6 @@
 export type ResultType = {
-  result_id: string;
+  result_id?: string;
+  assr_id?: string;
   score: number;
   score_category: string;
   total_correct: number;
@@ -7,11 +8,17 @@ export type ResultType = {
   questions: {
     number: number;
     question_id: string;
+    assq_id?: string;
     text: string;
     explanation: string;
     type: "text" | "video" | "image";
     url: string;
-    options: { option_id: string; text: string; is_correct: boolean }[];
+    options: {
+      option_id: string;
+      asso_id?: string;
+      text: string;
+      is_correct: boolean;
+    }[];
     correct_option: string;
     user_answer: string;
     is_correct: boolean;
