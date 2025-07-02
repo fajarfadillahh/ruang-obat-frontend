@@ -50,6 +50,7 @@ type AssessmentQuestion = {
 };
 
 type StartAssessmentResponse = {
+  title: string;
   questions: AssessmentQuestion[];
   total_questions: number;
 };
@@ -422,7 +423,7 @@ export default function StartQuiz({
         >
           <div className="grid w-full divide-y-2 divide-dashed divide-gray/20">
             <div className="grid gap-2 pb-8">
-              <h4 className="font-bold text-black">Data Peserta:</h4>
+              <h4 className="font-bold text-black">{data?.data.title}</h4>
 
               <div className="grid">
                 <h4 className="font-bold -tracking-wide text-purple">
