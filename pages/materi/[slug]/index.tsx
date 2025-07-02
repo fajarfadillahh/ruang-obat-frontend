@@ -1,15 +1,18 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import CTASecondary from "@/components/cta/CTASecondary";
 import CustomTooltip from "@/components/CustomTooltip";
+import Empty from "@/components/Empty";
 import Footer from "@/components/footer/Footer";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import Layout from "@/components/wrapper/Layout";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
+import { isNewProduct } from "@/utils/isNewProduct";
 import { scrollToSection } from "@/utils/scrollToSection";
 import {
   Button,
+  Chip,
   Modal,
   ModalBody,
   ModalContent,
@@ -48,6 +51,7 @@ type ContentResponse = {
     thumbnail_url: string;
     total_videos: number;
     total_tests: number;
+    created_at: string;
   }[];
   quizzes: Quiz[];
   histories: {
@@ -135,84 +139,88 @@ export default function CoursePage({
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
-            {data?.courses.map((course) => (
-              <div
-                key={course.course_id}
-                onClick={() =>
-                  router.push(
-                    `/materi/${course.slug}/detail?type=${router.query.type}`,
-                  )
-                }
-                className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
-              >
-                {/* {isNewProduct(item.created_at) ? (
-                  <Chip
-                    color="danger"
-                    size="sm"
-                    className="absolute right-4 top-4 z-10"
-                    classNames={{
-                      content: "font-bold px-4",
-                    }}
-                  >
-                    Baru
-                  </Chip>
-                ) : null} */}
+          {data?.courses.length ? (
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+              {data?.courses.map((course) => (
+                <div
+                  key={course.course_id}
+                  onClick={() =>
+                    router.push(
+                      `/materi/${course.slug}/detail?type=${router.query.type}`,
+                    )
+                  }
+                  className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
+                >
+                  {isNewProduct(course.created_at) ? (
+                    <Chip
+                      color="danger"
+                      size="sm"
+                      className="absolute right-4 top-4 z-10"
+                      classNames={{
+                        content: "font-bold px-4",
+                      }}
+                    >
+                      Baru
+                    </Chip>
+                  ) : null}
 
-                <Image
-                  priority
-                  src={course.thumbnail_url}
-                  alt="thumbnail"
-                  width={304}
-                  height={304}
-                  className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
-                />
+                  <Image
+                    priority
+                    src={course.thumbnail_url}
+                    alt="thumbnail"
+                    width={304}
+                    height={304}
+                    className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
+                  />
 
-                <div className="grid gap-4 [padding:1.5rem_1rem]">
-                  <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
-                    {course.title}
-                  </h1>
+                  <div className="grid gap-4 [padding:1.5rem_1rem]">
+                    <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                      {course.title}
+                    </h1>
 
-                  <IconContext.Provider
-                    value={{
-                      weight: "duotone",
-                      size: 18,
-                      className: "text-purple",
-                    }}
-                  >
-                    <div className="flex items-start justify-between gap-1">
-                      {[
-                        [
-                          "Jumlah Video",
-                          <VideoCamera key={course.course_id} />,
-                          `${course.total_videos} video`,
-                        ],
-                        [
-                          "Jumlah Kuis",
-                          <ClipboardText key={course.course_id} />,
-                          `${course.total_tests} kuis`,
-                        ],
-                      ].map(([label, icon, value], index) => (
-                        <div key={index} className="grid gap-1">
-                          <span className="text-xs font-medium text-gray">
-                            {label}:
-                          </span>
+                    <IconContext.Provider
+                      value={{
+                        weight: "duotone",
+                        size: 18,
+                        className: "text-purple",
+                      }}
+                    >
+                      <div className="flex items-start justify-between gap-1">
+                        {[
+                          [
+                            "Jumlah Video",
+                            <VideoCamera key={course.course_id} />,
+                            `${course.total_videos} video`,
+                          ],
+                          [
+                            "Jumlah Kuis",
+                            <ClipboardText key={course.course_id} />,
+                            `${course.total_tests} kuis`,
+                          ],
+                        ].map(([label, icon, value], index) => (
+                          <div key={index} className="grid gap-1">
+                            <span className="text-xs font-medium text-gray">
+                              {label}:
+                            </span>
 
-                          <div className="flex items-center gap-1">
-                            {icon}
+                            <div className="flex items-center gap-1">
+                              {icon}
 
-                            <p className="text-sm font-semibold capitalize text-black">
-                              {value}
-                            </p>
+                              <p className="text-sm font-semibold capitalize text-black">
+                                {value}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      ))}
-                    </div>
-                  </IconContext.Provider>
+                        ))}
+                      </div>
+                    </IconContext.Provider>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <Empty text="Data video belum tersedia" />
+          )}
         </section>
 
         <section ref={quizRef} className="base-container gap-4 py-[100px]">
@@ -319,10 +327,12 @@ export default function CoursePage({
                 </Modal>
               )}
             </div>
-          ) : null}
+          ) : (
+            <Empty text="Data kuis belum tersedia" />
+          )}
         </section>
 
-        {data?.histories.length ? (
+        {data?.is_login ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid">
               <h2 className="text-3xl font-black -tracking-wide text-black">
@@ -334,17 +344,23 @@ export default function CoursePage({
               </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
-              {data.histories.map((history) => (
-                <CardQuiz
-                  key={history.assr_id}
-                  type="history"
-                  title={history.title}
-                  data={history.score}
-                  onClick={() => router.push(`/quiz/${history.assr_id}/result`)}
-                />
-              ))}
-            </div>
+            {data.histories.length ? (
+              <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
+                {data.histories.map((history) => (
+                  <CardQuiz
+                    key={history.assr_id}
+                    type="history"
+                    title={history.title}
+                    data={history.score}
+                    onClick={() =>
+                      router.push(`/quiz/${history.assr_id}/result`)
+                    }
+                  />
+                ))}
+              </div>
+            ) : (
+              <Empty text="Riwayat masih kosong" />
+            )}
           </section>
         ) : null}
 
