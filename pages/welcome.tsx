@@ -74,10 +74,10 @@ export default function WelcomePage({
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => router.push("/dashboard")}
+                onClick={() => router.push("/osce-ukmppai")}
                 className="px-6 font-bold"
               >
-                Halaman Dashboard
+                Halaman OSCE & UKMPPAI
               </Button>
 
               <Button

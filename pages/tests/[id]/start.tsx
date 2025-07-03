@@ -550,7 +550,7 @@ export const getServerSideProps = async ({
     ) {
       return {
         redirect: {
-          destination: `/dashboard`,
+          destination: `/osce-ukmppai`,
         },
       };
     }

@@ -26,7 +26,6 @@ import {
   ClipboardText,
   CreditCard,
   Headset,
-  House,
   IconContext,
   Medal,
   SignIn,
@@ -62,7 +61,7 @@ const menuItemsMobile = [
       { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
       { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
       { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
-      { label: "Ruang OSCE & Tryout UKMPPAI", href: "/dashboard" },
+      { label: "Ruang OSCE & Tryout UKMPPAI", href: "/osce-ukmppai" },
     ],
   },
 ];
@@ -188,7 +187,7 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/dashboard"
+            href="/osce-ukmppai"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             OSCE & UKMPPAI
@@ -253,15 +252,6 @@ export default function NavbarMain() {
                     title: "font-semibold",
                   }}
                 >
-                  <DropdownItem
-                    key="dashboard"
-                    color="secondary"
-                    startContent={<House />}
-                    onClick={() => router.push("/dashboard")}
-                  >
-                    Dashboard
-                  </DropdownItem>
-
                   <DropdownSection
                     aria-label="account & settings section"
                     title="Akun & Info"

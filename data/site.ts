@@ -105,7 +105,7 @@ export const siteConfigHomePage = {
       id: 6,
       title: "Ruang OSCE & Tryout UKMPPAI",
       icon: PencilRuler,
-      path: "/dashboard",
+      path: "/osce-ukmppai",
       tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
     },
   ],
@@ -266,7 +266,7 @@ export const siteConfigCompanyPage = {
         url: "/kelas/masuk-apoteker",
         icon: Pill,
       },
-      { label: "UKMPPAI & OSCE", url: "/dashboard", icon: PencilRuler },
+      { label: "OSCE & UKMPPAI", url: "/osce-ukmppai", icon: PencilRuler },
     ],
     data: {
       vision: {

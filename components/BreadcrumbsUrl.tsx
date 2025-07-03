@@ -8,8 +8,8 @@ type BreadcrumbsUrlProps = {
 };
 
 export default function BreadcrumbsUrl({
-  rootLabel = "Dashboard",
-  basePath = "/dashboard",
+  rootLabel = "Beranda",
+  basePath = "/",
 }: BreadcrumbsUrlProps) {
   const { asPath } = useRouter();
 

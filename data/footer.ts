@@ -33,7 +33,7 @@ export const footer = {
         },
         {
           label: "Ruang OSCE & Tryout UKMPPAI",
-          href: "/dashboard",
+          href: "/osce-ukmppai",
         },
         {
           label: "Apoteker ROSA",

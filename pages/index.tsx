@@ -213,7 +213,7 @@ export default function HomePage({
                     "👨‍⚕️ Ruang Persiapan Masuk Profesi Apoteker",
                     "/kelas/masuk-apoteker",
                   ],
-                  ["💉 Ruang OSCE & UKMPPAI Sumatif", "/dashboard"],
+                  ["💉 Ruang OSCE & UKMPPAI Sumatif", "/osce-ukmppai"],
                 ].map(([title, path], index) => (
                   <Link
                     key={index}

@@ -50,11 +50,11 @@ export default function MyTestsPage({
               <Button
                 color="secondary"
                 onClick={() => {
-                  router.push("/dashboard");
+                  router.push("/osce-ukmppai");
                 }}
                 className="w-max font-bold"
               >
-                Halaman Dashboard
+                Halaman OSCE & UKMPPAI
               </Button>
             </div>
           </div>
