@@ -18,7 +18,9 @@ export async function middleware(request: NextRequest) {
   }
 
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(
+      new URL(`/auth/login?callback=${pathname}`, request.url),
+    );
   }
 
   const response = NextResponse.next();
