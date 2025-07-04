@@ -137,6 +137,9 @@ export default function DetailCoursePage({
           token,
         }
       : null,
+    {
+      revalidateOnFocus: true,
+    },
   );
 
   useEffect(() => {
@@ -162,6 +165,7 @@ export default function DetailCoursePage({
     data?.data.segments,
     data?.data.title,
     data?.data.preview_url,
+    data?.data.progress,
   ]);
 
   useEffect(() => {
@@ -173,7 +177,7 @@ export default function DetailCoursePage({
     <>
       <Layout
         title={`Detail Kelas Video ${data?.data.title ? data.data.title : ""}`}
-        description="Lorem Ipsum is simply dummy text of the printing and typesetting industry."
+        description={data?.data.description || ""}
       >
         <ButtonBack />
 
@@ -205,13 +209,7 @@ export default function DetailCoursePage({
                 <Skeleton className="h-28 w-full rounded-xl" />
               ) : (
                 <p className="font-medium leading-[170%] text-gray">
-                  Lorem Ipsum is simply dummy text of the printing and
-                  typesetting industry. Lorem Ipsum has been the industry
-                  standard dummy text ever since the 1500s, when an unknown
-                  printer took a galley of type and scrambled it to make a type
-                  specimen book. It has survived not only five centuries, but
-                  also the leap into electronic typesetting, remaining
-                  essentially unchanged.
+                  {data?.data.description}
                 </p>
               )}
             </div>
@@ -231,7 +229,7 @@ export default function DetailCoursePage({
                       className="px-6 font-bold"
                       onClick={() => scrollToSection(sectionPlayerRef)}
                     >
-                      Tonton Preview!
+                      Tonton Preview
                     </Button>
                   ) : null}
 
@@ -263,9 +261,17 @@ export default function DetailCoursePage({
                 src={selectedVideo.url}
                 playsInline
                 autoPlay={selectedVideo.autoplay}
+                onContextMenu={(e) => e.preventDefault()}
               >
                 <MediaProvider />
-                <DefaultVideoLayout icons={defaultLayoutIcons} />
+                <DefaultVideoLayout
+                  icons={defaultLayoutIcons}
+                  slots={{
+                    pipButton: null,
+                    googleCastButton: null,
+                    settingsMenu: null,
+                  }}
+                />
               </MediaPlayer>
             )}
           </div>
@@ -451,23 +457,33 @@ function handleAccordionItemCondition({
         total_contents: number;
         total_progress: number;
         percentage: number;
-      }> = await fetcher({
-        url: "/progress",
-        method: "POST",
-        token,
-        data: {
-          content_id: content.content_id,
+      }> = await toast.promise(
+        fetcher({
+          url: "/progress",
+          method: "POST",
+          token,
+          data: {
+            content_id: content.content_id,
+          },
+        }),
+        {
+          loading: "Menyimpan...",
+          success: <p>Progres telah disimpan</p>,
+          error: <p>Gagal menyimpan progress</p>,
         },
-      });
+        {
+          position: "bottom-right",
+        },
+      );
 
-      toast.success("Konten berhasil ditandai sebagai selesai");
       mutateSegments();
-
       setProgress(response.data);
     } catch (error) {
       console.log(error);
 
-      toast.error("Gagal menandai konten sebagai selesai");
+      toast.error("Gagal menyimpan progress", {
+        position: "bottom-right",
+      });
     }
   }
 
