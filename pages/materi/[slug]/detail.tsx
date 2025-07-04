@@ -1,3 +1,6 @@
+import "@vidstack/react/player/styles/default/theme.css";
+import "@vidstack/react/player/styles/default/layouts/video.css";
+
 import ButtonBack from "@/components/button/ButtonBack";
 import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
@@ -24,12 +27,33 @@ import {
   Play,
   ShareNetwork,
 } from "@phosphor-icons/react";
+import {
+  MediaPlayer,
+  MediaPlayerInstance,
+  MediaProvider,
+  PlayButton,
+} from "@vidstack/react";
+import {
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from "@vidstack/react/player/layouts/default";
+
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
-import { Key, useEffect, useState } from "react";
-import useSWR from "swr";
+import {
+  Dispatch,
+  Key,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import useSWR, { KeyedMutator } from "swr";
 import { useDebounce } from "use-debounce";
+import { scrollToSection } from "@/utils/scrollToSection";
+import toast from "react-hot-toast";
+import { fetcher } from "@/utils/fetcher";
 
 type ContentDetailResponse = {
   course_id: string;
@@ -58,6 +82,10 @@ type Content = {
   test_type: "pre" | "post" | null;
   duration: string;
   total_questions: number;
+  is_locked: boolean;
+  is_completed: boolean;
+  has_note: boolean;
+  token: string | null;
 };
 
 type Segment = {
@@ -76,13 +104,32 @@ export default function DetailCoursePage({
   const [segments, setSegments] = useState<Segment[]>([]);
   const [debouncedSelectedKeys] = useDebounce(selectedKeys, 500);
   const [loadingContents, setLoadingContents] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<{
+    title: string;
+    url: string;
+    autoplay: boolean;
+  }>({
+    title: "",
+    url: "",
+    autoplay: false,
+  });
+  const [loadingVideo, setLoadingVideo] = useState(false);
+  const [progress, setProgress] = useState({
+    total_contents: 0,
+    total_progress: 0,
+    percentage: 0,
+  });
+  const sectionPlayerRef = useRef<HTMLDivElement>(null);
+
   const { data, isLoading } = useSWR<SuccessResponse<ContentDetailResponse>>({
     method: "GET",
     url: `/contents/${slug}/${type}/detail`,
     token,
   });
 
-  const { data: dataContents } = useSWR<SuccessResponse<Content[]>>(
+  const { data: dataContents, mutate: mutateSegments } = useSWR<
+    SuccessResponse<Content[]>
+  >(
     debouncedSelectedKeys
       ? {
           url: `/segments/${debouncedSelectedKeys}`,
@@ -95,8 +142,27 @@ export default function DetailCoursePage({
   useEffect(() => {
     if (!isLoading) {
       setSegments(data?.data.segments || []);
+
+      setSelectedVideo({
+        title: data?.data.title || "",
+        url: data?.data.preview_url || "",
+        autoplay: false,
+      });
+
+      setProgress(
+        data?.data.progress || {
+          total_contents: 0,
+          total_progress: 0,
+          percentage: 0,
+        },
+      );
     }
-  }, [isLoading, data?.data.segments]);
+  }, [
+    isLoading,
+    data?.data.segments,
+    data?.data.title,
+    data?.data.preview_url,
+  ]);
 
   useEffect(() => {
     setContents(dataContents?.data as Content[]);
@@ -163,6 +229,7 @@ export default function DetailCoursePage({
                       color="secondary"
                       startContent={<Play weight="duotone" size={18} />}
                       className="px-6 font-bold"
+                      onClick={() => scrollToSection(sectionPlayerRef)}
                     >
                       Tonton Preview!
                     </Button>
@@ -183,20 +250,23 @@ export default function DetailCoursePage({
           </div>
         </section>
 
-        <section className="base-container gap-8 py-[100px] xl:grid-cols-[1fr_350px] xl:items-start">
+        <section
+          className="base-container gap-8 py-[100px] xl:grid-cols-[1fr_350px] xl:items-start"
+          ref={sectionPlayerRef}
+        >
           <div>
-            {isLoading ? (
+            {isLoading || loadingVideo ? (
               <Skeleton className="aspect-video rounded-xl" />
             ) : (
-              <div className="aspect-video w-full overflow-hidden rounded-xl border-2 border-gray/10 bg-gray/5">
-                <iframe
-                  src=""
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  referrerPolicy="strict-origin-when-cross-origin"
-                  allowFullScreen
-                  className="h-full w-full rounded-xl"
-                ></iframe>
-              </div>
+              <MediaPlayer
+                title={selectedVideo.title}
+                src={selectedVideo.url}
+                playsInline
+                autoPlay={selectedVideo.autoplay}
+              >
+                <MediaProvider />
+                <DefaultVideoLayout icons={defaultLayoutIcons} />
+              </MediaPlayer>
             )}
           </div>
 
@@ -216,14 +286,14 @@ export default function DetailCoursePage({
                     />
 
                     <Progress
-                      value={data?.data.progress.percentage}
+                      value={progress.percentage}
                       color="secondary"
                       label={
                         <p className="text-sm font-medium text-gray">
-                          {data?.data.progress.total_progress} dari{" "}
-                          {data?.data.progress.total_contents} selesai{" "}
+                          {progress.total_progress} dari{" "}
+                          {progress.total_contents} selesai{" "}
                           <span className="font-black text-purple">
-                            ({data?.data.progress.percentage}%)
+                            ({progress.percentage}%)
                           </span>
                         </p>
                       }
@@ -245,7 +315,7 @@ export default function DetailCoursePage({
                 Daftar Video
               </h2>
 
-              <ScrollShadow className="max-h-[400px] overflow-hidden overflow-y-scroll">
+              <div className="max-h-[400px] overflow-hidden overflow-y-scroll">
                 {isLoading ? (
                   <div className="grid gap-2">
                     <ThreeSkeletons classname="h-10" />
@@ -269,16 +339,21 @@ export default function DetailCoursePage({
                         }}
                       >
                         {selectedKeys === segment.segment_id
-                          ? handleAccordionItemCondition(
+                          ? handleAccordionItemCondition({
                               loadingContents,
                               contents,
-                            )
+                              token,
+                              setSelectedVideo,
+                              mutateSegments,
+                              setLoadingVideo,
+                              setProgress,
+                            })
                           : null}
                       </AccordionItem>
                     ))}
                   </Accordion>
                 )}
-              </ScrollShadow>
+              </div>
             </div>
           </div>
         </section>
@@ -291,10 +366,111 @@ export default function DetailCoursePage({
   );
 }
 
-function handleAccordionItemCondition(
-  loadingContents: boolean,
-  contents: Content[],
-) {
+type HandleAccordionItemConditionParams = {
+  loadingContents: boolean;
+  contents: Content[];
+  setSelectedVideo: Dispatch<
+    SetStateAction<{
+      title: string;
+      url: string;
+      autoplay: boolean;
+    }>
+  >;
+  setLoadingVideo: Dispatch<SetStateAction<boolean>>;
+  setProgress: Dispatch<
+    SetStateAction<{
+      total_contents: number;
+      total_progress: number;
+      percentage: number;
+    }>
+  >;
+  token?: string;
+  mutateSegments: KeyedMutator<SuccessResponse<Content[]>>;
+};
+
+function handleAccordionItemCondition({
+  loadingContents,
+  contents,
+  setSelectedVideo,
+  token,
+  setLoadingVideo,
+  mutateSegments,
+  setProgress,
+}: HandleAccordionItemConditionParams) {
+  async function getVideoUrl(content: Content) {
+    if (content.is_locked) return;
+
+    setLoadingVideo(true);
+    try {
+      const response: SuccessResponse<{ video_url: string }> = await fetcher({
+        url: `/urls/${content.content_id}?token=${content.token}`,
+        method: "GET",
+        token,
+      });
+
+      setSelectedVideo({
+        title: content.title,
+        url: response.data.video_url,
+        autoplay: true,
+      });
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Gagal mendapatkan link video");
+    } finally {
+      setLoadingVideo(false);
+    }
+  }
+  async function getNotesUrl(content: Content) {
+    if (content.is_locked) return;
+
+    try {
+      const response: SuccessResponse<{
+        video_note_url: string;
+        video_note: string;
+      }> = await fetcher({
+        url: `/notes/${content.content_id}?token=${content.token}`,
+        method: "GET",
+        token,
+      });
+
+      if (response.data.video_note_url) {
+        window.open(response.data.video_note_url, "_blank");
+      }
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Gagal mendapatkan note video");
+    }
+  }
+  async function markAsCompleted(content: Content) {
+    if (content.is_locked || content.is_completed) return;
+
+    try {
+      const response: SuccessResponse<{
+        total_contents: number;
+        total_progress: number;
+        percentage: number;
+      }> = await fetcher({
+        url: "/progress",
+        method: "POST",
+        token,
+        data: {
+          content_id: content.content_id,
+        },
+      });
+
+      toast.success("Konten berhasil ditandai sebagai selesai");
+      mutateSegments();
+
+      setProgress(response.data);
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Gagal menandai konten sebagai selesai");
+    }
+  }
+
   if (loadingContents) {
     return <ThreeSkeletons classname="h-14" />;
   }
@@ -309,76 +485,106 @@ function handleAccordionItemCondition(
     );
   }
 
-  return contents.map((content) => handleContentCondition(content));
-}
+  return contents.map((content) => {
+    if (
+      content.content_type === "test" &&
+      (content.test_type === "pre" || content.test_type === "post")
+    ) {
+      return (
+        <div
+          key={content.content_id}
+          className="flex items-start gap-2 rounded-xl border-l-8 border-purple bg-purple/5 [padding:1rem_1.5rem] hover:bg-purple/10"
+        >
+          <BookBookmark weight="duotone" size={32} className="text-purple" />
 
-function handleContentCondition(content: Content) {
-  if (
-    content.content_type === "test" &&
-    (content.test_type === "pre" || content.test_type === "post")
-  ) {
-    return (
-      <div
-        key={content.content_id}
-        className="flex items-start gap-2 rounded-xl border-l-8 border-purple bg-purple/5 [padding:1rem_1.5rem] hover:bg-purple/10"
-      >
-        <BookBookmark weight="duotone" size={32} className="text-purple" />
-
-        <div className="grid flex-1 gap-2">
-          <h4 className="line-clamp-1 text-sm font-bold capitalize text-black">
-            {content.title}
-          </h4>
-
-          <Button
-            size="sm"
-            color="secondary"
-            endContent={<ArrowRight weight="bold" />}
-            className="w-max font-bold"
-          >
-            Mulai
-          </Button>
-        </div>
-
-        <p className="text-sm font-semibold text-gray">
-          {content.total_questions} soal
-        </p>
-      </div>
-    );
-  } else {
-    return (
-      <div className="grid" key={content.content_id}>
-        <div className="flex items-start gap-2 rounded-xl [padding:1rem_1.5rem] hover:bg-gray/10">
           <div className="grid flex-1 gap-2">
             <h4 className="line-clamp-1 text-sm font-bold capitalize text-black">
               {content.title}
             </h4>
 
-            <div className="inline-flex items-center gap-2">
-              <CustomTooltip content="Play Video">
-                <Button isIconOnly size="sm" color="secondary" variant="flat">
-                  <Play weight="duotone" size={20} />
-                </Button>
-              </CustomTooltip>
-
-              <CustomTooltip content="Lihat Catatan">
-                <Button isIconOnly size="sm" color="secondary" variant="flat">
-                  <ClipboardText weight="duotone" size={20} />
-                </Button>
-              </CustomTooltip>
-
-              <CustomTooltip content="Video Selesai">
-                <Button isIconOnly size="sm" color="secondary" variant="flat">
-                  <Check weight="bold" size={20} />
-                </Button>
-              </CustomTooltip>
-            </div>
+            <Button
+              size="sm"
+              color="secondary"
+              endContent={
+                content.is_locked ? (
+                  <Lock weight="bold" />
+                ) : (
+                  <ArrowRight weight="bold" />
+                )
+              }
+              className="w-max font-bold"
+              isDisabled={content.is_locked || content.is_completed}
+            >
+              Mulai
+            </Button>
           </div>
 
-          <p className="text-sm font-semibold text-gray">{content.duration}</p>
+          <p className="text-sm font-semibold text-gray">
+            {content.total_questions} soal
+          </p>
         </div>
-      </div>
-    );
-  }
+      );
+    } else {
+      return (
+        <div className="grid" key={content.content_id}>
+          <div className="flex items-start gap-2 rounded-xl [padding:1rem_1.5rem] hover:bg-gray/10">
+            <div className="grid flex-1 gap-2">
+              <h4 className="line-clamp-1 text-sm font-bold capitalize text-black">
+                {content.title}
+              </h4>
+
+              <div className="inline-flex items-center gap-2">
+                <CustomTooltip content="Play Video">
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    color="secondary"
+                    variant="flat"
+                    onClick={() => getVideoUrl(content)}
+                    isDisabled={content.is_locked}
+                  >
+                    <Play weight="duotone" size={20} />
+                  </Button>
+                </CustomTooltip>
+
+                {content.has_note ? (
+                  <CustomTooltip content="Lihat Catatan">
+                    <Button
+                      isIconOnly
+                      size="sm"
+                      color="secondary"
+                      variant="flat"
+                      onClick={() => getNotesUrl(content)}
+                      isDisabled={content.is_locked}
+                    >
+                      <ClipboardText weight="duotone" size={20} />
+                    </Button>
+                  </CustomTooltip>
+                ) : null}
+
+                <CustomTooltip content="Tandai Selesai">
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    color={content.is_completed ? "success" : "secondary"}
+                    variant="flat"
+                    onClick={() => markAsCompleted(content)}
+                    isDisabled={content.is_locked || content.is_completed}
+                  >
+                    <Check weight="bold" size={20} />
+                  </Button>
+                </CustomTooltip>
+              </div>
+            </div>
+
+            <p className="text-sm font-semibold text-gray">
+              {content.duration}
+            </p>
+          </div>
+        </div>
+      );
+    }
+  });
 }
 
 function ThreeSkeletons({ classname }: { classname?: string }) {
