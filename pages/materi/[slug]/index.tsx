@@ -109,14 +109,9 @@ export default function CoursePage({
     return url.split("/").pop();
   };
 
-  const url = "/data/document/nama_dokumen_flashcard.pdf";
-  console.log(getFilenameFromUrl(url));
-
   const textCards = getCardsByType("text");
   const imageCards = getCardsByType("image");
   const documentCards = getCardsByType("document");
-
-  // console.log(data);
 
   return (
     <>
