@@ -21,6 +21,8 @@ import {
 } from "@nextui-org/react";
 import {
   ClipboardText,
+  DownloadSimple,
+  FileText,
   IconContext,
   Trophy,
   VideoCamera,
@@ -103,6 +105,7 @@ export default function CoursePage({
       <Layout title={data?.name as string}>
         <ButtonBack />
 
+        {/* course list section */}
         <section className="base-container gap-16 [padding:50px_0_100px]">
           <div className="flex items-start gap-4">
             <div className="relative h-16 w-16">
@@ -223,6 +226,7 @@ export default function CoursePage({
           )}
         </section>
 
+        {/* quiz section */}
         <section ref={quizRef} className="base-container gap-4 py-[100px]">
           <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
@@ -332,6 +336,7 @@ export default function CoursePage({
           )}
         </section>
 
+        {/* histories quiz section */}
         {data?.is_login ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid">
@@ -364,7 +369,98 @@ export default function CoursePage({
           </section>
         ) : null}
 
-        {/* flash card / summary card */}
+        {/* flashcard section */}
+        <section className="base-container gap-4 py-[100px]">
+          <h2 className="text-3xl font-black -tracking-wide text-black">
+            Flashcard ✉️
+          </h2>
+
+          <div className="grid gap-8 xl:grid-cols-[1fr_350px] xl:items-start">
+            {/* image & text flashcard */}
+            <div className="grid gap-4 md:grid-cols-2 md:items-start">
+              {Array.from({ length: 2 }, (_, index) => (
+                <Image
+                  key={index}
+                  priority
+                  src="/img/dummy-flashcard.png"
+                  alt="flashcard image"
+                  width={1024}
+                  height={768}
+                  className="rounded-xl object-cover"
+                />
+              ))}
+
+              {Array.from({ length: 2 }, (_, index) => (
+                <div
+                  key={index}
+                  className="group rounded-xl border-l-8 border-purple bg-purple/5 p-8"
+                >
+                  <h5 className="mb-2 text-lg font-black text-black">
+                    Tulisan Flascard ✏️
+                  </h5>
+                  <p className="preventive-list preventive-table text-sm font-medium leading-[170%] text-gray">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    Recusandae, culpa voluptatem repellendus explicabo veritatis
+                    reiciendis molestiae temporibus ad, praesentium quia totam?
+                    Fuga provident vel reprehenderit perspiciatis quas repellat
+                    quam facilis?
+                  </p>
+                </div>
+              ))}
+            </div>
+
+            {/* document flashcard */}
+            <div className="grid">
+              <h4 className="text-lg font-bold text-black">
+                Dokumen yang diunggah
+              </h4>
+
+              <div className="grid divide-y-2 divide-dashed divide-gray/20">
+                {Array.from({ length: 2 }, (_, index) => (
+                  <div
+                    key={index}
+                    className="flex items-center justify-between gap-4 [padding:1rem_0.5rem] hover:bg-purple/10"
+                  >
+                    <div className="inline-flex items-center gap-2">
+                      <FileText
+                        weight="duotone"
+                        size={32}
+                        className="text-purple"
+                      />
+
+                      <div className="grid flex-1 text-sm">
+                        <h5 className="line-clamp-1 font-bold text-black">
+                          nama_dokumen_flascard.pdf
+                        </h5>
+
+                        <p className="font-medium text-gray">
+                          Diunggah pada:{" "}
+                          <strong className="text-purple">4 Juli 2025</strong>
+                        </p>
+                      </div>
+                    </div>
+
+                    <a
+                      download
+                      href="/document/dummy-flashcard.pdf"
+                      className="rounded-lg p-2 hover:bg-gray/10"
+                    >
+                      <CustomTooltip content="Download Flashcard">
+                        <DownloadSimple
+                          weight="bold"
+                          size={18}
+                          className="text-purple"
+                        />
+                      </CustomTooltip>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* subscriptions section */}
         {data?.subscriptions.length ? (
           <SectionSubscription
             sectionRef={subscribeRef}
