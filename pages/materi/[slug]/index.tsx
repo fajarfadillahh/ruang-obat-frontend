@@ -100,6 +100,24 @@ export default function CoursePage({
     setIsOpenModalQuiz(true);
   }
 
+  function getCardsByType(type: string) {
+    return data?.cards.filter((card) => card.type == type);
+  }
+
+  const getFilenameFromUrl = (url: string) => {
+    if (!url) return "File Dokumen Tidak Diketahui";
+    return url.split("/").pop();
+  };
+
+  const url = "/data/document/nama_dokumen_flashcard.pdf";
+  console.log(getFilenameFromUrl(url));
+
+  const textCards = getCardsByType("text");
+  const imageCards = getCardsByType("image");
+  const documentCards = getCardsByType("document");
+
+  // console.log(data);
+
   return (
     <>
       <Layout title={data?.name as string}>
@@ -375,89 +393,91 @@ export default function CoursePage({
             Flashcard ✉️
           </h2>
 
-          <div className="grid gap-8 xl:grid-cols-[1fr_350px] xl:items-start">
-            {/* image & text flashcard */}
-            <div className="grid gap-4 md:grid-cols-2 md:items-start">
-              {Array.from({ length: 2 }, (_, index) => (
-                <Image
-                  key={index}
-                  priority
-                  src="/img/dummy-flashcard.png"
-                  alt="flashcard image"
-                  width={1024}
-                  height={768}
-                  className="rounded-xl object-cover"
-                />
-              ))}
-
-              {Array.from({ length: 2 }, (_, index) => (
-                <div
-                  key={index}
-                  className="group rounded-xl border-l-8 border-purple bg-purple/5 p-8"
-                >
-                  <h5 className="mb-2 text-lg font-black text-black">
-                    Tulisan Flascard ✏️
-                  </h5>
-                  <p className="preventive-list preventive-table text-sm font-medium leading-[170%] text-gray">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Recusandae, culpa voluptatem repellendus explicabo veritatis
-                    reiciendis molestiae temporibus ad, praesentium quia totam?
-                    Fuga provident vel reprehenderit perspiciatis quas repellat
-                    quam facilis?
-                  </p>
+          {data?.cards.length ? (
+            <div className="grid gap-8 xl:grid-cols-[1fr_350px] xl:items-start">
+              <div className="grid gap-8">
+                {/* image flashcard */}
+                <div className="w-full columns-[377px]">
+                  {imageCards?.map((item, index) => (
+                    <Image
+                      key={index}
+                      priority
+                      src={item.url as string}
+                      alt="flashcard image"
+                      width={1024}
+                      height={768}
+                      className="mb-4 h-auto w-full rounded-xl object-cover"
+                    />
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {/* document flashcard */}
-            <div className="grid">
-              <h4 className="text-lg font-bold text-black">
-                Dokumen yang diunggah
-              </h4>
-
-              <div className="grid divide-y-2 divide-dashed divide-gray/20">
-                {Array.from({ length: 2 }, (_, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between gap-4 [padding:1rem_0.5rem] hover:bg-purple/10"
-                  >
-                    <div className="inline-flex items-center gap-2">
-                      <FileText
-                        weight="duotone"
-                        size={32}
-                        className="text-purple"
-                      />
-
-                      <div className="grid flex-1 text-sm">
-                        <h5 className="line-clamp-1 font-bold text-black">
-                          nama_dokumen_flascard.pdf
-                        </h5>
-
-                        <p className="font-medium text-gray">
-                          Diunggah pada:{" "}
-                          <strong className="text-purple">4 Juli 2025</strong>
-                        </p>
-                      </div>
-                    </div>
-
-                    <a
-                      download
-                      href="/document/dummy-flashcard.pdf"
-                      className="rounded-lg p-2 hover:bg-gray/10"
+                {/* text flashcard */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  {textCards?.map((item, index) => (
+                    <div
+                      key={index}
+                      className="group rounded-xl border-l-8 border-purple bg-purple/5 p-8"
                     >
-                      <CustomTooltip content="Download Flashcard">
-                        <DownloadSimple
-                          weight="bold"
-                          size={18}
-                          className="text-purple"
-                        />
-                      </CustomTooltip>
-                    </a>
-                  </div>
-                ))}
+                      <h5 className="mb-2 text-lg font-black text-black">
+                        Tulisan Flascard ✏️
+                      </h5>
+                      <p className="preventive-list preventive-table text-sm font-medium leading-[170%] text-gray">
+                        {item.text}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* document flashcard */}
+              <div className="grid">
+                <h4 className="mb-2 text-lg font-bold text-black">
+                  Dokumen yang diunggah
+                </h4>
+
+                <div className="grid divide-y-2 divide-dashed divide-gray/20">
+                  {documentCards?.length ? (
+                    documentCards.map((item, index) => (
+                      <div
+                        key={index}
+                        className="flex items-center justify-between gap-4 [padding:1rem_0.5rem] hover:bg-purple/10"
+                      >
+                        <div className="inline-flex items-center gap-2">
+                          <FileText
+                            weight="duotone"
+                            size={32}
+                            className="text-purple"
+                          />
+
+                          <h5 className="line-clamp-1 font-bold text-black">
+                            {getFilenameFromUrl(item.url as string)}
+                          </h5>
+                        </div>
+
+                        <a
+                          download
+                          href={item.url}
+                          className="rounded-lg p-2 hover:bg-gray/10"
+                        >
+                          <CustomTooltip content="Download Flashcard">
+                            <DownloadSimple
+                              weight="bold"
+                              size={18}
+                              className="text-purple"
+                            />
+                          </CustomTooltip>
+                        </a>
+                      </div>
+                    ))
+                  ) : (
+                    <Empty text="Dokumen tidak tersedia" />
+                  )}
+                </div>
               </div>
             </div>
-          </div>
+          ) : (
+            <Empty text="Flashcard belum tersedia" />
+          )}
         </section>
 
         {/* subscriptions section */}
