@@ -50,7 +50,7 @@ export default function OsceUkmppaiPage({
     <Layout title="Pilih Program Yang Sesuai Dengan Kebutuhan Kamu">
       <section className="base-container gap-6">
         <h1 className="text-2xl font-extrabold -tracking-wide text-black">
-          Daftar Program 📋
+          Daftar Program OSCE & UKMPPAI📋
         </h1>
 
         <div className="grid gap-4">

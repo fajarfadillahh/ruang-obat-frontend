@@ -1,8 +1,8 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import CardTest from "@/components/card/CardTest";
 import Loading from "@/components/Loading";
+import ModalBuy from "@/components/modal/ModalBuy";
 import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
-import ModalInputAccessKey from "@/components/modal/ModalInputAccessKey";
 import ModalJoinGroup from "@/components/modal/ModalJoinGroup";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
@@ -121,12 +121,9 @@ export default function DetailsProgram({
                   }}
                 />
               ) : (
-                <ModalInputAccessKey
-                  {...{
-                    token,
-                    program_id: data?.data.program_id as string,
-                    mutate,
-                  }}
+                <ModalBuy
+                  buttonText="Ikuti Program"
+                  productName={data?.data.title as string}
                 />
               ))}
 
