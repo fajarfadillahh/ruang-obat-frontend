@@ -1,10 +1,10 @@
+import { AppContext } from "@/context/AppContext";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Button, useDisclosure } from "@nextui-org/react";
+import { Button } from "@nextui-org/react";
 import { CheckCircle } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
-import { MutableRefObject } from "react";
+import { MutableRefObject, useContext } from "react";
 import { twMerge } from "tailwind-merge";
-import ModalUnauthenticated from "../modal/ModalUnauthenticated";
 
 interface SectionSubscriptionProps {
   className?: string;
@@ -30,8 +30,8 @@ export default function SectionSubscription({
   sectionRef,
   subscriptions,
 }: SectionSubscriptionProps) {
-  const { onOpen, isOpen, onClose } = useDisclosure();
   const { status } = useSession();
+  const ctx = useContext(AppContext);
 
   return (
     <section
@@ -105,17 +105,10 @@ export default function SectionSubscription({
               </div>
             </div>
 
-            <ModalUnauthenticated
-              isOpen={isOpen}
-              onClose={() => {
-                onClose();
-              }}
-            />
-
             <Button
               onClick={() => {
                 if (status === "unauthenticated") {
-                  onOpen();
+                  ctx?.onOpenUnauthenticated();
                 } else {
                   window.open(item.link_order, "_blank");
                 }
