@@ -5,6 +5,7 @@ import ModalBuy from "@/components/modal/ModalBuy";
 import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
 import ModalJoinGroup from "@/components/modal/ModalJoinGroup";
 import Layout from "@/components/wrapper/Layout";
+import { AppContext } from "@/context/AppContext";
 import { SuccessResponse } from "@/types/global.type";
 import { DetailsProgramResponse } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
@@ -17,10 +18,12 @@ import {
   Tag,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import useSWR from "swr";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function DetailsProgram({
   token,
@@ -34,6 +37,7 @@ export default function DetailsProgram({
     method: "GET",
     token,
   });
+  const ctx = useContext(AppContext);
 
   useEffect(() => {
     if (error?.status_code == 404) {
@@ -111,34 +115,18 @@ export default function DetailsProgram({
               </div>
             </div>
 
-            {data?.data.is_approved == null &&
-              (data?.data.type == "free" ? (
-                <ModalFreeAccess
-                  {...{
-                    token,
-                    program_id: data.data.program_id,
-                    mutate,
-                  }}
-                />
-              ) : (
-                <ModalBuy
-                  buttonText="Ikuti Program"
-                  productName={data?.data.title as string}
-                />
-              ))}
-
-            {data?.data.is_approved === false && (
+            {!data?.data.is_login && (
               <Button
                 color="secondary"
                 size="sm"
                 className="w-full font-bold sm:w-max sm:px-6"
-                isDisabled={true}
+                onClick={() => ctx?.onOpenUnauthenticated()}
               >
-                Menunggu Approve
+                Ikuti Program
               </Button>
             )}
 
-            {data?.data.is_approved && (
+            {data?.data.is_login && data.data.is_approved && (
               <div className="inline-flex items-center gap-1">
                 <SealCheck weight="fill" size={24} className="text-success" />
 
@@ -147,6 +135,21 @@ export default function DetailsProgram({
                 </p>
               </div>
             )}
+
+            {data?.data.is_login &&
+              !data.data.is_approved &&
+              (data.data.type === "free" ? (
+                <ModalFreeAccess
+                  token={token}
+                  program_id={data.data.program_id}
+                  mutate={mutate}
+                />
+              ) : (
+                <ModalBuy
+                  buttonText="Ikuti Program"
+                  productName={data.data.title as string}
+                />
+              ))}
           </div>
 
           <div className="grid gap-4 pt-10">
@@ -165,7 +168,9 @@ export default function DetailsProgram({
           </div>
         </div>
 
-        {data?.data.is_approved && <ModalJoinGroup {...data} />}
+        {data?.data.is_login && data?.data.is_approved && (
+          <ModalJoinGroup {...data} />
+        )}
       </section>
     </Layout>
   );
@@ -174,10 +179,12 @@ export default function DetailsProgram({
 export const getServerSideProps: GetServerSideProps<{
   token: string;
   params: ParsedUrlQuery;
-}> = async ({ req, params }) => {
+}> = async ({ req, params, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
   return {
     props: {
-      token: req.headers["access_token"] as string,
+      token: session ? (session?.user.access_token as string) : "",
       params: params as ParsedUrlQuery,
     },
   };

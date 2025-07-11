@@ -14,6 +14,10 @@ import { useDebounce } from "use-debounce";
 import { authOptions } from "./api/auth/[...nextauth]";
 
 function getUrl(query: { type?: string; q?: string; page?: string }) {
+  if (query.q && query.type) {
+    return `/programs?q=${query.q}&type=${query.type}&page=${query.page ? query.page : 1}`;
+  }
+
   if (query.type) {
     return `/programs?type=${query.type}&page=${query.page ? query.page : 1}`;
   }
@@ -144,12 +148,12 @@ function renderContent(isLoading: boolean, programs: ProgramsType[]) {
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
-}> = async ({ req, query, res }) => {
+}> = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
 
   return {
     props: {
-      token: session?.user.access_token as string,
+      token: session ? (session?.user.access_token as string) : "",
     },
   };
 };
