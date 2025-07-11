@@ -32,9 +32,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/osce-ukmppai",
     "/my/:path*",
-    "/programs/:path*",
     "/tests/:path*",
     "/welcome",
     "/results/:path*",
