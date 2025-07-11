@@ -310,7 +310,6 @@ export default function HomePage({
           </div>
         </section>
 
-        {/* apoteker rosa section */}
         <section className="base-container py-[100px]">
           <div className="relative isolate h-[700px] overflow-hidden rounded-3xl lg:h-[600px]">
             <Balatro
@@ -330,7 +329,7 @@ export default function HomePage({
                 </p>
 
                 <h1 className="text-4xl font-black text-white lg:text-5xl">
-                  Apoteker ROSA: AI Farmasi Pertama Di Indonesia
+                  Apoteker ROSA (BETA): AI Farmasi Pertama Di Indonesia
                 </h1>
 
                 <p className="font-medium leading-[170%] text-white">

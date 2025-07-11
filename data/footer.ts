@@ -36,7 +36,7 @@ export const footer = {
           href: "/osce-ukmppai",
         },
         {
-          label: "Apoteker ROSA",
+          label: "Apoteker ROSA (BETA)",
           href: "/rosa",
         },
       ],

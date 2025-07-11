@@ -201,7 +201,7 @@ export default function NavbarMain() {
           >
             <Sparkle weight="duotone" size={18} className="text-purple" />
 
-            <span>Apoteker ROSA</span>
+            <span>Apoteker ROSA (BETA)</span>
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -405,7 +405,7 @@ export default function NavbarMain() {
 
           <div className="grid flex-1 gap-1">
             <h4 className="flex w-max items-center gap-2 text-lg font-bold text-white">
-              <span>Apoteker ROSA</span>
+              <span>Apoteker ROSA (BETA)</span>
 
               <ArrowRight weight="bold" size={16} />
             </h4>

@@ -21,13 +21,13 @@ export default function RosaPage() {
   return (
     <>
       <Layout
-        title="Apoteker ROSA"
-        description="Apoteker ROSA adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
+        title="Apoteker ROSA (BETA)"
+        description="Apoteker ROSA (BETA) adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
       >
         <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_500px] xl:gap-0">
           <div className="grid gap-4">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Apoteker ROSA:{" "}
+              Apoteker ROSA (BETA):{" "}
               <TextHighlight
                 text="Smart Assistant"
                 className="inline-flex font-black"
@@ -36,7 +36,7 @@ export default function RosaPage() {
             </h1>
 
             <p className="mb-8 font-medium leading-[170%] text-gray">
-              Apoteker ROSA adalah{" "}
+              Apoteker ROSA (BETA) adalah{" "}
               <TextHighlight text="smart assistant berbasis AI" /> yang
               dirancang khusus untuk membantu kamu dalam{" "}
               <TextHighlight
