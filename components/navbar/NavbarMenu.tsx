@@ -21,13 +21,16 @@ import {
 } from "@nextui-org/react";
 import {
   ArrowRight,
+  BookBookmark,
   CaretDown,
   ChatCircleText,
   ClipboardText,
   CreditCard,
   Headset,
   IconContext,
+  MagnifyingGlass,
   Medal,
+  Pill,
   SignIn,
   SignOut,
   Sparkle,
@@ -61,19 +64,40 @@ const menuItemsMobile = [
       { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
       { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
       { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
-      { label: "Ruang OSCE & Tryout UKMPPAI", href: "/osce-ukmppai" },
+      { label: "Ruang OSCE & UKMPPAI", href: "/osce-ukmppai" },
     ],
   },
 ];
 
 const menuItemsDesktop = [
   {
+    icon: ClipboardText,
+    iconColor: "warning",
     label: "Ruang Private 1 on 1",
+    description: "Pendampingan intensif untuk hasil belajar maksimal.",
     href: "/kelas/private-1-on-1",
   },
-  { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
-  { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
-  { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
+  {
+    icon: BookBookmark,
+    iconColor: "success",
+    label: "Ruang Skripsi Farmasi",
+    description: "Bimbingan skripsi terarah dari awal hingga tuntas.",
+    href: "/kelas/skripsi-farmasi",
+  },
+  {
+    icon: MagnifyingGlass,
+    iconColor: "primary",
+    label: "Ruang Riset Farmasi",
+    description: "Tingkatkan skill risetmu dengan metode yang tepat.",
+    href: "/kelas/riset-farmasi",
+  },
+  {
+    icon: Pill,
+    iconColor: "danger",
+    label: "Ruang Masuk Apoteker",
+    description: "Persiapan matang menuju profesi apoteker impianmu.",
+    href: "/kelas/masuk-apoteker",
+  },
 ];
 
 export default function NavbarMain() {
@@ -172,10 +196,23 @@ export default function NavbarMain() {
               </div>
             </DropdownTrigger>
 
-            <DropdownMenu items={menuItemsDesktop}>
+            <DropdownMenu
+              items={menuItemsDesktop}
+              itemClasses={{
+                base: "gap-4",
+              }}
+            >
               {(item) => (
                 <DropdownItem
                   key={item.href}
+                  description={item.description}
+                  startContent={
+                    <item.icon
+                      weight="duotone"
+                      size={48}
+                      className={`text-${item.iconColor}`}
+                    />
+                  }
                   onClick={() => router.push(item.href)}
                 >
                   {item.label}
