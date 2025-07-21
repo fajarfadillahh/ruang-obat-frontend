@@ -32,7 +32,7 @@ export const footer = {
           href: "/kelas/masuk-apoteker",
         },
         {
-          label: "Ruang OSCE & Tryout UKMPPAI",
+          label: "Ruang OSCE & UKMPPAI",
           href: "/osce-ukmppai",
         },
         {

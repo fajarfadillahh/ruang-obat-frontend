@@ -17,6 +17,7 @@ import {
   PhoneCall,
   Pill,
   Question,
+  Robot,
   RocketLaunch,
   Target,
   Video,
@@ -27,51 +28,52 @@ export const siteConfigHomePage = {
     {
       id: 1,
       amount: "10K+",
-      label: "Mahasiswa Farmasi",
+      label: "10.000+ Mahasiswa Farmasi Percaya Ruangobat",
     },
     {
       id: 2,
       amount: "100+",
-      label: "Universitas Ternama",
+      label: "Dipakai oleh Mahasiswa di 100+ Kampus Se-Indonesia",
     },
     {
       id: 3,
       amount: "6",
-      label: "Bimbel Unggulan",
+      label: "6 Program Bimbel Keren dan Unggulan!",
     },
     {
       id: 4,
       amount: "100%",
-      label: "Kemudahan Akses",
+      label: "100% Bisa Diakses Kapan Saja, Di Mana Saja!",
     },
   ],
   reasons: [
     {
       id: 1,
-      title: "Program Lengkap & Praktis!",
+      title: "Program Farmasi Lengkap & Praktis!",
       icon: GraduationCap,
-      text: "Dari materi kuliah, skripsi, riset hingga persiapan apoteker semuanya ada disini. Ngaa perlu loncat-loncat platform. #cukupdisiniaja",
+      text: "Dari materi kuliah, skripsi, riset hingga persiapan apoteker ~ Semuanya ada disini. Ngaa perlu loncat-loncat platform. #cukupdisiniaja",
     },
     {
       id: 2,
-      title: "Materi & Soal Selalu Update!",
+      title: "Materi & Soal Selalu Up-To-Date!",
       icon: ClipboardText,
-      text: "Materi & Latihan soal gak bakal basi, semua sudah sesuai dengan teori dan praktikal, Jadi kamu siap kapan saja buat latihan.",
+      text: "Materi Video, Rangkuman & Latihan soal gak bakal basi, semua sudah sesuai dengan teori dan praktikal, Jadi kamu siap kapan saja.",
     },
     {
       id: 3,
       title: "Website Nyaman & Responsif!",
       icon: RocketLaunch,
-      text: "Belajar flexible lewat website yang cepet, ringan, dan anti ribet. Akses bebas kapan saja, dimana saja, no drama, no loading lama.",
+      text: "Belajar flexible lewat website yang cepet, ringan, dan anti ribet. Akses bebas kapan saja, dimana saja ~ no drama, no loading lama.",
     },
   ],
   classes: [
     {
       id: 1,
-      title: "Ruang Video Pembelajaran Farmasi",
+      title: "Ruang Sarjana & Diploma Farmasi",
       icon: Video,
       path: "/video",
-      tagline: "Belajar fleksibel, materi lengkap & bebas akses kapan saja.",
+      tagline:
+        "Video belajar fleksibel & lengkap untuk gelar Sarjana & Diploma.",
     },
     {
       id: 2,
@@ -103,10 +105,17 @@ export const siteConfigHomePage = {
     },
     {
       id: 6,
-      title: "Ruang OSCE & Tryout UKMPPAI",
+      title: "Ruang OSCE & UKMPPAI",
       icon: PencilRuler,
       path: "/osce-ukmppai",
       tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
+    },
+    {
+      id: 7,
+      title: "Apoteker ROSA",
+      icon: Robot,
+      path: "/rosa",
+      tagline: "Partner Virtual Farmasi Pertama di Indonesia. 🔥",
     },
   ],
   mentors: [
