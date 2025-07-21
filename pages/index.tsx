@@ -110,19 +110,19 @@ export default function HomePage({
               <Button
                 color="secondary"
                 endContent={<Sparkle weight="duotone" size={18} />}
-                onClick={() => scrollToSection(listClassRef)}
+                onClick={() => router.push("/video")}
                 className="px-10 font-bold"
               >
-                Lihat Daftar Kelas
+                Beli Paket Belajar
               </Button>
 
               <Button
                 variant="bordered"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/perusahaan")}
-                className="px-8 font-bold"
+                onClick={() => scrollToSection(listClassRef)}
+                className="px-10 font-bold"
               >
-                Jelajahi RuangObat
+                Lihat Daftar Kelas
               </Button>
             </div>
           </div>
