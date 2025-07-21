@@ -4,6 +4,7 @@ import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import {
   Avatar,
+  Badge,
   Button,
   Dropdown,
   DropdownItem,
@@ -20,7 +21,6 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import {
-  ArrowRight,
   BookBookmark,
   CaretDown,
   ChatCircleText,
@@ -30,11 +30,13 @@ import {
   IconContext,
   MagnifyingGlass,
   Medal,
+  PencilRuler,
   Pill,
   SignIn,
   SignOut,
   Sparkle,
   UserCircle,
+  Video,
 } from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -54,7 +56,7 @@ const menuItemsMobile = [
     label: "Produk",
     list: [
       {
-        label: "Video Pembelajaran",
+        label: "Ruang Sarjana & Diploma Farmasi",
         href: "/video",
       },
       {
@@ -71,8 +73,16 @@ const menuItemsMobile = [
 
 const menuItemsDesktop = [
   {
-    icon: ClipboardText,
+    icon: Video,
     iconColor: "warning",
+    label: "Ruang Sarjana & Diploma Farmasi",
+    description:
+      "Video belajar fleksibel & lengkap untuk gelar Sarjana & Diploma.",
+    href: "/video",
+  },
+  {
+    icon: ClipboardText,
+    iconColor: "secondary",
     label: "Ruang Private 1 on 1",
     description: "Pendampingan intensif untuk hasil belajar maksimal.",
     href: "/kelas/private-1-on-1",
@@ -97,6 +107,13 @@ const menuItemsDesktop = [
     label: "Ruang Masuk Apoteker",
     description: "Persiapan matang menuju profesi apoteker impianmu.",
     href: "/kelas/masuk-apoteker",
+  },
+  {
+    icon: PencilRuler,
+    iconColor: "warning",
+    label: "Ruang OSCE & UKMPPAI",
+    description: "Siap hadapi ujian kompetensi dengan percaya diri.",
+    href: "/osce-ukmppai",
   },
 ];
 
@@ -162,8 +179,8 @@ export default function NavbarMain() {
 
         <NavbarBrand className="hidden lg:inline-flex">
           <Link href="/" className="inline-flex items-center gap-2">
-            <LogoRuangobat className="h-auto w-8 text-gray/20" />
-            <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
+            <LogoRuangobat className="h-auto w-10 text-gray/20" />
+            <h1 className="text-2xl font-extrabold -tracking-wide text-black">
               RuangObat<span className="text-purple">.</span>
             </h1>
           </Link>
@@ -172,20 +189,11 @@ export default function NavbarMain() {
 
       <NavbarContent className="hidden gap-4 lg:flex lg:gap-8" justify="center">
         <NavbarItem>
-          <Link
-            href="/video"
-            className="text-sm font-medium text-gray hover:text-purple"
-          >
-            Video Pembelajaran
-          </Link>
-        </NavbarItem>
-
-        <NavbarItem>
           <Dropdown>
             <DropdownTrigger>
               <div className="group inline-flex items-center gap-1 hover:cursor-pointer">
                 <p className="text-sm font-medium text-gray hover:text-purple">
-                  Daftar Kelas
+                  Daftar Program
                 </p>
 
                 <CaretDown
@@ -200,16 +208,18 @@ export default function NavbarMain() {
               items={menuItemsDesktop}
               itemClasses={{
                 base: "gap-4",
+                title: "font-bold text-lg -tracking-wide text-black",
+                description: "text-sm text-gray",
               }}
             >
               {(item) => (
                 <DropdownItem
-                  key={item.href}
+                  key={item.description}
                   description={item.description}
                   startContent={
                     <item.icon
                       weight="duotone"
-                      size={48}
+                      size={42}
                       className={`text-${item.iconColor}`}
                     />
                   }
@@ -224,10 +234,20 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/osce-ukmppai"
+            href="/perusahaan/testimonial"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            OSCE & UKMPPAI
+            Testimonial
+          </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link
+            href="https://wa.me/6289637015733"
+            target="_blank"
+            className="text-sm font-medium text-gray hover:text-purple"
+          >
+            WhatsApp Kami
           </Link>
         </NavbarItem>
 
@@ -238,7 +258,16 @@ export default function NavbarMain() {
           >
             <Sparkle weight="duotone" size={18} className="text-purple" />
 
-            <span>Apoteker ROSA (BETA)</span>
+            <Badge
+              color="danger"
+              content="Beta"
+              size="sm"
+              classNames={{
+                badge: "-right-[13%] -top-[10%]",
+              }}
+            >
+              <span>Apoteker ROSA</span>
+            </Badge>
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -441,10 +470,17 @@ export default function NavbarMain() {
           <Sparkle weight="duotone" size={32} className="text-white" />
 
           <div className="grid flex-1 gap-1">
-            <h4 className="flex w-max items-center gap-2 text-lg font-bold text-white">
-              <span>Apoteker ROSA (BETA)</span>
-
-              <ArrowRight weight="bold" size={16} />
+            <h4 className="text-lg font-bold text-white">
+              <Badge
+                color="danger"
+                content="Beta"
+                size="sm"
+                classNames={{
+                  badge: "-right-[10%] -top-[10%]",
+                }}
+              >
+                <span>Apoteker ROSA</span>
+              </Badge>
             </h4>
 
             <p className="text-sm font-medium text-white/80">
