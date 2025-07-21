@@ -12,7 +12,7 @@ export const footer = {
       label: "Produk Kami",
       list: [
         {
-          label: "Video Pembelajaran",
+          label: "Ruang Sarjana & Diploma Farmasi",
           href: "/video",
         },
         {
@@ -36,7 +36,7 @@ export const footer = {
           href: "/osce-ukmppai",
         },
         {
-          label: "Apoteker ROSA (BETA)",
+          label: "Apoteker ROSA",
           href: "/rosa",
         },
       ],

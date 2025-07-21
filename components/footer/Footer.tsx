@@ -1,5 +1,5 @@
 import { footer } from "@/data/footer";
-import { Image } from "@nextui-org/react";
+import { Badge, Image } from "@nextui-org/react";
 import { IconContext } from "@phosphor-icons/react";
 import Link from "next/link";
 
@@ -17,13 +17,33 @@ export default function Footer() {
 
                 <ul className="flex flex-col gap-2">
                   {item.list.map((subitem, index) => (
-                    <Link
-                      key={index}
-                      href={subitem.href as string}
-                      className="w-max font-medium text-white/80 hover:text-white hover:underline"
-                    >
-                      {subitem.label}
-                    </Link>
+                    <>
+                      {subitem.href == "/rosa" ? (
+                        <Badge
+                          color="danger"
+                          content="Beta"
+                          size="sm"
+                          classNames={{
+                            badge: "right-[45%] top-[45%]",
+                          }}
+                        >
+                          <Link
+                            href="/rosa"
+                            className="inline-flex w-max font-medium text-white/80 hover:text-white hover:underline"
+                          >
+                            Apoteker ROSA
+                          </Link>
+                        </Badge>
+                      ) : (
+                        <Link
+                          key={index}
+                          href={subitem.href as string}
+                          className="w-max font-medium text-white/80 hover:text-white hover:underline"
+                        >
+                          {subitem.label}
+                        </Link>
+                      )}
+                    </>
                   ))}
                 </ul>
               </div>
