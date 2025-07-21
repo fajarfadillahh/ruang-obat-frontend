@@ -12,6 +12,7 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
 import {
   ArrowRight,
+  Dna,
   IconContext,
   Microscope,
   Sparkle,
@@ -70,7 +71,7 @@ export default function HomePage({
 
           <Microscope
             weight="duotone"
-            className="absolute bottom-64 right-0 hidden size-16 rotate-12 text-purple lg:flex"
+            className="absolute bottom-[500px] right-0 hidden size-20 rotate-12 text-purple lg:flex"
           />
 
           <div className="grid justify-items-center gap-4 text-center">
@@ -85,27 +86,24 @@ export default function HomePage({
               🔥 Selamat Datang Di RuangObat
             </Chip>
 
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Bimbel Private Farmasi No. 1 di Indonesia Yang{" "}
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xs:leading-[115%]">
               <TextHighlight
-                text="Memfasilitasi 10.000+"
-                className="font-black"
-              />{" "}
-              Mahasiswa Farmasi Seluruh Indonesia
+                text="“Bimbel Private Farmasi No.1 di Indonesia”"
+                className="font-black leading-[115%]"
+              />
+              <br />
+              Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar
+              Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia
             </h1>
 
-            <p className="max-w-[800px] font-medium leading-[170%] text-gray">
+            <p className="max-w-[900px] text-lg font-medium leading-[170%] text-gray">
               Dapatkan{" "}
               <TextHighlight
-                text="akses lengkap video pembelajaran farmasi, bimbingan skripsi & riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
+                text="akses lengkap Video Pembelajaran, Bimbingan Private Skripsi & Riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
                 className="normal-case"
               />{" "}
               Semua yang kamu butuhkan untuk sukses menjadi{" "}
-              <TextHighlight
-                text="Sarjana Farmasi & Apoteker,"
-                className="lowercase"
-              />{" "}
-              ada di sini!
+              <TextHighlight text="Sarjana Farmasi & Apoteker," /> ada di sini!
             </p>
 
             <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
@@ -129,33 +127,55 @@ export default function HomePage({
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
-            {siteConfigHomePage.statistics.map((item, index) => (
-              <div
-                key={index}
-                className="grid gap-1 rounded-xl border-2 border-gray/10 p-8"
-              >
-                <h3 className="text-4xl font-extrabold text-purple">
-                  {item.amount}
-                </h3>
+          <div className="mt-8 grid items-center gap-4 xl:grid-cols-2">
+            <div className="grid max-w-[480px] justify-items-center gap-2 justify-self-center text-center xl:text-left">
+              <h1 className="text-4xl font-black -tracking-wide text-black">
+                RuangObat: Mudah, Cepat & Terpercaya!
+              </h1>
 
-                <p className="font-medium leading-[170%] text-gray">
-                  {item.label}{" "}
-                  <ArrowRight
-                    weight="bold"
-                    size={16}
-                    className="ml-1 inline-flex text-purple"
-                  />
-                </p>
-              </div>
-            ))}
+              <p className="font-medium leading-[170%] text-gray">
+                Kami hadir memberikan materi yang relevan, up-to-date, dan
+                dikemas dengan gaya yang friendly tapi tetap fokus sama
+                kualitas.
+              </p>
+            </div>
+
+            <div className="grid gap-4 xl:-order-1 xl:grid-cols-2">
+              {siteConfigHomePage.statistics.map((item, index) => (
+                <div
+                  key={index}
+                  className="grid gap-2 rounded-xl border-2 border-gray/10 p-8"
+                >
+                  <h3 className="text-4xl font-extrabold text-purple">
+                    {item.amount}
+                  </h3>
+
+                  <p className="text-sm font-medium leading-[170%] text-gray">
+                    {item.label}{" "}
+                    <ArrowRight
+                      weight="bold"
+                      size={16}
+                      className="ml-1 inline-flex text-purple"
+                    />
+                  </p>
+                </div>
+              ))}
+            </div>
           </div>
         </section>
 
         {/* classes section */}
-        <section ref={listClassRef} className="base-container gap-5 py-[100px]">
+        <section
+          ref={listClassRef}
+          className="base-container relative gap-5 py-[100px]"
+        >
+          <Dna
+            weight="duotone"
+            className="absolute right-64 top-0 hidden size-16 rotate-12 text-purple lg:flex"
+          />
+
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-            Daftar Kelas di RuangObat
+            Daftar Program Ruangobat
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
@@ -184,10 +204,13 @@ export default function HomePage({
           />
 
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-              Ruang Belajar Farmasi{" "}
-              <TextHighlight text="Paling Lengkap" className="font-black" />{" "}
-              Bebas Akses, Kapan dan Dimana Aja Kamu Butuh.
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black">
+              Belajar Farmasi Jadi{" "}
+              <TextHighlight
+                text="Gampang, Kapan Aja Dimana Aja."
+                className="font-black"
+              />{" "}
+              Semua yang Kamu Butuhin Ada di Sini.
             </h1>
 
             <div className="grid gap-2">
@@ -198,22 +221,20 @@ export default function HomePage({
                 Indonesia,"
                   className="normal-case"
                 />{" "}
-                telah memfasilitasi 10.000+ mahasiswa farmasi dari Sabang sampai
-                Merauke! Mau belajar buat ujian, skripsi, OSCE, atau UKMPPAI?
-                Tenang, semua ada disini.
+                dipercaya lebih dari 10.000+ mahasiswa farmasi. Dari Sabang
+                sampai Merauke, Ruangobat bantu mereka lulus, skripsi, masuk
+                profesi hingga meraih gelar apoteker.
               </p>
 
               <ul className="grid gap-1 xl:ml-4">
                 {[
-                  ["📚 Ruang Video Pembelajaran Interaktif", "/video"],
+                  ["📚 Ruang Sarjana & Diploma Farmasi", "/video"],
                   ["🔐 Ruang Private 1 on 1", "/kelas/private-1-on-1"],
                   ["🧪 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
                   ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
-                  [
-                    "👨‍⚕️ Ruang Persiapan Masuk Profesi Apoteker",
-                    "/kelas/masuk-apoteker",
-                  ],
-                  ["💉 Ruang OSCE & UKMPPAI Sumatif", "/osce-ukmppai"],
+                  ["👨‍⚕️ Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
+                  ["💉 Ruang UKMPPAI & OSCE", "/osce-ukmppai"],
+                  ["🤖 Apoteker ROSA", "/rosa"],
                 ].map(([title, path], index) => (
                   <Link
                     key={index}
@@ -224,21 +245,16 @@ export default function HomePage({
                   </Link>
                 ))}
               </ul>
-
-              <p className="font-medium leading-[170%] text-gray">
-                Cukup satu tempat buat semua jenjang pendidikan farmasi. Yuk,
-                raih gelar sarjana dan profesi apoteker bareng RuangObat!
-              </p>
             </div>
 
             <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/perusahaan/tentang-kami")}
+                onClick={() => router.push("/video")}
                 className="w-full px-10 font-bold sm:w-max"
               >
-                Baca Selengkapnya
+                Mulai Belajar Sekarang!
               </Button>
 
               <span className="font-bold text-purple">
@@ -288,14 +304,12 @@ export default function HomePage({
                   }}
                 >
                   <div
-                    className={`grid w-[290px] gap-5 rounded-xl [padding:2.5rem_1.5rem] ${cardWrapper}`}
+                    className={`grid w-[300px] gap-5 rounded-xl [padding:2.5rem_1.5rem] ${cardWrapper}`}
                   >
                     <item.icon />
 
                     <div className="grid gap-2">
-                      <h4
-                        className={`max-w-[220px] text-2xl font-black ${cardTitle}`}
-                      >
+                      <h4 className={`text-2xl font-black ${cardTitle}`}>
                         {item.title}
                       </h4>
 
@@ -310,6 +324,7 @@ export default function HomePage({
           </div>
         </section>
 
+        {/* rosa ai section */}
         <section className="base-container py-[100px]">
           <div className="relative isolate h-[700px] overflow-hidden rounded-3xl lg:h-[600px]">
             <Balatro
@@ -329,7 +344,7 @@ export default function HomePage({
                 </p>
 
                 <h1 className="text-4xl font-black text-white lg:text-5xl">
-                  Apoteker ROSA (BETA): AI Farmasi Pertama Di Indonesia
+                  Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
                 </h1>
 
                 <p className="font-medium leading-[170%] text-white">
@@ -338,13 +353,23 @@ export default function HomePage({
                   dan efisien.
                 </p>
 
-                <Button
-                  endContent={<Sparkle weight="duotone" size={20} />}
-                  onClick={() => router.push("/rosa/chat")}
-                  className="mt-4 w-max bg-pink-500 px-12 font-bold text-white"
-                >
-                  Tanya ROSA Sekarang
-                </Button>
+                <div className="mt-4 inline-flex items-center gap-4">
+                  <Button
+                    endContent={<Sparkle weight="duotone" size={20} />}
+                    onClick={() => router.push("/rosa/chat")}
+                    className="w-max bg-pink-500 px-4 font-bold text-white"
+                  >
+                    Tanya ROSA Sekarang
+                  </Button>
+
+                  <Button
+                    variant="bordered"
+                    endContent={<ArrowRight weight="bold" size={20} />}
+                    className="w-max border-white px-4 font-bold text-white"
+                  >
+                    Fitur Unggulan ROSA
+                  </Button>
+                </div>
               </div>
 
               <Image
