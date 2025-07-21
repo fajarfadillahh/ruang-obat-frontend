@@ -4,12 +4,24 @@ import Footer from "@/components/footer/Footer";
 import Balatro from "@/components/reactbits/Balatro";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
+import { dummyRosaFeatures } from "@/data/dummy";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
-import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
+import {
+  Accordion,
+  AccordionItem,
+  Button,
+  Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import {
   ArrowRight,
   Dna,
@@ -36,6 +48,7 @@ export default function HomePage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const listClassRef = useRef<HTMLElement | null>(null);
+  const { onOpen, onOpenChange, isOpen } = useDisclosure();
   const [client, setClient] = useState<boolean>(false);
 
   function getCardStyles(item: any, type: "reasons" | "programs") {
@@ -365,10 +378,57 @@ export default function HomePage({
                   <Button
                     variant="bordered"
                     endContent={<ArrowRight weight="bold" size={20} />}
+                    onClick={onOpen}
                     className="w-max border-white px-4 font-bold text-white"
                   >
                     Fitur Unggulan ROSA
                   </Button>
+
+                  <Modal
+                    isDismissable={false}
+                    placement="center"
+                    scrollBehavior="inside"
+                    size="lg"
+                    isOpen={isOpen}
+                    onOpenChange={onOpenChange}
+                  >
+                    <ModalContent>
+                      {(onClose) => (
+                        <>
+                          <ModalHeader className="font-extrabold text-black">
+                            Fitur Unggulan ROSA
+                          </ModalHeader>
+
+                          <ModalBody>
+                            <ul className="grid gap-4">
+                              {dummyRosaFeatures.map((item, index) => (
+                                <li key={index} className="grid list-decimal">
+                                  <h4 className="font-bold text-black">
+                                    {item.title}
+                                  </h4>
+
+                                  <p className="text-sm font-medium leading-[170%] text-gray">
+                                    {item.description}
+                                  </p>
+                                </li>
+                              ))}
+                            </ul>
+                          </ModalBody>
+
+                          <ModalFooter>
+                            <Button
+                              color="danger"
+                              variant="light"
+                              onClick={onClose}
+                              className="px-6 font-bold"
+                            >
+                              Tutup
+                            </Button>
+                          </ModalFooter>
+                        </>
+                      )}
+                    </ModalContent>
+                  </Modal>
                 </div>
               </div>
 

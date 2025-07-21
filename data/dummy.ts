@@ -398,3 +398,36 @@ export const dummySubCategories = [
     subcategory_type: "videocourse",
   },
 ];
+
+export const dummyRosaFeatures = [
+  {
+    title: "Akses Belajar 24/7",
+    description:
+      "Mahasiswa dapat mengakses bantuan ROSA kapan saja, tanpa batasan waktu, baik saat mengerjakan tugas, belajar menghadapi ujian, maupun mencari informasi farmasi dengan cepat.",
+  },
+  {
+    title: "Materi Lengkap & Terstruktu",
+    description:
+      "ROSA menyediakan referensi belajar yang mencakup berbagai topik penting di bidang farmasi, mulai dari farmakologi, farmasetika, hingga interaksi obat, dengan penyajian yang rapi dan mudah dipahami.",
+  },
+  {
+    title: "Pendekatan Interaktif dalam Pembelajaran",
+    description:
+      "ROSA mendukung gaya belajar aktif melalui tanya-jawab langsung, hingga simulasi kasus, sehingga mahasiswa dapat memahami materi secara lebih mendalam dan aplikatif.",
+  },
+  {
+    title: "Penjelasan yang Sederhana namun Tepat",
+    description:
+      "ROSA menyampaikan informasi dengan bahasa yang mudah dicerna tanpa mengurangi akurasi ilmiah, sehingga cocok digunakan oleh mahasiswa di berbagai tingkat pemahaman.",
+  },
+  {
+    title: "Efisien dan Terarah",
+    description:
+      "Dengan ROSA, mahasiswa tidak perlu membuang waktu mencari informasi dari berbagai sumber. Cukup satu platform untuk mendapatkan jawaban yang tepat dan terpercaya.",
+  },
+  {
+    title: "Dapat Diakses dari Mana Saja",
+    description:
+      "ROSA berbasis digital dan dapat diakses melalui berbagai perangkat, memudahkan mahasiswa untuk belajar di mana pun dan kapan pun.",
+  },
+];
