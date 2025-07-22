@@ -1,4 +1,5 @@
 import ButtonBack from "@/components/button/ButtonBack";
+import CardCategory from "@/components/card/CardCategory";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
@@ -6,7 +7,6 @@ import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import Link from "next/link";
 
 type CategoryDetailResponse = {
   category_id: string;
@@ -33,14 +33,13 @@ export default function CategoryPage({
         {/* for type: videocourse & videoukmppai */}
         <section className="base-container gap-8 [padding:50px_0_100px]">
           <div className="flex items-center gap-4">
-            <div className="relative h-16 w-16">
-              <Image
-                src={data?.img_url as string}
-                alt={data?.name as string}
-                className="object-cover"
-                fill
-              />
-            </div>
+            <Image
+              src={data?.img_url as string}
+              alt={data?.name as string}
+              width={1000}
+              height={1000}
+              className="size-28 object-fill"
+            />
 
             <h1 className="flex-1 text-3xl font-black text-black xl:text-4xl">
               {data?.name as string}
@@ -49,24 +48,12 @@ export default function CategoryPage({
 
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-3 xl:grid-cols-5">
             {data?.sub_categories.map((sub_category) => (
-              <Link
+              <CardCategory
                 key={sub_category.sub_category_id}
                 href={`/materi/${sub_category.slug}?type=videocourse`}
-                className="group grid justify-items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 text-sm [padding:2rem_1rem] hover:cursor-pointer hover:bg-purple/10 sm:text-base"
-              >
-                <div className="relative h-20 w-20">
-                  <Image
-                    src={sub_category.img_url}
-                    alt={sub_category.name}
-                    className="object-cover"
-                    fill
-                  />
-                </div>
-
-                <h4 className="line-clamp-2 text-center font-extrabold text-black group-hover:line-clamp-none">
-                  {sub_category.name}
-                </h4>
-              </Link>
+                image={sub_category.img_url}
+                name={sub_category.name}
+              />
             ))}
           </div>
         </section>
