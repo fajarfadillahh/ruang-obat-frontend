@@ -207,19 +207,19 @@ export default function NavbarMain() {
             <DropdownMenu
               items={menuItemsDesktop}
               itemClasses={{
-                base: "gap-4",
-                title: "font-bold text-lg -tracking-wide text-black",
-                description: "text-sm text-gray",
+                base: "gap-2",
+                title: "font-bold -tracking-wide text-black",
+                // description: "text-sm text-gray",
               }}
             >
               {(item) => (
                 <DropdownItem
                   key={item.description}
-                  description={item.description}
+                  // description={item.description}
                   startContent={
                     <item.icon
                       weight="duotone"
-                      size={42}
+                      size={32}
                       className={`text-${item.iconColor}`}
                     />
                   }
