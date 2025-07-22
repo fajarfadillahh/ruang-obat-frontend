@@ -127,17 +127,16 @@ export default function CoursePage({
 
         {/* course list section */}
         <section className="base-container gap-16 [padding:50px_0_100px]">
-          <div className="flex items-start gap-4">
-            <div className="relative h-16 w-16">
-              <Image
-                src={data?.img_url as string}
-                alt={data?.name as string}
-                className="object-cover"
-                fill
-              />
-            </div>
+          <div className="flex items-center gap-4">
+            <Image
+              src={data?.img_url as string}
+              alt={data?.name as string}
+              width={1000}
+              height={1000}
+              className="size-28 object-fill"
+            />
 
-            <div className="grid gap-6">
+            <div className="grid gap-4">
               <h1 className="flex-1 text-3xl font-black text-black xl:text-4xl">
                 {data?.name as string}
               </h1>
