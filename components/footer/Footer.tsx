@@ -17,14 +17,14 @@ export default function Footer() {
 
                 <ul className="flex flex-col gap-2">
                   {item.list.map((subitem, index) => (
-                    <>
+                    <div key={index}>
                       {subitem.href == "/rosa" ? (
                         <Badge
                           color="danger"
                           content="Beta"
                           size="sm"
                           classNames={{
-                            badge: "right-[45%] top-[45%]",
+                            badge: "-right-[20%] top-[45%]",
                           }}
                         >
                           <Link
@@ -36,14 +36,13 @@ export default function Footer() {
                         </Badge>
                       ) : (
                         <Link
-                          key={index}
                           href={subitem.href as string}
                           className="w-max font-medium text-white/80 hover:text-white hover:underline"
                         >
                           {subitem.label}
                         </Link>
                       )}
-                    </>
+                    </div>
                   ))}
                 </ul>
               </div>
