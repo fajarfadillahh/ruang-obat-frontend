@@ -32,7 +32,7 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { HTMLAttributes, useRef, useState } from "react";
+import { HTMLAttributes, useEffect, useRef, useState } from "react";
 
 type Quiz = {
   ass_id: string;
@@ -89,6 +89,7 @@ export default function CoursePage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const session = useSession();
+  const [client, setClient] = useState<boolean>(false);
   const [selectedQuiz, setSelectedQuiz] = useState<Quiz | null>(null);
   const [isOpenModalQuiz, setIsOpenModalQuiz] = useState<boolean>(false);
 
@@ -112,6 +113,12 @@ export default function CoursePage({
   const textCards = getCardsByType("text");
   const imageCards = getCardsByType("image");
   const documentCards = getCardsByType("document");
+
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
+  if (!client) return;
 
   return (
     <>
@@ -416,9 +423,13 @@ export default function CoursePage({
                       <h5 className="mb-2 text-lg font-black text-black">
                         Tulisan Flascard ✏️
                       </h5>
-                      <p className="preventive-list preventive-table text-sm font-medium leading-[170%] text-gray">
-                        {item.text}
-                      </p>
+
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: item.text as string,
+                        }}
+                        className="preventive-list preventive-table text-sm font-medium leading-[170%] text-gray"
+                      />
                     </div>
                   ))}
                 </div>
@@ -444,7 +455,7 @@ export default function CoursePage({
                             className="text-purple"
                           />
 
-                          <h5 className="line-clamp-1 font-bold text-black">
+                          <h5 className="line-clamp-1 text-sm font-bold text-black">
                             {getFilenameFromUrl(item.url as string)}
                           </h5>
                         </div>
