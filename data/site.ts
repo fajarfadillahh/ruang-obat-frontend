@@ -28,7 +28,7 @@ export const siteConfigHomePage = {
     {
       id: 1,
       amount: "10K+",
-      label: "10.000+ Mahasiswa Farmasi Percaya Ruangobat",
+      label: "10.000+ Mahasiswa Farmasi Percaya RuangObat",
     },
     {
       id: 2,

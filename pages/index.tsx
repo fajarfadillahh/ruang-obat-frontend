@@ -27,11 +27,13 @@ import {
   Dna,
   IconContext,
   Microscope,
+  Question,
   Sparkle,
   Star,
   Syringe,
   TestTube,
 } from "@phosphor-icons/react";
+import { ChatTeardropText } from "@phosphor-icons/react/dist/ssr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -84,7 +86,7 @@ export default function HomePage({
 
           <Microscope
             weight="duotone"
-            className="absolute bottom-[500px] right-0 hidden size-20 rotate-12 text-purple lg:flex"
+            className="absolute right-0 top-[400px] hidden size-20 rotate-12 text-purple lg:flex"
           />
 
           <div className="grid justify-items-center gap-4 text-center">
@@ -175,6 +177,17 @@ export default function HomePage({
               ))}
             </div>
           </div>
+
+          <div className="grid">
+            <Image
+              priority
+              src="/img/new-illustration/img-2.svg"
+              alt="illustration img"
+              width={1000}
+              height={1000}
+              className="h-auto justify-self-center"
+            />
+          </div>
         </section>
 
         {/* classes section */}
@@ -188,7 +201,7 @@ export default function HomePage({
           />
 
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-            Daftar Program Ruangobat
+            Daftar Program RuangObat
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
@@ -278,11 +291,11 @@ export default function HomePage({
 
           <Image
             priority
-            src="/img/base/main-img-2.svg"
-            alt="home img"
-            width={396}
-            height={512}
-            className="h-auto w-[500px] justify-self-center lg:w-[580px] xl:w-[430px]"
+            src="/img/new-illustration/img-1.svg"
+            alt="ilustration img"
+            width={1000}
+            height={1000}
+            className="h-auto justify-self-center"
           />
         </section>
 
@@ -366,11 +379,11 @@ export default function HomePage({
                   dan efisien.
                 </p>
 
-                <div className="mt-4 inline-flex items-center gap-4">
+                <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
                   <Button
                     endContent={<Sparkle weight="duotone" size={20} />}
                     onClick={() => router.push("/rosa/chat")}
-                    className="w-max bg-pink-500 px-4 font-bold text-white"
+                    className="bg-pink-500 px-4 font-bold text-white"
                   >
                     Tanya ROSA Sekarang
                   </Button>
@@ -379,7 +392,7 @@ export default function HomePage({
                     variant="bordered"
                     endContent={<ArrowRight weight="bold" size={20} />}
                     onClick={onOpen}
-                    className="w-max border-white px-4 font-bold text-white"
+                    className="border-white px-4 font-bold text-white"
                   >
                     Fitur Unggulan ROSA
                   </Button>
@@ -508,7 +521,12 @@ export default function HomePage({
         </section>
 
         {/* testimonial section */}
-        <section className="base-container gap-8 py-[100px]">
+        <section className="base-container relative isolate gap-8 py-[100px]">
+          <ChatTeardropText
+            weight="duotone"
+            className="absolute left-24 top-0 hidden size-20 -rotate-12 text-purple lg:flex"
+          />
+
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Kata Mereka Tentang RuangObat
           </h1>
@@ -573,7 +591,12 @@ export default function HomePage({
         </section>
 
         {/* faq section */}
-        <section className="base-container gap-8 py-[100px]">
+        <section className="base-container relative isolate gap-8 py-[100px]">
+          <Question
+            weight="duotone"
+            className="absolute right-24 top-0 hidden size-20 rotate-12 text-purple lg:flex"
+          />
+
           <h1 className="text-center text-4xl font-black -tracking-wide text-black">
             Yang Paling Banyak Ditanyakan
           </h1>
