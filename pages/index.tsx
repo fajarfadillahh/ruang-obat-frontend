@@ -24,6 +24,7 @@ import {
 } from "@nextui-org/react";
 import {
   ArrowRight,
+  ChatTeardropText,
   Dna,
   IconContext,
   Microscope,
@@ -33,7 +34,6 @@ import {
   Syringe,
   TestTube,
 } from "@phosphor-icons/react";
-import { ChatTeardropText } from "@phosphor-icons/react/dist/ssr";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import Link from "next/link";
