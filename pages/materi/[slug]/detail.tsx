@@ -1,5 +1,5 @@
-import "@vidstack/react/player/styles/default/theme.css";
 import "@vidstack/react/player/styles/default/layouts/video.css";
+import "@vidstack/react/player/styles/default/theme.css";
 
 import ButtonBack from "@/components/button/ButtonBack";
 import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
@@ -13,9 +13,18 @@ import {
   Accordion,
   AccordionItem,
   Button,
+  cn,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
   Progress,
-  ScrollShadow,
+  Radio,
+  RadioGroup,
   Skeleton,
+  Spinner,
+  useDisclosure,
 } from "@nextui-org/react";
 import {
   ArrowRight,
@@ -27,17 +36,21 @@ import {
   Play,
   ShareNetwork,
 } from "@phosphor-icons/react";
-import {
-  MediaPlayer,
-  MediaPlayerInstance,
-  MediaProvider,
-  PlayButton,
-} from "@vidstack/react";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import {
   defaultLayoutIcons,
   DefaultVideoLayout,
 } from "@vidstack/react/player/layouts/default";
 
+import ModalConfirm from "@/components/modal/ModalConfirm";
+import VideoComponent from "@/components/VideoComponent";
+import {
+  AssessmentQuestion,
+  StartAssessmentResponse,
+} from "@/types/assessment.type";
+import { fetcher } from "@/utils/fetcher";
+import { getError } from "@/utils/getError";
+import { scrollToSection } from "@/utils/scrollToSection";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
@@ -45,15 +58,14 @@ import {
   Dispatch,
   Key,
   SetStateAction,
+  Suspense,
   useEffect,
   useRef,
   useState,
 } from "react";
+import toast from "react-hot-toast";
 import useSWR, { KeyedMutator } from "swr";
 import { useDebounce } from "use-debounce";
-import { scrollToSection } from "@/utils/scrollToSection";
-import toast from "react-hot-toast";
-import { fetcher } from "@/utils/fetcher";
 
 type ContentDetailResponse = {
   course_id: string;
@@ -102,6 +114,21 @@ export default function DetailCoursePage({
   const [selectedKeys, setSelectedKeys] = useState<Key>("");
   const [contents, setContents] = useState<Content[]>([]);
   const [segments, setSegments] = useState<Segment[]>([]);
+
+  const modalAssessment = useDisclosure();
+  const {
+    isOpen: isSaveTestOpen,
+    onOpen: onSaveTestOpen,
+    onClose: onSaveTestClose,
+  } = useDisclosure();
+  const [number, setNumber] = useState(1);
+  const [assessment, setAssessment] = useState<
+    ({ content_id: string } & StartAssessmentResponse) | null
+  >(null);
+  const [loadingAssessment, setLoadingAssessment] = useState(false);
+  const [loadingSaveTest, setLoadingSaveTest] = useState(false);
+  const [questions, setQuestions] = useState<AssessmentQuestion[]>([]);
+
   const [debouncedSelectedKeys] = useDebounce(selectedKeys, 500);
   const [loadingContents, setLoadingContents] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<{
@@ -173,6 +200,73 @@ export default function DetailCoursePage({
     setLoadingContents(false);
   }, [dataContents]);
 
+  useEffect(() => {
+    if (!loadingAssessment && assessment) {
+      setQuestions(assessment.questions);
+      setNumber(1);
+    }
+  }, [assessment, loadingAssessment]);
+
+  async function handleSaveTest() {
+    setLoadingSaveTest(true);
+
+    try {
+      const mappingQuestions = [];
+
+      const cache = localStorage.getItem(assessment?.content_id as string);
+
+      if (cache) {
+        const parsing = JSON.parse(cache) as StartAssessmentResponse;
+
+        for (const item of parsing.questions) {
+          mappingQuestions.push({
+            number: item.number,
+            assq_id: item.assq_id,
+            user_answer: item.user_answer,
+          });
+        }
+      }
+
+      const response: SuccessResponse<{ assr_id: string }> = await fetcher({
+        url: "/assessments/finish",
+        method: "POST",
+        data: {
+          field_id: "content_id",
+          value_id: assessment?.content_id,
+          questions: mappingQuestions,
+        },
+        token,
+      });
+
+      toast.success("Berhasil mengumpulkan ujian", {
+        duration: 3000,
+      });
+
+      localStorage.removeItem(assessment?.content_id as string);
+      setAssessment(null);
+      setQuestions([]);
+      setNumber(1);
+      mutateSegments();
+
+      return modalAssessment.onClose();
+    } catch (error) {
+      console.log(error);
+      toast.error(getError(error));
+    } finally {
+      setLoadingSaveTest(false);
+    }
+  }
+
+  const question = questions.length
+    ? questions.find((question) => question.number == number)
+    : {
+        text: "",
+        user_answer: "",
+        options: [{ asso_id: "", text: "" }],
+        is_hesitant: false,
+        type: "",
+      };
+
   return (
     <>
       <Layout
@@ -180,6 +274,163 @@ export default function DetailCoursePage({
         description={data?.data.description || ""}
       >
         <ButtonBack />
+
+        {contents && contents.length ? (
+          contents.some((content) => content.content_type === "test") ? (
+            <Modal
+              isOpen={modalAssessment.isOpen}
+              size="4xl"
+              onClose={() => {
+                modalAssessment.onClose();
+                setQuestions([]);
+                setNumber(1);
+              }}
+            >
+              <ModalContent>
+                {(onClose) => (
+                  <>
+                    <ModalHeader className="flex justify-center">
+                      {assessment?.title ? assessment.title : "-"}
+                    </ModalHeader>
+                    <ModalBody>
+                      {loadingAssessment ? (
+                        <Spinner size="lg" color="secondary" />
+                      ) : (
+                        <>
+                          <div className="sticky left-0 top-0 z-10 bg-white text-lg font-extrabold text-purple">
+                            No. {number}
+                          </div>
+
+                          <div className="grid gap-6 overflow-hidden p-[0_1.5rem_1.5rem]">
+                            {question?.type == "video" ? (
+                              <Suspense
+                                fallback={
+                                  <Spinner
+                                    size="sm"
+                                    color="secondary"
+                                    label="loading video..."
+                                  />
+                                }
+                              >
+                                <VideoComponent url={question.text} />
+                              </Suspense>
+                            ) : (
+                              <p
+                                className="preventive-list preventive-table list-outside text-base font-semibold leading-[170%] text-black"
+                                dangerouslySetInnerHTML={{
+                                  __html: question?.text as string,
+                                }}
+                              />
+                            )}
+
+                            <RadioGroup
+                              value={question?.user_answer}
+                              aria-label="select the answer"
+                              color="secondary"
+                              classNames={{
+                                base: "font-semibold text-black",
+                              }}
+                              onChange={(e) => {
+                                setQuestions((prev) => {
+                                  if (prev.length) {
+                                    const index = prev.findIndex(
+                                      (question) => question.number == number,
+                                    );
+
+                                    if (index != -1) {
+                                      prev[index] = {
+                                        ...prev[index],
+                                        user_answer: e.target.value,
+                                      };
+
+                                      return [...prev];
+                                    }
+                                  }
+
+                                  return [...prev];
+                                });
+                                localStorage.setItem(
+                                  assessment?.content_id as string,
+                                  JSON.stringify({
+                                    ...assessment,
+                                    questions,
+                                  }),
+                                );
+                              }}
+                            >
+                              {question?.options.map((option) => {
+                                return (
+                                  <Radio
+                                    value={option.asso_id}
+                                    key={option.asso_id}
+                                  >
+                                    {option.text}
+                                  </Radio>
+                                );
+                              })}
+                            </RadioGroup>
+                          </div>
+                        </>
+                      )}
+                    </ModalBody>
+                    <ModalFooter className="flex flex-col items-center justify-center">
+                      {!loadingAssessment ? (
+                        <>
+                          <ul className="flex items-center gap-2">
+                            {Array.from({ length: questions.length }).map(
+                              (_, index) => {
+                                return (
+                                  <li
+                                    key={index + 1}
+                                    aria-label={`page ${index + 1}`}
+                                    className="h-4 w-4"
+                                  >
+                                    <button
+                                      className={cn(
+                                        "h-full w-full rounded-full bg-default-300",
+                                        number === index + 1 && "bg-secondary",
+                                      )}
+                                      onClick={() => setNumber(index + 1)}
+                                    />
+                                  </li>
+                                );
+                              },
+                            )}
+                          </ul>
+
+                          {number - 1 === questions.length - 1 ? (
+                            <>
+                              <Button
+                                color="secondary"
+                                onClick={onSaveTestOpen}
+                                className="font-bold"
+                                isDisabled={
+                                  !questions.some((q) => q.user_answer)
+                                }
+                              >
+                                Kumpulkan Jawaban!
+                              </Button>
+
+                              <ModalConfirm
+                                btnText="Kumpulkan Sekarang"
+                                header="Pemberitahuan"
+                                text="Yakin dengan semua jawaban kamu? Aksi tidak dapat dibatalkan jika kamu telah mengumpulkan jawaban."
+                                loading={loadingSaveTest}
+                                isOpen={isSaveTestOpen}
+                                onClose={onSaveTestClose}
+                                handleAction={handleSaveTest}
+                              />
+                            </>
+                          ) : null}
+                        </>
+                      ) : null}
+                    </ModalFooter>
+                  </>
+                )}
+              </ModalContent>
+            </Modal>
+          ) : null
+        ) : null}
 
         <section className="base-container gap-8 pt-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-16">
           <div className="relative h-[350px] w-[350px] rounded-xl">
@@ -353,6 +604,9 @@ export default function DetailCoursePage({
                               mutateSegments,
                               setLoadingVideo,
                               setProgress,
+                              setAssessment,
+                              modalAssessment,
+                              setLoadingAssessment,
                             })
                           : null}
                       </AccordionItem>
@@ -392,6 +646,11 @@ type HandleAccordionItemConditionParams = {
   >;
   token?: string;
   mutateSegments: KeyedMutator<SuccessResponse<Content[]>>;
+  setAssessment: Dispatch<
+    SetStateAction<({ content_id: string } & StartAssessmentResponse) | null>
+  >;
+  modalAssessment: ReturnType<typeof useDisclosure>;
+  setLoadingAssessment: Dispatch<SetStateAction<boolean>>;
 };
 
 function handleAccordionItemCondition({
@@ -402,6 +661,9 @@ function handleAccordionItemCondition({
   setLoadingVideo,
   mutateSegments,
   setProgress,
+  setAssessment,
+  modalAssessment,
+  setLoadingAssessment,
 }: HandleAccordionItemConditionParams) {
   async function getVideoUrl(content: Content) {
     if (content.is_locked) return;
@@ -487,6 +749,51 @@ function handleAccordionItemCondition({
     }
   }
 
+  async function getStartTest(content: Content) {
+    if (content.is_locked) return;
+
+    modalAssessment.onOpen();
+    setLoadingAssessment(true);
+
+    const cache = localStorage.getItem(content.content_id as string);
+
+    if (cache) {
+      setAssessment({
+        content_id: content.content_id,
+        ...(JSON.parse(cache) as StartAssessmentResponse),
+        title: content.title,
+      });
+      setLoadingAssessment(false);
+      return;
+    }
+
+    try {
+      const response: SuccessResponse<StartAssessmentResponse> = await fetcher({
+        url: `/assessments/${content.content_id}/start`,
+        method: "GET",
+        token,
+      });
+
+      setAssessment({
+        content_id: content.content_id,
+        ...response.data,
+      });
+
+      localStorage.setItem(
+        content.content_id as string,
+        JSON.stringify(response.data),
+      );
+    } catch (error) {
+      setAssessment(null);
+      modalAssessment.onClose();
+
+      console.log(error);
+      toast.error("Gagal mendapatkan data test");
+    } finally {
+      setLoadingAssessment(false);
+    }
+  }
+
   if (loadingContents) {
     return <ThreeSkeletons classname="h-14" />;
   }
@@ -504,7 +811,7 @@ function handleAccordionItemCondition({
   return contents.map((content) => {
     if (
       content.content_type === "test" &&
-      (content.test_type === "pre" || content.test_type === "post")
+      ["pre", "post"].includes(content.test_type as string)
     ) {
       return (
         <div
@@ -524,12 +831,15 @@ function handleAccordionItemCondition({
               endContent={
                 content.is_locked ? (
                   <Lock weight="bold" />
+                ) : content.is_completed ? (
+                  <Check weight="bold" />
                 ) : (
                   <ArrowRight weight="bold" />
                 )
               }
               className="w-max font-bold"
               isDisabled={content.is_locked || content.is_completed}
+              onClick={() => getStartTest(content)}
             >
               Mulai
             </Button>

@@ -2,6 +2,10 @@ import Loading from "@/components/Loading";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import {
+  AssessmentQuestion,
+  StartAssessmentResponse,
+} from "@/types/assessment.type";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { getError } from "@/utils/getError";
@@ -34,26 +38,6 @@ import { ParsedUrlQuery } from "querystring";
 import { Suspense, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import useSWR from "swr";
-
-type AssessmentQuestion = {
-  number: number;
-  assq_id: string;
-  text: string;
-  url?: string;
-  type: "text" | "video" | "image";
-  options: {
-    asso_id: string;
-    text: string;
-  }[];
-  user_answer: string;
-  is_hesitant: boolean;
-};
-
-type StartAssessmentResponse = {
-  title: string;
-  questions: AssessmentQuestion[];
-  total_questions: number;
-};
 
 export default function StartQuiz({
   token,
@@ -145,7 +129,8 @@ export default function StartQuiz({
         url: "/assessments/finish",
         method: "POST",
         data: {
-          ass_id: params?.id,
+          field_id: "ass_id",
+          value_id: params?.id,
           questions: mappingQuestions,
         },
         token,
