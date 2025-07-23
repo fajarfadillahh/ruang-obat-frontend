@@ -839,7 +839,7 @@ function handleAccordionItemCondition({
                   <ArrowRight weight="bold" />
                 )
               }
-              className="w-max font-bold"
+              className={`w-max font-bold ${content.is_completed ? "text-white" : ""}`}
               isDisabled={content.is_locked}
               onClick={() => {
                 if (!content.is_completed) {
