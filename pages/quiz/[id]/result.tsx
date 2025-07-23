@@ -247,24 +247,26 @@ export default function ResultQuiz({
                 })}
               </RadioGroup>
 
-              <Accordion variant="bordered">
-                <AccordionItem
-                  aria-label="accordion answer"
-                  key="answer"
-                  title="Penjelasan:"
-                  classNames={{
-                    title: "font-semibold text-black",
-                    content: "font-medium text-black leading-[170%] pb-4",
-                  }}
-                >
-                  <div
-                    className="preventive-list preventive-table list-outside text-base leading-[170%] text-black"
-                    dangerouslySetInnerHTML={{
-                      __html: question?.explanation as string,
+              {question?.explanation ? (
+                <Accordion variant="bordered">
+                  <AccordionItem
+                    aria-label="accordion answer"
+                    key="answer"
+                    title="Penjelasan:"
+                    classNames={{
+                      title: "font-semibold text-black",
+                      content: "font-medium text-black leading-[170%] pb-4",
                     }}
-                  />
-                </AccordionItem>
-              </Accordion>
+                  >
+                    <div
+                      className="preventive-list preventive-table list-outside text-base leading-[170%] text-black"
+                      dangerouslySetInnerHTML={{
+                        __html: question?.explanation as string,
+                      }}
+                    />
+                  </AccordionItem>
+                </Accordion>
+              ) : null}
             </div>
           </div>
 

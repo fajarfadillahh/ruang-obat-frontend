@@ -91,13 +91,15 @@ type Content = {
   content_id: string;
   content_type: "video" | "test";
   title: string;
-  test_type: "pre" | "post" | null;
-  duration: string;
-  total_questions: number;
+  test_type?: "pre" | "post";
   is_locked: boolean;
   is_completed: boolean;
-  has_note: boolean;
-  token: string | null;
+  result_id?: string | null;
+  score?: number;
+  total_questions?: number;
+  duration?: string;
+  has_note?: boolean;
+  token?: string | null;
 };
 
 type Segment = {
@@ -827,7 +829,7 @@ function handleAccordionItemCondition({
 
             <Button
               size="sm"
-              color="secondary"
+              color={content.is_completed ? "success" : "secondary"}
               endContent={
                 content.is_locked ? (
                   <Lock weight="bold" />
@@ -838,15 +840,23 @@ function handleAccordionItemCondition({
                 )
               }
               className="w-max font-bold"
-              isDisabled={content.is_locked || content.is_completed}
-              onClick={() => getStartTest(content)}
+              isDisabled={content.is_locked}
+              onClick={() => {
+                if (!content.is_completed) {
+                  getStartTest(content);
+                } else {
+                  window.open(`/quiz/${content.result_id}/result`, "_blank");
+                }
+              }}
             >
-              Mulai
+              {!content.is_completed ? "Mulai" : "Lihat Hasil"}
             </Button>
           </div>
 
           <p className="text-sm font-semibold text-gray">
-            {content.total_questions} soal
+            {!content.is_completed
+              ? `${content.total_questions} soal`
+              : `🎖️ ${content.score}`}
           </p>
         </div>
       );
