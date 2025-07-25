@@ -161,7 +161,7 @@ export default function DetailCoursePage({
   >(
     debouncedSelectedKeys
       ? {
-          url: `/segments/${debouncedSelectedKeys}`,
+          url: `/segments/${data?.data.course_id}/${debouncedSelectedKeys}`,
           method: "GET",
           token,
         }
