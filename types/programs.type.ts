@@ -4,10 +4,10 @@ export type ProgramsType = {
   type: "free" | "paid";
   price: number;
   total_tests: number;
-  total_users: number;
-  is_approved: boolean | null;
+  is_approved: boolean;
   qr_code: string;
   url_qr_code: string;
+  is_login: boolean;
 };
 
 export type DetailsProgramResponse = ProgramsType & {
@@ -17,7 +17,6 @@ export type DetailsProgramResponse = ProgramsType & {
     start: string;
     end: string;
     duration: number;
-    is_active: boolean;
     has_result: boolean;
     remaining_tests: number;
     result_id: string;

@@ -22,14 +22,18 @@ export default function VerifiedPage() {
             </h1>
 
             <p className="font-medium leading-[170%] text-gray">
-              Email Anda telah berhasil diverifikasi. Klik tombol di bawah untuk
-              kembali ke beranda dan mulai jelajahi website kami.
+              Email kamu telah berhasil diverifikasi. Klik tombol di bawah untuk
+              kembali dan mulai jelajahi website kami.
             </p>
           </div>
 
           <Button
             color="secondary"
-            onClick={() => router.push("/")}
+            onClick={() =>
+              router.push(
+                router.query.callback ? (router.query.callback as string) : "/",
+              )
+            }
             className="w-full font-bold"
           >
             Kembali

@@ -1,6 +1,7 @@
 import Loading from "@/components/Loading";
 import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
+import { quotes } from "@/data/quotes";
 import { SuccessResponse } from "@/types/global.type";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
@@ -12,7 +13,6 @@ import {
   validateUniversity,
 } from "@/utils/formValidators";
 import { getError } from "@/utils/getError";
-import { quotes } from "@/utils/quotes";
 import {
   Button,
   Checkbox,
@@ -34,9 +34,11 @@ import {
   Users,
 } from "@phosphor-icons/react";
 import { signIn } from "next-auth/react";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ChangeEvent, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -61,6 +63,8 @@ type ErrorsState = {
 };
 
 export default function RegisterPage() {
+  const router = useRouter();
+  const currentUrl = `https://ruangobat.id${router.asPath}`;
   const {
     isOpen: isTermsPrivacyOpen,
     onOpen: onTermsPrivacyOpen,
@@ -108,7 +112,7 @@ export default function RegisterPage() {
     try {
       const response: SuccessResponse<{ user_id: string; message: string }> =
         await fetcher({
-          url: "/general/email/register",
+          url: "/email/register",
           method: "POST",
           data: {
             email: input.email,
@@ -134,7 +138,7 @@ export default function RegisterPage() {
 
     try {
       const response: SuccessResponse<{ token: string }> = await fetcher({
-        url: "/general/otp/verify",
+        url: "/otp/verify",
         method: "POST",
         data: {
           user_id: userId,
@@ -190,7 +194,7 @@ export default function RegisterPage() {
         setCode("");
 
         toast.success("Registrasi berhasil");
-        return (window.location.href = "/welcome?from=register");
+        return (window.location.href = `/welcome?from=register&${router.query.callback ? `callback=${router.query.callback}` : ""}`);
       }
     } catch (error: any) {
       setLoading(false);
@@ -244,36 +248,25 @@ export default function RegisterPage() {
 
   return (
     <>
+      <NextSeo
+        title="Daftar Akun Untuk Mulai Belajar | RuangObat"
+        description="Daftar sekarang di RuangObat dan mulai perjalanan belajarmu di dunia farmasi. Akses video pembelajaran, kelas interaktif, dan bantuan dari Apoteker ROSA. Belajar farmasi jadi lebih mudah dan efisien!"
+        canonical={currentUrl}
+        openGraph={{
+          url: currentUrl,
+          title: "Daftar Akun Untuk Mulai Belajar | RuangObat",
+          description:
+            "Daftar sekarang di RuangObat dan mulai perjalanan belajarmu di dunia farmasi. Akses video pembelajaran, kelas interaktif, dan bantuan dari Apoteker ROSA. Belajar farmasi jadi lebih mudah dan efisien!",
+          site_name: "RuangObat",
+        }}
+      />
+
       <Head>
-        <title>Daftar Akun Untuk Mulai Belajar | Ruangobat.id</title>
-        <meta
-          name="description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          name="description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
-        <meta
-          name="keywords"
-          content="ruangobat, ruangobat.id, ruangobat id, ruang obat id, ruangobat ujian, ruangobat ujian online, ruangobat farmasi, ruangobat tryout, ruangobat tes, ujian online ruangobat, platform ujian mahasiswa farmasi, belajar farmasi online, tryout farmasi online, tes farmasi online, latihan soal farmasi, simulasi ujian farmasi, platform belajar farmasi, ujian online farmasi terpercaya kelas apoteker, kelas masuk apoteker, program apoteker, praktikum apoteker, ujian tryout apoteker, ujian praktikum apoteker, ujian praktikum farmasi, ujian praktikum jurusan farmasi, tryout juruan apoteker, ujian juruan apoteker, kelas masuk apoteker, kelas apoteker, kelas farmasi, kelas jurusan apoteker, kelas jurusan farmasi, kelas skripsi dan riset apoteker, kelas skripsi dan riset farmasi, ujian UKMPPAI, tryout UKMPPAI, skripsi apoteker, skripsi farmasi, ujian online apoteker, kelas online apoteker, kelas online farmasi"
-        />
-        <meta
-          property="og:title"
-          content="Daftar Akun Untuk Mulai Belajar | Ruangobat.id"
-        />
-        <meta
-          property="og:description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          property="og:description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
+        <title>Daftar Akun Untuk Mulai Belajar | RuangObat</title>
       </Head>
 
       <main className="grid h-screen xl:grid-cols-[1fr_550px]">
-        <div className="hidden items-center justify-center bg-default-100 px-20 xl:flex">
+        <div className="hidden items-center justify-center bg-gray/10 px-20 xl:flex">
           <div className="relative grid gap-16">
             <Quotes
               weight="fill"

@@ -33,7 +33,7 @@ export default function ModalSendFeedback({
 
     try {
       await fetcher({
-        url: "/general/feedback",
+        url: "/feedback",
         method: "POST",
         data: {
           user_id: status == "authenticated" ? session.user.user_id : "",

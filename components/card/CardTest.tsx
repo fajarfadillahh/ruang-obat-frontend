@@ -6,7 +6,6 @@ import {
   ClockCountdown,
   HourglassLow,
   Lock,
-  Prohibit,
 } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
@@ -16,7 +15,6 @@ type CardTest = {
   start: string;
   end: string;
   duration: number;
-  is_active: boolean;
   has_result: boolean;
   remaining_tests: number;
   result_id: string;
@@ -59,23 +57,13 @@ export default function CardTest(test: CardTest) {
 
   return (
     <div
-      className={`group grid gap-6 rounded-xl bg-white p-6 ring-2 ring-gray/5 hover:bg-purple/10 hover:ring-purple md:grid-cols-[1fr_max-content] md:items-center`}
+      className={`group grid gap-6 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10 md:grid-cols-[1fr_max-content] md:items-center`}
     >
       <div className="flex flex-1 items-start gap-3">
-        {test.is_active ? (
-          <ClipboardText weight="duotone" size={32} className="text-purple" />
-        ) : (
-          <Prohibit weight="duotone" size={32} className="text-danger" />
-        )}
+        <ClipboardText weight="duotone" size={32} className="text-purple" />
 
         <div className="grid flex-1 gap-6">
-          <h4
-            className={`line-clamp-2 text-xl font-bold -tracking-wide ${
-              test.is_active
-                ? "text-black group-hover:text-purple"
-                : "text-danger"
-            }`}
-          >
+          <h4 className="line-clamp-2 text-xl font-bold -tracking-wide text-black group-hover:text-purple">
             {test.title}
           </h4>
 
@@ -177,7 +165,7 @@ export default function CardTest(test: CardTest) {
 
       <Button
         size="sm"
-        color={!test.is_active ? "danger" : "secondary"}
+        color="secondary"
         onClick={() => {
           if (test.status === "Berlangsung") {
             test.remaining_tests > 0

@@ -7,7 +7,7 @@ export default function CardMyTest(test: MyTestType) {
   return (
     <Link
       href={`/results/${test.result_id}?title=${test.title}`}
-      className="group flex items-start gap-4 rounded-xl bg-white p-6 ring-2 ring-gray/5 hover:bg-purple/10 hover:ring-purple"
+      className="group flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10"
     >
       <Medal weight="duotone" size={32} className="text-purple" />
 

@@ -100,7 +100,7 @@ export default function MyProfilePage({
         token,
       });
 
-      toast.success("Profil Anda Berhasil Diperbarui");
+      toast.success("Profil kamu berhasil diperbarui!");
       mutate();
     } catch (error: any) {
       console.log(error);
@@ -130,7 +130,7 @@ export default function MyProfilePage({
               <strong className="font-extrabold">
                 Email belum diverifikasi!
               </strong>{" "}
-              Silakan verifikasi email anda sekarang!
+              Silakan verifikasi email kamu sekarang!
             </p>
 
             <Button
@@ -259,7 +259,7 @@ export default function MyProfilePage({
                 variant="flat"
                 label="Nama Lengkap"
                 labelPlacement="outside"
-                placeholder="Nama Lengkap Anda"
+                placeholder="Nama Lengkap Kamu"
                 value={userData?.fullname}
                 onChange={(e) =>
                   handleChange("fullname", capitalize(e.target.value))
@@ -275,7 +275,7 @@ export default function MyProfilePage({
                 variant="flat"
                 labelPlacement="outside"
                 label="Jenis Kelamin"
-                placeholder="Jenis Kelamin Anda"
+                placeholder="Jenis Kelamin"
                 selectedKeys={userData?.gender}
                 onChange={(e) => handleChange("gender", e.target.value)}
                 classNames={{
@@ -307,7 +307,7 @@ export default function MyProfilePage({
                 variant="flat"
                 label="No. Telpon"
                 labelPlacement="outside"
-                placeholder="Nomor Telpon Anda"
+                placeholder="Nomor Telpon"
                 value={userData?.phone_number}
                 onChange={(e) => handleChange("phone_number", e.target.value)}
                 classNames={{

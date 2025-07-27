@@ -29,7 +29,7 @@ export default function Layout({
         title={title ? `${title} | RuangObat` : "RuangObat"}
         description={
           description ||
-          "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia"
+          "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi"
         }
         canonical={currentUrl}
         openGraph={{
@@ -37,7 +37,7 @@ export default function Layout({
           title: title ? `${title} | RuangObat` : "RuangObat",
           description:
             description ||
-            "Bimbel Farmasi No.1 di Indonesia Yang Fasilitasi 10.000+ Mahasiswa Farmasi Seluruh Indonesia",
+            "Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi",
           site_name: "RuangObat",
         }}
       />
@@ -48,7 +48,7 @@ export default function Layout({
 
       <NavbarMenu />
 
-      <div className="mx-auto grid w-full max-w-[1200px] px-6 xl:px-0">
+      <div className="mx-auto grid w-full max-w-[1200px] px-6">
         <main className={`${className} min-h-[calc(100vh-96px)] pb-16 pt-6`}>
           <ModalUnauthenticated
             isOpen={ctx?.isOpenUnauthenticated as boolean}

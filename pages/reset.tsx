@@ -19,7 +19,7 @@ export default function ResetPasswordPage({
     setLoading(true);
     try {
       await fetcher({
-        url: "/general/reset/password",
+        url: "/reset/password",
         method: "PATCH",
         data: {
           token: query?.token,
@@ -59,7 +59,7 @@ export default function ResetPasswordPage({
             </h1>
 
             <p className="font-medium leading-[170%] text-gray">
-              Pastikan kata sandi baru anda cukup kuat agar akun tetap aman.
+              Pastikan kata sandi baru kamu cukup kuat agar akun tetap aman.
               Gunakan kombinasi huruf besar, huruf kecil, angka, dan simbol.
             </p>
           </div>

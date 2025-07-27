@@ -4,7 +4,6 @@ import { Chip, Tooltip } from "@nextui-org/react";
 import {
   BookBookmark,
   ClipboardText,
-  Clock,
   SealCheck,
   Tag,
 } from "@phosphor-icons/react";
@@ -14,7 +13,7 @@ export default function CardProgram(program: ProgramsType) {
   return (
     <Link
       href={`/programs/${program.program_id}`}
-      className="group relative flex items-start gap-4 rounded-xl bg-white p-6 ring-2 ring-gray/5 hover:bg-purple/10 hover:ring-purple"
+      className="group relative flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10"
     >
       <BookBookmark weight="duotone" size={32} className="text-purple" />
 
@@ -63,8 +62,7 @@ export default function CardProgram(program: ProgramsType) {
         </div>
       </div>
 
-      {/* badge following & waiting */}
-      {program.is_approved == true ? (
+      {program.is_approved && (
         <Tooltip
           content="Program Telah Diikuti"
           classNames={{
@@ -77,20 +75,7 @@ export default function CardProgram(program: ProgramsType) {
             className="absolute right-2 top-2 text-success"
           />
         </Tooltip>
-      ) : program.is_approved == false ? (
-        <Tooltip
-          content="Menunggu Approve"
-          classNames={{
-            content: "max-w-[350px] font-semibold text-black",
-          }}
-        >
-          <Clock
-            weight="fill"
-            size={24}
-            className="absolute right-2 top-2 text-warning"
-          />
-        </Tooltip>
-      ) : null}
+      )}
     </Link>
   );
 }

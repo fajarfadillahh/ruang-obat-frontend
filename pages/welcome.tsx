@@ -3,6 +3,7 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
@@ -11,6 +12,7 @@ export default function WelcomePage({
   query,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const session = useSession();
+  const router = useRouter();
   const [dimensions, setDimensions] = useState({
     width: 0,
     height: 0,
@@ -72,15 +74,21 @@ export default function WelcomePage({
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => (window.location.href = "/dashboard")}
+                onClick={() => router.push("/osce-ukmppai")}
                 className="px-6 font-bold"
               >
-                Halaman Dashboard
+                Halaman OSCE & UKMPPAI
               </Button>
 
               <Button
                 variant="bordered"
-                onClick={() => (window.location.href = "/")}
+                onClick={() =>
+                  router.push(
+                    router.query.callback
+                      ? (router.query.callback as string)
+                      : "/",
+                  )
+                }
                 className="px-6 font-bold"
               >
                 Kembali Ke Beranda

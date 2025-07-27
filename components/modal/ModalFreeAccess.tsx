@@ -117,9 +117,11 @@ export default function ModalFreeAccess({
                   </p>
 
                   <div className="grid gap-1">
-                    <p className="font-medium leading-[170%] text-gray">
-                      <span className="text-danger">*</span>(format gambar .jpg
-                      .jpeg .png | max. 4mb)
+                    <p className="flex flex-col gap-1 font-medium leading-[170%] text-gray">
+                      <span className="text-danger">
+                        * format gambar .jpg .jpeg .png
+                      </span>
+                      <span className="text-danger">* max. 4mb</span>
                     </p>
 
                     <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-between">

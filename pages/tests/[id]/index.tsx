@@ -2,7 +2,7 @@ import ButtonBack from "@/components/button/ButtonBack";
 import Loading from "@/components/Loading";
 import ModalConfirmTest from "@/components/modal/ModalConfirmTest";
 import Layout from "@/components/wrapper/Layout";
-import { WarningTextModal } from "@/config/text";
+import { warningTextModal } from "@/data/text";
 import { SuccessResponse } from "@/types/global.type";
 import { Question } from "@/types/questions.type";
 import { TestResponse } from "@/types/tests.type";
@@ -260,7 +260,7 @@ export default function DetailsTest({
                       </h1>
 
                       <ol className="ml-6 grid list-outside list-decimal gap-1 font-medium leading-[170%] text-gray">
-                        {WarningTextModal.has_start.map((item, index) => (
+                        {warningTextModal.has_start.map((item, index) => (
                           <li key={index}>{item.text}</li>
                         ))}
                       </ol>
@@ -308,14 +308,14 @@ export default function DetailsTest({
                   <>
                     {!expired ? (
                       <p className="font-medium leading-[170%] text-gray">
-                        {WarningTextModal.has_result.expired}{" "}
+                        {warningTextModal.has_result.expired}{" "}
                         <strong className="font-extrabold text-purple">
                           {formatDate(data?.data.end_time as string)}{" "}
                         </strong>
                       </p>
                     ) : (
                       <p className="font-medium leading-[170%] text-gray">
-                        {WarningTextModal.has_result.continue}
+                        {warningTextModal.has_result.continue}
                       </p>
                     )}
                   </>
@@ -372,7 +372,7 @@ export default function DetailsTest({
                 }
                 body={
                   <p className="font-medium leading-[170%] text-gray">
-                    {WarningTextModal.change_device}{" "}
+                    {warningTextModal.change_device}{" "}
                     <strong className="font-extrabold text-purple">
                       {formatDate(data?.data.end_time as string)}
                     </strong>
@@ -441,7 +441,7 @@ export const getServerSideProps = async ({
     ) {
       return {
         redirect: {
-          destination: `/dashboard`,
+          destination: `/osce-ukmppai`,
         },
       };
     }

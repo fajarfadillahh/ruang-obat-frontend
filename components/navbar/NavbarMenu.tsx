@@ -4,6 +4,7 @@ import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import {
   Avatar,
+  Badge,
   Button,
   Dropdown,
   DropdownItem,
@@ -20,16 +21,22 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import {
+  BookBookmark,
   CaretDown,
   ChatCircleText,
   ClipboardText,
+  CreditCard,
   Headset,
-  House,
   IconContext,
+  MagnifyingGlass,
   Medal,
+  PencilRuler,
+  Pill,
   SignIn,
   SignOut,
+  Sparkle,
   UserCircle,
+  Video,
 } from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -38,30 +45,76 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 
 const menuItemsMobile = [
-  { label: "Beranda", href: "/" },
-  { label: "Tentang RuangObat", href: "/company/about-us" },
   {
-    label: "Video Belajar",
-    href: "/kelas-matkul-farmasi/video-matkul-farmasi",
+    label: "Utama",
+    list: [
+      { label: "Beranda", href: "/" },
+      { label: "Tentang RuangObat", href: "/perusahaan/tentang-kami" },
+    ],
   },
   {
-    label: "Kelas Matkul Farmasi",
-    href: "/kelas-matkul-farmasi",
+    label: "Produk",
+    list: [
+      {
+        label: "Ruang Sarjana & Diploma Farmasi",
+        href: "/video",
+      },
+      {
+        label: "Ruang Private 1 on 1",
+        href: "/kelas/private-1-on-1",
+      },
+      { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
+      { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
+      { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
+      { label: "Ruang OSCE & UKMPPAI", href: "/osce-ukmppai" },
+    ],
   },
-  { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
-  { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
-  { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
-  { label: "TryOut UKMPPAI", href: "/dashboard" },
 ];
 
 const menuItemsDesktop = [
   {
-    label: "Kelas Matkul Farmasi",
-    href: "/kelas-matkul-farmasi",
+    icon: Video,
+    iconColor: "warning",
+    label: "Ruang Sarjana & Diploma Farmasi",
+    description:
+      "Video belajar fleksibel & lengkap untuk gelar Sarjana & Diploma.",
+    href: "/video",
   },
-  { label: "Kelas Skripsi Farmasi", href: "/kelas-skripsi-farmasi" },
-  { label: "Kelas Riset Farmasi", href: "/kelas-riset-farmasi" },
-  { label: "Kelas Masuk Apoteker", href: "/kelas-masuk-apoteker" },
+  {
+    icon: ClipboardText,
+    iconColor: "secondary",
+    label: "Ruang Private 1 on 1",
+    description: "Pendampingan intensif untuk hasil belajar maksimal.",
+    href: "/kelas/private-1-on-1",
+  },
+  {
+    icon: BookBookmark,
+    iconColor: "success",
+    label: "Ruang Skripsi Farmasi",
+    description: "Bimbingan skripsi terarah dari awal hingga tuntas.",
+    href: "/kelas/skripsi-farmasi",
+  },
+  {
+    icon: MagnifyingGlass,
+    iconColor: "primary",
+    label: "Ruang Riset Farmasi",
+    description: "Tingkatkan skill risetmu dengan metode yang tepat.",
+    href: "/kelas/riset-farmasi",
+  },
+  {
+    icon: Pill,
+    iconColor: "danger",
+    label: "Ruang Masuk Apoteker",
+    description: "Persiapan matang menuju profesi apoteker impianmu.",
+    href: "/kelas/masuk-apoteker",
+  },
+  {
+    icon: PencilRuler,
+    iconColor: "warning",
+    label: "Ruang OSCE & UKMPPAI",
+    description: "Siap hadapi ujian kompetensi dengan percaya diri.",
+    href: "/osce-ukmppai",
+  },
 ];
 
 export default function NavbarMain() {
@@ -115,7 +168,7 @@ export default function NavbarMain() {
       onMenuOpenChange={setIsMenuOpen}
       height="96px"
       classNames={{
-        wrapper: "max-w-[1200px] px-6 xl:px-0",
+        wrapper: "max-w-[1440px] px-6",
       }}
     >
       <NavbarContent justify="start">
@@ -126,31 +179,23 @@ export default function NavbarMain() {
 
         <NavbarBrand className="hidden lg:inline-flex">
           <Link href="/" className="inline-flex items-center gap-2">
-            <LogoRuangobat className="h-auto w-8 text-gray/20" />
-            <h1 className="text-[20px] font-extrabold -tracking-wide text-black">
+            <LogoRuangobat className="h-auto w-10 text-gray/20" />
+            <h1 className="text-2xl font-extrabold -tracking-wide text-black">
               RuangObat<span className="text-purple">.</span>
             </h1>
           </Link>
         </NavbarBrand>
       </NavbarContent>
 
-      <NavbarContent className="hidden gap-5 lg:flex" justify="center">
-        <NavbarItem>
-          <Link
-            href="/kelas-matkul-farmasi/video-matkul-farmasi"
-            className="text-sm font-medium text-gray hover:text-purple"
-          >
-            Video Belajar
-          </Link>
-        </NavbarItem>
-
+      <NavbarContent className="hidden gap-4 lg:flex lg:gap-8" justify="center">
         <NavbarItem>
           <Dropdown>
             <DropdownTrigger>
               <div className="group inline-flex items-center gap-1 hover:cursor-pointer">
                 <p className="text-sm font-medium text-gray hover:text-purple">
-                  Daftar Kelas
+                  Daftar Program
                 </p>
+
                 <CaretDown
                   weight="bold"
                   size={14}
@@ -159,15 +204,28 @@ export default function NavbarMain() {
               </div>
             </DropdownTrigger>
 
-            <DropdownMenu items={menuItemsDesktop}>
+            <DropdownMenu
+              items={menuItemsDesktop}
+              itemClasses={{
+                base: "gap-2",
+                title: "font-bold -tracking-wide text-black",
+                // description: "text-sm text-gray",
+              }}
+            >
               {(item) => (
-                <DropdownItem key={item.href}>
-                  <Link
-                    href={item.href}
-                    className="w-full text-sm font-medium text-gray"
-                  >
-                    {item.label}
-                  </Link>
+                <DropdownItem
+                  key={item.description}
+                  // description={item.description}
+                  startContent={
+                    <item.icon
+                      weight="duotone"
+                      size={32}
+                      className={`text-${item.iconColor}`}
+                    />
+                  }
+                  onClick={() => router.push(item.href)}
+                >
+                  {item.label}
                 </DropdownItem>
               )}
             </DropdownMenu>
@@ -176,19 +234,40 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/dashboard"
+            href="/perusahaan/testimonial"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            TryOut UKMPPAI
+            Testimonial
           </Link>
         </NavbarItem>
 
         <NavbarItem>
           <Link
-            href="/company/about-us"
+            href="https://wa.me/6289637015733"
+            target="_blank"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            Tentang RuangObat
+            WhatsApp Kami
+          </Link>
+        </NavbarItem>
+
+        <NavbarItem>
+          <Link
+            href="/rosa"
+            className="flex items-center gap-1 text-sm font-medium text-gray hover:text-purple"
+          >
+            <Sparkle weight="duotone" size={18} className="text-purple" />
+
+            <Badge
+              color="danger"
+              content="Beta"
+              size="sm"
+              classNames={{
+                badge: "-right-[13%] -top-[10%]",
+              }}
+            >
+              <span>Apoteker ROSA</span>
+            </Badge>
           </Link>
         </NavbarItem>
       </NavbarContent>
@@ -239,15 +318,6 @@ export default function NavbarMain() {
                     title: "font-semibold",
                   }}
                 >
-                  <DropdownItem
-                    key="dashboard"
-                    color="secondary"
-                    startContent={<House />}
-                    onClick={() => router.push("/dashboard")}
-                  >
-                    Dashboard
-                  </DropdownItem>
-
                   <DropdownSection
                     aria-label="account & settings section"
                     title="Akun & Info"
@@ -277,6 +347,15 @@ export default function NavbarMain() {
                       onClick={() => router.push("/my/tests")}
                     >
                       Ujian Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="mysubscribe"
+                      color="secondary"
+                      startContent={<CreditCard />}
+                      onClick={() => router.push("/my/subscriptions")}
+                    >
+                      Langganan Saya
                     </DropdownItem>
                   </DropdownSection>
 
@@ -326,7 +405,7 @@ export default function NavbarMain() {
             <ModalConfirm
               btnText="Logout"
               header="Pemberitahuan"
-              text="Apakah Anda Yakin Ingin Logout?"
+              text="Apakah kamu yakin ingin logout?"
               loading={loading}
               isOpen={isLogoutOpen}
               onClose={onLogoutClose}
@@ -338,7 +417,9 @@ export default function NavbarMain() {
             <Button
               variant="bordered"
               startContent={<SignIn weight="bold" size={18} />}
-              onClick={() => router.push("/auth/login")}
+              onClick={() =>
+                router.push(`/auth/login?callback=${router.asPath}`)
+              }
               className="px-7 font-bold text-black"
             >
               Login
@@ -346,7 +427,9 @@ export default function NavbarMain() {
 
             <Button
               color="secondary"
-              onClick={() => router.push("/auth/register")}
+              onClick={() =>
+                router.push(`/auth/register?callback=${router.asPath}`)
+              }
               className="px-8 font-bold"
             >
               Register
@@ -356,17 +439,56 @@ export default function NavbarMain() {
       </NavbarContent>
 
       {/* mobile view */}
-      <NavbarMenu className="gap-1">
+      <NavbarMenu className="gap-8">
         {menuItemsMobile.map((item, index) => (
           <NavbarMenuItem key={index}>
-            <Link
-              href={item.href}
-              className="flex rounded-lg text-sm font-medium text-gray [padding:8px_12px] hover:bg-gray/20"
-            >
-              {item.label}
-            </Link>
+            <div className="grid gap-2">
+              <span className="text-xs font-extrabold uppercase tracking-[4px] text-purple">
+                {item.label}
+              </span>
+
+              <div className="grid gap-1">
+                {item.list.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.href}
+                    className="flex rounded-lg text-sm font-medium text-gray [padding:8px_12px] hover:bg-gray/20"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </div>
           </NavbarMenuItem>
         ))}
+
+        {/* ai highlight */}
+        <Link
+          href="/rosa"
+          className="flex items-start gap-6 rounded-xl border-l-8 border-pink-500 bg-purple p-6 hover:bg-purple/90"
+        >
+          <Sparkle weight="duotone" size={32} className="text-white" />
+
+          <div className="grid flex-1 gap-1">
+            <h4 className="text-lg font-bold text-white">
+              <Badge
+                color="danger"
+                content="Beta"
+                size="sm"
+                classNames={{
+                  badge: "-right-[10%] -top-[10%]",
+                }}
+              >
+                <span>Apoteker ROSA</span>
+              </Badge>
+            </h4>
+
+            <p className="text-sm font-medium text-white/80">
+              AI Assistant yang siap bantu kamu menjawab berbagai pertanyaan
+              seputar dunia Farmasi dan layanan belajar di RuangObat!
+            </p>
+          </div>
+        </Link>
       </NavbarMenu>
     </Navbar>
   );

@@ -6,10 +6,12 @@ import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/react";
+import "katex/dist/katex.min.css";
 import { SessionProvider } from "next-auth/react";
 import { DefaultSeo } from "next-seo";
 import type { AppProps } from "next/app";
 import NextNProgress from "nextjs-progressbar";
+import { NuqsAdapter } from "nuqs/adapters/next/pages";
 import { Toaster } from "react-hot-toast";
 import { SWRConfig } from "swr";
 
@@ -28,7 +30,11 @@ export default function App({
           },
         }}
       />
-      <NextNProgress color="#6238C3" options={{ showSpinner: false }} />
+      <NextNProgress
+        color="#6238C3"
+        options={{ showSpinner: false }}
+        showOnShallow={false}
+      />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
         <SessionChecker />
         <SWRConfig
@@ -39,7 +45,9 @@ export default function App({
         >
           <AppProvider>
             <DefaultSeo {...seoConfig} />
-            <Component {...pageProps} />
+            <NuqsAdapter>
+              <Component {...pageProps} />
+            </NuqsAdapter>
           </AppProvider>
         </SWRConfig>
       </SessionProvider>

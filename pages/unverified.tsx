@@ -16,6 +16,7 @@ import {
 import { PaperPlaneTilt, Warning } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
@@ -23,6 +24,7 @@ export default function UnverifiedPage({
   data,
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const router = useRouter();
   const [time, setTime] = useState(0);
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState("");
@@ -107,7 +109,7 @@ export default function UnverifiedPage({
 
       setNewEmail("");
       onCodeVerificationClose();
-      window.location.href = "/verified";
+      window.location.href = `/verified${router.query.callback ? `?callback=${router.query.callback}` : ""}`;
     } catch (error) {
       console.log(error);
       toast.error(getError(error));
@@ -238,7 +240,7 @@ export default function UnverifiedPage({
       </Modal>
 
       <Head>
-        <title>Verifikasi Email Anda! | RuangObat</title>
+        <title>Verifikasi Email Kamu! | RuangObat</title>
       </Head>
 
       <main className="flex h-screen w-full items-center justify-center px-6">
@@ -255,7 +257,7 @@ export default function UnverifiedPage({
               belum diverifikasi. Klik{" "}
               <span className="font-bold text-purple">Kirim Kode OTP</span> di
               bawah untuk mendapatkan kode OTP. Jika sudah, silakan cek inbox
-              atau folder spam pada email anda.
+              atau folder spam pada email kamu.
             </p>
           </div>
 
@@ -327,7 +329,7 @@ export const getServerSideProps: GetServerSideProps<{
   data?: UserDataResponse;
   token?: string;
   error?: any;
-}> = async ({ req }) => {
+}> = async ({ req, query }) => {
   const token = req.headers["access_token"] as string;
 
   try {
@@ -340,7 +342,7 @@ export const getServerSideProps: GetServerSideProps<{
     if (response.data.is_verified) {
       return {
         redirect: {
-          destination: "/",
+          destination: query.callback ? (query.callback as string) : "/",
           permanent: false,
         },
       };

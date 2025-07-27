@@ -1,8 +1,8 @@
 import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
+import { quotes } from "@/data/quotes";
 import { customInputClassnames } from "@/utils/customInputClassnames";
 import { validateEmail, validatePassword } from "@/utils/formValidators";
 import { handleKeyDown } from "@/utils/handleKeyDown";
-import { quotes } from "@/utils/quotes";
 import { Button, Input } from "@nextui-org/react";
 import {
   EnvelopeSimple,
@@ -13,6 +13,7 @@ import {
   Quotes,
 } from "@phosphor-icons/react";
 import { signIn } from "next-auth/react";
+import { NextSeo } from "next-seo";
 import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
@@ -34,6 +35,8 @@ type ErrorsState = {
 
 export default function LoginPage() {
   const router = useRouter();
+  const currentUrl = `https://ruangobat.id${router.asPath}`;
+
   const [client, setClient] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState<ErrorsState>({});
@@ -72,8 +75,8 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
-      toast.success("Yeay, Anda Berhasil Login");
-      return (window.location.href = "/unverified");
+      toast.success("Yeay, kamu berhasil login");
+      return (window.location.href = `/unverified${router.query.callback ? `?callback=${router.query.callback}` : ""}`);
     }
   }
 
@@ -91,36 +94,25 @@ export default function LoginPage() {
 
   return (
     <>
+      <NextSeo
+        title="Login Untuk Mulai Belajar | RuangObat"
+        description="Masuk ke akun RuangObat dan lanjutkan perjalanan belajarmu di dunia farmasi. Akses video pembelajaran, kelas interaktif, dan tanya langsung ke Apoteker ROSA. Satu langkah lagi menuju belajar yang lebih pintar!"
+        canonical={currentUrl}
+        openGraph={{
+          url: currentUrl,
+          title: "Login Untuk Mulai Belajar | RuangObat",
+          description:
+            "Masuk ke akun RuangObat dan lanjutkan perjalanan belajarmu di dunia farmasi. Akses video pembelajaran, kelas interaktif, dan tanya langsung ke Apoteker ROSA. Satu langkah lagi menuju belajar yang lebih pintar!",
+          site_name: "RuangObat",
+        }}
+      />
+
       <Head>
-        <title>Login Untuk Mulai Belajar | Ruangobat.id</title>
-        <meta
-          name="description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          name="description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
-        <meta
-          name="keywords"
-          content="ruangobat, ruangobat.id, ruangobat id, ruang obat id, ruangobat ujian, ruangobat ujian online, ruangobat farmasi, ruangobat tryout, ruangobat tes, ujian online ruangobat, platform ujian mahasiswa farmasi, belajar farmasi online, tryout farmasi online, tes farmasi online, latihan soal farmasi, simulasi ujian farmasi, platform belajar farmasi, ujian online farmasi terpercaya kelas apoteker, kelas masuk apoteker, program apoteker, praktikum apoteker, ujian tryout apoteker, ujian praktikum apoteker, ujian praktikum farmasi, ujian praktikum jurusan farmasi, tryout juruan apoteker, ujian juruan apoteker, kelas masuk apoteker, kelas apoteker, kelas farmasi, kelas jurusan apoteker, kelas jurusan farmasi, kelas skripsi dan riset apoteker, kelas skripsi dan riset farmasi, ujian UKMPPAI, tryout UKMPPAI, skripsi apoteker, skripsi farmasi, ujian online apoteker, kelas online apoteker, kelas online farmasi"
-        />
-        <meta
-          property="og:title"
-          content="Login Untuk Mulai Belajar | Ruangobat.id"
-        />
-        <meta
-          property="og:description"
-          content="RuangObat merupakan platform belajar farmasi private No.1 di Indonesia untuk seluruh mahasiswa di Indonesia. Terdapat banyak program menarik, mulai dari Kelas Mata Kuliah & Praktikum, Kelas Skripsi & Riset, Kelas Masuk Apoteker & OSCE, Serta TryOut UKMPPAI."
-        />
-        <meta
-          property="og:description"
-          content="Di website RuangObat kalian akan dapat mengakses berbagai program. Mari raih gelar sarjana dan apotekermu bersama RuangObat #bimbelfarmasi #cukupdisiniaja."
-        />
+        <title>Login Untuk Mulai Belajar | RuangObat</title>
       </Head>
 
       <main className="grid h-screen xl:grid-cols-[1fr_550px]">
-        <div className="hidden items-center justify-center bg-default-100 px-20 xl:flex">
+        <div className="hidden items-center justify-center bg-gray/10 px-20 xl:flex">
           <div className="relative grid gap-16">
             <Quotes
               weight="fill"

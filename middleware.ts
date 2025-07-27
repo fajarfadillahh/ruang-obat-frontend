@@ -14,11 +14,13 @@ export async function middleware(request: NextRequest) {
       return NextResponse.next();
     }
 
-    return NextResponse.redirect(new URL("/dashboard", request.url));
+    return NextResponse.redirect(new URL("/", request.url));
   }
 
   if (!token) {
-    return NextResponse.redirect(new URL("/auth/login", request.url));
+    return NextResponse.redirect(
+      new URL(`/auth/login?callback=${pathname}`, request.url),
+    );
   }
 
   const response = NextResponse.next();
@@ -30,9 +32,7 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
     "/my/:path*",
-    "/programs/:path*",
     "/tests/:path*",
     "/welcome",
     "/results/:path*",

@@ -4,28 +4,28 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "dev.ruangobat.id",
-      },
-      {
         protocol: "https",
         hostname: "dev.ruangobat.id",
       },
       {
         protocol: "https",
-        hostname: "i.pinimg.com",
+        hostname: "api.ruangobat.id",
       },
       {
         protocol: "https",
         hostname: "www.youtube.com",
       },
       {
-        protocol: "http",
-        hostname: "api.ruangobat.id",
+        protocol: "https",
+        hostname: "is3.cloudhost.id",
       },
       {
         protocol: "https",
-        hostname: "api.ruangobat.id",
+        hostname: "ruangobat.is3.cloudhost.id",
+      },
+      {
+        protocol: "https",
+        hostname: "ruangobatdev.is3.cloudhost.id",
       },
     ],
   },
