@@ -30,7 +30,7 @@ export default function SectionCategory({
       )}
       ref={sectionRef}
     >
-      <div className="grid">
+      <div className="grid gap-1">
         <h2 className="text-3xl font-black -tracking-wide text-black">
           Daftar Kategori
         </h2>
