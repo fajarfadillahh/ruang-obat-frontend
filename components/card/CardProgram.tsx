@@ -18,9 +18,11 @@ export default function CardProgram(program: ProgramsType) {
       <BookBookmark weight="duotone" size={32} className="text-purple" />
 
       <div className="flex-1 divide-y-2 divide-dashed divide-gray/20">
-        <h4 className="line-clamp-2 pb-4 text-lg font-bold -tracking-wide text-black group-hover:text-purple">
-          {program.title}
-        </h4>
+        <div className="pb-4">
+          <h4 className="line-clamp-2 text-lg font-bold -tracking-wide text-black group-hover:text-purple">
+            {program.title}
+          </h4>
+        </div>
 
         <div className="flex items-start justify-between gap-2 pt-4">
           <div className="grid gap-1">
