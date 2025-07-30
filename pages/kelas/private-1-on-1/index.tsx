@@ -2,6 +2,7 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import { siteConfigPhamacyPrivteClassPage } from "@/data/site";
@@ -18,13 +19,14 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
+  Chip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { IconContext, ShareNetwork } from "@phosphor-icons/react";
+import { IconContext, ShareNetwork, Sparkle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -55,30 +57,42 @@ export default function Private1on1Page({
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-2">
+        <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Kelas Private 1 on 1 Farmasi{" "}
-              <span className="text-2xl font-extrabold text-purple">
-                by RuangObat
-              </span>
+            <Chip
+              color="secondary"
+              variant="flat"
+              classNames={{
+                content: "font-bold",
+              }}
+              className="mb-2"
+            >
+              📋 Ruang Private 1 on 1
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Mentor Pribadi untuk Mahasiswa Farmasi:{" "}
+              <TextHighlight
+                text="Fokus, Intensif, dan 100%
+              Relevan!"
+                className="font-black"
+              />
             </h1>
 
-            <p className="font-medium leading-[170%] text-gray">
-              Khusus kalian mahasiswa farmasi dan mahasiswa profesi apoteker
-              yang masih bingung terkait materi kuliah, tugas, skill, praktikum,
-              OSCE dan lain-lain. Tidak perlu khawatir, karena kami menyediakan
+            <p className="mb-6 font-medium leading-[170%] text-gray">
+              Sesi bimbel private 1-on-1 untuk bantu kamu pahami materi kuliah
+              dan siap ujian. Tidak perlu khawatir, karena kami menyediakan
               kelas private mata kuliah 🤩. Di kelas ini kalian bisa request
               materi apapun dan sepuasnya, selain itu bisa request mentor juga
-              lho!!. Materi yang diajarkan dikemas dengan menarik menggunakan
-              bahasa yang mudah dipahami.
+              lho!!.
             </p>
 
-            <div className="mt-10 inline-flex items-center gap-4">
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(packagesRef)}
-                className="px-10 font-bold"
+                className="px-6 font-bold"
               >
                 Pilih Paket Sekarang!
               </Button>
@@ -97,11 +111,11 @@ export default function Private1on1Page({
 
           <Image
             priority
-            src="/img/base/private-1on1-img.svg"
-            alt="class subject private img"
-            width={418}
-            height={434}
-            className="h-auto w-full justify-self-center"
+            src="/img/new-illustration/img-4.svg"
+            alt="private img"
+            width={1000}
+            height={1000}
+            className="w-full justify-self-center"
           />
         </section>
 
@@ -117,12 +131,12 @@ export default function Private1on1Page({
               className: "text-purple",
             }}
           >
-            <div className="flex flex-wrap items-center justify-center gap-4 xl:grid xl:grid-cols-5">
+            <div className="grid gap-4 xs:grid-cols-2 xl:grid-cols-5">
               {siteConfigPhamacyPrivteClassPage.consultation_list.map(
                 (item, index) => (
                   <div
                     key={index}
-                    className="grid h-auto max-w-[210px] gap-6 rounded-xl border-2 border-gray/10 [padding:2rem_1rem] xl:max-w-none"
+                    className="grid gap-2 rounded-xl border-2 border-gray/10 p-8"
                   >
                     <item.icon />
 
