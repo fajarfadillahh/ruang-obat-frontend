@@ -243,7 +243,7 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="https://wa.me/6289637015733"
+            href="https://wa.me/62895383359491"
             target="_blank"
             className="text-sm font-medium text-gray hover:text-purple"
           >
