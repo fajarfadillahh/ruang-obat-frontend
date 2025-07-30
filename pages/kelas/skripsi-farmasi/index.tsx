@@ -2,6 +2,7 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import { ThesisClassType, ThesisResponse } from "@/types/classes.type";
@@ -13,17 +14,49 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
+  Chip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { ArrowRight, ShareNetwork } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  BookBookmark,
+  ClipboardText,
+  Folder,
+  RocketLaunch,
+  ShareNetwork,
+  Sparkle,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useContext, useRef, useState } from "react";
+
+const benefits = [
+  {
+    icon: RocketLaunch,
+    description:
+      "Paket bootcamp 30 hari akan bantu proses skripsimu jadi lebih cepat",
+  },
+  {
+    icon: BookBookmark,
+    description:
+      "Terdapat berbagai jenis kelas, meliputi Kelas Judul dan Pengenalan Penelitian",
+  },
+  {
+    icon: ClipboardText,
+    description:
+      "Ada juga Kelas Bab 1-3, Kelas Simulasi Sempro, Kelas Revisian",
+  },
+  {
+    icon: Folder,
+    description:
+      "Kelas Analisa data SPSS, Kelas Kompre dan Kelas Simulasi Sidang Hasil",
+  },
+];
 
 export default function PharmacyThesisClassPage({
   data,
@@ -84,18 +117,31 @@ export default function PharmacyThesisClassPage({
   return (
     <>
       <Layout
-        title="Kelas Skripsi Farmasi"
+        title="Ruang Skripsi Farmasi: Solusi Efektif dan Tepat untuk Selesaikan Skripsi Hingga Sidang"
         description="Kelas Bimbingan Skripsi super lengkap dan bersifat private one-by-one dengan mentor, sehingga akan membuatmu lebih fokus dalam mengerjakan skripsi."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
+        <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Kelas Skripsi Farmasi: Solusi Tepat Sampai Sidang
+            <Chip
+              color="success"
+              variant="flat"
+              classNames={{
+                content: "font-bold",
+              }}
+              className="mb-2"
+            >
+              📚 Ruang Skripsi Farmasi
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Solusi Efektif dan Tepat untuk{" "}
+              <TextHighlight text="Selesaikan Skripsi" className="font-black" />{" "}
+              Hingga Sidang
             </h1>
 
-            <p className="font-medium leading-[170%] text-gray">
+            <p className="mb-6 font-medium leading-[170%] text-gray">
               Kelas Bimbingan Skripsi super lengkap, Ruang Obat solusinya😍 !!.
               Tidak hanya sebatas kelas saja, tapi kamu juga akan dibimbing dari
               nol hingga meraih sarjana. Bahkan, kelas skripsi ini sudah
@@ -103,20 +149,14 @@ export default function PharmacyThesisClassPage({
               yang bisa kamu tonton kembali sepuasnya. Kelas skripsi bersifat
               private one-by-one dengan mentor, sehingga akan membuatmu lebih
               fokus dalam mengerjakan skripsi.
-              <br />
-              <br />
-              Paket bootcamp 30 hari akan membantu proses skripsimu lebih cepat
-              selesai. Terdapat berbagai macam jenis kelas, meliputi Kelas Judul
-              dan Pengenalan Penelitian, Kelas Bab 1-3, Kelas Simulasi Sempro,
-              Kelas Revisian, Kelas Analisa data SPSS, Kelas Kompre dan Kelas
-              Simulasi Sidang Hasil.
             </p>
 
-            <div className="mt-10 inline-flex items-center gap-4">
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(listClassRef)}
-                className="w-max px-10 font-bold"
+                className="px-6 font-bold"
               >
                 Pilih Kelas Sekarang!
               </Button>
@@ -135,12 +175,31 @@ export default function PharmacyThesisClassPage({
 
           <Image
             priority
-            src="/img/base/skripsi-img.svg"
+            src="/img/new-illustration/img-4.svg"
             alt="class subject img"
-            width={493}
-            height={619}
-            className="h-[600px] w-full justify-self-center"
+            width={1000}
+            height={1000}
+            className="w-full justify-self-center"
           />
+        </section>
+
+        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-4">
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+            >
+              <benefit.icon
+                weight="duotone"
+                size={48}
+                className="text-purple"
+              />
+
+              <p className="font-medium leading-[170%] text-gray">
+                {benefit.description}
+              </p>
+            </div>
+          ))}
         </section>
 
         <section

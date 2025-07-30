@@ -2,17 +2,25 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CardProduct from "@/components/card/CardProduct";
 import CTASecondary from "@/components/cta/CTASecondary";
 import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/data/site";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
-import { Button } from "@nextui-org/react";
-import { ShareNetwork } from "@phosphor-icons/react";
+import { Button, Chip } from "@nextui-org/react";
+import { ShareNetwork, Sparkle } from "@phosphor-icons/react";
 import Image from "next/image";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 export default function ListClassPage() {
+  const [client, setClient] = useState<boolean>(false);
   const listClassRef = useRef<HTMLElement | null>(null);
+
+  useEffect(() => {
+    setClient(true);
+  }, []);
+
+  if (!client) return;
 
   return (
     <>
@@ -22,22 +30,38 @@ export default function ListClassPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-2 xl:gap-2">
+        <section className="base-container items-center gap-6 xl:grid-cols-[550px_1fr]">
           <Image
             priority
-            src="/img/base/video-pembelajaran-img.svg"
+            src="/img/new-illustration/img-4.svg"
             alt="class subject img"
-            width={493}
-            height={619}
-            className="order-2 h-[600px] w-full justify-self-center xl:-order-1"
+            width={1000}
+            height={1000}
+            className="w-full justify-self-center"
           />
 
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Ruang Belajar Farmasi: Semuanya ada dalam satu tempat!
+            <Chip
+              color="danger"
+              variant="flat"
+              size="lg"
+              classNames={{
+                content: "font-bold",
+              }}
+              className="mb-2"
+            >
+              🔥 Bimbel Private Farmasi No.1 di Indonesia
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Ruang Belajar Farmasi:{" "}
+              <TextHighlight
+                text="Semuanya ada dalam satu tempat!"
+                className="font-black"
+              />
             </h1>
 
-            <p className="font-medium leading-[170%] text-gray">
+            <p className="mb-6 font-medium leading-[170%] text-gray">
               RuangObat menyajikan ruang belajar Farmasi yang lengkap dengan
               berbagai pilihan menarik, mulai dari:{" "}
               <strong className="font-bold text-purple">
@@ -48,26 +72,24 @@ export default function ListClassPage() {
               dalam.
             </p>
 
-            <div className="mt-10 inline-flex items-center gap-4">
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(listClassRef)}
-                className="w-max px-16 font-bold"
+                className="px-6 font-bold"
               >
-                Pilih Kelas
+                Pilih Program Sekarang!
               </Button>
 
               <Button
-                isIconOnly
                 aria-label="Share Link"
                 variant="bordered"
+                startContent={<ShareNetwork weight="duotone" size={18} />}
                 onClick={handleShareClipboard}
+                className="px-6 font-bold"
               >
-                <ShareNetwork
-                  weight="duotone"
-                  size={18}
-                  className="text-black"
-                />
+                Bagikan
               </Button>
             </div>
           </div>
@@ -78,7 +100,7 @@ export default function ListClassPage() {
           className="base-container gap-5 [padding:50px_0_100px]"
         >
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-            Daftar Kelas di RuangObat
+            Daftar Program RuangObat
           </h2>
 
           <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">

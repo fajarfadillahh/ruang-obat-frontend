@@ -38,7 +38,7 @@ export default function SectionSubscription({
       className={twMerge("base-container gap-4 py-[100px]", `${className}`)}
       ref={sectionRef}
     >
-      <div className="grid">
+      <div className="grid gap-1">
         <h2 className="text-3xl font-black -tracking-wide text-black">
           Langganan 🌟
         </h2>
