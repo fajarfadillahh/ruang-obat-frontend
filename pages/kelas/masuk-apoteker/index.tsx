@@ -4,17 +4,19 @@ import CustomTooltip from "@/components/CustomTooltip";
 import Footer from "@/components/footer/Footer";
 import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
-import { Button } from "@nextui-org/react";
+import { Button, Chip } from "@nextui-org/react";
 import {
   ClipboardText,
   IconContext,
   ShareNetwork,
+  Sparkle,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
@@ -66,13 +68,26 @@ export default function ApotekerClassPage({
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-4 xl:grid-cols-2 xl:gap-2">
+        <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Kelas Siap Masuk Apoteker: Upgrade Skill, Raih Mimpi
+            <Chip
+              color="danger"
+              variant="flat"
+              classNames={{
+                content: "font-bold",
+              }}
+              className="mb-2"
+            >
+              💊 Ruang Masuk Apoteker
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Persiapkan Diri dengan{" "}
+              <TextHighlight text="Skill Terbaik" className="font-black" />{" "}
+              untuk Menjadi Apoteker Andal
             </h1>
 
-            <p className="mb-10 font-medium leading-[170%] text-gray">
+            <p className="mb-6 font-medium leading-[170%] text-gray">
               Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami
               menyediakan program khusus yang disesuaikan dengan kebutuhan
               menjadi seorang Apoteker yang handal dan profesional. Kelas ini
@@ -83,6 +98,7 @@ export default function ApotekerClassPage({
             <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(subscribeRef)}
                 className="px-6 font-bold"
               >
@@ -103,11 +119,11 @@ export default function ApotekerClassPage({
 
           <Image
             priority
-            src="/img/base/apoteker-img.svg"
+            src="/img/new-illustration/img-7.svg"
             alt="class subject img"
-            width={493}
-            height={619}
-            className="h-[600px] w-full justify-self-center"
+            width={1000}
+            height={1000}
+            className="w-full justify-self-center"
           />
         </section>
 
