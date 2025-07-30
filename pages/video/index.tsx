@@ -141,15 +141,15 @@ export default function VideoLearningClassPage({
           />
         </section>
 
-        <section className="base-container gap-4 [margin:2rem_auto_100px] xs:grid-cols-2 xl:grid-cols-5">
+        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-5">
           {headlines.map((headline, index) => (
             <div
               key={index}
-              className="grid gap-2 rounded-xl border-2 border-gray/10 p-8"
+              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
             >
               <headline.icon
                 weight="duotone"
-                size={64}
+                size={48}
                 className="text-purple"
               />
 
