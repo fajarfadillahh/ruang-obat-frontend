@@ -111,7 +111,7 @@ export default function Private1on1Page({
 
           <Image
             priority
-            src="/img/new-illustration/img-4.svg"
+            src="/img/new-illustration/img-8.svg"
             alt="private img"
             width={1000}
             height={1000}
