@@ -117,7 +117,7 @@ export default function PharmacyThesisClassPage({
   return (
     <>
       <Layout
-        title="Kelas Skripsi Farmasi"
+        title="Ruang Skripsi Farmasi: Solusi Efektif dan Tepat untuk Selesaikan Skripsi Hingga Sidang"
         description="Kelas Bimbingan Skripsi super lengkap dan bersifat private one-by-one dengan mentor, sehingga akan membuatmu lebih fokus dalam mengerjakan skripsi."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />

@@ -52,8 +52,8 @@ export default function Private1on1Page({
   return (
     <>
       <Layout
-        title="Kelas Privat 1 on 1 Farmasi"
-        description="Sesi pembelajaran privat satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar kamu."
+        title="Ruang Private 1 on 1: Mentor Pribadi untuk Mahasiswa Farmasi"
+        description="Sesi pembelajaran private satu-satu bersama tutor profesional di bidang farmasi, dirancang khusus untuk kebutuhan dan gaya belajar kamu."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 

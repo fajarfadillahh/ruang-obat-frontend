@@ -78,7 +78,7 @@ export default function VideoLearningClassPage({
   return (
     <>
       <Layout
-        title="Video Pembelajaran Lengkap untuk Mahasiswa Farmasi"
+        title="Ruang Sarjana & Diploma Farmasi: Video Belajar Farmasi Terlengkap, Siap Temani Perjalananmu Jadi Apoteker Hebat!"
         description="Dikelas ini kami menyediakan video pembelajaran mata kuliah farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
@@ -98,8 +98,8 @@ export default function VideoLearningClassPage({
 
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
               Video Belajar Farmasi{" "}
-              <TextHighlight text="Terlengkap & Seru" className="font-black" />{" "}
-              Siap Temani Perjalananmu Jadi{" "}
+              <TextHighlight text="Terlengkap," className="font-black" /> Siap
+              Temani Perjalananmu Jadi{" "}
               <TextHighlight text="Apoteker Hebat!" className="font-black" />
             </h1>
 

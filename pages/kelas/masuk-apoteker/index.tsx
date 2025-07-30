@@ -63,7 +63,7 @@ export default function ApotekerClassPage({
   return (
     <>
       <Layout
-        title="Kelas Siap Masuk Apoteker: Upgrade Skill, Raih Mimpi"
+        title="Ruang Masuk Apoteker: Persiapkan Diri dengan Skill Terbaik untuk Menjadi Apoteker Andal"
         description="Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami menyediakan program khusus yang disesuaikan dengan kebutuhan menjadi seorang Apoteker yang handal dan profesional. Kelas ini pula dirancang untuk membantu kamu memahami materi secara mendalam dan terarah."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />

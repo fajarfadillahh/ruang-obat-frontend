@@ -114,7 +114,7 @@ export default function PharmacyResearchClassPage({
   return (
     <>
       <Layout
-        title="Kelas Riset Farmasi"
+        title="Ruang Riset Farmasi: Kunci Sukses Memahami dan Menerapkan Metode Penelitian"
         description="Kelas ini dirancang untuk membekali kamu dengan keterampilan riset farmasi, mulai dari perencanaan penelitian hingga analisis data, dengan panduan dari para ahli berpengalaman."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />

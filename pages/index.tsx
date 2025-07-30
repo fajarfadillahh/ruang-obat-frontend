@@ -76,7 +76,7 @@ export default function HomePage({
 
   return (
     <>
-      <Layout title="Bimbel Private Farmasi No. 1 di Indonesia Yang Memfasilitasi 10.000+ Mahasiswa Farmasi">
+      <Layout title="Bimbel Private Farmasi No.1 di Indonesia Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia">
         {/* hero section */}
         <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
           <Sparkle
