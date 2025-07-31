@@ -75,7 +75,7 @@ export default function SectionSubscription({
                   <h1
                     className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
                   >
-                    {formatRupiah(25000)}
+                    {formatRupiah(item.discount_amount)}
                   </h1>
 
                   <h5 className="relative isolate w-max text-2xl font-black text-gray/40">
