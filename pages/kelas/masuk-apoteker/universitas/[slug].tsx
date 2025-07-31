@@ -41,6 +41,7 @@ type UniversitiesDetailResponse = {
     title: string;
     description: string;
     total_questions: number;
+    has_access: boolean;
   }[];
   histories: {
     assr_id: string;
@@ -50,6 +51,7 @@ type UniversitiesDetailResponse = {
     title: string;
   }[];
   is_login: boolean;
+  has_subscription: boolean;
 };
 
 export default function DetailTryoutUniversityPage({
@@ -62,6 +64,7 @@ export default function DetailTryoutUniversityPage({
     title: string;
     description: string;
     total_questions: number;
+    has_access: boolean;
   } | null>(null);
   const [isOpenModalTryout, setIsOpenModalTryout] = useState<boolean>(false);
 
@@ -70,6 +73,7 @@ export default function DetailTryoutUniversityPage({
     title: string;
     description: string;
     total_questions: number;
+    has_access: boolean;
   }) {
     setSelectedTryout(prepTryout);
     setIsOpenModalTryout(true);
@@ -141,10 +145,22 @@ export default function DetailTryoutUniversityPage({
                     </IconContext.Provider>
 
                     <Button
-                      isDisabled={session.status == "unauthenticated"}
+                      isDisabled={
+                        session.status == "unauthenticated" ||
+                        !data?.has_subscription ||
+                        !selectedTryout.has_access
+                      }
                       color="secondary"
                       onClick={() => {
-                        router.push(`/quiz/${selectedTryout.ass_id}/start`);
+                        if (
+                          session.status == "unauthenticated" ||
+                          !data?.has_subscription ||
+                          !selectedTryout.has_access
+                        ) {
+                          return;
+                        } else {
+                          router.push(`/quiz/${selectedTryout.ass_id}/start`);
+                        }
                       }}
                       className="font-bold"
                     >
