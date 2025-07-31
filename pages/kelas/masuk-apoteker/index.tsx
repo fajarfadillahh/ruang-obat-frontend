@@ -164,7 +164,7 @@ export default function ApotekerClassPage({
 
                   <div className="grid gap-4">
                     <CustomTooltip content={university.title}>
-                      <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+                      <h1 className="line-clamp-1 font-black text-black group-hover:text-purple">
                         {university.title}
                       </h1>
                     </CustomTooltip>
