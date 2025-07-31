@@ -155,7 +155,7 @@ export default function CoursePage({
                   onClick={() => scrollToSection(quizRef)}
                   className="px-6 font-bold"
                 >
-                  Pilih Bonus Kuis
+                  Pilih Latihan Soal
                 </Button>
               </div>
             </div>
@@ -261,11 +261,12 @@ export default function CoursePage({
         <section ref={quizRef} className="base-container gap-4 py-[100px]">
           <div className="grid">
             <h2 className="text-3xl font-black -tracking-wide text-black">
-              Bonus Kuis ✍
+              Latihan Soal ✍
             </h2>
 
             <p className="font-medium leading-[170%] text-gray">
-              Dapatkan bonus kuis untuk kamu yang telah berlangganan kelas ini.
+              Dapatkan latihan soal untuk kamu yang telah berlangganan kelas
+              ini.
             </p>
           </div>
 
