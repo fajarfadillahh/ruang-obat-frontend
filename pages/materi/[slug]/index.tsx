@@ -82,6 +82,7 @@ type ContentResponse = {
     }[];
   }[];
   is_login: boolean;
+  has_subscription: boolean;
 };
 
 export default function CoursePage({
@@ -345,10 +346,22 @@ export default function CoursePage({
                           </IconContext.Provider>
 
                           <Button
-                            isDisabled={session.status == "unauthenticated"}
+                            isDisabled={
+                              session.status == "unauthenticated" ||
+                              !data.has_subscription
+                            }
                             color="secondary"
                             onClick={() => {
-                              router.push(`/quiz/${selectedQuiz.ass_id}/start`);
+                              if (
+                                session.status == "unauthenticated" ||
+                                !data.has_subscription
+                              ) {
+                                return;
+                              } else {
+                                router.push(
+                                  `/quiz/${selectedQuiz.ass_id}/start`,
+                                );
+                              }
                             }}
                             className="font-bold"
                           >
