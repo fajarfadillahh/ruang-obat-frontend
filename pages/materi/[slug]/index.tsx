@@ -127,7 +127,7 @@ export default function CoursePage({
 
         {/* course list section */}
         <section className="base-container gap-16 [padding:50px_0_100px]">
-          <div className="flex items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4">
             <Image
               src={data?.img_url as string}
               alt={data?.name as string}
@@ -241,7 +241,19 @@ export default function CoursePage({
               ))}
             </div>
           ) : (
-            <Empty text="Data video belum tersedia" />
+            <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+              <Image
+                src="/img/new-illustration/img-no-data-upload.svg"
+                alt="no data image"
+                width={1000}
+                height={1000}
+                className="h-[280px] w-auto"
+              />
+
+              <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                Video belajarnya sedang di upload, guys. Tunggu sebentar yaa...
+              </h3>
+            </div>
           )}
         </section>
 
@@ -258,7 +270,7 @@ export default function CoursePage({
           </div>
 
           {data?.quizzes.length ? (
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
               {data.quizzes.map((quiz) => (
                 <CardQuiz
                   key={quiz.ass_id}
@@ -351,7 +363,19 @@ export default function CoursePage({
               )}
             </div>
           ) : (
-            <Empty text="Data kuis belum tersedia" />
+            <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+              <Image
+                src="/img/new-illustration/img-no-data-upload.svg"
+                alt="no data image"
+                width={1000}
+                height={1000}
+                className="h-[280px] w-auto"
+              />
+
+              <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                Kuis sedang di input, guys. Tunggu sebentar yaa...
+              </h3>
+            </div>
           )}
         </section>
 
@@ -398,7 +422,7 @@ export default function CoursePage({
             <div className="grid gap-8 xl:grid-cols-[1fr_350px] xl:items-start">
               <div className="grid gap-8">
                 {/* image flashcard */}
-                <div className="w-full columns-[377px]">
+                <div className="grid gap-4 md:grid-cols-2">
                   {imageCards?.map((item, index) => (
                     <Image
                       key={index}
@@ -407,7 +431,7 @@ export default function CoursePage({
                       alt="flashcard image"
                       width={1024}
                       height={768}
-                      className="mb-4 h-auto w-full rounded-xl object-cover"
+                      className="h-auto w-full rounded-xl object-cover"
                     />
                   ))}
                 </div>
@@ -481,7 +505,19 @@ export default function CoursePage({
               </div>
             </div>
           ) : (
-            <Empty text="Flashcard belum tersedia" />
+            <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+              <Image
+                src="/img/new-illustration/img-no-data-upload.svg"
+                alt="no data image"
+                width={1000}
+                height={1000}
+                className="h-[280px] w-auto"
+              />
+
+              <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                Flashcard masih di upload, guys. Tunggu sebentar yaa...
+              </h3>
+            </div>
           )}
         </section>
 
