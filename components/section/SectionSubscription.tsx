@@ -16,6 +16,7 @@ type SubscriptionsProps = {
   package_id: string;
   name: string;
   price: number;
+  discount_amount?: number;
   duration: number;
   type: string;
   link_order: string;
@@ -38,7 +39,7 @@ export default function SectionSubscription({
       className={twMerge("base-container gap-4 py-[100px]", `${className}`)}
       ref={sectionRef}
     >
-      <div className="grid">
+      <div className="grid gap-1">
         <h2 className="text-3xl font-black -tracking-wide text-black">
           Langganan 🌟
         </h2>
@@ -69,11 +70,26 @@ export default function SectionSubscription({
                 {item.name}
               </h1>
 
-              <h1
-                className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
-              >
-                {formatRupiah(item.price)}
-              </h1>
+              {item.discount_amount ? (
+                <div className="grid justify-items-center gap-1">
+                  <h1
+                    className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
+                  >
+                    {formatRupiah(item.discount_amount)}
+                  </h1>
+
+                  <h5 className="relative isolate w-max text-2xl font-black text-gray/40">
+                    {formatRupiah(item.price)}
+                    <div className="absolute left-0 top-4 z-10 h-1 w-full bg-danger" />
+                  </h5>
+                </div>
+              ) : (
+                <h1
+                  className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
+                >
+                  {formatRupiah(item.price)}
+                </h1>
+              )}
             </div>
 
             <div className="grid gap-2">

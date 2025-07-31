@@ -2,6 +2,7 @@ import {
   Alarm,
   BookBookmark,
   Brain,
+  ChartLineUp,
   ChatCircleDots,
   ChatDots,
   ClipboardText,
@@ -11,15 +12,14 @@ import {
   Headset,
   LockKey,
   MagnifyingGlass,
-  Medal,
   NotePencil,
   PencilRuler,
   PhoneCall,
   Pill,
-  Question,
   Robot,
   RocketLaunch,
   Target,
+  UserCircle,
   Video,
 } from "@phosphor-icons/react";
 
@@ -463,28 +463,28 @@ export const siteConfigPhamacyPrivteClassPage = {
   consultation_list: [
     {
       id: 1,
-      icon: PencilRuler,
-      text: "Pembahasan materi atau soal-soal UTS dan UAS",
+      icon: MagnifyingGlass,
+      text: "Sesi fokus sesuai kebutuhan kamu (mata kuliah, topik, atau ujian)",
     },
     {
       id: 2,
-      icon: BookBookmark,
-      text: "Pembahasan terkait tugas, praktikum, skill ataupun OSCE.",
+      icon: UserCircle,
+      text: "Dimentori langsung oleh para mentor yang profesional dan keren",
     },
     {
       id: 3,
-      icon: MagnifyingGlass,
-      text: "Review atau mengulas kembali materi-materi perkuliahan",
+      icon: Alarm,
+      text: "Jadwal belajar fleksibel, bisa diatur sesuai kesibukan kamu",
     },
     {
       id: 4,
-      icon: Medal,
-      text: "Persiapan untuk lomba, intern dan karir di Farmasi",
+      icon: ChatCircleDots,
+      text: "Bisa tanya jawab dengan interaktif dan nggak cuma dengerin",
     },
     {
       id: 5,
-      icon: Question,
-      text: "+ Request atau permintaan lainnya bebas",
+      icon: ChartLineUp,
+      text: "Cocok untuk persiapan ujian, pengayaan, atau OSCE/UKMPPAI",
     },
   ],
   price_list: [

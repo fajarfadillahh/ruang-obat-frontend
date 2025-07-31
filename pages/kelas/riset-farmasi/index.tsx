@@ -2,6 +2,7 @@ import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import CTASecondary from "@/components/cta/CTASecondary";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import { ResearchClassType, ResearchResponse } from "@/types/classes.type";
@@ -13,17 +14,46 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import {
   Button,
+  Chip,
   Modal,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { ArrowRight, ShareNetwork } from "@phosphor-icons/react";
+import {
+  ArrowRight,
+  ClipboardText,
+  HandWaving,
+  MagnifyingGlass,
+  Microscope,
+  ShareNetwork,
+  Sparkle,
+} from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useContext, useRef, useState } from "react";
+
+const benefits = [
+  {
+    icon: Microscope,
+    description:
+      "Mempelajari berbagai aspek dan hal-hal teknikal di laboratorium",
+  },
+  {
+    icon: ClipboardText,
+    description: "Mempelajari berbagai aspek dan hal-hal teknikal dalam teori",
+  },
+  {
+    icon: HandWaving,
+    description: "Cara meminimalisir terjadinya trial error saat penelitian",
+  },
+  {
+    icon: MagnifyingGlass,
+    description: "Mempelajari prinsip-prinsip penting saat memulai penelitian",
+  },
+];
 
 export default function PharmacyResearchClassPage({
   data,
@@ -84,38 +114,47 @@ export default function PharmacyResearchClassPage({
   return (
     <>
       <Layout
-        title="Kelas Riset Farmasi"
+        title="Ruang Riset Farmasi: Kunci Sukses Memahami dan Menerapkan Metode Penelitian"
         description="Kelas ini dirancang untuk membekali kamu dengan keterampilan riset farmasi, mulai dari perencanaan penelitian hingga analisis data, dengan panduan dari para ahli berpengalaman."
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-16 xl:grid-cols-[1fr_max-content]">
+        <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-              Kelas Riset Farmasi: Kupas Tuntas Teknik Penelitian
+            <Chip
+              color="primary"
+              variant="flat"
+              classNames={{
+                content: "font-bold",
+              }}
+              className="mb-2"
+            >
+              🔍 Ruang Riset Farmasi
+            </Chip>
+
+            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              Kunci Sukses{" "}
+              <TextHighlight
+                text="Memahami dan Menerapkan"
+                className="font-black"
+              />{" "}
+              Metode Penelitian
             </h1>
 
-            <p className="font-medium leading-[170%] text-gray">
+            <p className="mb-6 font-medium leading-[170%] text-gray">
               Untuk mahasiswa S1 ataupun S2 yang membutuhkan bimbingan terkait
               riset secara teknikal, kelas ini akan sangat membantu kalian,
               dikarenakan mentor-mentor yang mengajar berasal dari praktisi
               Researcher, Formulator, dan lain-lain yang sudah berpengalaman di
               masing - masing bidang terkait.
-              <br />
-              <br />
-              Di Kelas ini kamu akan diajarkan terkait hal-hal yang berkaitan
-              dengan teknikal lab, tentunya kamu tidak hanya diajarkan teori
-              saja tapi akan diajarkan secara teknikal. Kelas ini akan membantu
-              kamu dalam meminimalisir terjadinya trial error saat penelitian.
-              Dan kamu akan memiliki prinsip-prinsip penting yang dapat kamu
-              perhatikan saat akan memulai penelitian 🤩 !
             </p>
 
-            <div className="mt-10 inline-flex items-center gap-4">
+            <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
               <Button
                 color="secondary"
+                endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() => scrollToSection(listClassRef)}
-                className="w-max px-10 font-bold"
+                className="px-6 font-bold"
               >
                 Pilih Kelas Sekarang!
               </Button>
@@ -134,12 +173,31 @@ export default function PharmacyResearchClassPage({
 
           <Image
             priority
-            src="/img/base/riset-img.svg"
+            src="/img/new-illustration/img-5.svg"
             alt="class subject img"
-            width={493}
-            height={619}
-            className="h-[600px] w-full justify-self-center"
+            width={1000}
+            height={1000}
+            className="w-full justify-self-center"
           />
+        </section>
+
+        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-4">
+          {benefits.map((benefit, index) => (
+            <div
+              key={index}
+              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+            >
+              <benefit.icon
+                weight="duotone"
+                size={48}
+                className="text-purple"
+              />
+
+              <p className="font-medium leading-[170%] text-gray">
+                {benefit.description}
+              </p>
+            </div>
+          ))}
         </section>
 
         <section
