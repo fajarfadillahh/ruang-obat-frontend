@@ -198,7 +198,10 @@ export default function ApotekerClassPage({
         ) : null}
 
         {data?.subscriptions.length ? (
-          <SectionSubscription subscriptions={data.subscriptions} />
+          <SectionSubscription
+            sectionRef={subscribeRef}
+            subscriptions={data.subscriptions}
+          />
         ) : null}
 
         <CTASecondary />
