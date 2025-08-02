@@ -124,6 +124,19 @@ export default function CoursePage({
   return (
     <>
       <Layout title={data?.name as string}>
+        {data?.has_subscription && (
+          <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3">
+            <h4 className="font-medium text-success-800">
+              🎉 Yeay, anda telah berlangganan pada:{" "}
+              <strong className="font-bold">
+                {data.type == "videocourse"
+                  ? "Ruang Sarjana & Diploma Farmasi 🎬"
+                  : "Ruang Masuk Apoteker 💊"}
+              </strong>
+            </h4>
+          </div>
+        )}
+
         <ButtonBack />
 
         {/* course list section */}
