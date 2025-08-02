@@ -20,10 +20,12 @@ import {
   ModalHeader,
 } from "@nextui-org/react";
 import {
+  ArrowRight,
   ClipboardText,
   DownloadSimple,
   FileText,
   IconContext,
+  Sparkle,
   Trophy,
   VideoCamera,
 } from "@phosphor-icons/react";
@@ -158,6 +160,7 @@ export default function CoursePage({
               <div className="grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
                 <Button
                   color="secondary"
+                  endContent={<Sparkle weight="duotone" size={18} />}
                   onClick={() => scrollToSection(subscribeRef)}
                   className="px-6 font-bold"
                 >
@@ -166,6 +169,7 @@ export default function CoursePage({
 
                 <Button
                   variant="bordered"
+                  endContent={<ArrowRight weight="bold" size={18} />}
                   onClick={() => scrollToSection(quizRef)}
                   className="px-6 font-bold"
                 >
