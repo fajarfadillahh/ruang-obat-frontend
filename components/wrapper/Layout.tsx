@@ -57,10 +57,6 @@ export default function Layout({
 
           {children}
         </main>
-
-        {/* {router.pathname === "https://cbt.ruangobat.id/" ? (
-          <FooterSimple />
-        ) : null} */}
       </div>
     </>
   );

@@ -32,6 +32,7 @@ import {
   Medal,
   PencilRuler,
   Pill,
+  ShoppingCart,
   SignIn,
   SignOut,
   Sparkle,
@@ -356,6 +357,15 @@ export default function NavbarMain() {
                       onClick={() => router.push("/my/subscriptions")}
                     >
                       Langganan Saya
+                    </DropdownItem>
+
+                    <DropdownItem
+                      key="mypurchases"
+                      color="secondary"
+                      startContent={<ShoppingCart />}
+                      onClick={() => router.push("/my/purchases")}
+                    >
+                      Pembelian Saya
                     </DropdownItem>
                   </DropdownSection>
 

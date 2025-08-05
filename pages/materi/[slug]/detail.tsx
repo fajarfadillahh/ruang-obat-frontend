@@ -434,36 +434,37 @@ export default function DetailCoursePage({
           ) : null
         ) : null}
 
-        <section className="base-container gap-8 pt-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-16">
-          <div className="relative h-[350px] w-[350px] rounded-xl">
+        <section className="base-container gap-8 pt-8 lg:grid-cols-[max-content_1fr] lg:items-center lg:gap-10">
+          <div className="relative size-full rounded-xl">
             {isLoading ? (
-              <Skeleton className="h-full w-full rounded-xl" />
+              <Skeleton className="size-full rounded-xl" />
             ) : (
               <Image
                 src={data?.data.thumbnail_url as string}
                 alt={data?.data.title as string}
-                fill
-                className="rounded-xl object-cover object-center"
+                width={1000}
+                height={1000}
+                className="size-full rounded-xl object-cover object-center xs:size-[300px]"
               />
             )}
           </div>
 
           <div className="grid max-w-[900px] gap-8">
-            <div className="grid gap-4">
+            <div className="grid gap-1 xs:gap-2">
               {isLoading ? (
-                <Skeleton className="h-12 w-full rounded-xl" />
+                <>
+                  <Skeleton className="h-12 w-full rounded-xl" />
+                  <Skeleton className="h-12 max-w-60 rounded-xl" />
+                </>
               ) : (
-                <h1 className="text-4xl font-black capitalize -tracking-wide text-black xl:text-5xl">
-                  {data?.data.title}
-                </h1>
-              )}
-
-              {isLoading ? (
-                <Skeleton className="h-28 w-full rounded-xl" />
-              ) : (
-                <p className="font-medium leading-[170%] text-gray">
-                  {data?.data.description}
-                </p>
+                <>
+                  <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+                    {data?.data.title}
+                  </h1>
+                  <p className="font-medium leading-[170%] text-gray">
+                    {data?.data.description}
+                  </p>
+                </>
               )}
             </div>
 
@@ -872,14 +873,15 @@ function handleAccordionItemCondition({
               <div className="inline-flex items-center gap-2">
                 <CustomTooltip content="Play Video">
                   <Button
-                    isIconOnly
+                    isDisabled={content.is_locked}
                     size="sm"
                     color="secondary"
                     variant="flat"
+                    startContent={<Play weight="duotone" size={14} />}
                     onClick={() => getVideoUrl(content)}
-                    isDisabled={content.is_locked}
+                    className="font-bold"
                   >
-                    <Play weight="duotone" size={20} />
+                    Putar
                   </Button>
                 </CustomTooltip>
 
@@ -893,7 +895,7 @@ function handleAccordionItemCondition({
                       onClick={() => getNotesUrl(content)}
                       isDisabled={content.is_locked}
                     >
-                      <ClipboardText weight="duotone" size={20} />
+                      <ClipboardText weight="duotone" size={18} />
                     </Button>
                   </CustomTooltip>
                 ) : null}
@@ -907,7 +909,7 @@ function handleAccordionItemCondition({
                     onClick={() => markAsCompleted(content)}
                     isDisabled={content.is_locked || content.is_completed}
                   >
-                    <Check weight="bold" size={20} />
+                    <Check weight="bold" size={18} />
                   </Button>
                 </CustomTooltip>
               </div>

@@ -40,7 +40,7 @@ export default function SectionSubscription({
       ref={sectionRef}
     >
       <div className="grid gap-1">
-        <h2 className="text-3xl font-black -tracking-wide text-black">
+        <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
           Langganan 🌟
         </h2>
 

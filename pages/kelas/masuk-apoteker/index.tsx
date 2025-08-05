@@ -57,8 +57,9 @@ export default function ApotekerClassPage({
   data,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const subscribeRef = useRef<HTMLElement | null>(null);
   const router = useRouter();
+  const subscribeRef = useRef<HTMLElement | null>(null);
+  const hasSubscribeRef = useRef<HTMLElement | null>(null);
 
   return (
     <>
@@ -66,6 +67,15 @@ export default function ApotekerClassPage({
         title="Ruang Masuk Apoteker: Persiapkan Diri dengan Skill Terbaik untuk Menjadi Apoteker Andal"
         description="Bersiaplah menghadapi seleksi masuk program profesi apoteker. Kami menyediakan program khusus yang disesuaikan dengan kebutuhan menjadi seorang Apoteker yang handal dan profesional. Kelas ini pula dirancang untuk membantu kamu memahami materi secara mendalam dan terarah."
       >
+        {data?.subscriptions.length ? null : (
+          <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3 text-sm sm:text-base">
+            <h4 className="font-medium text-success-800">
+              🎉 Yeay, anda telah berlangganan pada:{" "}
+              <strong className="font-bold">Ruang Masuk Apoteker 💊</strong>
+            </h4>
+          </div>
+        )}
+
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
@@ -81,7 +91,7 @@ export default function ApotekerClassPage({
               💊 Ruang Masuk Apoteker
             </Chip>
 
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+            <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl lg:text-5xl">
               Persiapkan Diri dengan{" "}
               <TextHighlight text="Skill Terbaik" className="font-black" />{" "}
               untuk Menjadi Apoteker Andal
@@ -99,10 +109,16 @@ export default function ApotekerClassPage({
               <Button
                 color="secondary"
                 endContent={<Sparkle weight="duotone" size={18} />}
-                onClick={() => scrollToSection(subscribeRef)}
+                onClick={() =>
+                  scrollToSection(
+                    data?.subscriptions.length ? subscribeRef : hasSubscribeRef,
+                  )
+                }
                 className="px-6 font-bold"
               >
-                Langganan Sekarang!
+                {data?.subscriptions.length
+                  ? "Langganan Sekarang!"
+                  : "Lihat Video Belajar!"}
               </Button>
 
               <Button
@@ -127,12 +143,16 @@ export default function ApotekerClassPage({
           />
         </section>
 
-        <SectionCategory type="apotekerclass" categories={data?.categories} />
+        <SectionCategory
+          sectionRef={hasSubscribeRef}
+          type="apotekerclass"
+          categories={data?.categories}
+        />
 
         {data?.universities.length ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid">
-              <h2 className="text-3xl font-black -tracking-wide text-black">
+              <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
                 Tryout Universitas 🎓
               </h2>
 
@@ -198,7 +218,10 @@ export default function ApotekerClassPage({
         ) : null}
 
         {data?.subscriptions.length ? (
-          <SectionSubscription subscriptions={data.subscriptions} />
+          <SectionSubscription
+            sectionRef={subscribeRef}
+            subscriptions={data.subscriptions}
+          />
         ) : null}
 
         <CTASecondary />
