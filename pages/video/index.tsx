@@ -74,13 +74,25 @@ export default function VideoLearningClassPage({
   data,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const subscribeRef = useRef<HTMLElement | null>(null);
+  const hasSubscribeRef = useRef<HTMLElement | null>(null);
 
   return (
     <>
       <Layout
-        title="Ruang Sarjana & Diploma Farmasi: Video Belajar Farmasi Terlengkap, Siap Temani Perjalananmu Jadi Apoteker Hebat!"
+        title="Ruang Sarjana & Diploma Farmasi: Video Belajar Farmasi Terlengkap untuk Mahasiswa Sarjana & Diploma, Siap Temani Perjalananmu Jadi Apoteker Hebat!"
         description="Dikelas ini kami menyediakan video pembelajaran mata kuliah farmasi yang lengkap dan mudah dipahami. Solusi praktis untuk membantu kamu belajar kapan saja dan di mana saja."
       >
+        {data?.subscriptions.length ? null : (
+          <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3 text-sm sm:text-base">
+            <h4 className="font-medium text-success-800">
+              🎉 Yeay, anda telah berlangganan pada:{" "}
+              <strong className="font-bold">
+                Ruang Sarjana & Diploma Farmasi 🎬
+              </strong>
+            </h4>
+          </div>
+        )}
+
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
@@ -96,10 +108,9 @@ export default function VideoLearningClassPage({
               🎬 Ruang Sarjana & Diploma Farmasi
             </Chip>
 
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
-              Video Belajar Farmasi{" "}
-              <TextHighlight text="Terlengkap," className="font-black" /> Siap
-              Temani Perjalananmu Jadi{" "}
+            <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl lg:text-[38px]">
+              Video Belajar Farmasi Terlengkap untuk Mahasiswa Sarjana &
+              Diploma, Siap Temani Perjalananmu Jadi{" "}
               <TextHighlight text="Apoteker Hebat!" className="font-black" />
             </h1>
 
@@ -113,10 +124,16 @@ export default function VideoLearningClassPage({
               <Button
                 color="secondary"
                 endContent={<Sparkle weight="duotone" size={18} />}
-                onClick={() => scrollToSection(subscribeRef)}
+                onClick={() =>
+                  scrollToSection(
+                    data?.subscriptions.length ? subscribeRef : hasSubscribeRef,
+                  )
+                }
                 className="px-6 font-bold"
               >
-                Langganan Sekarang!
+                {data?.subscriptions.length
+                  ? "Langganan Sekarang!"
+                  : "Lihat Video Belajar!"}
               </Button>
 
               <Button
@@ -141,7 +158,7 @@ export default function VideoLearningClassPage({
           />
         </section>
 
-        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-5">
+        <section className="base-container gap-4 [padding:4rem_0_2rem] xs:grid-cols-2 xl:grid-cols-5">
           {headlines.map((headline, index) => (
             <div
               key={index}
@@ -160,7 +177,11 @@ export default function VideoLearningClassPage({
           ))}
         </section>
 
-        <SectionCategory type="videocourse" categories={data?.categories} />
+        <SectionCategory
+          sectionRef={hasSubscribeRef}
+          type="videocourse"
+          categories={data?.categories}
+        />
 
         {data?.subscriptions.length ? (
           <SectionSubscription
