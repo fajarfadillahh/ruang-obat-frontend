@@ -32,7 +32,7 @@ export default function CategoryPage({
 
         {/* for type: videocourse & videoukmppai */}
         <section className="base-container gap-8 [padding:50px_0_100px]">
-          <div className="flex items-center gap-4">
+          <div className="grid gap-4 xs:flex xs:items-center lg:gap-8">
             <Image
               src={data?.img_url as string}
               alt={data?.name as string}
@@ -41,7 +41,7 @@ export default function CategoryPage({
               className="size-28 object-fill"
             />
 
-            <h1 className="flex-1 text-3xl font-black text-black xl:text-4xl">
+            <h1 className="flex-1 text-2xl font-black -tracking-wide text-black xs:text-3xl xl:text-4xl">
               {data?.name as string}
             </h1>
           </div>

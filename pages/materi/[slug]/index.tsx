@@ -97,6 +97,7 @@ export default function CoursePage({
   const [isOpenModalQuiz, setIsOpenModalQuiz] = useState<boolean>(false);
 
   const subscribeRef = useRef<HTMLElement | null>(null);
+  const hasSubscribeRef = useRef<HTMLElement | null>(null);
   const quizRef = useRef<HTMLElement | null>(null);
 
   function handleOpenModalQuiz(prepQuiz: Quiz) {
@@ -143,7 +144,7 @@ export default function CoursePage({
 
         {/* course list section */}
         <section className="base-container gap-16 [padding:50px_0_100px]">
-          <div className="flex flex-wrap items-center gap-4">
+          <div className="flex flex-wrap items-center gap-4 lg:gap-8">
             <Image
               src={data?.img_url as string}
               alt={data?.name as string}
@@ -152,8 +153,8 @@ export default function CoursePage({
               className="size-28 object-fill"
             />
 
-            <div className="grid gap-4">
-              <h1 className="flex-1 text-3xl font-black text-black xl:text-4xl">
+            <div className="grid w-full gap-4 sm:w-auto">
+              <h1 className="flex-1 text-2xl font-black -tracking-wide text-black xs:text-3xl xl:text-4xl">
                 {data?.name as string}
               </h1>
 
@@ -161,10 +162,16 @@ export default function CoursePage({
                 <Button
                   color="secondary"
                   endContent={<Sparkle weight="duotone" size={18} />}
-                  onClick={() => scrollToSection(subscribeRef)}
+                  onClick={() =>
+                    scrollToSection(
+                      data?.has_subscription ? hasSubscribeRef : subscribeRef,
+                    )
+                  }
                   className="px-6 font-bold"
                 >
-                  Langganan Sekarang!
+                  {data?.has_subscription
+                    ? "Mulai Tonton Video!"
+                    : "Langganan Sekarang!"}
                 </Button>
 
                 <Button
@@ -180,7 +187,10 @@ export default function CoursePage({
           </div>
 
           {data?.courses.length ? (
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+            <section
+              ref={hasSubscribeRef}
+              className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4"
+            >
               {data?.courses.map((course) => (
                 <div
                   key={course.course_id}
@@ -257,7 +267,7 @@ export default function CoursePage({
                   </div>
                 </div>
               ))}
-            </div>
+            </section>
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
@@ -278,7 +288,7 @@ export default function CoursePage({
         {/* quiz section */}
         <section ref={quizRef} className="base-container gap-4 py-[100px]">
           <div className="grid">
-            <h2 className="text-3xl font-black -tracking-wide text-black">
+            <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
               Latihan Soal ✍
             </h2>
 
@@ -414,7 +424,7 @@ export default function CoursePage({
         {data?.is_login ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid">
-              <h2 className="text-3xl font-black -tracking-wide text-black">
+              <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
                 Riwayat Kuis 🕐
               </h2>
 
@@ -445,7 +455,7 @@ export default function CoursePage({
 
         {/* flashcard section */}
         <section className="base-container gap-4 py-[100px]">
-          <h2 className="text-3xl font-black -tracking-wide text-black">
+          <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
             Flashcard ✉️
           </h2>
 
