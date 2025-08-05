@@ -24,14 +24,11 @@ export default function SectionCategory({
 }: SectionCategoryProps) {
   return (
     <section
-      className={twMerge(
-        "base-container gap-4 [padding:50px_0_100px]",
-        `${className}`,
-      )}
+      className={twMerge("base-container gap-4 py-[100px]", `${className}`)}
       ref={sectionRef}
     >
       <div className="grid gap-1">
-        <h2 className="text-3xl font-black -tracking-wide text-black">
+        <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
           Daftar Kategori
         </h2>
 
