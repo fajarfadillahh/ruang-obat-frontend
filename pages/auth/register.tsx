@@ -23,6 +23,7 @@ import {
 } from "@nextui-org/react";
 import {
   Buildings,
+  Calendar,
   EnvelopeSimple,
   Eye,
   EyeSlash,
@@ -51,6 +52,7 @@ type InputState = {
   gender: string;
   university: string;
   password: string;
+  entry_year: string;
 };
 
 type ErrorsState = {
@@ -60,6 +62,7 @@ type ErrorsState = {
   gender?: string;
   university?: string;
   password?: string;
+  entry_year?: string;
 };
 
 export default function RegisterPage() {
@@ -92,8 +95,18 @@ export default function RegisterPage() {
     gender: "",
     university: "",
     password: "",
+    entry_year: "",
   });
   const [loadingScreen, setLoadingScreen] = useState(false);
+
+  const date = new Date();
+  const startYear = 2015;
+  const currentYear = date.getFullYear();
+
+  const entryYears = Array.from(
+    { length: currentYear - startYear + 1 },
+    (_, i) => currentYear - i,
+  );
 
   function handleInputChange(
     e: ChangeEvent<HTMLInputElement>,
@@ -189,6 +202,7 @@ export default function RegisterPage() {
           gender: "",
           university: "",
           password: "",
+          entry_year: "",
         });
         onCodeVerificationClose();
         setCode("");
@@ -395,6 +409,31 @@ export default function RegisterPage() {
                   isInvalid={!!errors.university}
                   errorMessage={errors.university}
                 />
+
+                <Select
+                  selectedKeys={[input.entry_year]}
+                  aria-label="select entry_year"
+                  variant="flat"
+                  labelPlacement="outside"
+                  placeholder="Tahun Masuk Kuliah"
+                  name="entry_year"
+                  onChange={(e) =>
+                    setInput({
+                      ...input,
+                      [e.target.name]: e.target.value,
+                    })
+                  }
+                  startContent={<Calendar />}
+                  classNames={{
+                    value: "font-semibold text-gray",
+                  }}
+                >
+                  {entryYears.map((year) => (
+                    <SelectItem key={year} value={year.toString()}>
+                      {year.toString()}
+                    </SelectItem>
+                  ))}
+                </Select>
 
                 <Input
                   value={input.password}
