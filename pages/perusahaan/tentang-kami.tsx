@@ -17,7 +17,7 @@ export default function AboutUsPage() {
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
         <section className="base-container gap-4 pb-[100px] text-center">
-          <h1 className="text-4xl font-black capitalize -tracking-wide text-black md:text-6xl lg:text-7xl">
+          <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl md:text-5xl lg:text-7xl">
             RuangObat: Ruang Belajar Farmasi Super Lengkap dan Fleksibel
           </h1>
 
@@ -112,7 +112,7 @@ export default function AboutUsPage() {
             />
 
             <div className="grid gap-4">
-              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
+              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl xl:text-6xl">
                 Awal dari sebuah petualangan 🚀
               </h1>
 
@@ -142,7 +142,7 @@ export default function AboutUsPage() {
         <section className="py-[100px]">
           <div className="base-container gap-8 lg:grid-cols-2 lg:items-start xl:gap-16">
             <div className="grid gap-4">
-              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
                 {siteConfigCompanyPage.about.data.vision.title}
               </h1>
 
@@ -152,7 +152,7 @@ export default function AboutUsPage() {
             </div>
 
             <div className="grid gap-4">
-              <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
+              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
                 {siteConfigCompanyPage.about.data.mission.title}
               </h1>
 
@@ -167,54 +167,6 @@ export default function AboutUsPage() {
                 ))}
               </ul>
             </div>
-          </div>
-        </section>
-
-        <section className="py-[100px]">
-          <div className="base-container items-center gap-10 xl:grid-cols-[1fr_500px]">
-            <div className="grid gap-4">
-              <h1 className="mb-4 text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xl:text-6xl">
-                The Origin Story of RuangObat: Dari Ide Jadi Solusi
-                <span className="text-purple">.</span>
-              </h1>
-
-              <p className="font-medium leading-[170%] text-gray">
-                Kami perkenalkan sosok dari lahirnya tempat belajar farmasi
-                terbaik di Indonesia yaitu,{" "}
-                <span className="font-black text-purple">
-                  apt. Niko Samuel, S. Farm.{" "}
-                </span>
-                Ia adalah seorang apoteker yang inovatif dengan pengalaman yang
-                luas di sektor kesehatan. Saat ini, Niko sudah menyelesaikan
-                Program Profesi Apoteker di Universitas Pancasila (2023-2024)
-                setelah sebelumnya memperoleh gelar Sarjana Farmasi dari
-                universitas yang sama pada tahun 2019-2023. Dengan latar
-                belakang yang kuat dan dedikasi tinggi, ia terus berkomitmen
-                dalam inovasi farmasi dan pelayanan kesehatan di Indonesia.
-              </p>
-
-              <p className="font-medium leading-[170%] text-gray">
-                Bukan hanya pendiri dari Ruangobat.id, tapi ia juga pendiri dari
-                Pharma Metrocity Group dan Jakarta Pasti Sehat, yang berfokus
-                pada pengembangan ekosistem farmasi dan kesehatan di Indonesia.
-                Ia juga memiliki beberapa pengalaman lain, yaitu:
-              </p>
-
-              <ul className="grid list-outside list-disc pl-4 font-medium leading-[170%] text-gray">
-                <li>9+ Internship Experiences in Health Sectors</li>
-                <li>8+ Laboratory Assistant Experiences</li>
-                <li>4+ Healthcare Organization Experiences</li>
-              </ul>
-            </div>
-
-            <Image
-              priority
-              src="/img/about/about-img-3.webp"
-              alt="home img"
-              width={396}
-              height={512}
-              className="h-auto w-full justify-self-center xl:justify-self-end"
-            />
           </div>
         </section>
 
