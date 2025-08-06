@@ -48,7 +48,7 @@ export default function UnverifiedPage({
         token,
       });
 
-      window.location.href = "/verified";
+      return router.push("/verified");
     } catch (error) {
       console.log(error);
       toast.error(getError(error));
@@ -109,7 +109,9 @@ export default function UnverifiedPage({
 
       setNewEmail("");
       onCodeVerificationClose();
-      window.location.href = `/verified${router.query.callback ? `?callback=${router.query.callback}` : ""}`;
+      return router.push(
+        `/verified${router.query.callback ? `?callback=${router.query.callback}` : ""}`,
+      );
     } catch (error) {
       console.log(error);
       toast.error(getError(error));
