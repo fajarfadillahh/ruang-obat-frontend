@@ -101,7 +101,7 @@ export default function HomePage({
               🔥 Selamat Datang Di RuangObat
             </Chip>
 
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl xs:leading-[115%]">
+            <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl xs:leading-[115%] lg:text-5xl">
               <TextHighlight
                 text="“Bimbel Private Farmasi No.1 di Indonesia”"
                 className="font-black leading-[115%]"
@@ -111,7 +111,7 @@ export default function HomePage({
               Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia
             </h1>
 
-            <p className="max-w-[900px] text-lg font-medium leading-[170%] text-gray">
+            <p className="max-w-[900px] font-medium leading-[170%] text-gray xs:text-lg">
               Dapatkan{" "}
               <TextHighlight
                 text="akses lengkap Video Pembelajaran, Bimbingan Private Skripsi & Riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
@@ -144,7 +144,7 @@ export default function HomePage({
 
           <div className="mt-8 grid items-center gap-4 xl:grid-cols-2">
             <div className="grid max-w-[480px] justify-items-center gap-2 justify-self-center text-center xl:text-left">
-              <h1 className="text-4xl font-black -tracking-wide text-black">
+              <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                 RuangObat: Mudah, Cepat & Terpercaya!
               </h1>
 
@@ -200,7 +200,7 @@ export default function HomePage({
             className="absolute right-64 top-0 hidden size-16 rotate-12 text-purple lg:flex"
           />
 
-          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl xl:text-left">
             Daftar Program RuangObat
           </h2>
 
@@ -230,7 +230,7 @@ export default function HomePage({
           />
 
           <div className="grid gap-4">
-            <h1 className="text-4xl font-black capitalize -tracking-wide text-black">
+            <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
               Belajar Farmasi Jadi{" "}
               <TextHighlight
                 text="Gampang, Kapan Aja Dimana Aja."
@@ -311,7 +311,7 @@ export default function HomePage({
             className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kenapa Harus Pilih RuangObat?
           </h1>
 
@@ -366,10 +366,10 @@ export default function HomePage({
             <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
               <div className="grid gap-4">
                 <p className="text-xl font-semibold capitalize text-white">
-                  RuangObat mempersembahkan! 🎉🎉🎉
+                  RuangObat mempersembahkan! 🎉🎉
                 </p>
 
-                <h1 className="text-4xl font-black text-white lg:text-5xl">
+                <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
                   Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
                 </h1>
 
@@ -460,7 +460,7 @@ export default function HomePage({
         {/* mentor section */}
         <section className="grid gap-8 py-[100px]">
           <div className="base-container place-items-center gap-2 text-center">
-            <h1 className="text-4xl font-black -tracking-wide text-black">
+            <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
               Kenalan Yuk Sama Mentor Keren di RuangObat
             </h1>
 
@@ -521,13 +521,13 @@ export default function HomePage({
         </section>
 
         {/* testimonial section */}
-        <section className="base-container relative isolate gap-8 py-[100px]">
+        <section className="base-container relative isolate gap-4 py-[100px] md:gap-8">
           <ChatTeardropText
             weight="duotone"
             className="absolute left-24 top-0 hidden size-20 -rotate-12 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kata Mereka Tentang RuangObat
           </h1>
 
@@ -597,7 +597,7 @@ export default function HomePage({
             className="absolute right-24 top-0 hidden size-20 rotate-12 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-4xl font-black -tracking-wide text-black">
+          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Yang Paling Banyak Ditanyakan
           </h1>
 
