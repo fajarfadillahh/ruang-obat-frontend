@@ -6,7 +6,7 @@ declare module "next-auth/jwt" {
     fullname: string;
     user_id: string;
     access_token: string;
-    expired: string;
+    expired_at: string;
     gender: "M" | "F";
     is_verified: boolean;
   }
@@ -17,7 +17,7 @@ declare module "next-auth" {
     fullname: string;
     user_id: string;
     access_token: string;
-    expired: string;
+    expired_at: string;
     gender: "M" | "F";
     is_verified: boolean;
     id?: string;
@@ -28,7 +28,7 @@ declare module "next-auth" {
       fullname: string;
       user_id: string;
       access_token: string;
-      expired: string;
+      expired_at: string;
       gender: "M" | "F";
       is_verified: boolean;
     };
