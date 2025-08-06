@@ -1,4 +1,4 @@
-import SessionChecker from "@/components/SessionChecker";
+import AuthChecker from "@/components/AuthChecker";
 import { fontMono, fontSans } from "@/config/fonts";
 import seoConfig from "@/config/seo.config";
 import AppProvider from "@/context/AppProvider";
@@ -36,7 +36,7 @@ export default function App({
         showOnShallow={false}
       />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
-        <SessionChecker />
+        <AuthChecker />
         <SWRConfig
           value={{
             fetcher,

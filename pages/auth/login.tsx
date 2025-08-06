@@ -76,7 +76,9 @@ export default function LoginPage() {
 
     if (response?.ok) {
       toast.success("Yeay, kamu berhasil login");
-      return (window.location.href = `/unverified${router.query.callback ? `?callback=${router.query.callback}` : ""}`);
+      return router.push(
+        `/unverified${router.query.callback ? `?callback=${router.query.callback}` : ""}`,
+      );
     }
   }
 

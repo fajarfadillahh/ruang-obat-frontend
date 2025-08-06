@@ -92,7 +92,7 @@ export default function StartTest({
         );
       }
     }
-  }, [data]);
+  }, [data, params.id]);
 
   if (isLoading) {
     return <Loading />;
@@ -141,8 +141,8 @@ export default function StartTest({
         duration: 3000,
       });
       localStorage.removeItem(params.id as string);
-      window.location.href = `/results/${response.data.result_id}`;
       setLoading(false);
+      return router.push(`/results/${response.data.result_id}`);
     } catch (error) {
       setLoading(false);
 
