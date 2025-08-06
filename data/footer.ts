@@ -67,7 +67,7 @@ export const footer = {
         },
         {
           label: "Testimonial",
-          href: "/perusahaan/testimonial",
+          href: "/testimonial",
         },
       ],
     },
