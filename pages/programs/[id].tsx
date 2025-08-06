@@ -19,6 +19,7 @@ import {
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useContext, useEffect } from "react";
@@ -30,6 +31,7 @@ export default function DetailsProgram({
   params,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const session = useSession();
   const { data, isLoading, mutate, error } = useSWR<
     SuccessResponse<DetailsProgramResponse>
   >({
@@ -142,6 +144,7 @@ export default function DetailsProgram({
                 <ModalFreeAccess
                   token={token}
                   program_id={data.data.program_id}
+                  user_id={session.data?.user.user_id as string}
                   mutate={mutate}
                 />
               ) : (
