@@ -208,7 +208,9 @@ export default function RegisterPage() {
         setCode("");
 
         toast.success("Registrasi berhasil");
-        return (window.location.href = `/welcome?from=register&${router.query.callback ? `callback=${router.query.callback}` : ""}`);
+        return router.push(
+          `/welcome?from=register${router.query.callback ? `&callback=${router.query.callback}` : ""}`,
+        );
       }
     } catch (error: any) {
       setLoading(false);

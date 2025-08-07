@@ -16,7 +16,7 @@ export default function TestimonialsPage() {
 
         <section className="base-container gap-8 pb-[100px]">
           <div className="grid justify-items-center gap-2 text-center">
-            <h1 className="text-4xl font-black -tracking-wide text-black">
+            <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
               Testimonial
             </h1>
 

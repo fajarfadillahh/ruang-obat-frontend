@@ -235,7 +235,7 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/perusahaan/testimonial"
+            href="/testimonial"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Testimonial
@@ -442,7 +442,7 @@ export default function NavbarMain() {
               }
               className="px-8 font-bold"
             >
-              Register
+              Buat Akun
             </Button>
           </div>
         )}

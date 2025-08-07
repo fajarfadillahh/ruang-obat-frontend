@@ -1,6 +1,3 @@
-import "@vidstack/react/player/styles/default/layouts/video.css";
-import "@vidstack/react/player/styles/default/theme.css";
-
 import ButtonBack from "@/components/button/ButtonBack";
 import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
@@ -35,12 +32,16 @@ import {
   Lock,
   Play,
   ShareNetwork,
+  SkipBack,
+  SkipForward,
 } from "@phosphor-icons/react";
-import { MediaPlayer, MediaProvider } from "@vidstack/react";
+import { MediaPlayer, MediaProvider, SeekButton } from "@vidstack/react";
 import {
-  defaultLayoutIcons,
-  DefaultVideoLayout,
-} from "@vidstack/react/player/layouts/default";
+  PlyrLayout,
+  plyrLayoutIcons,
+} from "@vidstack/react/player/layouts/plyr";
+import "@vidstack/react/player/styles/base.css";
+import "@vidstack/react/player/styles/plyr/theme.css";
 
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
@@ -208,6 +209,29 @@ export default function DetailCoursePage({
       setNumber(1);
     }
   }, [assessment, loadingAssessment]);
+
+  useEffect(() => {
+    const blockScreenshot = (e: KeyboardEvent) => {
+      if (e.key === "PrintScreen") {
+        e.preventDefault();
+        toast.error("Screenshot tidak diizinkan");
+      }
+      if (
+        (e.ctrlKey || e.metaKey) &&
+        e.shiftKey &&
+        (e.key === "S" || e.key === "s")
+      ) {
+        e.preventDefault();
+        toast.error("Screenshot tidak diizinkan");
+      }
+
+      if ((e.ctrlKey || e.metaKey) && (e.key === "S" || e.key === "s")) {
+        e.preventDefault();
+      }
+    };
+    window.addEventListener("keydown", blockScreenshot);
+    return () => window.removeEventListener("keydown", blockScreenshot);
+  }, []);
 
   async function handleSaveTest() {
     setLoadingSaveTest(true);
@@ -481,7 +505,14 @@ export default function DetailCoursePage({
                       color="secondary"
                       startContent={<Play weight="duotone" size={18} />}
                       className="px-6 font-bold"
-                      onClick={() => scrollToSection(sectionPlayerRef)}
+                      onClick={() => {
+                        scrollToSection(sectionPlayerRef);
+                        setSelectedVideo({
+                          title: data?.data.title || "",
+                          url: data?.data.preview_url || "",
+                          autoplay: true,
+                        });
+                      }}
                     >
                       Tonton Preview
                     </Button>
@@ -518,12 +549,26 @@ export default function DetailCoursePage({
                 onContextMenu={(e) => e.preventDefault()}
               >
                 <MediaProvider />
-                <DefaultVideoLayout
-                  icons={defaultLayoutIcons}
+                <PlyrLayout
+                  icons={plyrLayoutIcons}
                   slots={{
                     pipButton: null,
-                    googleCastButton: null,
-                    settingsMenu: null,
+                    beforePlayButton: (
+                      <SeekButton
+                        seconds={-10}
+                        className="rounded-md p-2 transition hover:bg-sky-500"
+                      >
+                        <SkipBack weight="bold" size={16} />
+                      </SeekButton>
+                    ),
+                    afterPlayButton: (
+                      <SeekButton
+                        seconds={10}
+                        className="rounded-md p-2 transition hover:bg-sky-500"
+                      >
+                        <SkipForward weight="bold" size={16} />
+                      </SeekButton>
+                    ),
                   }}
                 />
               </MediaPlayer>

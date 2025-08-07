@@ -239,7 +239,7 @@ export const siteConfigCompanyPage = {
     {
       label: "Testimonial",
       icon: ChatCircleDots,
-      url: "/perusahaan/testimonial",
+      url: "/testimonial",
     },
     {
       label: "Ketentuan Layanan ",

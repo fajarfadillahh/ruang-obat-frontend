@@ -1,4 +1,4 @@
-import SessionChecker from "@/components/SessionChecker";
+import AuthChecker from "@/components/AuthChecker";
 import { fontMono, fontSans } from "@/config/fonts";
 import seoConfig from "@/config/seo.config";
 import AppProvider from "@/context/AppProvider";
@@ -36,7 +36,7 @@ export default function App({
         showOnShallow={false}
       />
       <SessionProvider session={session} refetchOnWindowFocus={false}>
-        <SessionChecker />
+        <AuthChecker />
         <SWRConfig
           value={{
             fetcher,
@@ -44,14 +44,18 @@ export default function App({
           }}
         >
           <AppProvider>
-            <DefaultSeo {...seoConfig} />
+            {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+              <DefaultSeo {...seoConfig} />
+            ) : null}
             <NuqsAdapter>
               <Component {...pageProps} />
             </NuqsAdapter>
           </AppProvider>
         </SWRConfig>
       </SessionProvider>
-      <GoogleAnalytics gaId="G-QPX13ESQJV" />
+      {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+        <GoogleAnalytics gaId="G-QPX13ESQJV" />
+      ) : null}
     </NextUIProvider>
   );
 }
