@@ -1,4 +1,5 @@
 import { AppContext } from "@/context/AppContext";
+import { fetcher } from "@/utils/fetcher";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Button } from "@nextui-org/react";
 import { CheckCircle } from "@phosphor-icons/react";
@@ -31,7 +32,7 @@ export default function SectionSubscription({
   sectionRef,
   subscriptions,
 }: SectionSubscriptionProps) {
-  const { status } = useSession();
+  const { status, data } = useSession();
   const ctx = useContext(AppContext);
 
   return (
@@ -122,10 +123,22 @@ export default function SectionSubscription({
             </div>
 
             <Button
-              onClick={() => {
+              onClick={async () => {
                 if (status === "unauthenticated") {
                   ctx?.onOpenUnauthenticated();
                 } else {
+                  await fetcher({
+                    url: `/activities/products`,
+                    method: "POST",
+                    data: {
+                      action: "click",
+                      product_id: item.package_id,
+                      product_type: item.type,
+                      product_name: item.name,
+                      user_id: data?.user.user_id,
+                    },
+                    token: data?.user.access_token,
+                  });
                   window.open(item.link_order, "_blank");
                 }
               }}
