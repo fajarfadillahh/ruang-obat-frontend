@@ -123,11 +123,11 @@ export default function SectionSubscription({
             </div>
 
             <Button
-              onClick={async () => {
+              onClick={() => {
                 if (status === "unauthenticated") {
                   ctx?.onOpenUnauthenticated();
                 } else {
-                  await fetcher({
+                  fetcher({
                     url: `/activities/products`,
                     method: "POST",
                     data: {
