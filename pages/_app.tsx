@@ -44,14 +44,18 @@ export default function App({
           }}
         >
           <AppProvider>
-            <DefaultSeo {...seoConfig} />
+            {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+              <DefaultSeo {...seoConfig} />
+            ) : null}
             <NuqsAdapter>
               <Component {...pageProps} />
             </NuqsAdapter>
           </AppProvider>
         </SWRConfig>
       </SessionProvider>
-      <GoogleAnalytics gaId="G-QPX13ESQJV" />
+      {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+        <GoogleAnalytics gaId="G-QPX13ESQJV" />
+      ) : null}
     </NextUIProvider>
   );
 }
