@@ -32,10 +32,8 @@ import {
   Lock,
   Play,
   ShareNetwork,
-  SkipBack,
-  SkipForward,
 } from "@phosphor-icons/react";
-import { MediaPlayer, MediaProvider, SeekButton } from "@vidstack/react";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import {
   PlyrLayout,
   plyrLayoutIcons,
@@ -177,7 +175,7 @@ export default function DetailCoursePage({
       setSegments(data?.data.segments || []);
 
       setSelectedVideo({
-        title: data?.data.title || "",
+        title: `Preview ${data?.data.title}` || "",
         url: data?.data.preview_url || "",
         autoplay: false,
       });
@@ -553,23 +551,24 @@ export default function DetailCoursePage({
                   icons={plyrLayoutIcons}
                   slots={{
                     pipButton: null,
-                    beforePlayButton: (
-                      <SeekButton
-                        seconds={-10}
-                        className="rounded-md p-2 transition hover:bg-sky-500"
-                      >
-                        <SkipBack weight="bold" size={16} />
-                      </SeekButton>
-                    ),
-                    afterPlayButton: (
-                      <SeekButton
-                        seconds={10}
-                        className="rounded-md p-2 transition hover:bg-sky-500"
-                      >
-                        <SkipForward weight="bold" size={16} />
-                      </SeekButton>
+                    afterFastForwardButton: (
+                      <p className="text-xs">
+                        {selectedVideo.title
+                          .toLowerCase()
+                          .replace(/\b\w/g, (c) => c.toUpperCase())}
+                      </p>
                     ),
                   }}
+                  controls={[
+                    "play-large",
+                    "rewind",
+                    "play",
+                    "fast-forward",
+                    "progress",
+                    "duration",
+                    "settings",
+                    "fullscreen",
+                  ]}
                 />
               </MediaPlayer>
             )}
