@@ -35,11 +35,11 @@ import {
 } from "@phosphor-icons/react";
 import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import {
-  PlyrLayout,
-  plyrLayoutIcons,
-} from "@vidstack/react/player/layouts/plyr";
-import "@vidstack/react/player/styles/base.css";
-import "@vidstack/react/player/styles/plyr/theme.css";
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from "@vidstack/react/player/layouts/default";
+import "@vidstack/react/player/styles/default/layouts/video.css";
+import "@vidstack/react/player/styles/default/theme.css";
 
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
@@ -547,28 +547,13 @@ export default function DetailCoursePage({
                 onContextMenu={(e) => e.preventDefault()}
               >
                 <MediaProvider />
-                <PlyrLayout
-                  icons={plyrLayoutIcons}
+                <DefaultVideoLayout
+                  icons={defaultLayoutIcons}
                   slots={{
                     pipButton: null,
-                    afterFastForwardButton: (
-                      <p className="text-xs">
-                        {selectedVideo.title
-                          .toLowerCase()
-                          .replace(/\b\w/g, (c) => c.toUpperCase())}
-                      </p>
-                    ),
+                    googleCastButton: null,
+                    settingsMenu: null,
                   }}
-                  controls={[
-                    "play-large",
-                    "rewind",
-                    "play",
-                    "fast-forward",
-                    "progress",
-                    "duration",
-                    "settings",
-                    "fullscreen",
-                  ]}
                 />
               </MediaPlayer>
             )}
