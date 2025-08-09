@@ -155,9 +155,11 @@ export default function DetailCoursePage({
     token,
   });
 
-  const { data: dataContents, mutate: mutateSegments } = useSWR<
-    SuccessResponse<Content[]>
-  >(
+  const {
+    data: dataContents,
+    mutate: mutateSegments,
+    isLoading: isLoadingContents,
+  } = useSWR<SuccessResponse<Content[]>>(
     debouncedSelectedKeys
       ? {
           url: `/segments/${data?.data.course_id}/${debouncedSelectedKeys}`,
@@ -166,7 +168,10 @@ export default function DetailCoursePage({
         }
       : null,
     {
-      revalidateOnFocus: true,
+      dedupingInterval: 0,
+      revalidateIfStale: true,
+      revalidateOnFocus: false,
+      keepPreviousData: false,
     },
   );
 
@@ -197,8 +202,13 @@ export default function DetailCoursePage({
   ]);
 
   useEffect(() => {
-    setContents(dataContents?.data as Content[]);
-    setLoadingContents(false);
+    if (dataContents && dataContents?.data.length) {
+      setContents(dataContents?.data as Content[]);
+      setLoadingContents(false);
+    } else if (dataContents && !dataContents?.data.length) {
+      setContents([]);
+      setLoadingContents(false);
+    }
   }, [dataContents]);
 
   useEffect(() => {
@@ -614,6 +624,7 @@ export default function DetailCoursePage({
                     selectionMode="single"
                     onSelectionChange={(e) => {
                       setSelectedKeys(e[Symbol.iterator]().next().value as Key);
+                      setContents([]);
                       setLoadingContents(true);
                     }}
                   >
@@ -629,6 +640,7 @@ export default function DetailCoursePage({
                       >
                         {selectedKeys === segment.segment_id
                           ? handleAccordionItemCondition({
+                              isLoadingContents,
                               loadingContents,
                               contents,
                               token,
@@ -659,6 +671,7 @@ export default function DetailCoursePage({
 }
 
 type HandleAccordionItemConditionParams = {
+  isLoadingContents: boolean;
   loadingContents: boolean;
   contents: Content[];
   setSelectedVideo: Dispatch<
@@ -686,6 +699,7 @@ type HandleAccordionItemConditionParams = {
 };
 
 function handleAccordionItemCondition({
+  isLoadingContents,
   loadingContents,
   contents,
   setSelectedVideo,
@@ -826,11 +840,11 @@ function handleAccordionItemCondition({
     }
   }
 
-  if (loadingContents) {
+  if (isLoadingContents || loadingContents) {
     return <ThreeSkeletons classname="h-14" />;
   }
 
-  if (!contents || !contents.length) {
+  if (!loadingContents && (!contents || !contents.length)) {
     return (
       <div className="rounded-2xl border-2 border-dashed border-gray/20 p-12">
         <p className="text-center font-semibold capitalize text-gray">
