@@ -32,16 +32,14 @@ import {
   Lock,
   Play,
   ShareNetwork,
-  SkipBack,
-  SkipForward,
 } from "@phosphor-icons/react";
-import { MediaPlayer, MediaProvider, SeekButton } from "@vidstack/react";
+import { MediaPlayer, MediaProvider } from "@vidstack/react";
 import {
-  PlyrLayout,
-  plyrLayoutIcons,
-} from "@vidstack/react/player/layouts/plyr";
-import "@vidstack/react/player/styles/base.css";
-import "@vidstack/react/player/styles/plyr/theme.css";
+  defaultLayoutIcons,
+  DefaultVideoLayout,
+} from "@vidstack/react/player/layouts/default";
+import "@vidstack/react/player/styles/default/layouts/video.css";
+import "@vidstack/react/player/styles/default/theme.css";
 
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
@@ -177,7 +175,7 @@ export default function DetailCoursePage({
       setSegments(data?.data.segments || []);
 
       setSelectedVideo({
-        title: data?.data.title || "",
+        title: `Preview ${data?.data.title}` || "",
         url: data?.data.preview_url || "",
         autoplay: false,
       });
@@ -549,26 +547,12 @@ export default function DetailCoursePage({
                 onContextMenu={(e) => e.preventDefault()}
               >
                 <MediaProvider />
-                <PlyrLayout
-                  icons={plyrLayoutIcons}
+                <DefaultVideoLayout
+                  icons={defaultLayoutIcons}
                   slots={{
                     pipButton: null,
-                    beforePlayButton: (
-                      <SeekButton
-                        seconds={-10}
-                        className="rounded-md p-2 transition hover:bg-sky-500"
-                      >
-                        <SkipBack weight="bold" size={16} />
-                      </SeekButton>
-                    ),
-                    afterPlayButton: (
-                      <SeekButton
-                        seconds={10}
-                        className="rounded-md p-2 transition hover:bg-sky-500"
-                      >
-                        <SkipForward weight="bold" size={16} />
-                      </SeekButton>
-                    ),
+                    googleCastButton: null,
+                    settingsMenu: null,
                   }}
                 />
               </MediaPlayer>
