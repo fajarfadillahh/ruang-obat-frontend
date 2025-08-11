@@ -1,7 +1,6 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import CTAPrivateClass from "@/components/cta/CTAPrivateClass";
 import CustomTooltip from "@/components/CustomTooltip";
-import Empty from "@/components/Empty";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
@@ -229,7 +228,19 @@ export default function DetailTryoutUniversityPage({
               ))}
             </div>
           ) : (
-            <Empty text="Data tryout belum tersedia" />
+            <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+              <Image
+                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                alt="no data image"
+                width={1000}
+                height={1000}
+                className="h-[280px] w-auto"
+              />
+
+              <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                Tryout masih di input ya guys, mohon tunggu sebentar...
+              </h3>
+            </div>
           )}
         </section>
 
@@ -260,7 +271,19 @@ export default function DetailTryoutUniversityPage({
                 ))}
               </div>
             ) : (
-              <Empty text="Riwayat masih kosong" />
+              <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+                <Image
+                  src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                  alt="no data image"
+                  width={1000}
+                  height={1000}
+                  className="h-[280px] w-auto"
+                />
+
+                <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                  Kamu belum mengerjakan tryout satupun...
+                </h3>
+              </div>
             )}
           </section>
         ) : null}
