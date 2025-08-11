@@ -378,7 +378,7 @@ export default function RosaChatPage() {
                   key={message.chat_id}
                 >
                   <Image
-                    src="/img/ai/APOTEKER-ROSA-1.webp"
+                    src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
                     alt="icon"
                     width={100}
                     height={100}
