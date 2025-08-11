@@ -271,7 +271,7 @@ export default function CoursePage({
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
-                src="/img/new-illustration/img-no-data-upload.svg"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
                 alt="no data image"
                 width={1000}
                 height={1000}
@@ -406,7 +406,7 @@ export default function CoursePage({
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
-                src="/img/new-illustration/img-no-data-upload.svg"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
                 alt="no data image"
                 width={1000}
                 height={1000}
@@ -448,7 +448,19 @@ export default function CoursePage({
                 ))}
               </div>
             ) : (
-              <Empty text="Riwayat masih kosong" />
+              <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+                <Image
+                  src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                  alt="no data image"
+                  width={1000}
+                  height={1000}
+                  className="h-[280px] w-auto"
+                />
+
+                <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                  Kamu belum mengerjakan kuis satupun...
+                </h3>
+              </div>
             )}
           </section>
         ) : null}
@@ -548,7 +560,7 @@ export default function CoursePage({
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
-                src="/img/new-illustration/img-no-data-upload.svg"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
                 alt="no data image"
                 width={1000}
                 height={1000}
