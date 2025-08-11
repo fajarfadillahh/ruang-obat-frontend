@@ -36,7 +36,7 @@ export default function ModalUnauthenticated({
           <div className="grid gap-12">
             <Image
               priority
-              src="/img/notify-img.svg"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/notify-img.svg"
               alt="img"
               width={800}
               height={800}
