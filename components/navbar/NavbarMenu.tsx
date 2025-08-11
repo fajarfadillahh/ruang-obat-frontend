@@ -283,7 +283,7 @@ export default function NavbarMain() {
                     isBordered
                     showFallback
                     size="sm"
-                    src={`${status == "authenticated" ? (session?.user.gender == "M" ? "/img/avatar-male.svg" : "/img/avatar-female.svg") : null}`}
+                    src={`${status == "authenticated" ? (session?.user.gender == "M" ? "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg" : "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg") : null}`}
                     classNames={{
                       base: "ring-purple bg-purple/20",
                       icon: "text-purple",

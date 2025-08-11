@@ -52,7 +52,7 @@ export default function NavbarRosa({ handleToggleSidebar }: Props) {
               isBordered
               showFallback
               size="sm"
-              src={`/img/avatar-male.svg`}
+              src={`https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg`}
               classNames={{
                 base: "ring-purple bg-purple/20",
                 icon: "text-purple",
