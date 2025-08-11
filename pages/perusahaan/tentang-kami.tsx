@@ -30,7 +30,8 @@ export default function AboutUsPage() {
           </p>
 
           <Image
-            src="/img/ruangobat-logo.png"
+            priority
+            src="https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/ruangobat-logo.png"
             alt="logo"
             width={500}
             height={500}
@@ -39,7 +40,7 @@ export default function AboutUsPage() {
 
           <div className="hidden xl:absolute xl:bottom-48 xl:left-16 xl:inline-flex xl:-rotate-[25deg] xl:-space-x-3">
             <Image
-              src="/img/home-avatar1.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/home-avatar1.webp"
               alt="avatar mentor img"
               width={100}
               height={100}
@@ -47,7 +48,7 @@ export default function AboutUsPage() {
               priority
             />
             <Image
-              src="/img/home-avatar2.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/home-avatar2.webp"
               alt="avatar mentor img"
               width={100}
               height={100}
@@ -55,7 +56,7 @@ export default function AboutUsPage() {
               priority
             />
             <Image
-              src="/img/home-avatar3.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/home-avatar3.webp"
               alt="avatar mentor img"
               width={100}
               height={100}
@@ -104,7 +105,7 @@ export default function AboutUsPage() {
           <div className="base-container items-center gap-4 xl:grid-cols-2">
             <Image
               priority
-              src="/img/about/about-img-1.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/about-page/about-img-1.webp"
               alt="img"
               width={900}
               height={900}

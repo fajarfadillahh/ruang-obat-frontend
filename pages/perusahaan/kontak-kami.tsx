@@ -60,7 +60,7 @@ export default function ContactUsPage() {
           <div className="flex flex-wrap items-center justify-center gap-4">
             <div className="aspect-square rounded-full bg-purple p-6">
               <Image
-                src="/img/logo-ruangobat.svg"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/logo-ruangobat.svg"
                 alt="logo"
                 width={500}
                 height={500}
