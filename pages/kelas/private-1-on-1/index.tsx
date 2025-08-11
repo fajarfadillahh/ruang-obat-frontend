@@ -111,7 +111,7 @@ export default function Private1on1Page({
 
           <Image
             priority
-            src="/img/new-illustration/img-8.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-8.webp"
             alt="private img"
             width={1000}
             height={1000}
