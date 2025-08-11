@@ -47,7 +47,7 @@ export default function ErrorComponent({ message, name }: ErrorProps) {
 
       <Image
         priority
-        src="/img/error-img.svg"
+        src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/error-img.svg"
         alt="error img"
         width={1000}
         height={1000}

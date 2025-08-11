@@ -11,11 +11,11 @@ export default function SectionForbidden() {
       <div className="grid gap-8">
         <Image
           priority
-          src="/img/new-illustration/forbidden-img.svg"
+          src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/forbidden-img.webp"
           alt="forbidden img"
           width={1000}
           height={1000}
-          className="h-[400px] justify-self-center"
+          className="h-[400px] w-auto justify-self-center"
         />
 
         <div className="grid justify-items-center gap-8">
