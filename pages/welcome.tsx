@@ -98,7 +98,7 @@ export default function WelcomePage({
 
           <Image
             priority
-            src="/img/happy-img.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/happy-img.svg"
             alt="happy img"
             className="lg:h-[550px] lg:w-auto"
             width="0"

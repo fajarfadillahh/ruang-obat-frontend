@@ -43,7 +43,8 @@ export default function TestimonialsPage() {
 
                 <div className="grid gap-6">
                   <Image
-                    src="/img/avatar-male.svg"
+                    priority
+                    src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
                     alt="avatar"
                     width={100}
                     height={100}
