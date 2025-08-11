@@ -48,7 +48,7 @@ export default function WrapperChats() {
                 <Avatar
                   showFallback
                   name="ROSA"
-                  src="/img/avatar-male.svg"
+                  src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
                   className="mt-2 hidden md:flex"
                 />
 
