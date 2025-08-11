@@ -181,7 +181,7 @@ export default function HomePage({
           <div className="grid">
             <Image
               priority
-              src="/img/new-illustration/img-2.svg"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-2.webp"
               alt="illustration img"
               width={1000}
               height={1000}
@@ -291,7 +291,7 @@ export default function HomePage({
 
           <Image
             priority
-            src="/img/new-illustration/img-1.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-1.webp"
             alt="ilustration img"
             width={1000}
             height={1000}
@@ -447,7 +447,7 @@ export default function HomePage({
 
               <Image
                 priority
-                src="/img/ai/APOTEKER-ROSA-1.webp"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
                 alt="apoteker rosa image"
                 width={1000}
                 height={1000}
@@ -553,7 +553,8 @@ export default function HomePage({
                     <div className="base-card group divide-y-2 divide-dashed divide-gray/20 p-6 [margin:1rem_0]">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
-                          src="/img/avatar-male.svg"
+                          priority
+                          src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
                           alt="avatar"
                           width={100}
                           height={100}
