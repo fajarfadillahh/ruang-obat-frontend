@@ -33,7 +33,7 @@ export default function MyTestsPage({
           <div className="grid gap-8 pt-12">
             <Image
               priority
-              src="/img/no-data-img.svg"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/no-data-img.svg"
               alt="no data img"
               width={1000}
               height={500}

@@ -107,7 +107,7 @@ export default function MySubscriptionsPage({
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
-                src="/img/new-illustration/img-no-data-upload.svg"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
                 alt="no data image"
                 width={1000}
                 height={1000}
