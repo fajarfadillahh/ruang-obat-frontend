@@ -41,6 +41,7 @@ import {
 import "@vidstack/react/player/styles/default/layouts/video.css";
 import "@vidstack/react/player/styles/default/theme.css";
 
+import CTARosaAi from "@/components/cta/CTARosaAi";
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import VideoComponent from "@/components/VideoComponent";
 import {
@@ -661,6 +662,8 @@ export default function DetailCoursePage({
             </div>
           </div>
         </section>
+
+        <CTARosaAi />
 
         <CTAPrivateClass />
       </Layout>
