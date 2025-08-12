@@ -18,6 +18,7 @@ import {
   ModalContent,
   ModalFooter,
   ModalHeader,
+  useDisclosure,
 } from "@nextui-org/react";
 import {
   ArrowRight,
@@ -100,6 +101,13 @@ export default function CoursePage({
   const hasSubscribeRef = useRef<HTMLElement | null>(null);
   const quizRef = useRef<HTMLElement | null>(null);
 
+  const { onOpen, onOpenChange, isOpen, onClose } = useDisclosure();
+  const periodMinutes = 5;
+
+  const textCards = getCardsByType("text");
+  const imageCards = getCardsByType("image");
+  const documentCards = getCardsByType("document");
+
   function handleOpenModalQuiz(prepQuiz: Quiz) {
     setSelectedQuiz(prepQuiz);
     setIsOpenModalQuiz(true);
@@ -109,14 +117,37 @@ export default function CoursePage({
     return data?.cards.filter((card) => card.type == type);
   }
 
-  const getFilenameFromUrl = (url: string) => {
+  function getFilenameFromUrl(url: string) {
     if (!url) return "File Dokumen Tidak Diketahui";
     return url.split("/").pop();
-  };
+  }
 
-  const textCards = getCardsByType("text");
-  const imageCards = getCardsByType("image");
-  const documentCards = getCardsByType("document");
+  function handleClose() {
+    const storageKey = `modal_last_close_${data?.slug}_${data?.type}`;
+    localStorage.setItem(storageKey, Date.now().toString());
+    onClose();
+  }
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    if (!data?.has_subscription) return;
+
+    const storageKey = `modal_last_close_${data.slug}_${data.type}`;
+    const lastClose = localStorage.getItem(storageKey);
+
+    if (lastClose) {
+      const lastCloseTime = parseInt(lastClose, 10);
+      const now = Date.now();
+      const diffMinutes = (now - lastCloseTime) / 1000 / 60;
+
+      if (diffMinutes < periodMinutes) {
+        return;
+      }
+    }
+
+    onOpen();
+  }, [router.isReady, data]);
 
   useEffect(() => {
     setClient(true);
@@ -142,8 +173,59 @@ export default function CoursePage({
 
         <ButtonBack />
 
+        <Modal
+          placement="center"
+          scrollBehavior="inside"
+          isOpen={isOpen}
+          onOpenChange={onOpenChange}
+          onClose={handleClose}
+        >
+          <ModalContent>
+            <ModalHeader className="font-bold text-black">
+              Informasi Penting
+            </ModalHeader>
+
+            <ModalBody className="grid gap-4">
+              <p className="font-semibold leading-[170%] text-black">
+                Selamat, kamu telah bergabung di program ini. 🎉
+              </p>
+
+              <p className="font-medium leading-[170%] text-gray">
+                Tonton video belajar pada bagian{" "}
+                <strong className="font-extrabold text-purple">
+                  Daftar Video
+                </strong>{" "}
+                dan nikmati keseruan belajar bareng kita 😊
+              </p>
+
+              <p className="font-medium leading-[170%] text-gray">
+                Dapatkan juga akses kuis di bagian{" "}
+                <strong className="font-extrabold text-purple">
+                  Latihan Soal
+                </strong>{" "}
+                dengan cara scroll ke bawah atau klik tombol "Pilih Latihan
+                Soal" 😊
+              </p>
+
+              <p className="mt-4 font-semibold leading-[170%] text-black">
+                Selamat belajar 🔥
+              </p>
+            </ModalBody>
+
+            <ModalFooter>
+              <Button
+                color="secondary"
+                onClick={handleClose}
+                className="font-bold"
+              >
+                Tutup
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+
         {/* course list section */}
-        <section className="base-container gap-16 [padding:50px_0_100px]">
+        <section className="base-container gap-20 [padding:50px_0_100px]">
           <div className="flex flex-wrap items-center gap-4 lg:gap-8">
             <Image
               src={data?.img_url as string}
@@ -186,103 +268,110 @@ export default function CoursePage({
             </div>
           </div>
 
-          {data?.courses.length ? (
-            <section
-              ref={hasSubscribeRef}
-              className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4"
-            >
-              {data?.courses.map((course) => (
-                <div
-                  key={course.course_id}
-                  onClick={() =>
-                    router.push(
-                      `/materi/${course.slug}/detail?type=${router.query.type}`,
-                    )
-                  }
-                  className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
-                >
-                  {isNewProduct(course.created_at) ? (
-                    <Chip
-                      color="danger"
-                      size="sm"
-                      className="absolute right-4 top-4 z-10"
-                      classNames={{
-                        content: "font-bold px-4",
-                      }}
-                    >
-                      Baru
-                    </Chip>
-                  ) : null}
+          <div className="grid gap-4">
+            <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
+              Daftar Video 🎬
+            </h2>
 
-                  <Image
-                    priority
-                    src={course.thumbnail_url}
-                    alt="thumbnail"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
-                  />
+            {data?.courses.length ? (
+              <section
+                ref={hasSubscribeRef}
+                className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4"
+              >
+                {data?.courses.map((course) => (
+                  <div
+                    key={course.course_id}
+                    onClick={() =>
+                      router.push(
+                        `/materi/${course.slug}/detail?type=${router.query.type}`,
+                      )
+                    }
+                    className="group relative isolate grid overflow-hidden rounded-xl border-2 border-gray/10 hover:cursor-pointer hover:bg-purple/10"
+                  >
+                    {isNewProduct(course.created_at) ? (
+                      <Chip
+                        color="danger"
+                        size="sm"
+                        className="absolute right-4 top-4 z-10"
+                        classNames={{
+                          content: "font-bold px-4",
+                        }}
+                      >
+                        Baru
+                      </Chip>
+                    ) : null}
 
-                  <div className="grid gap-4 [padding:1.5rem_1rem]">
-                    <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
-                      {course.title}
-                    </h1>
+                    <Image
+                      priority
+                      src={course.thumbnail_url}
+                      alt="thumbnail"
+                      width={304}
+                      height={304}
+                      className="aspect-square h-auto w-full object-cover object-center group-hover:grayscale-[0.5]"
+                    />
 
-                    <IconContext.Provider
-                      value={{
-                        weight: "duotone",
-                        size: 18,
-                        className: "text-purple",
-                      }}
-                    >
-                      <div className="flex items-start justify-between gap-1">
-                        {[
-                          [
-                            "Jumlah Video",
-                            <VideoCamera key={course.course_id} />,
-                            `${course.total_videos} video`,
-                          ],
-                          [
-                            "Jumlah Kuis",
-                            <ClipboardText key={course.course_id} />,
-                            `${course.total_tests} kuis`,
-                          ],
-                        ].map(([label, icon, value], index) => (
-                          <div key={index} className="grid gap-1">
-                            <span className="text-xs font-medium text-gray">
-                              {label}:
-                            </span>
+                    <div className="grid gap-4 [padding:1.5rem_1rem]">
+                      <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                        {course.title}
+                      </h1>
 
-                            <div className="flex items-center gap-1">
-                              {icon}
+                      <IconContext.Provider
+                        value={{
+                          weight: "duotone",
+                          size: 18,
+                          className: "text-purple",
+                        }}
+                      >
+                        <div className="flex items-start justify-between gap-1">
+                          {[
+                            [
+                              "Jumlah Video",
+                              <VideoCamera key={course.course_id} />,
+                              `${course.total_videos} video`,
+                            ],
+                            [
+                              "Jumlah Kuis",
+                              <ClipboardText key={course.course_id} />,
+                              `${course.total_tests} kuis`,
+                            ],
+                          ].map(([label, icon, value], index) => (
+                            <div key={index} className="grid gap-1">
+                              <span className="text-xs font-medium text-gray">
+                                {label}:
+                              </span>
 
-                              <p className="text-sm font-semibold capitalize text-black">
-                                {value}
-                              </p>
+                              <div className="flex items-center gap-1">
+                                {icon}
+
+                                <p className="text-sm font-semibold capitalize text-black">
+                                  {value}
+                                </p>
+                              </div>
                             </div>
-                          </div>
-                        ))}
-                      </div>
-                    </IconContext.Provider>
+                          ))}
+                        </div>
+                      </IconContext.Provider>
+                    </div>
                   </div>
-                </div>
-              ))}
-            </section>
-          ) : (
-            <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
-              <Image
-                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
-                alt="no data image"
-                width={1000}
-                height={1000}
-                className="h-[280px] w-auto"
-              />
+                ))}
+              </section>
+            ) : (
+              <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
+                <Image
+                  src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                  alt="no data image"
+                  width={1000}
+                  height={1000}
+                  className="h-[280px] w-auto"
+                />
 
-              <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
-                Video belajarnya sedang di upload, guys. Tunggu sebentar yaa...
-              </h3>
-            </div>
-          )}
+                <h3 className="max-w-[400px] text-center text-xl font-extrabold text-black">
+                  Video belajarnya sedang di upload, guys. Tunggu sebentar
+                  yaa...
+                </h3>
+              </div>
+            )}
+          </div>
         </section>
 
         {/* quiz section */}
