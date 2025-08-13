@@ -7,19 +7,53 @@ import {
   SealCheck,
   Tag,
 } from "@phosphor-icons/react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function CardProgram(program: ProgramsType) {
+  const router = useRouter();
+  const isMyProgramsPage = router.pathname === "/my/programs";
+
   return (
-    <Link
-      href={`/programs/${program.program_id}`}
-      className="group relative flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10"
+    <div
+      onClick={(e) => {
+        if (!isMyProgramsPage) {
+          router.push(`/programs/${program.program_id}`);
+        }
+
+        if (isMyProgramsPage && program.is_active) {
+          router.push(`/programs/${program.program_id}`);
+        } else {
+          e.preventDefault();
+        }
+      }}
+      className={`group relative isolate flex items-start gap-4 rounded-xl border-2 p-6 ${
+        isMyProgramsPage && !program.is_active
+          ? "border-danger/10 bg-danger/20 hover:cursor-not-allowed hover:bg-danger/30"
+          : "border-gray/10 hover:cursor-pointer hover:bg-purple/10"
+      } `}
     >
-      <BookBookmark weight="duotone" size={32} className="text-purple" />
+      {/* is_active bubble */}
+      {isMyProgramsPage && !program.is_active ? (
+        <div className="absolute bottom-0 left-0 z-10 w-full rounded-[10px] bg-danger text-center text-xs font-semibold text-white [padding:1rem_0.5rem]">
+          Program sudah tidak aktif!
+        </div>
+      ) : null}
+
+      <BookBookmark
+        weight="duotone"
+        size={32}
+        className={`${isMyProgramsPage && !program.is_active ? "text-danger" : "text-purple"}`}
+      />
 
       <div className="flex-1 divide-y-2 divide-dashed divide-gray/20">
         <div className="pb-4">
-          <h4 className="line-clamp-2 text-lg font-bold -tracking-wide text-black group-hover:text-purple">
+          <h4
+            className={`line-clamp-2 text-lg font-bold -tracking-wide ${
+              isMyProgramsPage && !program.is_active
+                ? "text-danger"
+                : "text-black group-hover:text-purple"
+            }`}
+          >
             {program.title}
           </h4>
         </div>
@@ -44,7 +78,13 @@ export default function CardProgram(program: ProgramsType) {
                 Gratis
               </Chip>
             ) : (
-              <div className="text-sm font-bold text-purple">
+              <div
+                className={`text-sm font-bold ${
+                  isMyProgramsPage && !program.is_active
+                    ? "text-danger"
+                    : "text-purple"
+                }`}
+              >
                 {formatRupiah(program.price)}
               </div>
             )}
@@ -78,6 +118,6 @@ export default function CardProgram(program: ProgramsType) {
           />
         </Tooltip>
       )}
-    </Link>
+    </div>
   );
 }
