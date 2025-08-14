@@ -10,10 +10,11 @@ import {
   validateFullname,
   validatePassword,
   validatePhoneNumber,
-  validateUniversity,
 } from "@/utils/formValidators";
 import { getError } from "@/utils/getError";
 import {
+  Autocomplete,
+  AutocompleteItem,
   Button,
   Checkbox,
   Input,
@@ -40,8 +41,16 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ChangeEvent, useEffect, useState } from "react";
+import {
+  ChangeEvent,
+  Key,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import toast from "react-hot-toast";
+import { useDebounce } from "use-debounce";
 
 const quote = quotes[Math.floor(Math.random() * quotes.length)];
 
@@ -98,6 +107,10 @@ export default function RegisterPage() {
     entry_year: "",
   });
   const [loadingScreen, setLoadingScreen] = useState(false);
+  const [loadingUniversities, setLoadingUniversities] = useState(false);
+  const [searchUniversities, setSearchUniversities] = useState("");
+  const [searchUniversitiesValue] = useDebounce(searchUniversities, 300);
+  const [universities, setUniversities] = useState<{ name: string }[]>([]);
 
   const date = new Date();
   const startYear = 2015;
@@ -234,7 +247,14 @@ export default function RegisterPage() {
 
   function isFormEmpty() {
     return (
-      Object.values(input).every((value) => value.trim() !== "") && isSelected
+      input.fullname.trim() !== "" &&
+      input.email.trim() !== "" &&
+      input.phone_number.trim() !== "" &&
+      input.gender.trim() !== "" &&
+      input.university.trim() !== "" &&
+      input.password.trim() !== "" &&
+      input.entry_year.trim() !== "" &&
+      isSelected
     );
   }
 
@@ -253,6 +273,47 @@ export default function RegisterPage() {
       };
     }
   }, [time]);
+
+  const fetchUniversities = useCallback(async (query: string) => {
+    if (!query || query.length < 2) {
+      setUniversities([]);
+      return;
+    }
+
+    setLoadingUniversities(true);
+
+    try {
+      const response: SuccessResponse<{ name: string }[]> = await fetcher({
+        url: `/universities/search?q=${query}`,
+        method: "GET",
+      });
+
+      setUniversities(response.data);
+    } catch (error) {
+      console.error(error);
+      setUniversities([]);
+    } finally {
+      setLoadingUniversities(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUniversities(searchUniversitiesValue);
+  }, [searchUniversitiesValue, fetchUniversities]);
+
+  const universityOptions = useMemo(() => {
+    return universities.slice(0, 15);
+  }, [universities]);
+
+  const handleUniversitySelection = useCallback((selectedKey: Key | null) => {
+    if (selectedKey) {
+      setInput((prev) => ({
+        ...prev,
+        university: `${selectedKey}`,
+      }));
+      setSearchUniversities(`${selectedKey}`);
+    }
+  }, []);
 
   if (!client) {
     return;
@@ -397,20 +458,39 @@ export default function RegisterPage() {
                   <SelectItem key="F">Perempuan</SelectItem>
                 </Select>
 
-                <Input
-                  value={input.university}
-                  autoComplete="off"
-                  type="text"
+                <Autocomplete
                   variant="flat"
                   labelPlacement="outside"
-                  placeholder="Asal Kampus"
-                  name="university"
-                  onChange={(e) => handleInputChange(e, validateUniversity)}
+                  placeholder="Ketik Nama Universitas"
+                  inputValue={searchUniversities}
+                  onInputChange={setSearchUniversities}
+                  onSelectionChange={handleUniversitySelection}
                   startContent={<Buildings />}
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.university}
-                  errorMessage={errors.university}
-                />
+                  isLoading={loadingUniversities}
+                  classNames={{
+                    ...customInputClassnames,
+                    listboxWrapper: "max-h-60",
+                  }}
+                  onFocus={() => {
+                    if (
+                      input.university &&
+                      searchUniversities === input.university
+                    ) {
+                      setSearchUniversities("");
+                    }
+                  }}
+                  selectedKey={input.university}
+                >
+                  {universityOptions.map((university) => (
+                    <AutocompleteItem
+                      key={university.name}
+                      value={university.name}
+                      textValue={university.name}
+                    >
+                      {university.name}
+                    </AutocompleteItem>
+                  ))}
+                </Autocomplete>
 
                 <Select
                   selectedKeys={[input.entry_year]}
