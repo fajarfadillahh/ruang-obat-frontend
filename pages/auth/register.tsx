@@ -467,8 +467,13 @@ export default function RegisterPage() {
                   onSelectionChange={handleUniversitySelection}
                   startContent={<Buildings />}
                   isLoading={loadingUniversities}
+                  inputProps={{
+                    classNames: {
+                      input:
+                        "font-semibold placeholder:font-semibold placeholder:text-gray",
+                    },
+                  }}
                   classNames={{
-                    ...customInputClassnames,
                     listboxWrapper: "max-h-60",
                   }}
                   onFocus={() => {
