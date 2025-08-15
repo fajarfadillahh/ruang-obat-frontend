@@ -17,6 +17,7 @@ import {
   ChangeEvent,
   Dispatch,
   SetStateAction,
+  useCallback,
   useEffect,
   useRef,
   useState,
@@ -40,9 +41,7 @@ type MessageState = {
 
 export default function RosaPage() {
   const { data, status } = useSession();
-  const { data: chats, mutate: mutateChat } = useSWR<
-    SuccessResponse<ChatResponse[]>
-  >(
+  const { data: chats } = useSWR<SuccessResponse<ChatResponse[]>>(
     status == "authenticated"
       ? {
           url: `/ai/chat?timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone}`,
@@ -80,7 +79,11 @@ export default function RosaPage() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState<MessageState[]>([]);
   const [imageUrls, setImageUrls] = useState<{ url: string }[]>([]);
+  const [isAtBottom, setIsAtBottom] = useState(true);
 
+  const observerRef = useRef<IntersectionObserver | null>(null);
+  const scrollThrottleRef = useRef<boolean>(false);
+  const pendingScrollRef = useRef<boolean>(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputContainerRef = useRef<HTMLDivElement>(null);
   const chatContainerRef = useRef<HTMLDivElement>(null);
@@ -95,6 +98,59 @@ export default function RosaPage() {
       });
     }
   }
+
+  useEffect(() => {
+    if (!chatContainerRef.current) return;
+
+    const sentinel = document.createElement("div");
+    sentinel.style.height = "1px";
+    chatContainerRef.current.appendChild(sentinel);
+
+    observerRef.current = new IntersectionObserver(
+      ([entry]) => {
+        setIsAtBottom(entry.isIntersecting);
+      },
+      { threshold: 0.1 },
+    );
+
+    observerRef.current.observe(sentinel);
+
+    return () => {
+      if (observerRef.current) {
+        observerRef.current.disconnect();
+      }
+      sentinel.remove();
+    };
+  }, [chatMessages.length]);
+
+  const throttledScrollToBottom = useCallback(() => {
+    if (!isAtBottom) return;
+
+    if (scrollThrottleRef.current) {
+      pendingScrollRef.current = true;
+      return;
+    }
+
+    scrollThrottleRef.current = true;
+
+    requestAnimationFrame(() => {
+      if (chatContainerRef.current && isAtBottom) {
+        chatContainerRef.current.scrollTo({
+          top: chatContainerRef.current.scrollHeight,
+          behavior: "smooth",
+        });
+      }
+
+      setTimeout(() => {
+        scrollThrottleRef.current = false;
+
+        if (pendingScrollRef.current) {
+          pendingScrollRef.current = false;
+          throttledScrollToBottom();
+        }
+      }, 100);
+    });
+  }, [isAtBottom]);
 
   useEffect(() => {
     if (textareaRef.current) {
@@ -225,7 +281,7 @@ export default function RosaPage() {
 
     setTimeout(() => {
       scrollToBottom();
-    }, 250);
+    }, 100);
 
     try {
       const prefix = process.env.NEXT_PUBLIC_MODE === "prod" ? "api" : "dev";
@@ -253,6 +309,7 @@ export default function RosaPage() {
 
       const decoder = new TextDecoder();
       let buffer = "";
+      let chunkCount = 0;
 
       while (true) {
         const { done, value } = await reader.read();
@@ -289,6 +346,10 @@ export default function RosaPage() {
                     : msg,
                 ),
               );
+
+              if (chunkCount % 6 === 0) {
+                throttledScrollToBottom();
+              }
             } catch (error) {
               // skip json parse error
               console.error(error);
@@ -313,8 +374,6 @@ export default function RosaPage() {
       );
     }
   }
-
-  console.log("halo");
 
   return (
     <div className="flex h-dvh overflow-hidden bg-white text-black">
