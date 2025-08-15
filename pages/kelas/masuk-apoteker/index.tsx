@@ -135,7 +135,7 @@ export default function ApotekerClassPage({
 
           <Image
             priority
-            src="/img/new-illustration/img-7.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-7.webp"
             alt="class subject img"
             width={1000}
             height={1000}

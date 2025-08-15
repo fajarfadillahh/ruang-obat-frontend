@@ -150,7 +150,7 @@ export default function VideoLearningClassPage({
 
           <Image
             priority
-            src="/img/new-illustration/img-3.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-3.webp"
             alt="class subject img"
             width={1000}
             height={1000}

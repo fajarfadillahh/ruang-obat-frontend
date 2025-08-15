@@ -8,6 +8,7 @@ export type ProgramsType = {
   qr_code: string;
   url_qr_code: string;
   is_login: boolean;
+  is_active?: boolean;
 };
 
 export type DetailsProgramResponse = ProgramsType & {

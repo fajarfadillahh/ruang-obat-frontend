@@ -4,6 +4,7 @@ import Loading from "@/components/Loading";
 import ModalBuy from "@/components/modal/ModalBuy";
 import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
 import ModalJoinGroup from "@/components/modal/ModalJoinGroup";
+import SectionForbidden from "@/components/section/SectionForbidden";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import { SuccessResponse } from "@/types/global.type";
@@ -20,9 +21,10 @@ import {
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import useSWR from "swr";
 import { authOptions } from "../api/auth/[...nextauth]";
 
@@ -41,13 +43,25 @@ export default function DetailsProgram({
   });
   const ctx = useContext(AppContext);
 
-  useEffect(() => {
-    if (error?.status_code == 404) {
-      router.push("/404");
-    }
-  }, [error, router]);
+  // useEffect(() => {
+  //   if (error?.status_code == 404) {
+  //     router.push("/404");
+  //   }
+  // }, [error, router]);
 
   if (isLoading) return <Loading />;
+
+  if (error?.status_code == 404) {
+    return (
+      <>
+        <Head>
+          <title>Akses Kamu Tolak!</title>
+        </Head>
+
+        <SectionForbidden />
+      </>
+    );
+  }
 
   return (
     <Layout title={data?.data.title}>
