@@ -3,7 +3,7 @@ import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { loadingTexts } from "@/utils/loadingTexts";
-import { Avatar, Button } from "@nextui-org/react";
+import { Avatar, Button, Chip } from "@nextui-org/react";
 import {
   ArrowUUpLeft,
   CreditCard,
@@ -13,6 +13,8 @@ import {
   X,
 } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+import { useRouter } from "next/router";
 import {
   ChangeEvent,
   Dispatch,
@@ -187,7 +189,7 @@ export default function RosaPage() {
     const maxFiles = 3;
 
     if (files.length > maxFiles) {
-      toast.error(`Maksimal upload ${maxFiles} gambar.`);
+      toast.error(`Maksimal upload ${maxFiles} gambar!`);
       return;
     }
 
@@ -195,12 +197,12 @@ export default function RosaPage() {
 
     Array.from(files).forEach((file) => {
       if (!allowedTypes.includes(file.type)) {
-        toast.error(`File "${file.name}" harus JPG, JPEG, atau PNG.`);
+        toast.error(`File "${file.name}" harus JPG, JPEG, atau PNG!`);
         return;
       }
 
       if (file.size > maxSizeInBytes) {
-        toast.error(`File "${file.name}" terlalu besar. Maksimal 5 MB.`);
+        toast.error(`File "${file.name}" terlalu besar. Maksimal 5 MB!`);
         return;
       }
 
@@ -224,8 +226,8 @@ export default function RosaPage() {
         }),
         {
           loading: "Sedang mengupload gambar...",
-          success: "Gambar berhasil diupload",
-          error: "Ups sepertinya ada kesalahan ketika upload gambar",
+          success: "Gambar berhasil diupload!",
+          error: "Ups sepertinya ada kesalahan ketika upload gambar!",
         },
       );
 
@@ -241,7 +243,7 @@ export default function RosaPage() {
     } catch (error) {
       setImageUrls([]);
       console.log(error);
-      toast.error("Ups sepertinya ada kesalahan ketika upload gambar");
+      toast.error("Ups sepertinya ada kesalahan ketika upload gambar!");
     }
   }
 
@@ -304,7 +306,7 @@ export default function RosaPage() {
       const reader = response.body?.getReader();
 
       if (!reader) {
-        return toast.error("Gagal mendapatkan pembaca dari response body");
+        return toast.error("Gagal mendapatkan pembaca dari response body!");
       }
 
       const decoder = new TextDecoder();
@@ -375,6 +377,21 @@ export default function RosaPage() {
     }
   }
 
+  function formatName(name: string): string {
+    const parts: string[] = name.split(" ");
+    let result: string;
+
+    if (parts.length === 1) {
+      result = parts[0];
+    } else if (parts.length === 2) {
+      result = `${parts[0]} ${parts[1].charAt(0)}.`;
+    } else {
+      result = `${parts[0]} ${parts[1].charAt(0)}. ${parts[2].charAt(0)}.`;
+    }
+
+    return result;
+  }
+
   return (
     <div className="flex h-dvh overflow-hidden bg-white text-black">
       <input
@@ -386,32 +403,35 @@ export default function RosaPage() {
         className="hidden"
       />
 
-      <div className="hidden md:flex">
-        <Sidebar
-          open={true}
-          onClose={() => {}}
-          remaining={limit?.data.remaining}
-        />
-      </div>
+      {/* === sidebar: desktop view === */}
+      <Sidebar
+        open={true}
+        onClose={() => {}}
+        remaining={limit?.data.remaining}
+        className="hidden lg:flex"
+      />
 
+      {/* === sidebar: mobile view === */}
       <Sidebar
         open={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
         remaining={limit?.data.remaining}
+        className="fixed inset-0 z-40 flex h-dvh lg:hidden"
       />
 
-      <div className="flex h-dvh flex-1 flex-col overflow-hidden">
-        <div className="z-10 flex h-16 flex-shrink-0 items-center justify-between border-b border-gray-200 bg-white px-6">
+      <div className="relative isolate grid w-full grid-rows-[max-content_1fr_max-content]">
+        {/* === navbar section === */}
+        <nav className="z-10 flex h-20 items-center justify-between border-b-2 border-gray/5 bg-white px-4 lg:justify-end">
           <Button
             isIconOnly
             variant="light"
-            className="text-[#6238C3] md:hidden"
-            size="sm"
             onClick={() => setSidebarOpen(true)}
+            className="text-purple lg:hidden"
           >
-            <SidebarSimple weight="duotone" size={22} />
+            <SidebarSimple weight="duotone" size={24} />
           </Button>
-          <div className="ml-auto inline-flex items-center gap-[10px] hover:cursor-pointer">
+
+          <div className="inline-flex items-center gap-[10px] hover:cursor-pointer">
             <Avatar
               isBordered
               showFallback
@@ -422,106 +442,108 @@ export default function RosaPage() {
                 icon: "text-purple",
               }}
             />
+
             <div>
               <h6 className="text-sm font-bold text-black">
-                {status === "authenticated" ? data?.user.fullname : "-"}
+                {status === "authenticated"
+                  ? formatName(data?.user.fullname)
+                  : "-"}
               </h6>
-              <p className="text-[12px] font-medium uppercase text-gray">
+
+              <p className="text-sm font-medium uppercase text-gray">
                 {status === "authenticated" ? data?.user.user_id : "-"}
               </p>
             </div>
           </div>
-        </div>
+        </nav>
 
+        {/* === bubbles chat === */}
         <div
           ref={chatContainerRef}
-          className="flex-1 overflow-y-auto scrollbar-hide lg:scrollbar-default"
+          className="relative flex-1 overflow-hidden overflow-y-scroll bg-white px-4 scrollbar-hide lg:px-0 lg:scrollbar-default"
         >
-          <div className="mx-auto max-w-3xl px-4 py-6">
-            {!chatMessages.length && (
-              <div className="mb-6 text-center">
-                <img
+          <div className="mx-auto grid min-h-full max-w-3xl [padding:1rem_0_3rem]">
+            {!chatMessages.length ? (
+              <div className="grid justify-center justify-items-center gap-8 self-center">
+                <Image
                   src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-6.webp"
                   alt="apoteker rosa image"
-                  width={350}
-                  height={350}
-                  className="mb-4"
+                  width={600}
+                  height={600}
+                  className="h-56 w-auto lg:h-64"
+                  priority
                 />
-                <div className="flex flex-col items-center justify-center space-y-2">
-                  <h1 className="text-xl font-extrabold text-black md:text-2xl">
-                    ROSA
+
+                <div className="grid gap-2 text-center">
+                  <h1 className="text-xl font-black text-black lg:text-3xl">
+                    ROSA (Ruang Obat Smart Assistant)
                   </h1>
-                  <h1 className="text-xl font-extrabold text-black md:text-2xl">
-                    (Ruang Obat Smart Assistant)
-                  </h1>
-                  <p className="max-w-[320px] font-medium leading-[170%] text-gray-600 md:max-w-[600px]">
+
+                  <p className="max-w-[320px] font-medium leading-[170%] text-gray lg:max-w-[600px]">
                     Hai, aku ROSA. Aku siap bantu kamu menjawab berbagai
                     pertanyaan seputar dunia farmasi dan layanan belajar di
                     RuangObat ✨.
                   </p>
                 </div>
               </div>
+            ) : (
+              <div className="grid space-y-4">
+                {chatMessages.map((message) => (
+                  <ChatMessage {...message} key={message.chat_id} />
+                ))}
+              </div>
             )}
-
-            <div className="space-y-4">
-              {chatMessages.map((message) => (
-                <ChatMessage {...message} key={message.chat_id} />
-              ))}
-
-              <div className="h-32"></div>
-            </div>
           </div>
         </div>
 
+        {/* === input chat === */}
         <div
           ref={inputContainerRef}
-          className="absolute bottom-0 left-0 right-0 border-t border-gray-100 bg-white p-4 md:left-64"
+          className="sticky bottom-0 h-auto w-full justify-self-center border-t-2 border-gray/5 [padding:1rem_1rem_2rem] lg:px-0"
         >
-          <ImagePreview images={imageUrls} setImages={setImageUrls} />
-          <div className="flex w-full justify-center">
+          <div className="mx-auto max-w-3xl">
+            <ImagePreview images={imageUrls} setImages={setImageUrls} />
+
             <div className="w-full max-w-3xl">
-              <div className="flex w-full flex-col items-stretch gap-2 rounded-3xl border border-[#6238C3]/20 bg-[#6238C3]/5 p-2 shadow-lg backdrop-blur-xl transition-all duration-200 focus-within:ring-2 focus-within:ring-[#6238C3]/30">
-                <div className="flex min-w-0 flex-1 items-end">
-                  <textarea
-                    ref={textareaRef}
-                    placeholder="Tanya seputar farmasi dan RuangObat..."
-                    rows={1}
-                    className="ml-3 max-h-[120px] w-full resize-none overflow-y-auto border-none bg-transparent pr-10 pt-3 text-sm font-medium outline-none placeholder:text-[#6238C3]/50 focus:ring-0"
-                    aria-label="Chat input"
-                    value={message}
-                    onChange={(e) => setMessage(e.target.value)}
-                    onFocus={() => {
-                      setTimeout(() => {
-                        scrollToInput();
-                      }, 300);
-                    }}
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSendMessage();
-                      }
-                    }}
-                    style={{ minHeight: "24px" }}
-                  />
-                </div>
-                <div className="flex flex-row items-center justify-between px-2">
+              <div className="flex w-full flex-col gap-2 rounded-3xl border-2 border-purple/10 bg-purple/5 p-2 transition-all duration-200 focus-within:ring-2 focus-within:ring-purple/10">
+                <textarea
+                  ref={textareaRef}
+                  aria-label="chat input"
+                  rows={1}
+                  placeholder="Tanya seputar Farmasi dan RuangObat..."
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSendMessage();
+                    }
+                  }}
+                  onFocus={() => {
+                    setTimeout(() => {
+                      scrollToInput();
+                    }, 300);
+                  }}
+                  className="max-h-32 w-full resize-none border-none bg-transparent font-semibold outline-none [padding:0.5rem_1rem] placeholder:text-sm placeholder:font-semibold placeholder:-tracking-wide placeholder:text-purple/80 focus:ring-0 lg:placeholder:text-base"
+                />
+
+                <div className="flex items-center justify-between px-2">
                   <Button
                     isIconOnly
                     variant="light"
-                    className="text-[#6238C3]"
-                    size="md"
+                    color="secondary"
                     onClick={() => fileInputRef.current?.click()}
                   >
-                    <Images weight="duotone" size={30} />
+                    <Images weight="duotone" size={28} />
                   </Button>
+
                   <Button
                     isIconOnly
                     color="secondary"
-                    size="md"
                     isDisabled={!message.trim() && !imageUrls.length}
                     onClick={handleSendMessage}
                   >
-                    <PaperPlaneTilt weight="duotone" size={18} />
+                    <PaperPlaneTilt weight="duotone" size={20} />
                   </Button>
                 </div>
               </div>
@@ -537,83 +559,75 @@ function Sidebar({
   open,
   onClose,
   remaining,
+  className,
 }: {
   open: boolean;
   onClose: () => void;
   remaining?: number;
+  className?: string;
 }) {
+  const router = useRouter();
+
   if (!open) return null;
 
   return (
-    <div className="fixed inset-0 z-40 flex h-dvh md:static md:z-auto md:flex md:w-64 md:bg-white">
+    <div className={`${className}`}>
+      {/* === overlay sidebar: mobile view === */}
       <div
-        className="absolute inset-0 bg-black/30 md:hidden"
+        className="absolute inset-0 bg-black/30 lg:hidden"
         onClick={onClose}
       />
-      <div className="relative z-50 flex h-full w-64 flex-col border-r border-gray-200 bg-white">
-        <div className="p-4">
-          <div className="mb-4 flex items-center gap-3 border-b">
-            <div className="inline-flex w-full items-center justify-center gap-2 px-4 py-4">
-              <LogoRuangobat className="h-auto w-7 text-gray/20" />
-              <h1 className="text-lg font-extrabold -tracking-wide text-black">
-                RuangObat<span className="text-purple">.</span>
-              </h1>
-            </div>
-            <Button
-              isIconOnly
-              variant="light"
-              className="ml-auto text-[#6238C3] md:hidden"
-              size="sm"
-              onClick={onClose}
-            >
-              <SidebarSimple weight="duotone" size={22} />
-            </Button>
+
+      <div className="relative z-50 flex h-full w-64 flex-col justify-between border-r-2 border-gray/5 bg-white">
+        <div className="flex h-20 items-center gap-2 border-b-2 border-gray/5 px-4">
+          <div className="inline-flex w-full items-center gap-2 lg:justify-center">
+            <LogoRuangobat className="h-auto w-7 text-gray/20" />
+            <h1 className="text-lg font-extrabold -tracking-wide text-black">
+              RuangObat<span className="text-purple">.</span>
+            </h1>
           </div>
 
-          {/* <Button
-            startContent={<Plus className="h-4 w-4" />}
-            className="w-full"
-            color="secondary"
-            variant="flat"
+          <Button
+            isIconOnly
+            variant="light"
+            onClick={onClose}
+            className="text-purple lg:hidden"
           >
-            New Chat
+            <SidebarSimple weight="duotone" size={24} />
           </Button>
-
-          <div className="flex-1 px-4">
-            <div className="flex flex-col items-center justify-center py-8 text-center">
-              <Clock className="mb-3 h-12 w-12 text-gray-600" />
-              <p className="mb-1 text-sm text-gray-400">No conversations yet</p>
-              <p className="text-xs text-gray-500">Start a new chat to begin</p>
-            </div>
-          </div> */}
         </div>
 
-        <div className="mt-auto border-t border-gray-200 p-4">
-          <div className="flex flex-col items-center gap-3">
-            <div className="flex w-full flex-col items-center justify-center">
-              <div className="mb-1 flex items-center gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#6238C3]/10 px-3 py-1 text-xs font-semibold text-[#6238C3]">
-                  <CreditCard className="h-4 w-4 text-[#6238C3]" />
-                  Sisa Limit
-                </span>
-              </div>
-              <span className="text-3xl font-black tracking-tight text-[#6238C3] drop-shadow-sm">
-                {remaining ?? "-"}
-              </span>
-              <p className="mt-1 text-xs font-medium text-gray-500">
-                Pertanyaan hari ini
-              </p>
-            </div>
-
-            <Button
-              startContent={<ArrowUUpLeft className="h-4 w-4" />}
-              className="w-full"
+        <div className="grid gap-8 border-t-2 border-gray/5 p-4">
+          <div className="grid justify-items-center">
+            <Chip
               variant="flat"
               color="secondary"
+              startContent={<CreditCard weight="duotone" size={18} />}
+              classNames={{
+                base: "px-2 gap-1 mb-2",
+                content: "font-bold capitalize",
+              }}
             >
-              Kembali ke halaman
-            </Button>
+              Sisa Limit
+            </Chip>
+
+            <h5 className="text-3xl font-black text-purple">
+              {remaining ?? "-"}
+            </h5>
+
+            <p className="text-sm font-medium leading-[170%] text-gray">
+              Pertanyaan hari ini
+            </p>
           </div>
+
+          <Button
+            color="secondary"
+            startContent={<ArrowUUpLeft weight="bold" size={18} />}
+            onClick={() => router.push("/")}
+            className="font-bold"
+          >
+            Kembali ke Beranda
+          </Button>
         </div>
       </div>
     </div>
@@ -646,37 +660,36 @@ function ImagePreview({
         success: () => {
           setImages((prev) => prev.filter((image) => image.url !== url));
 
-          return "Gambar berhasil dihapus";
+          return "Gambar berhasil dihapus!";
         },
         error: (err) => {
           console.error(err);
-          return "Ups sepertinya ada kesalahan ketika menghapus gambar";
+          return "Ups sepertinya ada kesalahan ketika menghapus gambar!";
         },
       },
     );
   }
 
   return (
-    <div className="mb-2 flex w-full justify-center">
-      <div className="w-full max-w-3xl px-4">
-        <div className="flex flex-wrap gap-2">
-          {images.map((image, index) => (
-            <div key={index} className="group relative">
-              <img
-                src={image.url}
-                alt={`Preview ${index + 1}`}
-                className="h-20 w-20 rounded-lg border border-gray-200 object-cover shadow-sm"
-              />
-              <button
-                onClick={() => handleDeleteImage(image.url)}
-                className="absolute -right-2 -top-2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500 text-white opacity-0 transition-opacity duration-200 hover:bg-red-600 group-hover:opacity-100"
-              >
-                <X size={12} weight="bold" />
-              </button>
-            </div>
-          ))}
+    <div className="mb-4 flex flex-wrap items-center gap-2">
+      {images.map((image, index) => (
+        <div key={index} className="group relative isolate">
+          <div className="size-20 overflow-hidden rounded-xl border-2 border-gray/5 hover:cursor-pointer">
+            <img
+              src={image.url}
+              alt={`Preview ${index + 1}`}
+              className="size-full object-cover object-center"
+            />
+          </div>
+
+          <button
+            onClick={() => handleDeleteImage(image.url)}
+            className="absolute -right-2 -top-2 flex size-6 items-center justify-center rounded-full bg-danger text-white opacity-0 transition-opacity duration-200 hover:bg-danger-600 group-hover:opacity-100"
+          >
+            <X size={16} weight="bold" />
+          </button>
         </div>
-      </div>
+      ))}
     </div>
   );
 }
@@ -686,41 +699,31 @@ function ChatMessage(prop: MessageState) {
 
   if (role === "user") {
     return (
-      <div className="flex justify-end gap-3">
-        <div className="max-w-xs space-y-2">
-          {images && images.length > 0 && (
-            <div className="flex flex-wrap justify-end gap-1">
-              {images.map((image, index) => (
-                <img
-                  key={image.img_url}
-                  src={image.img_url}
-                  alt={`User image ${index + 1}`}
-                  className="h-32 w-32 cursor-pointer rounded-lg border border-gray-200 object-cover shadow-sm transition-opacity hover:opacity-90"
-                  onClick={() => {
-                    const imageUrl = image.img_url;
-                    window.open(imageUrl, "_blank");
-                  }}
-                />
-              ))}
-            </div>
-          )}
-          {content && (
-            <div className="rounded-2xl rounded-tr-sm bg-[#6238C3] px-4 py-2 text-white">
-              <p className="text-sm">
-                <MemoizedMarkdown id={chat_id as string} content={content} />
-              </p>
-            </div>
-          )}
-        </div>
-        <div className="flex-shrink-0">
-          <Avatar
-            size="sm"
-            src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
-            classNames={{
-              base: "ring-2 ring-[#6238C3] bg-[#6238C3]/20",
-            }}
-          />
-        </div>
+      <div className="max-w-md space-y-2 justify-self-end">
+        {images && images.length > 0 && (
+          <div className="flex flex-wrap justify-end gap-1">
+            {images.map((image, index) => (
+              <img
+                key={image.img_url}
+                src={image.img_url}
+                alt={`User image ${index + 1}`}
+                className="size-32 cursor-pointer rounded-xl border-2 border-gray/5 object-cover transition-opacity hover:opacity-60"
+                onClick={() => {
+                  const imageUrl = image.img_url;
+                  window.open(imageUrl, "_blank");
+                }}
+              />
+            ))}
+          </div>
+        )}
+
+        {content && (
+          <div className="rounded-3xl rounded-tr-sm bg-purple p-4 text-white hover:bg-purple/90">
+            <p className="text-sm font-medium lg:text-base">
+              <MemoizedMarkdown id={chat_id as string} content={content} />
+            </p>
+          </div>
+        )}
       </div>
     );
   }
@@ -730,27 +733,17 @@ function ChatMessage(prop: MessageState) {
   }
 
   return (
-    <div className="flex justify-start gap-3">
-      <div className="flex-shrink-0">
-        <div className="flex h-8 w-8 items-center justify-center rounded-full shadow-md">
-          <img
-            src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-5.webp"
-            alt="ROSA"
-            className="h-6 w-6 rounded-full object-cover"
-          />
-        </div>
-      </div>
+    <div className="flex items-start gap-4 pb-6">
+      <img
+        src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-5.webp"
+        alt="ROSA"
+        className="hidden size-10 rounded-full object-cover object-center shadow lg:flex"
+      />
 
-      <div className="max-w-2xl">
-        <div className="rounded-2xl rounded-tl-sm bg-gray-100 px-4 py-3 text-gray-800 shadow-sm">
-          <div className="flex items-start gap-2">
-            <div className="flex-1">
-              <p className="text-sm leading-relaxed">
-                <MemoizedMarkdown id={chat_id as string} content={content} />
-              </p>
-            </div>
-          </div>
-        </div>
+      <div className="max-w-2xl rounded-3xl rounded-tl-sm bg-gray/5 p-4 text-black hover:bg-gray/10">
+        <p className="text-sm leading-[170%] lg:text-base">
+          <MemoizedMarkdown id={chat_id as string} content={content} />
+        </p>
       </div>
     </div>
   );
@@ -758,35 +751,25 @@ function ChatMessage(prop: MessageState) {
 
 function LoadingMessage() {
   const text = loadingTexts[Math.floor(Math.random() * loadingTexts.length)];
-  return (
-    <div className="flex justify-start gap-3">
-      <div className="flex-shrink-0">
-        <div className="flex h-8 w-8 animate-pulse items-center justify-center rounded-full shadow-md">
-          <img
-            src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-5.webp"
-            alt="ROSA"
-            className="h-6 w-6 rounded-full object-cover"
-          />
-        </div>
-      </div>
 
-      <div className="max-w-2xl">
-        <div className="rounded-2xl rounded-tl-sm bg-gray-100 px-4 py-3 text-gray-800 shadow-sm">
-          <div className="flex items-center space-x-2">
-            <div className="flex space-x-1">
-              <div className="h-2 w-2 animate-bounce rounded-full bg-[#6238C3]"></div>
-              <div
-                className="h-2 w-2 animate-bounce rounded-full bg-[#6238C3]"
-                style={{ animationDelay: "0.15s" }}
-              ></div>
-              <div
-                className="h-2 w-2 animate-bounce rounded-full bg-[#6238C3]"
-                style={{ animationDelay: "0.3s" }}
-              ></div>
-            </div>
-            <span className="text-xs font-medium text-gray-500">{text}</span>
-          </div>
+  return (
+    <div className="flex items-start gap-4 pb-6">
+      <img
+        src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-5.webp"
+        alt="ROSA"
+        className="hidden size-10 rounded-full object-cover object-center shadow lg:flex"
+      />
+
+      <div className="flex max-w-2xl items-center gap-2 rounded-3xl rounded-tl-sm bg-gray/5 p-4 text-black hover:bg-gray/10">
+        <div className="flex gap-1">
+          <div className="size-2 animate-bounce rounded-full bg-purple" />
+          <div className="size-2 animate-bounce rounded-full bg-purple delay-150" />
+          <div className="size-2 animate-bounce rounded-full bg-purple delay-300" />
         </div>
+
+        <p className="text-sm font-medium leading-[170%] text-black lg:text-base">
+          {text}
+        </p>
       </div>
     </div>
   );
