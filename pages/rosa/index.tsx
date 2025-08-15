@@ -31,7 +31,7 @@ export default function RosaPage() {
               <TextHighlight
                 text="Smart Assistant"
                 className="inline-flex font-black"
-              />
+              />{" "}
               Pendamping Belajar Mahasiswa Farmasi
             </h1>
 
