@@ -39,7 +39,7 @@ const MemoizedMarkdownBlock = memo(
           ),
         }}
       >
-        {content}
+        {normalizeCustomMathTags(content)}
       </ReactMarkdown>
     );
   },
@@ -62,3 +62,23 @@ export const MemoizedMarkdown = memo(
 );
 
 MemoizedMarkdown.displayName = "MemoizedMarkdown";
+
+function normalizeCustomMathTags(input: string): string {
+  return input
+    .replace(
+      /\[\/math\]([\s\S]*?)\[\/math\]/g,
+      (_, content) => `$$${content.trim()}$$`,
+    )
+    .replace(
+      /\[\/inline\]([\s\S]*?)\[\/inline\]/g,
+      (_, content) => `$${content.trim()}$`,
+    )
+    .replace(
+      /\\{1,2}\(([\s\S]*?)\\{1,2}\)/g,
+      (_, content) => `$${content.trim()}$`,
+    )
+    .replace(
+      /\\{1,2}\[([\s\S]*?)\\{1,2}\]/g,
+      (_, content) => `$$${content.trim()}$$`,
+    );
+}

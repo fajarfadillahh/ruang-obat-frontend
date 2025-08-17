@@ -379,7 +379,7 @@ export default function RosaPage() {
       const prefix = process.env.NEXT_PUBLIC_MODE === "prod" ? "api" : "dev";
 
       const response = await fetch(
-        `https://${prefix}.ruangobat.id/api/ai/chat/streaming`,
+        `https://${prefix}.ruangobat.id/api/ai/chat/streaming/v2`,
         {
           headers: {
             Authorization: `Bearer ${data?.user.access_token}`,
