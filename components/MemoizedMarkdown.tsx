@@ -66,19 +66,60 @@ MemoizedMarkdown.displayName = "MemoizedMarkdown";
 function normalizeCustomMathTags(input: string): string {
   return input
     .replace(
-      /\[\/math\]([\s\S]*?)\[\/math\]/g,
+      /\[(?:\/)?math\]([\s\S]*?)\[\/math\]/g,
       (_, content) => `$$${content.trim()}$$`,
     )
     .replace(
-      /\[\/inline\]([\s\S]*?)\[\/inline\]/g,
+      /\[(?:\/)?inline\]([\s\S]*?)\[\/inline\]/g,
       (_, content) => `$${content.trim()}$`,
     )
+    .replace(/\\\(([\s\S]*?)\\\)/g, (_, content) => `$${content.trim()}$`)
+    .replace(/\\\[([\s\S]*?)\\\]/g, (_, content) => `$$${content.trim()}$$`)
+    .replace(/([^$])\s*\}\s*\$\$\s*-\s*\$([^$]+)\$/g, "$1}$$ - $$2$")
+    .replace(/\$\$([\s\S]*?)\$\$\s*-\s*\$([^$]+)\$/g, "$$$$1$$ - $$2$")
+    .replace(/\}\s+\$\$\s*-\s*\$/g, "}$$ - $")
+    .replace(/\$\$([^$]+)-\s*\$([^$]+)\$/g, "$$$$1$$ - $$2$")
+    .replace(/\$\$\$+/g, "$$")
+    .replace(/\\boxed\s*\{\s*([\s\S]*?)\s*\}/g, (match, content) => {
+      if (!match.includes("$") && content.match(/[=+\-*/^_{}\\]/)) {
+        return `$${match}$`;
+      }
+      return match;
+    })
     .replace(
-      /\\{1,2}\(([\s\S]*?)\\{1,2}\)/g,
-      (_, content) => `$${content.trim()}$`,
+      /\\frac\s*\{\s*([\s\S]*?)\s*\}\s*\{\s*([\s\S]*?)\s*\}/g,
+      (match, num, den) => {
+        if (
+          !match.includes("$") &&
+          (num.match(/[0-9]/) || den.match(/[0-9]/))
+        ) {
+          return `$${match}$`;
+        }
+        return match;
+      },
     )
+    .replace(/\\sqrt\s*\{\s*([\s\S]*?)\s*\}/g, (match, content) => {
+      if (!match.includes("$") && content.match(/[0-9=+\-*/^_]/)) {
+        return `$${match}$`;
+      }
+      return match;
+    })
     .replace(
-      /\\{1,2}\[([\s\S]*?)\\{1,2}\]/g,
+      /\\begin\{(equation|align|matrix|array|cases)\}([\s\S]*?)\\end\{\1\}/g,
+      "$$\\begin{$1}$2\\end{$1}$$",
+    )
+    .replace(/(\\(?:sum|int|lim)\s*_\{[^}]*\}\s*\^\{[^}]*\})/g, (match) => {
+      if (!match.includes("$")) return `$${match}$`;
+      return match;
+    })
+    .replace(
+      /\$\$\s*([\s\S]*?)\s*\$\$/g,
       (_, content) => `$$${content.trim()}$$`,
-    );
+    )
+    .replace(
+      /(?<!\$)\$(?!\$)\s*(.*?)\s*\$(?!\$)/g,
+      (_, content) => `$${content.trim()}$`,
+    )
+    .replace(/\$\s*\$/g, "")
+    .replace(/\$\$\s*\$\$/g, "");
 }
