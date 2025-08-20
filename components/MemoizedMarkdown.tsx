@@ -27,7 +27,6 @@ const MemoizedMarkdownBlock = memo(
               {children}
             </ul>
           ),
-
           table: ({ children, ...props }) => (
             <div className="my-6 overflow-x-auto rounded-lg border border-gray/20 scrollbar-hide">
               <table
@@ -38,7 +37,6 @@ const MemoizedMarkdownBlock = memo(
               </table>
             </div>
           ),
-
           h1: ({ children, ...props }) => (
             <h1
               className="mb-4 mt-8 border-b-2 border-purple/20 pb-2 text-3xl font-black text-black"
@@ -81,13 +79,6 @@ const MemoizedMarkdownBlock = memo(
               {children}
             </h6>
           ),
-
-          p: ({ children, ...props }) => (
-            <p className="mb-4 text-base leading-7 text-gray" {...props}>
-              {children}
-            </p>
-          ),
-
           em: ({ children, ...props }) => (
             <em className="italic text-purple" {...props}>
               {children}
@@ -98,7 +89,6 @@ const MemoizedMarkdownBlock = memo(
               {children}
             </strong>
           ),
-
           a: ({ children, href, ...props }) => (
             <a
               href={href}
@@ -110,14 +100,13 @@ const MemoizedMarkdownBlock = memo(
               {children}
             </a>
           ),
-
           code: ({ children, className, ...props }) => {
             const isInline = !className;
 
             if (isInline) {
               return (
                 <code
-                  className="rounded bg-gray/10 px-2 py-1 font-mono text-sm text-purple"
+                  className="rounded bg-gray/10 px-2 py-1 font-mono text-sm font-bold text-purple"
                   {...props}
                 >
                   {children}
@@ -126,7 +115,7 @@ const MemoizedMarkdownBlock = memo(
             }
 
             return (
-              <div className="relative my-4">
+              <div className="relative">
                 <pre className="scrollbar-thin scrollbar-thumb-gray-600 overflow-x-auto rounded-lg bg-gray-900 p-4 text-white">
                   <code className="font-mono text-sm" {...props}>
                     {children}
@@ -136,10 +125,7 @@ const MemoizedMarkdownBlock = memo(
             );
           },
           pre: ({ children, ...props }) => (
-            <pre
-              className="overflow-x-auto rounded-b-lg bg-purple p-4 text-white"
-              {...props}
-            >
+            <pre className="my-4" {...props}>
               {children}
             </pre>
           ),
