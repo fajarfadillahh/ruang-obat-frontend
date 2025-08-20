@@ -628,6 +628,9 @@ export default function DetailCoursePage({
                       setContents([]);
                       setLoadingContents(true);
                     }}
+                    isCompact
+                    variant="splitted"
+                    className="px-2 py-3"
                   >
                     {segments.map((segment) => (
                       <AccordionItem
@@ -849,10 +852,22 @@ function handleAccordionItemCondition({
 
   if (!loadingContents && (!contents || !contents.length)) {
     return (
-      <div className="rounded-2xl border-2 border-dashed border-gray/20 p-12">
-        <p className="text-center font-semibold capitalize text-gray">
-          Data konten tidak ditemukan
-        </p>
+      <div className="flex flex-col items-center justify-center gap-4 p-12">
+        <Image
+          src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/confused.webp"
+          priority
+          width={300}
+          height={300}
+          className="h-32 w-32"
+          alt="empty data course"
+        />
+        <div className="text-center">
+          <h3 className="mb-2 text-lg font-bold text-black">Upsss</h3>
+          <p className="text-sm font-medium text-gray">
+            Video belajarnya lagi dalam proses pembuatan nih, pilih segmen
+            lainnya dulu ya..
+          </p>
+        </div>
       </div>
     );
   }

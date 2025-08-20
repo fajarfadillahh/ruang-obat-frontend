@@ -33,7 +33,7 @@ export default function ResetPasswordPage({
 
       setInterval(() => {
         window.close();
-      }, 1000);
+      }, 2500);
       setLoading(false);
     } catch (error: any) {
       setLoading(false);
