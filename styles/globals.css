@@ -15,16 +15,6 @@
   @apply bg-pink-500 text-white;
 }
 
-.preventive-list ul {
-  @apply list-outside list-disc pl-8;
-}
-.preventive-list ol {
-  @apply list-outside list-decimal pl-8;
-}
-.preventive-list li {
-  @apply list-outside;
-}
-
 .testimonial-container .swiper-pagination,
 .mentor-container .swiper-pagination {
   @apply static mx-auto pt-4 transition-all xs:pt-8;
@@ -49,6 +39,56 @@
 .preventive-table table td {
   border: 2px solid black;
   padding: 8px;
+}
+
+.preventive-list ul {
+  @apply list-outside list-disc pl-8;
+}
+.preventive-list ol {
+  @apply list-outside list-decimal pl-8;
+}
+.preventive-list li {
+  @apply list-outside;
+}
+
+.preventif-overlaps-text {
+  overflow-wrap: anywhere;
+}
+
+/* handle font-size content (title/heading) from ck-editor */
+.ck-content .text-huge {
+  @apply mb-2 text-[24px] text-black;
+}
+.ck-content .text-big {
+  @apply mb-2 text-[20px] text-black;
+}
+.ck-content h2 {
+  @apply mb-2 text-[18px] text-black;
+}
+
+.ck-content .image-style-align-left {
+  @apply float-left mr-2 !important;
+}
+
+.ck-content .image-style-align-right {
+  @apply float-right ml-2 !important;
+}
+
+.ck-content .image-style-align-center {
+  @apply mx-auto block !important;
+}
+
+figure.image {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+figure.image figcaption {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin-top: 5px;
 }
 
 @layer base {
