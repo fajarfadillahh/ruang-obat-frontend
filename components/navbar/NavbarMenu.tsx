@@ -50,7 +50,8 @@ const menuItemsMobile = [
     label: "Utama",
     list: [
       { label: "Beranda", href: "/" },
-      { label: "Tentang RuangObat", href: "/perusahaan/tentang-kami" },
+      { label: "Artikel", href: "/artikel" },
+      { label: "WhatsApp Kami", href: "https://wa.me/62895383359491" },
     ],
   },
   {
@@ -235,10 +236,10 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/testimonial"
+            href="/artikel"
             className="text-sm font-medium text-gray hover:text-purple"
           >
-            Testimonial
+            Artikel
           </Link>
         </NavbarItem>
 
