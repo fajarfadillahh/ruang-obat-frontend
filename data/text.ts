@@ -2,15 +2,15 @@ export const warningTextModal = {
   has_start: [
     {
       id: 1,
-      text: "Kamu hanya dapat mengerjakan ujian 1x (satu kali).",
+      text: "Kamu hanya dapat mengerjakan ujian 3x (tiga kali).",
     },
     {
       id: 2,
-      text: "Kamu harus meluangkan waktu sesuai durasi pengerjaan yang tertera.",
+      text: "Luangkan waktu sesuai durasi pengerjaan yang tertera.",
     },
     {
       id: 3,
-      text: "Kamu harus memastikan koneksi internet stabil agar ujian berjalan lancar dan menghindari gangguan teknis.",
+      text: "Pastikan koneksi internet stabil agar ujian berjalan lancar dan menghindari gangguan teknis.",
     },
     {
       id: 4,
