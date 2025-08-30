@@ -13,7 +13,11 @@ export default function BreadcrumbsUrl({
 }: BreadcrumbsUrlProps) {
   const { asPath } = useRouter();
 
-  const cleanPath = asPath.replace(basePath === "/" ? "" : basePath, "");
+  const pathWithoutQuery = asPath.split("?")[0];
+  const cleanPath = pathWithoutQuery.replace(
+    basePath === "/" ? "" : basePath,
+    "",
+  );
   const segments = cleanPath.split("/").filter(Boolean);
 
   const breadcrumbs = segments.map((segment, index) => {

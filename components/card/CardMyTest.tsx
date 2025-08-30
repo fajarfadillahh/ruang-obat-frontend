@@ -1,13 +1,22 @@
 import { MyTestType } from "@/types/tests.type";
 import { formatDateWithoutTime } from "@/utils/formatDate";
 import { CalendarDots, Medal, Trophy } from "@phosphor-icons/react";
-import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function CardMyTest(test: MyTestType) {
+  const router = useRouter();
+
   return (
-    <Link
-      href={`/results/${test.result_id}?title=${test.title}`}
-      className="group flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:bg-purple/10"
+    <div
+      className="group flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:cursor-pointer hover:bg-purple/10"
+      onClick={() =>
+        router.push({
+          pathname: `/results/${test.result_id}`,
+          query: {
+            title: test.title,
+          },
+        })
+      }
     >
       <Medal weight="duotone" size={32} className="text-purple" />
 
@@ -32,6 +41,6 @@ export default function CardMyTest(test: MyTestType) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

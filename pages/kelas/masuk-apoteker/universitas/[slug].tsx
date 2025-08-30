@@ -158,7 +158,13 @@ export default function DetailTryoutUniversityPage({
                         ) {
                           return;
                         } else {
-                          router.push(`/quiz/${selectedTryout.ass_id}/start`);
+                          router.push({
+                            pathname: `/quiz/${selectedTryout.ass_id}/start`,
+                            query: {
+                              title: selectedTryout.title,
+                              type: `tryout_university`,
+                            },
+                          });
                         }
                       }}
                       className="font-bold"
@@ -265,7 +271,13 @@ export default function DetailTryoutUniversityPage({
                     title={history.title}
                     data={history.score}
                     onClick={() =>
-                      router.push(`/quiz/${history.assr_id}/result`)
+                      router.push({
+                        pathname: `/quiz/${history.assr_id}/result`,
+                        query: {
+                          title: history.title,
+                          type: `tryout_university`,
+                        },
+                      })
                     }
                   />
                 ))}

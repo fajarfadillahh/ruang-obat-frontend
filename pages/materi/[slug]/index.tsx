@@ -474,9 +474,14 @@ export default function CoursePage({
                               ) {
                                 return;
                               } else {
-                                router.push(
-                                  `/quiz/${selectedQuiz.ass_id}/start`,
-                                );
+                                router.push({
+                                  pathname: `/quiz/${selectedQuiz.ass_id}/start`,
+                                  query: {
+                                    title: selectedQuiz.title,
+                                    from: router.query.type,
+                                    type: "exercises",
+                                  },
+                                });
                               }
                             }}
                             className="font-bold"
@@ -531,7 +536,14 @@ export default function CoursePage({
                     title={history.title}
                     data={history.score}
                     onClick={() =>
-                      router.push(`/quiz/${history.assr_id}/result`)
+                      router.push({
+                        pathname: `/quiz/${history.assr_id}/result`,
+                        query: {
+                          title: history.title,
+                          from: router.query.type,
+                          type: "exercises",
+                        },
+                      })
                     }
                   />
                 ))}

@@ -1,149 +1,146 @@
-import Loading from "@/components/Loading";
+import CustomTooltip from "@/components/CustomTooltip";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { UserDataResponse } from "@/types/profile.type";
-import { capitalize } from "@/utils/capitalize";
+import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate } from "@/utils/formatDate";
 import { getError } from "@/utils/getError";
 import {
+  Autocomplete,
+  AutocompleteItem,
   Button,
   Input,
   Select,
   SelectItem,
   Snippet,
-  Tooltip,
-  useDisclosure,
 } from "@nextui-org/react";
 import {
   Check,
-  CheckCircle,
   Copy,
   FloppyDisk,
+  SealCheck,
   XCircle,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { Key, useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
-import useSWR from "swr";
+import { useDebounce } from "use-debounce";
+
+type InputState = {
+  fullname: string;
+  email: string;
+  phone_number: string;
+  gender: string;
+  university: string;
+  entry_year: string;
+};
 
 export default function MyProfilePage({
+  data,
   token,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
-  const {
-    isOpen: isCodeVerificationOpen,
-    onOpen: onCodeVerificationOpen,
-    onClose: onCodeVerificationClose,
-  } = useDisclosure();
-  const { data, isLoading, mutate } = useSWR<SuccessResponse<UserDataResponse>>(
-    {
-      url: "/my/profile",
-      method: "GET",
-      token,
-    },
+  const [input, setInput] = useState<InputState>({
+    fullname: `${data?.fullname}`,
+    email: `${data?.email}`,
+    phone_number: `${data?.phone_number}`,
+    gender: `${data?.gender}`,
+    university: `${data?.university}`,
+    entry_year: `${data?.entry_year}`,
+  });
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const [loadingUniversities, setLoadingUniversities] = useState(false);
+  const [searchUniversities, setSearchUniversities] = useState(
+    input.university,
+  );
+  const [searchUniversitiesValue] = useDebounce(searchUniversities, 300);
+  const [universities, setUniversities] = useState<{ name: string }[]>([]);
+
+  const date = new Date();
+  const startYear = 2015;
+  const currentYear = date.getFullYear();
+  const entryYears = Array.from(
+    { length: currentYear - startYear + 1 },
+    (_, i) => currentYear - i,
   );
 
-  const [userData, setUserData] = useState<UserDataResponse | null>(null);
-  const [isDisabled, setIsDisabled] = useState<boolean>(true);
-  const [errors, setErrors] = useState<any>();
-
-  useEffect(() => {
-    if (data && data?.data) {
-      setUserData(data?.data);
-    }
-  }, [data]);
-
-  useEffect(() => {
-    if (userData && data?.data) {
-      const hasChanged = Object.keys(data.data).some(
-        (key) =>
-          key !== "email" &&
-          data.data[key as keyof UserDataResponse] !==
-            userData[key as keyof UserDataResponse],
-      );
-
-      const allFieldsFilled = Object.keys(userData).every((key) => {
-        return (
-          key === "user_id" ||
-          key === "email" ||
-          userData[key as keyof UserDataResponse] !== ""
-        );
-      });
-
-      setIsDisabled(!hasChanged || !allFieldsFilled);
-    }
-  }, [userData, data]);
-
-  function handleChange(field: keyof UserDataResponse, value: string) {
-    if (userData) {
-      setUserData((prevData) => ({
-        ...prevData!,
-        [field]: value,
-      }));
-    }
-  }
-
   async function handleSave() {
-    const data = {
-      fullname: userData?.fullname,
-      phone_number: userData?.phone_number,
-      university: userData?.university,
-      gender: userData?.gender,
-    };
+    setLoading(true);
 
     try {
+      const payload = {
+        fullname: input?.fullname,
+        phone_number: input?.phone_number,
+        university: input?.university,
+        entry_year: input?.entry_year,
+        gender: input?.gender,
+      };
+
       await fetcher({
         url: "/my/profile",
         method: "PATCH",
-        data: data,
+        data: payload,
         token,
       });
 
       toast.success("Profil kamu berhasil diperbarui!");
-      mutate();
+      window.location.reload();
     } catch (error: any) {
       console.log(error);
+      setLoading(false);
 
-      if (error.status_code >= 500) {
-        toast.error(getError(error));
-      } else if (error.status_code >= 400 && error.status_code <= 499) {
-        if (error.error.name === "ZodError") {
-          setErrors(getError(error));
-        } else {
-          toast.error(getError(error));
-        }
-      } else {
-        toast.error(getError(error));
-      }
+      toast.error(getError(error));
+    } finally {
+      setLoading(false);
     }
   }
 
-  if (isLoading) return <Loading />;
+  const fetchUniversities = useCallback(async (query: string) => {
+    if (!query || query.length < 2) {
+      setUniversities([]);
+      return;
+    }
+
+    setLoadingUniversities(true);
+
+    try {
+      const response: SuccessResponse<{ name: string }[]> = await fetcher({
+        url: `/universities/search?q=${query}`,
+        method: "GET",
+      });
+
+      setUniversities(response.data);
+    } catch (error) {
+      console.error(error);
+      setUniversities([]);
+    } finally {
+      setLoadingUniversities(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchUniversities(searchUniversitiesValue);
+  }, [searchUniversitiesValue, fetchUniversities]);
+
+  const universityOptions = useMemo(() => {
+    return universities.slice(0, 15);
+  }, [universities]);
+
+  const handleUniversitySelection = useCallback((selectedKey: Key | null) => {
+    if (selectedKey) {
+      setInput((prev) => ({
+        ...prev,
+        university: `${selectedKey}`,
+      }));
+      setSearchUniversities(`${selectedKey}`);
+    }
+  }, []);
 
   return (
     <Layout title="Profil Saya">
       <section className="grid gap-8 pb-32">
-        {/* {!data?.data.is_verified ? (
-          <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border-2 border-warning bg-warning/10 [padding:1rem_2rem]">
-            <p className="font-medium leading-[170%] text-black">
-              <strong className="font-extrabold">
-                Email belum diverifikasi!
-              </strong>{" "}
-              Silakan verifikasi email kamu sekarang!
-            </p>
-
-            <Button
-              color="warning"
-              size="sm"
-              onClick={() => alert("Fitur masih dalam tahap development")}
-              className="font-bold"
-            >
-              Verifikasi Sekarang
-            </Button>
-          </div>
-        ) : null} */}
-
         <h1 className="text-2xl font-extrabold -tracking-wide text-black">
           Profil Saya 🧑
         </h1>
@@ -152,7 +149,7 @@ export default function MyProfilePage({
           <div className="inline-flex items-center gap-4 pb-10">
             <Image
               src={
-                data?.data.gender === "M"
+                data?.gender === "M"
                   ? "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
                   : "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg"
               }
@@ -164,7 +161,7 @@ export default function MyProfilePage({
 
             <div className="grid">
               <h4 className="text-2xl font-bold text-black">
-                {data?.data.fullname}
+                {data?.fullname}
               </h4>
 
               <Snippet
@@ -181,10 +178,10 @@ export default function MyProfilePage({
                   pre: "font-medium text-black font-sans",
                 }}
               >
-                {data?.data.user_id}
+                {data?.user_id}
               </Snippet>
 
-              <p className="font-medium text-gray">{data?.data.university}</p>
+              <p className="font-medium text-gray">{data?.university}</p>
             </div>
           </div>
 
@@ -195,10 +192,12 @@ export default function MyProfilePage({
               </h4>
 
               <Button
-                isDisabled={isDisabled}
+                isLoading={loading}
                 color="secondary"
                 size="sm"
-                startContent={<FloppyDisk weight="bold" size={18} />}
+                startContent={
+                  !loading && <FloppyDisk weight="bold" size={18} />
+                }
                 onClick={handleSave}
                 className="font-bold"
               >
@@ -209,49 +208,34 @@ export default function MyProfilePage({
             <div className="grid max-w-[800px] gap-y-6 sm:grid-cols-2 sm:gap-x-2">
               <Input
                 readOnly
-                type="email"
+                type="text"
                 variant="flat"
                 label="Alamat Email"
                 labelPlacement="outside"
-                placeholder="Alamat Email"
+                placeholder="Masukan Alamat Email"
                 endContent={
-                  !data?.data.is_verified ? (
-                    <Tooltip
-                      content="Email Belum Diverifikasi"
-                      classNames={{
-                        content: "max-w-[350px] font-semibold text-black",
-                      }}
-                    >
-                      <XCircle
-                        weight="bold"
-                        size={20}
-                        className="text-danger"
-                      />
-                    </Tooltip>
-                  ) : (
-                    <Tooltip
-                      content="Email Terverifikasi"
-                      classNames={{
-                        content: "max-w-[350px] font-semibold text-black",
-                      }}
-                    >
-                      <CheckCircle
-                        weight="bold"
+                  data?.is_verified ? (
+                    <CustomTooltip content="Terverifikasi">
+                      <SealCheck
+                        weight="fill"
                         size={20}
                         className="text-success"
                       />
-                    </Tooltip>
+                    </CustomTooltip>
+                  ) : (
+                    <CustomTooltip content="Belum Terverifikasi">
+                      <XCircle
+                        weight="fill"
+                        size={20}
+                        className="text-danger"
+                      />
+                    </CustomTooltip>
                   )
                 }
-                value={userData?.email}
-                onChange={(e) =>
-                  handleChange("fullname", capitalize(e.target.value))
-                }
+                name="email"
+                value={input.email}
                 className="sm:col-span-2 sm:max-w-[396px]"
-                classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                }}
+                classNames={customInputClassnames}
               />
 
               <Input
@@ -259,25 +243,29 @@ export default function MyProfilePage({
                 variant="flat"
                 label="Nama Lengkap"
                 labelPlacement="outside"
-                placeholder="Nama Lengkap Kamu"
-                value={userData?.fullname}
+                placeholder="Masukan Nama Lengkap"
+                name="fullname"
+                value={input.fullname}
                 onChange={(e) =>
-                  handleChange("fullname", capitalize(e.target.value))
+                  setInput({ ...input, fullname: e.target.value })
                 }
-                classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                }}
+                classNames={customInputClassnames}
               />
 
               <Select
                 aria-label="select gender"
                 variant="flat"
-                labelPlacement="outside"
                 label="Jenis Kelamin"
+                labelPlacement="outside"
                 placeholder="Jenis Kelamin"
-                selectedKeys={userData?.gender}
-                onChange={(e) => handleChange("gender", e.target.value)}
+                name="gender"
+                selectedKeys={[input.gender]}
+                onChange={(e) =>
+                  setInput({
+                    ...input,
+                    [e.target.name]: e.target.value,
+                  })
+                }
                 classNames={{
                   value: "font-semibold text-gray",
                 }}
@@ -286,64 +274,90 @@ export default function MyProfilePage({
                 <SelectItem key="F">Perempuan</SelectItem>
               </Select>
 
-              <Input
-                type="text"
+              <Autocomplete
                 variant="flat"
-                label="Asal Kampus"
+                label="Asal Universitas"
                 labelPlacement="outside"
-                placeholder="Asal Kampus (nama lengkap)"
-                value={userData?.university}
-                onChange={(e) =>
-                  handleChange("university", capitalize(e.target.value))
+                placeholder="Masukan Nama Universitas"
+                inputValue={searchUniversities}
+                onInputChange={setSearchUniversities}
+                onSelectionChange={handleUniversitySelection}
+                isLoading={loadingUniversities}
+                inputProps={{
+                  classNames: {
+                    input:
+                      "font-semibold placeholder:font-semibold placeholder:text-gray",
+                  },
+                }}
+                classNames={{
+                  listboxWrapper: "max-h-60",
+                }}
+                onFocus={() => {
+                  if (
+                    input.university &&
+                    searchUniversities === input.university
+                  ) {
+                    setSearchUniversities("");
+                  }
+                }}
+                selectedKey={input.university}
+              >
+                {universityOptions.map((university) => (
+                  <AutocompleteItem
+                    key={university.name}
+                    value={university.name}
+                    textValue={university.name}
+                  >
+                    {university.name}
+                  </AutocompleteItem>
+                ))}
+              </Autocomplete>
+
+              <Select
+                aria-label="select year"
+                variant="flat"
+                label="Tahun Masuk Kuliah"
+                labelPlacement="outside"
+                placeholder="Tahun Masuk Kuliah"
+                name="gender"
+                selectedKeys={[input.entry_year]}
+                onSelectionChange={(keys) =>
+                  setInput({
+                    ...input,
+                    entry_year: Array.from(keys)[0] as string,
+                  })
                 }
                 classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
+                  value: "font-semibold text-gray",
                 }}
-              />
+              >
+                {entryYears.map((year) => (
+                  <SelectItem key={year} value={year.toString()}>
+                    {year.toString()}
+                  </SelectItem>
+                ))}
+              </Select>
 
               <Input
-                type="text"
+                type="number"
+                inputMode="text"
                 variant="flat"
                 label="No. Telpon"
                 labelPlacement="outside"
-                placeholder="Nomor Telpon"
-                value={userData?.phone_number}
-                onChange={(e) => handleChange("phone_number", e.target.value)}
-                classNames={{
-                  input:
-                    "font-semibold placeholder:font-semibold placeholder:text-gray",
-                }}
-                isInvalid={
-                  errors ? (errors.phone_number ? true : false) : undefined
+                placeholder="Masukan No. Telpon"
+                name="phone_number"
+                value={input.phone_number}
+                onChange={(e) =>
+                  setInput({ ...input, phone_number: e.target.value })
                 }
-                errorMessage={
-                  errors
-                    ? errors.phone_number
-                      ? errors.phone_number
-                      : null
-                    : null
-                }
+                classNames={customInputClassnames}
               />
             </div>
 
             <p className="mt-4 text-sm font-medium text-gray">
-              Akun dibuat pada: {formatDate(data?.data.created_at as string)}
+              Akun dibuat pada: {formatDate(data?.created_at as string)}
             </p>
           </div>
-
-          {/* <div className="flex items-center justify-between pt-10">
-            <h4 className="text-xl font-bold text-black">Ubah Kata Sandi</h4>
-
-            <Button
-              color="secondary"
-              size="sm"
-              startContent={<PencilLine weight="bold" size={18} />}
-              className="font-bold"
-            >
-              Ubah Sandi
-            </Button>
-          </div> */}
         </div>
       </section>
     </Layout>
@@ -352,9 +366,18 @@ export default function MyProfilePage({
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
+  data?: UserDataResponse;
 }> = async ({ req }) => {
+  const token = req.headers["access_token"] as string;
+  const response: SuccessResponse<UserDataResponse> = await fetcher({
+    url: "/my/profile",
+    method: "GET",
+    token,
+  });
+
   return {
     props: {
+      data: response.data,
       token: req.headers["access_token"] as string,
     },
   };
