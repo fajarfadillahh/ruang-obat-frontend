@@ -161,7 +161,7 @@ export default function StartTest({
         <section className="flex h-full w-full gap-4">
           {/* === left content === */}
           <div
-            className={`fixed top-0 z-20 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.left ? "left-0 xl:w-[85px]" : "-left-full xl:w-[280px]"}`}
+            className={`fixed top-0 z-30 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.left ? "left-0 xl:w-[85px]" : "-left-full xl:w-[280px]"}`}
           >
             <div
               className={`flex flex-col divide-y-2 divide-dashed divide-gray/20`}
@@ -304,7 +304,7 @@ export default function StartTest({
               className={`grid h-full grid-rows-[max-content_1fr] overflow-hidden overflow-y-scroll rounded-xl border-2 ${question?.is_hesitant ? "border-warning/50 bg-warning-100" : "border-gray/20"}`}
             >
               <div
-                className={`sticky left-0 top-0 z-10 grid gap-4 p-5 ${question?.is_hesitant ? "bg-warning-100" : "bg-white"}`}
+                className={`sticky left-0 top-0 z-20 grid gap-4 p-5 ${question?.is_hesitant ? "bg-warning-100" : "bg-white"}`}
               >
                 <span className="font-extrabold text-black xs:text-lg">
                   Nomor: {number}
@@ -470,7 +470,7 @@ export default function StartTest({
 
           {/* === right content === */}
           <div
-            className={`fixed top-0 z-20 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[-8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.right ? "right-0 xl:w-[85px]" : "-right-full xl:w-[280px]"}`}
+            className={`fixed top-0 z-30 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[-8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.right ? "right-0 xl:w-[85px]" : "-right-full xl:w-[280px]"}`}
           >
             <div className="flex flex-col divide-y-2 divide-dashed divide-gray/20">
               <div className="flex justify-start pb-6">
