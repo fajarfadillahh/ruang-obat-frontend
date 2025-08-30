@@ -235,7 +235,7 @@ export default function DetailsTest({
                   variant="bordered"
                   className="px-4 font-bold text-black"
                   onClick={() => {
-                    document.documentElement.requestFullscreen();
+                    // document.documentElement.requestFullscreen();
                     router.push(`/tests/${data?.data.test_id}/start`);
                   }}
                 >
@@ -281,7 +281,7 @@ export default function DetailsTest({
                         color="secondary"
                         className="font-bold"
                         onClick={() => {
-                          document.documentElement.requestFullscreen();
+                          // document.documentElement.requestFullscreen();
                           router.push(`/tests/${data?.data.test_id}/start`);
                           onClose();
                         }}
@@ -336,7 +336,7 @@ export default function DetailsTest({
                         color="secondary"
                         className="font-bold"
                         onClick={() => {
-                          document.documentElement.requestFullscreen();
+                          // document.documentElement.requestFullscreen();
                           router.push(`/tests/${data?.data.test_id}/start`);
                           onClose();
                         }}
@@ -394,7 +394,7 @@ export default function DetailsTest({
                       color="secondary"
                       className="font-bold"
                       onClick={() => {
-                        document.documentElement.requestFullscreen();
+                        // document.documentElement.requestFullscreen();
                         router.push(`/tests/${data?.data.test_id}/start`);
                         onClose();
                       }}
