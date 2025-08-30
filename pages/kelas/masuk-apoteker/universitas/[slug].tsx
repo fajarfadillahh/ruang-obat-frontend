@@ -161,6 +161,7 @@ export default function DetailTryoutUniversityPage({
                           router.push({
                             pathname: `/quiz/${selectedTryout.ass_id}/start`,
                             query: {
+                              title: selectedTryout.title,
                               type: `tryout_university`,
                             },
                           });
@@ -270,7 +271,13 @@ export default function DetailTryoutUniversityPage({
                     title={history.title}
                     data={history.score}
                     onClick={() =>
-                      router.push(`/quiz/${history.assr_id}/result`)
+                      router.push({
+                        pathname: `/quiz/${history.assr_id}/result`,
+                        query: {
+                          title: history.title,
+                          type: `tryout_university`,
+                        },
+                      })
                     }
                   />
                 ))}
