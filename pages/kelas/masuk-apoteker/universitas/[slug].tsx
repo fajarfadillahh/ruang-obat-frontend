@@ -158,7 +158,12 @@ export default function DetailTryoutUniversityPage({
                         ) {
                           return;
                         } else {
-                          router.push(`/quiz/${selectedTryout.ass_id}/start`);
+                          router.push({
+                            pathname: `/quiz/${selectedTryout.ass_id}/start`,
+                            query: {
+                              type: `tryout_university`,
+                            },
+                          });
                         }
                       }}
                       className="font-bold"
