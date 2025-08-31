@@ -1,5 +1,6 @@
 import { ArrowRight } from "@phosphor-icons/react";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { ReactNode } from "react";
 
 interface CardProductProps {
@@ -15,12 +16,17 @@ export default function CardProduct({
   path,
   tagline,
 }: CardProductProps) {
+  const router = useRouter();
+
   return (
-    <Link href={path} className="base-card group">
-      <div className="relative isolate aspect-square h-auto w-full bg-purple object-cover object-center group-hover:grayscale-[0.5]">
+    <article
+      onClick={() => router.push(path)}
+      className="base-card group transition-all hover:-translate-y-1 hover:cursor-pointer"
+    >
+      <div className="relative isolate grid aspect-square h-auto w-full bg-purple-100 object-cover object-center">
         {icon}
 
-        <h2 className="absolute bottom-0 left-0 m-4 text-2xl font-black text-white sm:text-xl">
+        <h2 className="absolute bottom-0 left-0 m-4 text-2xl font-black text-purple sm:text-xl">
           {title}
         </h2>
       </div>
@@ -38,6 +44,6 @@ export default function CardProduct({
           <ArrowRight weight="bold" size={16} />
         </Link>
       </div>
-    </Link>
+    </article>
   );
 }
