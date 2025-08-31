@@ -109,9 +109,13 @@ export default function ListClassPage() {
                 key={index}
                 title={item.title}
                 icon={
-                  <item.icon
-                    weight="duotone"
-                    className="size-[calc(100%-7rem)] justify-self-end text-white/30"
+                  <Image
+                    src={item.icon as string}
+                    alt="icon program"
+                    width={500}
+                    height={500}
+                    loading="lazy"
+                    className="size-[calc(100%-6rem)] justify-self-end"
                   />
                 }
                 path={item.path}
