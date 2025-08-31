@@ -1,6 +1,7 @@
 import ModalConfirm from "@/components/modal/ModalConfirm";
 import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
+import { menuItemsDesktop, menuItemsMobile } from "@/data/navbar";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import {
   Avatar,
@@ -21,103 +22,25 @@ import {
   useDisclosure,
 } from "@nextui-org/react";
 import {
-  BookBookmark,
   CaretDown,
   ChatCircleText,
   ClipboardText,
   CreditCard,
   Headset,
   IconContext,
-  MagnifyingGlass,
   Medal,
-  PencilRuler,
-  Pill,
   ShoppingCart,
   SignIn,
   SignOut,
   Sparkle,
   UserCircle,
-  Video,
 } from "@phosphor-icons/react";
 import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
 import toast from "react-hot-toast";
-
-const menuItemsMobile = [
-  {
-    label: "Utama",
-    list: [
-      { label: "Beranda", href: "/" },
-      { label: "Artikel", href: "/artikel" },
-      { label: "WhatsApp Kami", href: "https://wa.me/62895383359491" },
-    ],
-  },
-  {
-    label: "Produk",
-    list: [
-      {
-        label: "Ruang Sarjana & Diploma Farmasi",
-        href: "/video",
-      },
-      {
-        label: "Ruang Private 1 on 1",
-        href: "/kelas/private-1-on-1",
-      },
-      { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },
-      { label: "Ruang Riset Farmasi", href: "/kelas/riset-farmasi" },
-      { label: "Ruang Masuk Apoteker", href: "/kelas/masuk-apoteker" },
-      { label: "Ruang OSCE & UKMPPAI", href: "/osce-ukmppai" },
-    ],
-  },
-];
-
-const menuItemsDesktop = [
-  {
-    icon: Video,
-    iconColor: "warning",
-    label: "Ruang Sarjana & Diploma Farmasi",
-    description:
-      "Video belajar fleksibel & lengkap untuk gelar Sarjana & Diploma.",
-    href: "/video",
-  },
-  {
-    icon: ClipboardText,
-    iconColor: "secondary",
-    label: "Ruang Private 1 on 1",
-    description: "Pendampingan intensif untuk hasil belajar maksimal.",
-    href: "/kelas/private-1-on-1",
-  },
-  {
-    icon: BookBookmark,
-    iconColor: "success",
-    label: "Ruang Skripsi Farmasi",
-    description: "Bimbingan skripsi terarah dari awal hingga tuntas.",
-    href: "/kelas/skripsi-farmasi",
-  },
-  {
-    icon: MagnifyingGlass,
-    iconColor: "primary",
-    label: "Ruang Riset Farmasi",
-    description: "Tingkatkan skill risetmu dengan metode yang tepat.",
-    href: "/kelas/riset-farmasi",
-  },
-  {
-    icon: Pill,
-    iconColor: "danger",
-    label: "Ruang Masuk Apoteker",
-    description: "Persiapan matang menuju profesi apoteker impianmu.",
-    href: "/kelas/masuk-apoteker",
-  },
-  {
-    icon: PencilRuler,
-    iconColor: "warning",
-    label: "Ruang OSCE & UKMPPAI",
-    description: "Siap hadapi ujian kompetensi dengan percaya diri.",
-    href: "/osce-ukmppai",
-  },
-];
 
 export default function NavbarMain() {
   const router = useRouter();
@@ -219,10 +142,13 @@ export default function NavbarMain() {
                   key={item.description}
                   // description={item.description}
                   startContent={
-                    <item.icon
-                      weight="duotone"
-                      size={32}
-                      className={`text-${item.iconColor}`}
+                    <Image
+                      src={item.icon}
+                      alt="icon program"
+                      width={500}
+                      height={500}
+                      loading="lazy"
+                      className="size-7"
                     />
                   }
                   onClick={() => router.push(item.href)}
