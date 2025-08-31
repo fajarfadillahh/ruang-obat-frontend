@@ -103,7 +103,7 @@ figure.image figcaption {
   }
 
   .base-card {
-    @apply grid overflow-hidden rounded-xl border-2 border-gray/10 hover:bg-purple/10;
+    @apply grid overflow-hidden rounded-xl border-2 border-gray/10 hover:bg-purple-100;
   }
 }
 
