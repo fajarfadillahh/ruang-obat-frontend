@@ -21,7 +21,7 @@ export default function CardProduct({
   return (
     <article
       onClick={() => router.push(path)}
-      className="base-card group transition-all hover:-translate-y-1 hover:cursor-pointer"
+      className="base-card group hover:cursor-pointer"
     >
       <div className="relative isolate grid aspect-square h-auto w-full bg-purple-100 object-cover object-center">
         {icon}
