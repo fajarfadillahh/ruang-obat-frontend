@@ -27,6 +27,7 @@ import {
   ChatTeardropText,
   Dna,
   IconContext,
+  Lightning,
   Microscope,
   Question,
   Sparkle,
@@ -576,6 +577,18 @@ export default function HomePage({
                 tagline={item.tagline}
               />
             ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <h2 className="z-10 text-6xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </h2>
+
+              <Lightning
+                weight="fill"
+                size={400}
+                className="absolute -right-12 top-0 text-purple-200"
+              />
+            </div>
           </div>
         </section>
 

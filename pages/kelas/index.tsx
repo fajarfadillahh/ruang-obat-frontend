@@ -8,7 +8,7 @@ import { siteConfigHomePage } from "@/data/site";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button, Chip } from "@nextui-org/react";
-import { ShareNetwork, Sparkle } from "@phosphor-icons/react";
+import { Lightning, ShareNetwork, Sparkle } from "@phosphor-icons/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
@@ -122,6 +122,18 @@ export default function ListClassPage() {
                 tagline={item.tagline}
               />
             ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <h2 className="z-10 text-6xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </h2>
+
+              <Lightning
+                weight="fill"
+                size={400}
+                className="absolute -right-12 top-0 text-purple-200"
+              />
+            </div>
           </div>
         </section>
 
