@@ -109,13 +109,6 @@ export const siteConfigHomePage = {
       path: "/osce-ukmppai",
       tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
     },
-    {
-      id: 7,
-      title: "Apoteker ROSA",
-      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-apoteker-rosa.webp",
-      path: "/rosa",
-      tagline: "Partner Virtual Farmasi Pertama di Indonesia. 🔥",
-    },
   ],
   mentors: [
     {
