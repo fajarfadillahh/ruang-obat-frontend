@@ -572,9 +572,9 @@ export default function DetailCoursePage({
 
           <div className="grid gap-8">
             <div className="grid gap-2 rounded-xl border-2 border-gray/10 p-4">
-              <h5 className="font-bold text-black">
+              <span className="font-bold text-black">
                 Track progres belajar kamu!
-              </h5>
+              </span>
 
               <div className="flex items-center gap-2">
                 {data?.data.is_login ? (
@@ -610,7 +610,7 @@ export default function DetailCoursePage({
               </div>
             </div>
 
-            <div className="grid">
+            <div className="grid gap-4">
               <h2 className="text-xl font-black -tracking-wide text-black">
                 Daftar Video
               </h2>
@@ -622,24 +622,24 @@ export default function DetailCoursePage({
                   </div>
                 ) : (
                   <Accordion
+                    isCompact
+                    variant="bordered"
                     selectionMode="single"
                     onSelectionChange={(e) => {
                       setSelectedKeys(e[Symbol.iterator]().next().value as Key);
                       setContents([]);
                       setLoadingContents(true);
                     }}
-                    isCompact
-                    variant="splitted"
-                    className="px-2 py-3"
+                    className="border-gray/10"
                   >
                     {segments.map((segment) => (
                       <AccordionItem
                         key={segment.segment_id}
                         title={segment.title}
                         classNames={{
-                          title: "text-black font-bold",
+                          title: "text-black font-bold py-2",
                           indicator: "text-black",
-                          content: "grid gap-1",
+                          content: "grid gap-1 mb-8",
                         }}
                       >
                         {selectedKeys === segment.segment_id
@@ -861,6 +861,7 @@ function handleAccordionItemCondition({
           className="h-32 w-32"
           alt="empty data course"
         />
+
         <div className="text-center">
           <h3 className="mb-2 text-lg font-bold text-black">Upsss</h3>
           <p className="text-sm font-medium text-gray">
@@ -882,12 +883,12 @@ function handleAccordionItemCondition({
           key={content.content_id}
           className="flex items-start gap-2 rounded-xl border-l-8 border-purple bg-purple/5 [padding:1rem_1.5rem] hover:bg-purple/10"
         >
-          <BookBookmark weight="duotone" size={32} className="text-purple" />
+          <BookBookmark weight="duotone" size={24} className="text-purple" />
 
           <div className="grid flex-1 gap-2">
-            <h4 className="line-clamp-1 text-sm font-bold capitalize text-black">
+            <h3 className="line-clamp-1 text-sm font-bold capitalize text-black">
               {content.title}
-            </h4>
+            </h3>
 
             <Button
               size="sm"
@@ -927,9 +928,9 @@ function handleAccordionItemCondition({
         <div className="grid" key={content.content_id}>
           <div className="flex items-start gap-2 rounded-xl [padding:1rem_1.5rem] hover:bg-gray/10">
             <div className="grid flex-1 gap-2">
-              <h4 className="line-clamp-1 text-sm font-bold capitalize text-black">
+              <h3 className="line-clamp-1 text-sm font-bold capitalize text-black">
                 {content.title}
-              </h4>
+              </h3>
 
               <div className="inline-flex items-center gap-2">
                 <CustomTooltip content="Play Video">
