@@ -26,7 +26,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { IconContext, ShareNetwork, Sparkle } from "@phosphor-icons/react";
+import { Lightning, ShareNetwork, Sparkle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -60,14 +60,14 @@ export default function Private1on1Page({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="secondary"
               variant="flat"
               classNames={{
-                content: "font-bold",
+                content: "font-bold text-orange-600",
+                base: "bg-orange-600/20",
               }}
               className="mb-2"
             >
-              📋 Ruang Private 1 on 1
+              📋 Ruang Private 1 on 1 Farmasi
             </Chip>
 
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black xs:text-5xl">
@@ -119,35 +119,48 @@ export default function Private1on1Page({
           />
         </section>
 
-        <section className="base-container gap-6 [padding:110px_0_100px]">
-          <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
-            Yang Bisa Kamu Konsultasikan <br /> di Kelas Private Farmasi
-          </h2>
+        <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-private.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[200px] justify-self-center sm:max-w-[300px] xl:max-w-[360px]"
+            loading="lazy"
+          />
 
-          <IconContext.Provider
-            value={{
-              weight: "duotone",
-              size: 48,
-              className: "text-purple",
-            }}
-          >
-            <div className="grid gap-4 xs:grid-cols-2 xl:grid-cols-5">
-              {siteConfigPhamacyPrivteClassPage.consultation_list.map(
-                (item, index) => (
-                  <div
-                    key={index}
-                    className="grid gap-2 rounded-xl border-2 border-gray/10 p-8"
-                  >
-                    <item.icon />
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {siteConfigPhamacyPrivteClassPage.consultation_list.map(
+              (item, index) => (
+                <div
+                  key={index}
+                  className="grid gap-2 rounded-xl border-2 border-gray/10 p-8"
+                >
+                  <item.icon
+                    weight="duotone"
+                    size={48}
+                    className="text-purple"
+                  />
 
-                    <p className="font-medium leading-[170%] text-gray">
-                      {item.text}
-                    </p>
-                  </div>
-                ),
-              )}
+                  <p className="font-medium leading-[170%] text-gray">
+                    {item.text}
+                  </p>
+                </div>
+              ),
+            )}
+
+            <div className="group relative isolate hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <h2 className="z-10 text-2xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </h2>
+
+              <Lightning
+                weight="fill"
+                size={210}
+                className="absolute -right-12 top-0 text-purple-200"
+              />
             </div>
-          </IconContext.Provider>
+          </div>
         </section>
 
         <section
