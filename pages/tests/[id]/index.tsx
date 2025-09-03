@@ -119,9 +119,9 @@ export default function DetailsTest({
         <div className="grid items-end justify-center gap-10 lg:grid-cols-[1fr_300px] lg:justify-between lg:gap-4">
           <div className="grid max-w-[750px] divide-y-2 divide-dashed divide-gray/20">
             <div className="grid gap-4 pb-8">
-              <h4 className="text-3xl font-bold capitalize -tracking-wide text-black">
+              <h1 className="text-3xl font-bold capitalize -tracking-wide text-black">
                 {data?.data.title}
-              </h4>
+              </h1>
 
               <p className="font-medium leading-[170%] text-gray">
                 {data?.data.description}
@@ -249,9 +249,9 @@ export default function DetailsTest({
                     </Button>
                   }
                   header={
-                    <h1 className="text-xl font-bold text-black">
+                    <h2 className="text-xl font-bold text-black">
                       Peringatan!
-                    </h1>
+                    </h2>
                   }
                   body={
                     <div className="grid gap-4 pb-8">
@@ -302,7 +302,7 @@ export default function DetailsTest({
                   </Button>
                 }
                 header={
-                  <h1 className="text-xl font-bold text-black">Peringatan!</h1>
+                  <h2 className="text-xl font-bold text-black">Peringatan!</h2>
                 }
                 body={
                   <>
@@ -368,7 +368,7 @@ export default function DetailsTest({
                   </Button>
                 }
                 header={
-                  <h1 className="text-xl font-bold text-black">Peringatan!</h1>
+                  <h2 className="text-xl font-bold text-black">Peringatan!</h2>
                 }
                 body={
                   <p className="font-medium leading-[170%] text-gray">

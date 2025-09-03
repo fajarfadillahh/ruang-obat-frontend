@@ -63,9 +63,9 @@ export default function CardTest(test: CardTest) {
         <ClipboardText weight="duotone" size={32} className="text-purple" />
 
         <div className="grid flex-1 gap-6">
-          <h4 className="line-clamp-2 text-xl font-bold -tracking-wide text-black group-hover:text-purple">
+          <h3 className="line-clamp-2 text-xl font-bold -tracking-wide text-black group-hover:text-purple">
             {test.title}
-          </h4>
+          </h3>
 
           <div className="grid items-start gap-4 sm:grid-cols-2 md:grid-cols-3 lg:flex lg:gap-6">
             <div className="grid gap-1">
