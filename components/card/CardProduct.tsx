@@ -26,9 +26,9 @@ export default function CardProduct({
       <div className="relative isolate grid aspect-square h-auto w-full bg-purple-100 object-cover object-center">
         {icon}
 
-        <h2 className="absolute bottom-0 left-0 m-4 text-2xl font-black text-purple sm:text-xl">
+        <h3 className="absolute bottom-0 left-0 m-4 text-2xl font-black text-purple sm:text-xl">
           {title}
-        </h2>
+        </h3>
       </div>
 
       <div className="grid gap-4 [padding:1.5rem_1rem]">

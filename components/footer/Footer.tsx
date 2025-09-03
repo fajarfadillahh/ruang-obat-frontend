@@ -11,9 +11,9 @@ export default function Footer() {
           <div className="flex flex-wrap items-start gap-16">
             {footer.menu.map((item, index) => (
               <div key={index} className="grid gap-4">
-                <h4 className="text-xl font-extrabold text-white">
+                <h2 className="text-xl font-extrabold text-white">
                   {item.label}
-                </h4>
+                </h2>
 
                 <ul className="flex flex-col gap-2">
                   {item.list.map((subitem, index) => (
