@@ -65,31 +65,31 @@ export default function SectionSubscription({
             )}
 
             <div className="grid gap-2">
-              <h1
+              <h3
                 className={`text-center text-xl font-bold ${false ? "text-white" : "text-black"}`}
               >
                 {item.name}
-              </h1>
+              </h3>
 
               {item.discount_amount ? (
                 <div className="grid justify-items-center gap-1">
-                  <h1
+                  <h2
                     className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
                   >
                     {formatRupiah(item.discount_amount)}
-                  </h1>
+                  </h2>
 
-                  <h5 className="relative isolate w-max text-2xl font-black text-gray/40">
+                  <h4 className="relative isolate w-max text-2xl font-black text-gray/40">
                     {formatRupiah(item.price)}
                     <div className="absolute left-0 top-4 z-10 h-1 w-full bg-danger" />
-                  </h5>
+                  </h4>
                 </div>
               ) : (
-                <h1
+                <h2
                   className={`text-center text-4xl font-black ${false ? "text-white" : "text-purple"}`}
                 >
                   {formatRupiah(item.price)}
-                </h1>
+                </h2>
               )}
             </div>
 

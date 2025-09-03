@@ -31,9 +31,9 @@ export default function CardCategory({
         className="size-20 object-fill"
       />
 
-      <h4 className="line-clamp-2 text-center font-extrabold text-black group-hover:line-clamp-none">
+      <h3 className="line-clamp-2 text-center font-extrabold text-black group-hover:line-clamp-none">
         {name}
-      </h4>
+      </h3>
     </Link>
   );
 }
