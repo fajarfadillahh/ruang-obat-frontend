@@ -311,9 +311,9 @@ export default function CoursePage({
                     />
 
                     <div className="grid gap-4 [padding:1.5rem_1rem]">
-                      <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                      <h3 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                         {course.title}
-                      </h1>
+                      </h3>
 
                       <IconContext.Provider
                         value={{
@@ -597,9 +597,9 @@ export default function CoursePage({
                       key={index}
                       className="group rounded-xl border-l-8 border-purple bg-purple/5 p-8"
                     >
-                      <h5 className="mb-2 text-lg font-black text-black">
+                      <h3 className="mb-2 text-lg font-black text-black">
                         Tulisan Flascard ✏️
-                      </h5>
+                      </h3>
 
                       <p
                         dangerouslySetInnerHTML={{
@@ -755,9 +755,9 @@ function CardQuiz({ type, title, data, ...props }: CardQuizProps) {
 
       <div className="grid gap-4">
         <CustomTooltip content={title}>
-          <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+          <h3 className="line-clamp-2 font-black text-black group-hover:text-purple">
             {title}
-          </h1>
+          </h3>
         </CustomTooltip>
 
         <div className="grid gap-1">
