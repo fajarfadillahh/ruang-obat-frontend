@@ -13,6 +13,7 @@ import { Button, Chip } from "@nextui-org/react";
 import {
   BookBookmark,
   GraduationCap,
+  Lightning,
   Planet,
   RocketLaunch,
   Shapes,
@@ -98,7 +99,7 @@ export default function VideoLearningClassPage({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="warning"
+              color="secondary"
               variant="flat"
               classNames={{
                 content: "font-bold",
@@ -108,7 +109,7 @@ export default function VideoLearningClassPage({
               🎬 Ruang Sarjana & Diploma Farmasi
             </Chip>
 
-            <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl lg:text-[38px]">
+            <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl lg:text-[40px] lg:leading-[105%]">
               Video Belajar Farmasi Terlengkap untuk Mahasiswa Sarjana &
               Diploma, Siap Temani Perjalananmu Jadi{" "}
               <TextHighlight text="Apoteker Hebat!" className="font-black" />
@@ -158,23 +159,46 @@ export default function VideoLearningClassPage({
           />
         </section>
 
-        <section className="base-container gap-4 [padding:4rem_0_2rem] xs:grid-cols-2 xl:grid-cols-5">
-          {headlines.map((headline, index) => (
-            <div
-              key={index}
-              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
-            >
-              <headline.icon
-                weight="duotone"
-                size={48}
-                className="text-purple"
-              />
+        <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-sarjana.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[200px] justify-self-center sm:max-w-[300px] xl:max-w-[360px]"
+            loading="lazy"
+          />
 
-              <p className="font-medium leading-[170%] text-gray">
-                {headline.description}
-              </p>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {headlines.map((headline, index) => (
+              <div
+                key={index}
+                className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+              >
+                <headline.icon
+                  weight="duotone"
+                  size={48}
+                  className="text-purple"
+                />
+
+                <p className="font-medium leading-[170%] text-gray">
+                  {headline.description}
+                </p>
+              </div>
+            ))}
+
+            <div className="group relative isolate hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <h2 className="z-10 text-2xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </h2>
+
+              <Lightning
+                weight="fill"
+                size={210}
+                className="absolute -right-12 top-0 text-purple-200"
+              />
             </div>
-          ))}
+          </div>
         </section>
 
         <SectionCategory
