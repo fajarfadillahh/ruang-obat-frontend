@@ -26,6 +26,7 @@ import {
   BookBookmark,
   ClipboardText,
   Folder,
+  Lightning,
   RocketLaunch,
   ShareNetwork,
   Sparkle,
@@ -125,7 +126,7 @@ export default function PharmacyThesisClassPage({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="success"
+              color="secondary"
               variant="flat"
               classNames={{
                 content: "font-bold",
@@ -183,29 +184,49 @@ export default function PharmacyThesisClassPage({
           />
         </section>
 
-        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-4">
-          {benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
-            >
-              <benefit.icon
-                weight="duotone"
-                size={48}
-                className="text-purple"
-              />
+        <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-skripsi.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[280px] justify-self-center sm:max-w-[330px] xl:max-w-[360px]"
+            loading="lazy"
+          />
 
-              <p className="font-medium leading-[170%] text-gray">
-                {benefit.description}
-              </p>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+              >
+                <benefit.icon
+                  weight="duotone"
+                  size={48}
+                  className="text-purple"
+                />
+
+                <p className="font-medium leading-[170%] text-gray">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <h2 className="z-10 text-4xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </h2>
+
+              <Lightning
+                weight="fill"
+                size={230}
+                className="absolute -right-12 top-0 text-purple-200"
+              />
             </div>
-          ))}
+          </div>
         </section>
 
-        <section
-          ref={listClassRef}
-          className="base-container gap-4 [padding:110px_0_100px]"
-        >
+        <section ref={listClassRef} className="base-container gap-4 py-[100px]">
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Kelas Skripsi 🔥
           </h2>
