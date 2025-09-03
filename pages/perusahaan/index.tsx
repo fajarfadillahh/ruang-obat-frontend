@@ -17,7 +17,7 @@ export default function CompanyPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container gap-24 pb-[100px]">
+        <section className="base-container gap-24 [padding:50px_0_100px]">
           <div className="grid gap-4 text-center">
             <h1 className="text-4xl font-black capitalize -tracking-wide text-black md:text-6xl lg:text-7xl">
               PT. Pharmacy Cone Group
@@ -37,9 +37,9 @@ export default function CompanyPage() {
           </div>
 
           <div className="grid gap-8">
-            <h1 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
+            <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
               Apa Yang Kamu Ingin Tahu?
-            </h1>
+            </h2>
 
             <IconContext.Provider
               value={{
@@ -57,9 +57,9 @@ export default function CompanyPage() {
                     <item.icon />
 
                     <div className="grid gap-2">
-                      <h4 className="text-xl font-extrabold text-black">
+                      <h3 className="text-xl font-extrabold text-black">
                         {item.label}
-                      </h4>
+                      </h3>
 
                       <Link
                         href={item.url}

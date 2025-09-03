@@ -1,3 +1,4 @@
+import BreadcrumbsUrl from "@/components/BreadcrumbsUrl";
 import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
@@ -52,6 +53,8 @@ export default function TestimonialsPage({
         title="Testimonial Mereka Tentang Kami"
         description="Simak cerita dan pengalaman para mahasiswa yang telah mengikuti program kami. Testimoni nyata dari mereka yang telah merasakan manfaat langsung dari pembelajaran di RuangObat."
       >
+        <BreadcrumbsUrl basePath="/" />
+
         <Modal
           scrollBehavior="inside"
           placement="center"
@@ -178,7 +181,7 @@ function TestimonialCardSection({
 }: TestimonialSectionProps) {
   return (
     <div className="grid gap-6">
-      <h4 className="text-lg font-extrabold text-black md:text-2xl">{title}</h4>
+      <h2 className="text-lg font-extrabold text-black md:text-2xl">{title}</h2>
 
       <div className="grid items-start gap-4 sm:grid-cols-2 xl:grid-cols-4">
         {items.length ? (
