@@ -197,14 +197,14 @@ export default function HomePage({
             />
 
             <div className="grid gap-4">
-              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
                 Belajar Farmasi Jadi{" "}
                 <TextHighlight
                   text="Gampang, Kapan Aja Dimana Aja."
                   className="font-black"
                 />{" "}
                 Semua yang Kamu Butuhin Ada di Sini.
-              </h1>
+              </h2>
 
               <div className="grid gap-2">
                 <p className="font-medium leading-[170%] text-gray">
@@ -277,9 +277,9 @@ export default function HomePage({
               className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
             />
 
-            <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+            <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
               Kenapa Harus Pilih RuangObat?
-            </h1>
+            </h2>
 
             <div className="flex flex-wrap items-start justify-center gap-4 xl:gap-8">
               {siteConfigHomePage.reasons.map((item, index) => {
@@ -301,9 +301,9 @@ export default function HomePage({
                       <item.icon />
 
                       <div className="grid gap-2">
-                        <h4 className={`text-2xl font-black ${cardTitle}`}>
+                        <h3 className={`text-2xl font-black ${cardTitle}`}>
                           {item.title}
-                        </h4>
+                        </h3>
 
                         <p className={`font-medium leading-[170%] ${cardText}`}>
                           {item.text}
@@ -330,13 +330,13 @@ export default function HomePage({
 
               <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
                 <div className="grid gap-4">
-                  <p className="text-xl font-semibold capitalize text-white">
+                  <h3 className="text-xl font-semibold capitalize text-white">
                     RuangObat mempersembahkan! 🎉🎉
-                  </p>
+                  </h3>
 
-                  <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
+                  <h2 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
                     Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
-                  </h1>
+                  </h2>
 
                   <p className="font-medium leading-[170%] text-white">
                     Smart assistant berbasis AI yang dirancang khusus untuk
@@ -499,9 +499,9 @@ export default function HomePage({
 
           <div className="mt-8 grid items-center gap-4 xl:grid-cols-2">
             <div className="grid max-w-[480px] justify-items-center gap-2 justify-self-center text-center xl:text-left">
-              <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                 RuangObat: Mudah, Cepat & Terpercaya!
-              </h1>
+              </h2>
 
               <p className="font-medium leading-[170%] text-gray">
                 Kami hadir memberikan materi yang relevan, up-to-date, dan
@@ -579,9 +579,9 @@ export default function HomePage({
             ))}
 
             <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <h2 className="z-10 text-6xl font-black -tracking-wide text-purple">
+              <span className="z-10 text-6xl font-black -tracking-wide text-purple">
                 RuangObat.
-              </h2>
+              </span>
 
               <Lightning
                 weight="fill"
@@ -599,14 +599,14 @@ export default function HomePage({
           />
 
           <div className="grid gap-4">
-            <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
               Belajar Farmasi Jadi{" "}
               <TextHighlight
                 text="Gampang, Kapan Aja Dimana Aja."
                 className="font-black"
               />{" "}
               Semua yang Kamu Butuhin Ada di Sini.
-            </h1>
+            </h2>
 
             <div className="grid gap-2">
               <p className="font-medium leading-[170%] text-gray">
@@ -679,9 +679,9 @@ export default function HomePage({
             className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kenapa Harus Pilih RuangObat?
-          </h1>
+          </h2>
 
           <div className="flex flex-wrap items-start justify-center gap-4 xl:gap-8">
             {siteConfigHomePage.reasons.map((item, index) => {
@@ -703,9 +703,9 @@ export default function HomePage({
                     <item.icon />
 
                     <div className="grid gap-2">
-                      <h4 className={`text-2xl font-black ${cardTitle}`}>
+                      <h3 className={`text-2xl font-black ${cardTitle}`}>
                         {item.title}
-                      </h4>
+                      </h3>
 
                       <p className={`font-medium leading-[170%] ${cardText}`}>
                         {item.text}
@@ -732,13 +732,13 @@ export default function HomePage({
 
             <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
               <div className="grid gap-4">
-                <p className="text-xl font-semibold capitalize text-white">
+                <h3 className="text-xl font-semibold capitalize text-white">
                   RuangObat mempersembahkan! 🎉🎉
-                </p>
+                </h3>
 
-                <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
+                <h2 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
                   Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
-                </h1>
+                </h2>
 
                 <p className="font-medium leading-[170%] text-white">
                   Smart assistant berbasis AI yang dirancang khusus untuk
@@ -827,9 +827,9 @@ export default function HomePage({
         {!error ? (
           <section className="grid gap-8 py-[100px]">
             <div className="base-container place-items-center gap-2 text-center">
-              <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                 Kenalan Yuk Sama Mentor Keren di RuangObat
-              </h1>
+              </h2>
 
               <p className="max-w-[700px] font-medium leading-[170%] text-gray">
                 Dari Klinis hingga Industri, berbagai mentor di ruangobat siap
@@ -871,9 +871,9 @@ export default function HomePage({
                       />
 
                       <div className="grid flex-1 gap-1 [padding:1.5rem_1rem]">
-                        <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
+                        <h3 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                           {mentor.fullname}
-                        </h1>
+                        </h3>
 
                         <p className="line-clamp-1 text-sm font-medium capitalize leading-[170%] text-gray">
                           {mentor.mentor_title}
@@ -893,9 +893,9 @@ export default function HomePage({
             className="absolute left-24 top-0 hidden size-20 -rotate-12 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kata Mereka Tentang RuangObat
-          </h1>
+          </h2>
 
           <div className="testimonial-container overflow-hidden">
             <Swiper
@@ -927,9 +927,9 @@ export default function HomePage({
                         />
 
                         <div className="grid flex-1">
-                          <h1 className="text-sm font-bold text-black">
+                          <h3 className="text-sm font-bold text-black">
                             {testimonial.name}
-                          </h1>
+                          </h3>
 
                           <p className="line-clamp-1 text-xs font-medium leading-[170%] text-gray">
                             {testimonial.university}
@@ -962,9 +962,9 @@ export default function HomePage({
             className="absolute right-24 top-0 hidden size-20 rotate-12 text-purple lg:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Yang Paling Banyak Ditanyakan
-          </h1>
+          </h2>
 
           <IconContext.Provider
             value={{
