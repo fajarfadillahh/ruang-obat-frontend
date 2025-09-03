@@ -45,16 +45,16 @@ export default function CardLiveTeaching({
       </div>
 
       <div className="grid gap-4 rounded-b-xl p-4">
-        <h1 className="line-clamp-2 text-lg font-extrabold text-black">
+        <h3 className="line-clamp-2 text-lg font-extrabold text-black">
           Meet The Expert Explore Your Future: Pengenalan Bidang dan Profesi di
           Dunia Farmasi
-        </h1>
+        </h3>
 
         <div className="flex items-start gap-2">
           <CalendarDots weight="duotone" size={24} className="text-purple" />
 
           <div className="grid text-sm">
-            <h5 className="font-bold text-black">Sabtu, 23 Agustus 2025</h5>
+            <p className="font-bold text-black">Sabtu, 23 Agustus 2025</p>
 
             <p className="font-medium text-gray">19:00 - 21:00</p>
           </div>
