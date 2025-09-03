@@ -81,10 +81,11 @@ export default function ApotekerClassPage({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="danger"
+              color="primary"
               variant="flat"
               classNames={{
-                content: "font-bold",
+                content: "font-bold text-orange-600",
+                base: "bg-orange-600/20",
               }}
               className="mb-2"
             >
@@ -140,6 +141,17 @@ export default function ApotekerClassPage({
             width={1000}
             height={1000}
             className="w-full justify-self-center"
+          />
+        </section>
+
+        <section className="base-container justify-items-center py-8">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-masuk-apoteker.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[330px] xl:max-w-[500px]"
+            loading="lazy"
           />
         </section>
 
