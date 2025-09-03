@@ -21,22 +21,23 @@ export default function RosaPage() {
   return (
     <>
       <Layout
-        title="Apoteker ROSA (BETA)"
-        description="Apoteker ROSA (BETA) adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
+        title="Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia"
+        description="Apoteker ROSA adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
       >
-        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_500px] xl:gap-0">
+        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_max-content] xl:gap-0">
           <div className="grid gap-4">
             <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl lg:text-5xl">
-              Apoteker ROSA (Beta):{" "}
+              Apoteker ROSA: <br />
+              Partner{" "}
               <TextHighlight
-                text="Smart Assistant"
-                className="inline-flex font-black"
+                text="Virtual Farmasi Pertama"
+                className="font-black"
               />{" "}
-              Pendamping Belajar Mahasiswa Farmasi
+              di Indonesia
             </h1>
 
             <p className="mb-8 font-medium leading-[170%] text-gray">
-              Apoteker ROSA (BETA) adalah{" "}
+              Apoteker ROSA adalah{" "}
               <TextHighlight text="smart assistant berbasis AI" /> yang
               dirancang khusus untuk membantu kamu dalam{" "}
               <TextHighlight
@@ -76,7 +77,7 @@ export default function RosaPage() {
             alt="apoteker rosa image"
             width={1000}
             height={1000}
-            className="justify-self-center"
+            className="h-auto max-w-[500px] justify-self-center"
           />
         </section>
 
@@ -96,20 +97,12 @@ export default function RosaPage() {
             className="justify-self-center"
           />
 
-          <h4 className="text-center text-xl font-medium leading-[140%] text-black md:text-3xl">
+          <h4 className="text-center text-xl font-semibold leading-[170%] text-black md:text-3xl md:leading-[150%]">
             Kini saatnya beralih ke solusi yang lebih cerdas. Apoteker ROSA
-            hadir sebagai{" "}
-            <TextHighlight
-              text="asisten pintar yang siap membantu menjawab berbagai
-            pertanyaan seputar dunia farmasi."
-              className="font-extrabold lowercase"
-            />{" "}
-            Dengan penjelasan yang mudah dipahami dan akses 24 jam, kamu tidak
-            perlu lagi belajar sendirian. ROSA akan menemani proses belajarmu,{" "}
-            <TextHighlight
-              text="kapan pun kamu butuh."
-              className="font-extrabold lowercase"
-            />
+            hadir sebagai asisten pintar yang siap membantu menjawab berbagai
+            pertanyaan seputar dunia farmasi. Dengan penjelasan yang mudah
+            dipahami dan akses 24 jam, kamu tidak perlu lagi belajar sendirian.
+            ROSA akan menemani proses belajarmu, kapan pun kamu butuh.
           </h4>
 
           <Button
