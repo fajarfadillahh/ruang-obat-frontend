@@ -40,7 +40,7 @@ export const menuItemsDesktop = [
   {
     icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
     iconColor: "secondary",
-    label: "Ruang Private 1 on 1",
+    label: "Ruang Private 1 on 1 Farmasi",
     description: "Pendampingan intensif untuk hasil belajar maksimal.",
     href: "/kelas/private-1-on-1",
   },
