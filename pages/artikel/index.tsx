@@ -48,9 +48,9 @@ export default function ArticlesHomePage() {
         </section>
 
         <section className="base-container gap-4 pb-[100px]">
-          <h4 className="font-extrabold text-black md:text-xl">
+          <h2 className="font-extrabold text-black md:text-xl">
             Artikel Terbaru 🚨
-          </h4>
+          </h2>
 
           {isLoading ? (
             <Skeleton className="h-[380px] w-full rounded-2xl" />
@@ -71,9 +71,9 @@ export default function ArticlesHomePage() {
                       {newestArticleCard?.topic.name}
                     </p>
 
-                    <h1 className="line-clamp-2 text-xl font-black capitalize -tracking-wide text-black group-hover:text-purple xs:text-2xl sm:text-3xl">
+                    <h3 className="line-clamp-2 text-xl font-black capitalize -tracking-wide text-black group-hover:text-purple xs:text-2xl sm:text-3xl">
                       {newestArticleCard?.title}
-                    </h1>
+                    </h3>
 
                     <p className="line-clamp-3 text-sm font-medium leading-[170%] text-gray sm:text-base">
                       {newestArticleCard?.description}
@@ -121,9 +121,9 @@ export default function ArticlesHomePage() {
 
         <section className="base-container gap-4 pb-[100px]">
           <div className="flex items-center justify-between gap-4">
-            <h4 className="font-extrabold text-black md:text-xl">
+            <h2 className="font-extrabold text-black md:text-xl">
               Artikel Terpopuler 🔥
-            </h4>
+            </h2>
 
             <Button
               size="sm"
@@ -158,9 +158,9 @@ export default function ArticlesHomePage() {
         <section className="base-container py-[50px]">
           <div className="flex flex-wrap items-center justify-between gap-8 rounded-xl border-2 border-gray-500/10 p-8">
             <div className="grid gap-1">
-              <h5 className="text-2xl font-extrabold leading-[170%] text-black">
+              <h2 className="text-2xl font-extrabold leading-[170%] text-black">
                 Cari Artikel Berdasarkan Topik
-              </h5>
+              </h2>
 
               <p className="max-w-[600px] font-medium leading-[170%] text-gray">
                 Jelajahi artikel sesuai topik pilihan kamu mulai dari kesehatan,

@@ -35,9 +35,9 @@ export default function CardArticle({ article }: CardArticleProps) {
         </p>
 
         <div>
-          <h1 className="mb-0.5 line-clamp-2 text-lg font-extrabold text-black">
+          <h3 className="mb-0.5 line-clamp-2 text-lg font-extrabold text-black">
             {article.title}
-          </h1>
+          </h3>
 
           <p
             dangerouslySetInnerHTML={{
