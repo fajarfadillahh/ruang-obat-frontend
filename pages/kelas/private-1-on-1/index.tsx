@@ -150,9 +150,9 @@ export default function Private1on1Page({
             )}
 
             <div className="group relative isolate hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <h2 className="z-10 text-2xl font-black -tracking-wide text-purple">
+              <span className="z-10 text-2xl font-black -tracking-wide text-purple">
                 RuangObat.
-              </h2>
+              </span>
 
               <Lightning
                 weight="fill"
