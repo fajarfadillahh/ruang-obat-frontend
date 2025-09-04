@@ -1,13 +1,8 @@
+import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
-import { Accordion, AccordionItem } from "@nextui-org/react";
-import {
-  Bank,
-  ClipboardText,
-  IconContext,
-  QrCode,
-} from "@phosphor-icons/react";
-import { ClockCountdown } from "@phosphor-icons/react/dist/ssr";
+import { Accordion, AccordionItem, Button } from "@nextui-org/react";
+import { ClipboardText, Wallet } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 const summary_order = [
@@ -16,24 +11,21 @@ const summary_order = [
     label: "Deskripsi",
     data: "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Molestias quibusdam, natus impedit sequi quae expedita.",
   },
-  {
-    icon: ClockCountdown,
-    label: "Bayar Sebelum",
-    data: "10 September 2025, Pukul 10:45",
-  },
 ];
 
-export default function CheckoutDetailsPage() {
+export default function CheckoutConfirmPage() {
   const router = useRouter();
 
   return (
     <>
-      <Layout title="Lakukan Pembayaran Sekarang">
+      <Layout title="Konfirmasi Pesanan Sekarang">
+        <ButtonBack />
+
         <section className="base-container items-start gap-12 [padding:1.5rem_0_100px] xl:grid-cols-[1fr_450px] xl:gap-24">
           {/* === mobile view: summary order === */}
           <Accordion className="block xl:hidden">
             <AccordionItem
-              title="Ringkasan Pesanan"
+              title="Konfirmasi Pesanan"
               classNames={{
                 title: "text-base text-black font-bold",
                 indicator: "text-black",
@@ -41,7 +33,7 @@ export default function CheckoutDetailsPage() {
             >
               <div className="grid divide-y-2 divide-dashed divide-gray/10">
                 <div className="grid gap-1 pb-8">
-                  <h3 className="font-bold text-black">Ringkasan Pesanan</h3>
+                  <h3 className="font-bold text-black">Konfirmasi Pesanan</h3>
 
                   <p className="text-sm font-medium text-black">
                     Transaksi:{" "}
@@ -97,12 +89,8 @@ export default function CheckoutDetailsPage() {
 
           <div className="grid gap-16">
             <div className="grid gap-1 text-center">
-              <h3 className="font-bold text-black">
-                Bayar Sebelum{" "}
-                <span className="font-extrabold text-purple">
-                  10 September 2025
-                </span>
-                , Pukul 10:45
+              <h3 className="font-bold capitalize text-black">
+                Lakukan pembayaran sesuai nominal di bawah ini:
               </h3>
 
               <h2 className="text-3xl font-black -tracking-wide text-purple xl:text-4xl">
@@ -112,42 +100,34 @@ export default function CheckoutDetailsPage() {
 
             <div className="grid gap-1">
               <h3 className="font-bold text-black md:text-lg">
-                Metode Pembayaran
+                Instruksi Pembayaran
               </h3>
 
-              <IconContext.Provider
-                value={{
-                  weight: "duotone",
-                  size: 28,
-                  className: "text-purple",
-                }}
-              >
-                <Accordion>
-                  <AccordionItem
-                    title="Transfer Bank"
-                    startContent={<Bank />}
-                    classNames={{
-                      title: "text-base text-black font-bold",
-                      indicator: "text-black",
-                      // content: "text-gray leading-[170%] font-medium pb-8",
-                    }}
-                  >
-                    Transfer Bank
-                  </AccordionItem>
+              <div className="grid gap-4">
+                <p className="font-medium leading-[170%] text-gray">
+                  Klik tombol{" "}
+                  <span className="font-extrabold text-purple">
+                    Bayar Sekarang
+                  </span>{" "}
+                  yang ada di bawah untuk melakukan pembayaran. Pastikan nominal
+                  yang dibayarkan sesuai dengan{" "}
+                  <span className="font-extrabold text-purple">
+                    Jumlah Pembayaran
+                  </span>{" "}
+                  yang tertera.
+                </p>
 
-                  <AccordionItem
-                    title="Pembayaran QR"
-                    startContent={<QrCode />}
-                    classNames={{
-                      title: "text-base text-black font-bold",
-                      indicator: "text-black",
-                      // content: "text-gray leading-[170%] font-medium pb-8",
-                    }}
-                  >
-                    Pembayaran QR
-                  </AccordionItem>
-                </Accordion>
-              </IconContext.Provider>
+                <Button
+                  color="secondary"
+                  endContent={<Wallet weight="duotone" size={18} />}
+                  onClick={() =>
+                    window.open("/checkout/XD-13010000000336", "_blank")
+                  }
+                  className="w-max font-bold"
+                >
+                  Bayar Sekarang
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -155,7 +135,7 @@ export default function CheckoutDetailsPage() {
           <div className="hidden divide-y-2 divide-dashed divide-gray/10 xl:grid">
             <div className="grid gap-1 pb-8">
               <h3 className="text-lg font-bold text-black">
-                Ringkasan Pesanan
+                Konfirmasi Pesanan
               </h3>
 
               <p className="font-medium text-black">
