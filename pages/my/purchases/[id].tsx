@@ -1,47 +1,28 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import Footer from "@/components/footer/Footer";
+import TemplateInvoice from "@/components/template/TemplateInvoice";
 import Layout from "@/components/wrapper/Layout";
 import { products } from "@/lib/products";
 import { SuccessResponse } from "@/types/global.type";
+import { UserDataResponse } from "@/types/profile.type";
+import { DetailsPurchaceResponse } from "@/types/purchase.type";
 import { fetcher } from "@/utils/fetcher";
 import { formatDate } from "@/utils/formatDate";
 import { formatRupiah } from "@/utils/formatRupiah";
 import { Button, Chip } from "@nextui-org/react";
 import { DownloadSimple, ShoppingBagOpen } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
-
-type DetailsPurchaceResponse = {
-  order_id: string;
-  invoice_number: string;
-  status: string;
-  total_amount: number;
-  final_amount: number;
-  paid_amount: number;
-  discount_amount: number;
-  discount_code: any;
-  created_at: string;
-  items: {
-    product_id: string;
-    product_name: string;
-    product_price: number;
-    product_type: string;
-  }[];
-  transactions: {
-    transaction_id: string;
-    status: string;
-    payment_method: string;
-    normalized_method: string;
-    paid_amount: number;
-    paid_at: string;
-    expired_at: any;
-    created_at: string;
-  }[];
-};
+import { useRef, useState } from "react";
+import { useReactToPrint } from "react-to-print";
 
 export default function DetailsPurchacePage({
   data,
+  user,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  const templateRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
   const wrapperSection =
     "grid divide-y-2 divide-gray/10 rounded-xl border-2 border-gray/10 p-6";
 
@@ -65,6 +46,40 @@ export default function DetailsPurchacePage({
     (item) => item.code === data?.items[0].product_type,
   );
 
+  const handlePrint = useReactToPrint({
+    content: () => templateRef.current,
+    documentTitle: `Invoice ${data?.invoice_number} - RuangObat.id`,
+    onBeforeGetContent: () => {
+      setIsLoading(true);
+      return new Promise((resolve) => {
+        const images = templateRef.current?.querySelectorAll("img") || [];
+        if (images.length === 0) {
+          resolve("");
+          return;
+        }
+
+        let loaded = 0;
+        images.forEach((img) => {
+          if (img.complete) {
+            loaded++;
+            if (loaded === images.length) resolve("");
+          } else {
+            img.onload = () => {
+              loaded++;
+              if (loaded === images.length) resolve("");
+            };
+            img.onerror = () => {
+              loaded++;
+              if (loaded === images.length) resolve("");
+            };
+          }
+        });
+      });
+    },
+    onAfterPrint: () => setIsLoading(false),
+    onPrintError: () => setIsLoading(false),
+  });
+
   return (
     <>
       <Layout title="Detail Pembelian Saya">
@@ -83,12 +98,21 @@ export default function DetailsPurchacePage({
             </div>
 
             <Button
+              isDisabled={isLoading}
+              isLoading={isLoading}
               color="secondary"
-              endContent={<DownloadSimple weight="duotone" size={18} />}
+              startContent={
+                !isLoading && <DownloadSimple weight="duotone" size={18} />
+              }
+              onClick={handlePrint}
               className="font-bold"
             >
-              Download Invoice
+              {isLoading ? "Mendowload..." : "Download Invoice"}
             </Button>
+
+            <div style={{ display: "none" }}>
+              <TemplateInvoice ref={templateRef} data={data} user={user} />
+            </div>
           </div>
 
           <div className="grid gap-4">
@@ -111,9 +135,9 @@ export default function DetailsPurchacePage({
 
               <div className="grid gap-4 pt-5 xs:gap-1">
                 {[
-                  ["ID Pesanan:", data?.order_id],
-                  ["Nomor Pesanan:", data?.invoice_number],
-                  ["Tanggal Pesanan:", formatDate(`${data?.created_at}`)],
+                  ["No. Pembelian:", data?.order_id],
+                  ["No. Invoice:", data?.invoice_number],
+                  ["Tanggal Pembelian:", formatDate(`${data?.created_at}`)],
                 ].map(([label, value], index) => (
                   <div
                     key={index}
@@ -209,20 +233,32 @@ export default function DetailsPurchacePage({
 
 export const getServerSideProps: GetServerSideProps<{
   data?: DetailsPurchaceResponse;
+  user?: UserDataResponse;
   error?: any;
 }> = async ({ req, params }) => {
   const token = req.headers["access_token"] as string;
 
   try {
-    const response: SuccessResponse<DetailsPurchaceResponse> = await fetcher({
-      url: `/my/orders/${params?.id as string}`,
-      method: "GET",
-      token,
-    });
+    const [orderRes, userRes]: [
+      SuccessResponse<DetailsPurchaceResponse>,
+      SuccessResponse<UserDataResponse>,
+    ] = await Promise.all([
+      fetcher({
+        url: `/my/orders/${params?.id as string}`,
+        method: "GET",
+        token,
+      }),
+      fetcher({
+        url: "/my/profile",
+        method: "GET",
+        token,
+      }),
+    ]);
 
     return {
       props: {
-        data: response.data,
+        data: orderRes.data,
+        user: userRes.data,
       },
     };
   } catch (error: any) {
