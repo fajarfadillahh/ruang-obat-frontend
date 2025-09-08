@@ -8,7 +8,7 @@ export default function Footer() {
     <footer className="isolate grid gap-4 overflow-hidden bg-purple">
       <div className="relative mx-auto h-full w-full max-w-[1440px] px-6">
         <div className="grid gap-16 py-[164px] sm:flex sm:items-start md:items-center">
-          <div className="flex flex-wrap items-start gap-16">
+          <div className="grid gap-16 md:grid-cols-2 md:items-start lg:flex">
             {footer.menu.map((item, index) => (
               <div key={index} className="grid gap-4">
                 <h2 className="text-xl font-extrabold text-white">
