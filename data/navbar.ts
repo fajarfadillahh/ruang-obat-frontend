@@ -16,7 +16,7 @@ export const menuItemsMobile = [
         href: "/video",
       },
       {
-        label: "Ruang Private 1 on 1",
+        label: "Ruang Private 1 on 1 Farmasi",
         href: "/kelas/private-1-on-1",
       },
       { label: "Ruang Skripsi Farmasi", href: "/kelas/skripsi-farmasi" },

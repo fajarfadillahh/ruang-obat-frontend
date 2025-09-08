@@ -68,7 +68,7 @@ export const siteConfigHomePage = {
   classes: [
     {
       id: 1,
-      title: "Ruang Sarjana & Diploma Farmasi",
+      title: "Sarjana & Diploma Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
       path: "/video",
       tagline:
@@ -76,35 +76,35 @@ export const siteConfigHomePage = {
     },
     {
       id: 2,
-      title: "Ruang Private 1 on 1",
+      title: "Private 1 on 1 Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
       path: "/kelas/private-1-on-1",
       tagline: "Pendampingan intensif untuk hasil belajar maksimal.",
     },
     {
       id: 3,
-      title: "Ruang Skripsi Farmasi",
+      title: "Skripsi Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-skripsi.webp",
       path: "/kelas/skripsi-farmasi",
       tagline: "Bimbingan skripsi terarah dari awal hingga tuntas.",
     },
     {
       id: 4,
-      title: "Ruang Riset Farmasi",
+      title: "Riset Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-riset.webp",
       path: "/kelas/riset-farmasi",
       tagline: "Tingkatkan skill risetmu dengan metode yang tepat.",
     },
     {
       id: 5,
-      title: "Ruang Masuk Apoteker",
+      title: "Masuk Apoteker",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
       path: "/kelas/masuk-apoteker",
       tagline: "Persiapan matang menuju profesi apoteker impianmu.",
     },
     {
       id: 6,
-      title: "Ruang OSCE & UKMPPAI",
+      title: "OSCE & UKMPPAI",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-osce-ukmppai.webp",
       path: "/osce-ukmppai",
       tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
