@@ -5,6 +5,7 @@ import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
@@ -13,7 +14,6 @@ import { Button, Chip } from "@nextui-org/react";
 import {
   BookBookmark,
   GraduationCap,
-  Lightning,
   Planet,
   RocketLaunch,
   Shapes,
@@ -151,7 +151,7 @@ export default function VideoLearningClassPage({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-3.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-sarjana.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -192,11 +192,7 @@ export default function VideoLearningClassPage({
                 RuangObat.
               </span>
 
-              <Lightning
-                weight="fill"
-                size={210}
-                className="absolute -right-12 top-0 text-purple-200"
-              />
+              <LogoRuangobat className="absolute right-3 top-1/2 h-auto w-[140px] -translate-y-1/2 text-purple opacity-15" />
             </div>
           </div>
         </section>

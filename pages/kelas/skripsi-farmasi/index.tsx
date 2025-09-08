@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { ThesisClassType, ThesisResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
@@ -26,7 +27,6 @@ import {
   BookBookmark,
   ClipboardText,
   Folder,
-  Lightning,
   RocketLaunch,
   ShareNetwork,
   Sparkle,
@@ -176,7 +176,7 @@ export default function PharmacyThesisClassPage({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-4.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -217,11 +217,7 @@ export default function PharmacyThesisClassPage({
                 RuangObat.
               </span>
 
-              <Lightning
-                weight="fill"
-                size={230}
-                className="absolute -right-12 top-0 text-purple-200"
-              />
+              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[180px] -translate-y-1/2 text-purple opacity-15" />
             </div>
           </div>
         </section>

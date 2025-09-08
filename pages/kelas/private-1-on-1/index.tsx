@@ -6,6 +6,7 @@ import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
 import { siteConfigPhamacyPrivteClassPage } from "@/data/site";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import {
   PrivateClassType,
   PrivateResponse,
@@ -26,7 +27,7 @@ import {
   ModalFooter,
   ModalHeader,
 } from "@nextui-org/react";
-import { Lightning, ShareNetwork, Sparkle } from "@phosphor-icons/react";
+import { ShareNetwork, Sparkle } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
@@ -60,10 +61,10 @@ export default function Private1on1Page({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
+              color="secondary"
               variant="flat"
               classNames={{
-                content: "font-bold text-orange-600",
-                base: "bg-orange-600/20",
+                content: "font-bold",
               }}
               className="mb-2"
             >
@@ -111,7 +112,7 @@ export default function Private1on1Page({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-8.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-private.webp"
             alt="private img"
             width={1000}
             height={1000}
@@ -154,11 +155,7 @@ export default function Private1on1Page({
                 RuangObat.
               </span>
 
-              <Lightning
-                weight="fill"
-                size={210}
-                className="absolute -right-12 top-0 text-purple-200"
-              />
+              <LogoRuangobat className="absolute right-3 top-1/2 h-auto w-[140px] -translate-y-1/2 text-purple opacity-15" />
             </div>
           </div>
         </section>
