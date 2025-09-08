@@ -104,11 +104,11 @@ export default function MyPurchasesPage({
 
                 const infoList = [
                   {
-                    label: "Tanggal Order:",
+                    label: "Tanggal Pembelian:",
                     value: formatDateWithoutTime(order.created_at),
                   },
                   {
-                    label: "Tipe Paket:",
+                    label: "Tipe:",
                     value: typeProgram?.label,
                   },
                 ];
