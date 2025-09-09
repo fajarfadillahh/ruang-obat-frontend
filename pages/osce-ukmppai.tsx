@@ -8,6 +8,7 @@ import { Pagination, Select, SelectItem, Skeleton } from "@nextui-org/react";
 import { Funnel, IconContext } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
+import Image from "next/image";
 import { useQueryState } from "nuqs";
 import useSWR from "swr";
 import { useDebounce } from "use-debounce";
@@ -125,6 +126,17 @@ export default function OsceUkmppaiPage({
             />
           ) : null}
         </div>
+      </section>
+
+      <section className="base-container justify-items-center pt-[100px]">
+        <Image
+          src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-osce-ukmppai.webp"
+          alt="logo program"
+          width={1000}
+          height={1000}
+          className="h-auto w-full max-w-[330px] xl:max-w-[400px]"
+          loading="lazy"
+        />
       </section>
     </Layout>
   );

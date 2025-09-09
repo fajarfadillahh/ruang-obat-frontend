@@ -5,14 +5,16 @@ import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/data/site";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { scrollToSection } from "@/utils/scrollToSection";
-import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button, Chip } from "@nextui-org/react";
-import { ShareNetwork, Sparkle } from "@phosphor-icons/react";
+import { ArrowRight, Sparkle } from "@phosphor-icons/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
 
 export default function ListClassPage() {
+  const router = useRouter();
   const [client, setClient] = useState<boolean>(false);
   const listClassRef = useRef<HTMLElement | null>(null);
 
@@ -30,10 +32,10 @@ export default function ListClassPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container items-center gap-6 xl:grid-cols-[550px_1fr]">
+        <section className="base-container items-center gap-6 [padding:50px_0_100px] xl:grid-cols-[550px_1fr]">
           <Image
             priority
-            src="/img/new-illustration/img-4.svg"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-osce-ukmppai.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -42,9 +44,8 @@ export default function ListClassPage() {
 
           <div className="grid gap-4">
             <Chip
-              color="danger"
+              color="secondary"
               variant="flat"
-              size="lg"
               classNames={{
                 content: "font-bold",
               }}
@@ -79,17 +80,16 @@ export default function ListClassPage() {
                 onClick={() => scrollToSection(listClassRef)}
                 className="px-6 font-bold"
               >
-                Pilih Program Sekarang!
+                Lihat Daftar Program
               </Button>
 
               <Button
-                aria-label="Share Link"
                 variant="bordered"
-                startContent={<ShareNetwork weight="duotone" size={18} />}
-                onClick={handleShareClipboard}
+                endContent={<ArrowRight weight="bold" size={18} />}
+                onClick={() => router.push("/kelas/masuk-apoteker")}
                 className="px-6 font-bold"
               >
-                Bagikan
+                Beli Paket Belajar
               </Button>
             </div>
           </div>
@@ -97,7 +97,7 @@ export default function ListClassPage() {
 
         <section
           ref={listClassRef}
-          className="base-container gap-5 [padding:50px_0_100px]"
+          className="base-container gap-5 [padding:100px_0_100px]"
         >
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Program RuangObat
@@ -109,15 +109,27 @@ export default function ListClassPage() {
                 key={index}
                 title={item.title}
                 icon={
-                  <item.icon
-                    weight="duotone"
-                    className="size-[calc(100%-7rem)] justify-self-end text-white/30"
+                  <Image
+                    src={item.icon as string}
+                    alt="icon program"
+                    width={500}
+                    height={500}
+                    loading="lazy"
+                    className="size-[calc(100%-8rem)] justify-self-end"
                   />
                 }
                 path={item.path}
                 tagline={item.tagline}
               />
             ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <span className="z-10 text-6xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </span>
+
+              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[320px] -translate-y-1/2 text-purple opacity-15" />
+            </div>
           </div>
         </section>
 

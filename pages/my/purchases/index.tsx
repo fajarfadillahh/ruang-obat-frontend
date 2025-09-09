@@ -1,9 +1,11 @@
 import Footer from "@/components/footer/Footer";
 import Layout from "@/components/wrapper/Layout";
 import { getUrl } from "@/lib/getUrl";
+import { products } from "@/lib/products";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { formatDateWithoutTime } from "@/utils/formatDate";
+import { formatRupiah } from "@/utils/formatRupiah";
 import { Chip, Pagination, Skeleton } from "@nextui-org/react";
 import { ShoppingCart } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
@@ -51,7 +53,7 @@ export default function MyPurchasesPage({
 
   return (
     <>
-      <Layout title="Langganan Saya">
+      <Layout title="Pembelian Saya">
         <section className="base-container gap-8 pb-[100px]">
           <div className="grid gap-1">
             <h1 className="text-2xl font-extrabold -tracking-wide text-black">
@@ -59,11 +61,11 @@ export default function MyPurchasesPage({
             </h1>
 
             <p className="font-medium leading-[170%] text-gray">
-              Lihat detail history pembelian/transaksi kamu di masa sebelumnya.
+              Lihat history pembelian kamu sebelumnya disini.
             </p>
           </div>
 
-          <div className="grid gap-4 xl:grid-cols-2">
+          <div className="grid gap-4 xl:grid-cols-2 xl:items-start">
             {isLoading ? (
               Array.from({ length: data?.data.orders.length || 6 }).map(
                 (_, index) => (
@@ -96,17 +98,18 @@ export default function MyPurchasesPage({
                 };
 
                 const orderItem = order.items[0];
+                const typeProgram = products.find(
+                  (item) => item.code === order.items[0].product_type,
+                );
+
                 const infoList = [
                   {
-                    label: "Tanggal Order:",
+                    label: "Tanggal Pembelian:",
                     value: formatDateWithoutTime(order.created_at),
                   },
                   {
-                    label: "Tipe Paket:",
-                    value:
-                      orderItem.product_type === "videocourse"
-                        ? "Ruang Sarjana & Diploma Farmasi 🎬"
-                        : "Ruang Masuk Apoteker 💊",
+                    label: "Tipe:",
+                    value: typeProgram?.label,
                   },
                 ];
 
@@ -118,7 +121,7 @@ export default function MyPurchasesPage({
                       router.push(`/my/purchases/${order.order_id}`)
                     }
                   >
-                    <div className="flex flex-wrap items-center justify-between gap-4 pb-6">
+                    <div className="flex flex-wrap items-center justify-between gap-2 pb-4">
                       <div className="inline-flex items-center gap-2">
                         <ShoppingCart
                           weight="duotone"
@@ -143,10 +146,16 @@ export default function MyPurchasesPage({
                       </Chip>
                     </div>
 
-                    <div className="grid gap-4 pt-6">
-                      <h4 className="text-lg font-bold text-black">
-                        {orderItem.product_name}
-                      </h4>
+                    <div className="grid gap-4 pt-4">
+                      <div className="grid gap-0.5">
+                        <h2 className="line-clamp-1 text-lg font-bold text-black">
+                          {orderItem.product_name}
+                        </h2>
+
+                        <h3 className="text-sm font-bold text-purple">
+                          {formatRupiah(order.final_amount)}
+                        </h3>
+                      </div>
 
                       <div className="flex flex-wrap items-start gap-4 xs:gap-8">
                         {infoList.map(({ label, value }, i) => (

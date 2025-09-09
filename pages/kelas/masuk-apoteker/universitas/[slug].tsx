@@ -362,9 +362,9 @@ function CardTryout({ type, title, data, ...props }: CardTryoutProps) {
 
       <div className="grid gap-4">
         <CustomTooltip content={title}>
-          <h1 className="line-clamp-2 font-black text-black group-hover:text-purple">
+          <h3 className="line-clamp-2 font-black text-black group-hover:text-purple">
             {title}
-          </h1>
+          </h3>
         </CustomTooltip>
 
         <div className="grid gap-1">

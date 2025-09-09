@@ -32,13 +32,13 @@ export default function CTARosaAi() {
 
         <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
           <div className="grid gap-4">
-            <p className="text-xl font-semibold capitalize text-white">
+            <h3 className="text-xl font-semibold capitalize text-white">
               RuangObat mempersembahkan! 🎉🎉
-            </p>
+            </h3>
 
-            <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
               Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
-            </h1>
+            </h2>
 
             <p className="font-medium leading-[170%] text-white">
               Smart assistant berbasis AI yang dirancang khusus untuk membantu

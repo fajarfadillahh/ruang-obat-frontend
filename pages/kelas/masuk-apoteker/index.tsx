@@ -81,7 +81,7 @@ export default function ApotekerClassPage({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="danger"
+              color="secondary"
               variant="flat"
               classNames={{
                 content: "font-bold",
@@ -135,11 +135,22 @@ export default function ApotekerClassPage({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-7.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-masuk-apoteker.webp"
             alt="class subject img"
             width={1000}
             height={1000}
             className="w-full justify-self-center"
+          />
+        </section>
+
+        <section className="base-container justify-items-center [padding:100px_0_50px]">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-masuk-apoteker.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[330px] xl:max-w-[500px]"
+            loading="lazy"
           />
         </section>
 
@@ -184,9 +195,9 @@ export default function ApotekerClassPage({
 
                   <div className="grid gap-4">
                     <CustomTooltip content={university.title}>
-                      <h1 className="line-clamp-1 font-black text-black group-hover:text-purple">
+                      <h3 className="line-clamp-1 font-black text-black group-hover:text-purple">
                         {university.title}
-                      </h1>
+                      </h3>
                     </CustomTooltip>
 
                     <div className="grid gap-1">

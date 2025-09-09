@@ -47,7 +47,7 @@ export default function CardProgram(program: ProgramsType) {
 
       <div className="flex-1 divide-y-2 divide-dashed divide-gray/20">
         <div className="pb-4">
-          <h4
+          <h3
             className={`line-clamp-2 text-lg font-bold -tracking-wide ${
               isMyProgramsPage && !program.is_active
                 ? "text-danger"
@@ -55,7 +55,7 @@ export default function CardProgram(program: ProgramsType) {
             }`}
           >
             {program.title}
-          </h4>
+          </h3>
         </div>
 
         <div className="flex items-start justify-between gap-2 pt-4">

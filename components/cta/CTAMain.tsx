@@ -8,9 +8,9 @@ export default function CTAMain() {
     <section className="[padding:100px_0_156px]">
       <div className="mx-auto grid max-w-[600px] gap-12 rounded-xl border-2 border-l-[16px] border-black px-4 py-20 sm:px-16 lg:max-w-[700px] xl:max-w-[950px]">
         <div className="grid place-items-center gap-4 text-center">
-          <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
+          <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl">
             Siap Mulai Perjalanan Belajar Bersama RuangObat?
-          </h1>
+          </h2>
 
           <p className="mx-auto max-w-[700px] font-medium leading-[170%] text-gray">
             Gabung sekarang dan raih kesempatan belajar farmasi dengan materi

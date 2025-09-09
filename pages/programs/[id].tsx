@@ -170,9 +170,9 @@ export default function DetailsProgram({
           </div>
 
           <div className="grid gap-4 pt-10">
-            <h1 className="text-2xl font-bold -tracking-wide text-black">
+            <h2 className="text-2xl font-bold -tracking-wide text-black">
               Daftar Ujian 📋
-            </h1>
+            </h2>
 
             <div className="grid gap-2">
               {data?.data.tests.map((test) => (

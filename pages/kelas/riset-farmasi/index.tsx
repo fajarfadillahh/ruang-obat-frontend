@@ -5,6 +5,7 @@ import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { ResearchClassType, ResearchResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
@@ -38,8 +39,7 @@ import { useContext, useRef, useState } from "react";
 const benefits = [
   {
     icon: Microscope,
-    description:
-      "Mempelajari berbagai aspek dan hal-hal teknikal di laboratorium",
+    description: "Mempelajari aspek dan hal-hal teknikal di laboratorium",
   },
   {
     icon: ClipboardText,
@@ -122,7 +122,7 @@ export default function PharmacyResearchClassPage({
         <section className="base-container items-center gap-6 xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
             <Chip
-              color="primary"
+              color="secondary"
               variant="flat"
               classNames={{
                 content: "font-bold",
@@ -173,7 +173,7 @@ export default function PharmacyResearchClassPage({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-5.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -181,29 +181,45 @@ export default function PharmacyResearchClassPage({
           />
         </section>
 
-        <section className="base-container gap-4 [margin:4rem_auto_100px] xs:grid-cols-2 xl:grid-cols-4">
-          {benefits.map((benefit, index) => (
-            <div
-              key={index}
-              className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
-            >
-              <benefit.icon
-                weight="duotone"
-                size={48}
-                className="text-purple"
-              />
+        <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
+          <Image
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-riset.webp"
+            alt="logo program"
+            width={1000}
+            height={1000}
+            className="h-auto w-full max-w-[280px] justify-self-center sm:max-w-[330px] xl:max-w-[360px]"
+            loading="lazy"
+          />
 
-              <p className="font-medium leading-[170%] text-gray">
-                {benefit.description}
-              </p>
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+              >
+                <benefit.icon
+                  weight="duotone"
+                  size={48}
+                  className="text-purple"
+                />
+
+                <p className="font-medium leading-[170%] text-gray">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <span className="z-10 text-4xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </span>
+
+              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[180px] -translate-y-1/2 text-purple opacity-15" />
             </div>
-          ))}
+          </div>
         </section>
 
-        <section
-          ref={listClassRef}
-          className="base-container gap-4 [padding:110px_0_100px]"
-        >
+        <section ref={listClassRef} className="base-container gap-4 py-[100px]">
           <h2 className="text-center text-3xl font-black -tracking-wide text-black xl:text-left">
             Daftar Kelas Riset 📚
           </h2>
@@ -242,9 +258,9 @@ export default function PharmacyResearchClassPage({
 
                   <div className="grid gap-6 [padding:1.5rem_1rem]">
                     <div className="grid gap-1">
-                      <h1 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
+                      <h3 className="line-clamp-2 text-lg font-black text-black group-hover:text-purple">
                         {item.title}
-                      </h1>
+                      </h3>
 
                       <p className="font-bold text-purple">
                         {formatRupiah(item.price)},-
@@ -279,58 +295,52 @@ export default function PharmacyResearchClassPage({
               Daftar Mentor 📢
             </h2>
 
-            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3 xl:gap-8">
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
               {data?.mentors.map((mentor: MentorClassType) => (
-                <div
-                  key={mentor.class_mentor_id}
-                  className="group grid gap-8 rounded-xl bg-white p-6 shadow-[4px_4px_36px_rgba(0,0,0,0.1)]"
-                >
+                <div key={mentor.class_mentor_id} className="base-card group">
                   <Image
                     priority
                     src={mentor.img_url as string}
                     alt="mentor img"
-                    width={304}
-                    height={304}
-                    className="aspect-square h-auto w-full rounded-xl object-cover object-center group-hover:grayscale-[0.5]"
+                    width={500}
+                    height={500}
+                    className="aspect-square group-hover:grayscale-[0.5]"
                   />
 
-                  <div className="grid flex-1 gap-1">
-                    <h4 className="line-clamp-2 text-2xl font-black text-black group-hover:text-purple">
+                  <div className="grid flex-1 [padding:1.5rem_1rem]">
+                    <h3 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                       {mentor.fullname}
-                    </h4>
+                    </h3>
 
-                    <p className="text-sm font-medium capitalize leading-[170%] text-gray">
+                    <p className="line-clamp-1 text-sm font-medium capitalize leading-[170%] text-gray">
                       {mentor.mentor_title}
                     </p>
-                  </div>
 
-                  <>
                     <Button
-                      variant="flat"
                       color="secondary"
                       onPress={() => handleOpenModalDetailMentor(mentor)}
-                      className="font-bold"
+                      className="mt-6 font-bold"
                     >
                       Detail Mentor
                     </Button>
 
                     <Modal
                       size="lg"
-                      scrollBehavior="inside"
                       placement="center"
+                      scrollBehavior="inside"
                       isOpen={isOpenDetailMentor}
                       onOpenChange={(open) => setIsOpenDetailMentor(open)}
                     >
                       <ModalContent>
                         {(onClose) => (
                           <>
-                            <ModalHeader className="flex flex-col gap-1 font-extrabold text-black">
+                            <ModalHeader className="font-bold text-black">
                               Deskripsi Mentor
                             </ModalHeader>
 
                             <ModalBody>
                               <p
-                                className="preventive-list preventive-table list-outside text-[16px] font-semibold leading-[170%] text-black"
+                                className="preventive-list preventive-table list-outside text-base font-semibold leading-[170%] text-black"
                                 dangerouslySetInnerHTML={{
                                   __html: selectedMentor?.description as string,
                                 }}
@@ -351,7 +361,7 @@ export default function PharmacyResearchClassPage({
                         )}
                       </ModalContent>
                     </Modal>
-                  </>
+                  </div>
                 </div>
               ))}
             </div>

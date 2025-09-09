@@ -16,8 +16,8 @@ export default function AboutUsPage() {
       >
         <BreadcrumbsUrl rootLabel="Beranda" basePath="/" />
 
-        <section className="base-container gap-4 pb-[100px] text-center">
-          <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl md:text-5xl lg:text-7xl">
+        <section className="base-container gap-4 text-center [padding:50px_0_100px]">
+          <h1 className="text-2xl font-black capitalize -tracking-wide text-black sm:text-3xl md:text-5xl lg:text-6xl">
             RuangObat: Ruang Belajar Farmasi Super Lengkap dan Fleksibel
           </h1>
 
@@ -83,9 +83,9 @@ export default function AboutUsPage() {
                   <item.icon />
 
                   <div className="grid gap-1">
-                    <h4 className="text-xl font-extrabold text-black">
+                    <h3 className="text-xl font-extrabold text-black">
                       {item.label}
-                    </h4>
+                    </h3>
 
                     <Link
                       href={item.url}
@@ -113,9 +113,9 @@ export default function AboutUsPage() {
             />
 
             <div className="grid gap-4">
-              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl xl:text-6xl">
+              <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl xl:text-6xl">
                 Awal dari sebuah petualangan 🚀
-              </h1>
+              </h2>
 
               <p className="font-medium leading-[170%] text-gray">
                 Dari sudut hingga menjadi yang pertama, petualangan kami bermula
@@ -143,9 +143,9 @@ export default function AboutUsPage() {
         <section className="py-[100px]">
           <div className="base-container gap-8 lg:grid-cols-2 lg:items-start xl:gap-16">
             <div className="grid gap-4">
-              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
+              <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
                 {siteConfigCompanyPage.about.data.vision.title}
-              </h1>
+              </h2>
 
               <p className="font-medium leading-[170%] text-gray">
                 {siteConfigCompanyPage.about.data.vision.text}
@@ -153,9 +153,9 @@ export default function AboutUsPage() {
             </div>
 
             <div className="grid gap-4">
-              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
+              <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl sm:text-5xl">
                 {siteConfigCompanyPage.about.data.mission.title}
-              </h1>
+              </h2>
 
               <ul className="grid list-outside list-decimal gap-2 pl-4">
                 {siteConfigCompanyPage.about.data.mission.list.map((item) => (

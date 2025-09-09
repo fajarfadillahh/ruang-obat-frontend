@@ -91,9 +91,9 @@ export default function ContactUsPage() {
                   <item.icon />
 
                   <div className="grid w-full">
-                    <h4 className="text-2xl font-extrabold text-black group-hover:text-purple">
+                    <h2 className="text-2xl font-extrabold text-black group-hover:text-purple">
                       {item.title}
-                    </h4>
+                    </h2>
 
                     <p className="font-medium leading-[170%] text-gray">
                       {item.text}

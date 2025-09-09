@@ -1,11 +1,11 @@
 import CardProduct from "@/components/card/CardProduct";
 import CTAMain from "@/components/cta/CTAMain";
+import CTARosaAi from "@/components/cta/CTARosaAi";
 import Footer from "@/components/footer/Footer";
-import Balatro from "@/components/reactbits/Balatro";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
-import { dummyRosaFeatures } from "@/data/dummy";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
@@ -15,11 +15,6 @@ import {
   AccordionItem,
   Button,
   Chip,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
   useDisclosure,
 } from "@nextui-org/react";
 import {
@@ -31,7 +26,6 @@ import {
   Question,
   Sparkle,
   Star,
-  Syringe,
   TestTube,
 } from "@phosphor-icons/react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
@@ -79,12 +73,12 @@ export default function HomePage({
           <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
             <Sparkle
               weight="duotone"
-              className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple lg:flex"
+              className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple xl:flex"
             />
 
             <Microscope
               weight="duotone"
-              className="absolute right-0 top-[400px] hidden size-20 rotate-12 text-purple lg:flex"
+              className="absolute right-0 top-[400px] hidden size-20 rotate-12 text-purple xl:flex"
             />
 
             <div className="grid justify-items-center gap-4 text-center">
@@ -124,28 +118,28 @@ export default function HomePage({
                 <Button
                   color="secondary"
                   endContent={<Sparkle weight="duotone" size={18} />}
-                  onClick={() => router.push("/video")}
-                  className="px-10 font-bold"
+                  onClick={() => scrollToSection(listClassRef)}
+                  className="px-6 font-bold"
                 >
-                  Beli Paket Belajar
+                  Lihat Daftar Program
                 </Button>
 
                 <Button
                   variant="bordered"
                   endContent={<ArrowRight weight="bold" size={18} />}
-                  onClick={() => scrollToSection(listClassRef)}
-                  className="px-10 font-bold"
+                  onClick={() => router.push("/video")}
+                  className="px-6 font-bold"
                 >
-                  Lihat Daftar Kelas
+                  Beli Paket Belajar
                 </Button>
               </div>
             </div>
 
             <div className="mt-8 grid items-center gap-4 xl:grid-cols-2">
               <div className="grid max-w-[480px] justify-items-center gap-2 justify-self-center text-center xl:text-left">
-                <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+                <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                   RuangObat: Mudah, Cepat & Terpercaya!
-                </h1>
+                </h2>
 
                 <p className="font-medium leading-[170%] text-gray">
                   Kami hadir memberikan materi yang relevan, up-to-date, dan
@@ -177,10 +171,10 @@ export default function HomePage({
               </div>
             </div>
 
-            <div className="grid">
+            <div className="grid pt-5">
               <Image
                 priority
-                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-2.webp"
+                src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
                 alt="illustration img"
                 width={1000}
                 height={1000}
@@ -189,55 +183,28 @@ export default function HomePage({
             </div>
           </section>
 
-          <section className="base-container relative isolate items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-0">
-            <Syringe
-              weight="duotone"
-              className="absolute right-0 top-0 hidden size-20 text-purple lg:flex"
-            />
-
+          <section className="base-container relative isolate items-center gap-6 py-[100px] xl:grid-cols-2 xl:items-start xl:gap-0">
             <div className="grid gap-4">
-              <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
                 Belajar Farmasi Jadi{" "}
                 <TextHighlight
                   text="Gampang, Kapan Aja Dimana Aja."
                   className="font-black"
                 />{" "}
                 Semua yang Kamu Butuhin Ada di Sini.
-              </h1>
+              </h2>
 
-              <div className="grid gap-2">
-                <p className="font-medium leading-[170%] text-gray">
-                  RuangObat adalah platform{" "}
-                  <TextHighlight
-                    text="Bimbel Private Farmasi No. 1 di
+              <p className="font-medium leading-[170%] text-gray">
+                RuangObat adalah platform{" "}
+                <TextHighlight
+                  text="Bimbel Private Farmasi No. 1 di
                 Indonesia,"
-                    className="normal-case"
-                  />{" "}
-                  dipercaya lebih dari 10.000+ mahasiswa farmasi. Dari Sabang
-                  sampai Merauke, Ruangobat bantu mereka lulus, skripsi, masuk
-                  profesi hingga meraih gelar apoteker.
-                </p>
-
-                <ul className="grid gap-1 xl:ml-4">
-                  {[
-                    ["📚 Ruang Sarjana & Diploma Farmasi", "/video"],
-                    ["🔐 Ruang Private 1 on 1", "/kelas/private-1-on-1"],
-                    ["🧪 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
-                    ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
-                    ["👨‍⚕️ Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
-                    ["💉 Ruang UKMPPAI & OSCE", "/osce-ukmppai"],
-                    ["🤖 Apoteker ROSA", "/rosa"],
-                  ].map(([title, path], index) => (
-                    <Link
-                      key={index}
-                      href={path}
-                      className="w-max font-medium leading-[170%] text-gray hover:text-purple hover:underline"
-                    >
-                      {title}
-                    </Link>
-                  ))}
-                </ul>
-              </div>
+                  className="normal-case"
+                />{" "}
+                dipercaya lebih dari 10.000+ mahasiswa farmasi. Dari Sabang
+                sampai Merauke, Ruangobat bantu mereka lulus, skripsi, masuk
+                profesi hingga meraih gelar apoteker.
+              </p>
 
               <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
                 <Button
@@ -257,28 +224,48 @@ export default function HomePage({
 
             <Image
               loading="eager"
-              src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-1.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
               alt="ilustration img"
               width={1000}
               height={1000}
               className="h-auto justify-self-center"
             />
+
+            <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
+              {[
+                ["🎬 Ruang Sarjana & Diploma Farmasi", "/video"],
+                ["📋 Ruang Private 1 on 1 Farmasi", "/kelas/private-1-on-1"],
+                ["📚 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
+                ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
+                ["💊 Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
+                ["💉 Ruang OSCE & UKMPPAI", "/osce-ukmppai"],
+                ["🤖 Apoteker ROSA", "/rosa"],
+              ].map(([title, path], index) => (
+                <Link
+                  key={index}
+                  href={path}
+                  className="base-card p-4 font-medium leading-[170%] text-gray"
+                >
+                  {title}
+                </Link>
+              ))}
+            </ul>
           </section>
 
           <section className="base-container relative isolate gap-8 py-[100px]">
             <Star
               weight="duotone"
-              className="absolute left-0 top-12 hidden size-16 -rotate-12 text-purple lg:flex"
+              className="absolute left-0 top-12 hidden size-16 -rotate-12 text-purple xl:flex"
             />
 
             <TestTube
               weight="duotone"
-              className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
+              className="absolute bottom-12 right-0 hidden size-16 text-purple xl:flex"
             />
 
-            <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+            <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
               Kenapa Harus Pilih RuangObat?
-            </h1>
+            </h2>
 
             <div className="flex flex-wrap items-start justify-center gap-4 xl:gap-8">
               {siteConfigHomePage.reasons.map((item, index) => {
@@ -300,9 +287,9 @@ export default function HomePage({
                       <item.icon />
 
                       <div className="grid gap-2">
-                        <h4 className={`text-2xl font-black ${cardTitle}`}>
+                        <h3 className={`text-2xl font-black ${cardTitle}`}>
                           {item.title}
-                        </h4>
+                        </h3>
 
                         <p className={`font-medium leading-[170%] ${cardText}`}>
                           {item.text}
@@ -315,111 +302,7 @@ export default function HomePage({
             </div>
           </section>
 
-          <section className="base-container py-[100px]">
-            <div className="relative isolate h-[700px] overflow-hidden rounded-3xl lg:h-[600px]">
-              <Balatro
-                isRotate={false}
-                mouseInteraction={false}
-                pixelFilter={1750}
-                color1="#ffffff"
-                color2="#ec4899"
-                color3="#6238C3"
-                className="w-auto overflow-hidden rounded-xl"
-              />
-
-              <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
-                <div className="grid gap-4">
-                  <p className="text-xl font-semibold capitalize text-white">
-                    RuangObat mempersembahkan! 🎉🎉
-                  </p>
-
-                  <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
-                    Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
-                  </h1>
-
-                  <p className="font-medium leading-[170%] text-white">
-                    Smart assistant berbasis AI yang dirancang khusus untuk
-                    membantu kamu dalam proses pembelajaran secara praktis,
-                    cepat, dan efisien.
-                  </p>
-
-                  <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
-                    <Button
-                      endContent={<Sparkle weight="duotone" size={20} />}
-                      onClick={() => router.push("/rosa/chat")}
-                      className="bg-pink-500 px-4 font-bold text-white"
-                    >
-                      Tanya ROSA Sekarang
-                    </Button>
-
-                    <Button
-                      variant="bordered"
-                      endContent={<ArrowRight weight="bold" size={20} />}
-                      onClick={onOpen}
-                      className="border-white px-4 font-bold text-white"
-                    >
-                      Fitur Unggulan ROSA
-                    </Button>
-
-                    <Modal
-                      isDismissable={false}
-                      placement="center"
-                      scrollBehavior="inside"
-                      size="lg"
-                      isOpen={isOpen}
-                      onOpenChange={onOpenChange}
-                    >
-                      <ModalContent>
-                        {(onClose) => (
-                          <>
-                            <ModalHeader className="font-extrabold text-black">
-                              Fitur Unggulan ROSA
-                            </ModalHeader>
-
-                            <ModalBody>
-                              <ul className="grid gap-4">
-                                {dummyRosaFeatures.map((item, index) => (
-                                  <li key={index} className="grid list-decimal">
-                                    <h4 className="font-bold text-black">
-                                      {item.title}
-                                    </h4>
-
-                                    <p className="text-sm font-medium leading-[170%] text-gray">
-                                      {item.description}
-                                    </p>
-                                  </li>
-                                ))}
-                              </ul>
-                            </ModalBody>
-
-                            <ModalFooter>
-                              <Button
-                                color="danger"
-                                variant="light"
-                                onClick={onClose}
-                                className="px-6 font-bold"
-                              >
-                                Tutup
-                              </Button>
-                            </ModalFooter>
-                          </>
-                        )}
-                      </ModalContent>
-                    </Modal>
-                  </div>
-                </div>
-
-                <Image
-                  loading="lazy"
-                  src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
-                  alt="apoteker rosa image"
-                  width={1000}
-                  height={1000}
-                  className="hidden h-auto w-[400px] justify-self-center xl:flex"
-                />
-              </div>
-            </div>
-          </section>
+          <CTARosaAi />
 
           <CTAMain />
         </Layout>
@@ -435,12 +318,12 @@ export default function HomePage({
         <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
           <Sparkle
             weight="duotone"
-            className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple lg:flex"
+            className="absolute left-0 top-0 hidden size-16 -rotate-12 text-purple xl:flex"
           />
 
           <Microscope
             weight="duotone"
-            className="absolute right-0 top-[400px] hidden size-20 rotate-12 text-purple lg:flex"
+            className="absolute right-0 top-[400px] hidden size-20 rotate-12 text-purple xl:flex"
           />
 
           <div className="grid justify-items-center gap-4 text-center">
@@ -479,28 +362,28 @@ export default function HomePage({
               <Button
                 color="secondary"
                 endContent={<Sparkle weight="duotone" size={18} />}
-                onClick={() => router.push("/video")}
-                className="px-10 font-bold"
+                onClick={() => scrollToSection(listClassRef)}
+                className="px-6 font-bold"
               >
-                Beli Paket Belajar
+                Lihat Daftar Program
               </Button>
 
               <Button
                 variant="bordered"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => scrollToSection(listClassRef)}
-                className="px-10 font-bold"
+                onClick={() => router.push("/video")}
+                className="px-6 font-bold"
               >
-                Lihat Daftar Kelas
+                Beli Paket Belajar
               </Button>
             </div>
           </div>
 
           <div className="mt-8 grid items-center gap-4 xl:grid-cols-2">
             <div className="grid max-w-[480px] justify-items-center gap-2 justify-self-center text-center xl:text-left">
-              <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                 RuangObat: Mudah, Cepat & Terpercaya!
-              </h1>
+              </h2>
 
               <p className="font-medium leading-[170%] text-gray">
                 Kami hadir memberikan materi yang relevan, up-to-date, dan
@@ -532,10 +415,10 @@ export default function HomePage({
             </div>
           </div>
 
-          <div className="grid">
+          <div className="grid pt-5">
             <Image
               priority
-              src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-2.webp"
+              src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
               alt="illustration img"
               width={1000}
               height={1000}
@@ -550,7 +433,7 @@ export default function HomePage({
         >
           <Dna
             weight="duotone"
-            className="absolute right-64 top-0 hidden size-16 rotate-12 text-purple lg:flex"
+            className="absolute right-64 top-0 hidden size-16 rotate-12 text-purple xl:flex"
           />
 
           <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl xl:text-left">
@@ -563,67 +446,52 @@ export default function HomePage({
                 key={index}
                 title={item.title}
                 icon={
-                  <item.icon
-                    weight="duotone"
-                    className="size-[calc(100%-7rem)] justify-self-end text-white/30"
+                  <Image
+                    src={item.icon as string}
+                    alt="icon program"
+                    width={500}
+                    height={500}
+                    loading="lazy"
+                    className="size-[calc(100%-8rem)] justify-self-end"
                   />
                 }
                 path={item.path}
                 tagline={item.tagline}
               />
             ))}
+
+            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
+              <span className="z-10 text-6xl font-black -tracking-wide text-purple">
+                RuangObat.
+              </span>
+
+              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[320px] -translate-y-1/2 text-purple opacity-15" />
+            </div>
           </div>
         </section>
 
-        <section className="base-container relative isolate items-center gap-6 py-[100px] xl:grid-cols-[1fr_500px] xl:gap-0">
-          <Syringe
-            weight="duotone"
-            className="absolute right-0 top-0 hidden size-20 text-purple lg:flex"
-          />
-
+        <section className="base-container relative isolate items-center gap-6 py-[100px] xl:grid-cols-2 xl:items-start xl:gap-0">
           <div className="grid gap-4">
-            <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+            <h2 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
               Belajar Farmasi Jadi{" "}
               <TextHighlight
                 text="Gampang, Kapan Aja Dimana Aja."
                 className="font-black"
               />{" "}
               Semua yang Kamu Butuhin Ada di Sini.
-            </h1>
+            </h2>
 
-            <div className="grid gap-2">
-              <p className="font-medium leading-[170%] text-gray">
-                RuangObat adalah platform{" "}
-                <TextHighlight
-                  text="Bimbel Private Farmasi No. 1 di
+            <p className="font-medium leading-[170%] text-gray">
+              RuangObat adalah platform{" "}
+              <TextHighlight
+                text="Bimbel Private Farmasi No. 1 di
                 Indonesia,"
-                  className="normal-case"
-                />{" "}
-                dipercaya lebih dari 10.000+ mahasiswa farmasi. Dari Sabang
-                sampai Merauke, Ruangobat bantu mereka lulus, skripsi, masuk
-                profesi hingga meraih gelar apoteker.
-              </p>
-
-              <ul className="grid gap-1 xl:ml-4">
-                {[
-                  ["📚 Ruang Sarjana & Diploma Farmasi", "/video"],
-                  ["🔐 Ruang Private 1 on 1", "/kelas/private-1-on-1"],
-                  ["🧪 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
-                  ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
-                  ["👨‍⚕️ Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
-                  ["💉 Ruang UKMPPAI & OSCE", "/osce-ukmppai"],
-                  ["🤖 Apoteker ROSA", "/rosa"],
-                ].map(([title, path], index) => (
-                  <Link
-                    key={index}
-                    href={path}
-                    className="w-max font-medium leading-[170%] text-gray hover:text-purple hover:underline"
-                  >
-                    {title}
-                  </Link>
-                ))}
-              </ul>
-            </div>
+                className="normal-case"
+              />{" "}
+              dipercaya lebih dari 10.000+ mahasiswa farmasi. Dari Sabang sampai
+              Merauke, Ruangobat bantu mereka lulus, skripsi, masuk profesi
+              hingga meraih gelar apoteker.
+            </p>
 
             <div className="mt-6 inline-flex flex-wrap items-center justify-center gap-4 sm:justify-start">
               <Button
@@ -643,28 +511,48 @@ export default function HomePage({
 
           <Image
             loading="eager"
-            src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-1.webp"
+            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
             alt="ilustration img"
             width={1000}
             height={1000}
             className="h-auto justify-self-center"
           />
+
+          <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
+            {[
+              ["🎬 Ruang Sarjana & Diploma Farmasi", "/video"],
+              ["📋 Ruang Private 1 on 1 Farmasi", "/kelas/private-1-on-1"],
+              ["📚 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
+              ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
+              ["💊 Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
+              ["💉 Ruang OSCE & UKMPPAI", "/osce-ukmppai"],
+              ["🤖 Apoteker ROSA", "/rosa"],
+            ].map(([title, path], index) => (
+              <Link
+                key={index}
+                href={path}
+                className="base-card p-4 font-medium leading-[170%] text-gray"
+              >
+                {title}
+              </Link>
+            ))}
+          </ul>
         </section>
 
         <section className="base-container relative isolate gap-8 py-[100px]">
           <Star
             weight="duotone"
-            className="absolute left-0 top-12 hidden size-16 -rotate-12 text-purple lg:flex"
+            className="absolute left-0 top-12 hidden size-16 -rotate-12 text-purple xl:flex"
           />
 
           <TestTube
             weight="duotone"
-            className="absolute bottom-12 right-0 hidden size-16 text-purple lg:flex"
+            className="absolute bottom-12 right-0 hidden size-16 text-purple xl:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kenapa Harus Pilih RuangObat?
-          </h1>
+          </h2>
 
           <div className="flex flex-wrap items-start justify-center gap-4 xl:gap-8">
             {siteConfigHomePage.reasons.map((item, index) => {
@@ -686,9 +574,9 @@ export default function HomePage({
                     <item.icon />
 
                     <div className="grid gap-2">
-                      <h4 className={`text-2xl font-black ${cardTitle}`}>
+                      <h3 className={`text-2xl font-black ${cardTitle}`}>
                         {item.title}
-                      </h4>
+                      </h3>
 
                       <p className={`font-medium leading-[170%] ${cardText}`}>
                         {item.text}
@@ -701,118 +589,14 @@ export default function HomePage({
           </div>
         </section>
 
-        <section className="base-container py-[100px]">
-          <div className="relative isolate h-[700px] overflow-hidden rounded-3xl lg:h-[600px]">
-            <Balatro
-              isRotate={false}
-              mouseInteraction={false}
-              pixelFilter={1750}
-              color1="#ffffff"
-              color2="#ec4899"
-              color3="#6238C3"
-              className="w-auto overflow-hidden rounded-xl"
-            />
-
-            <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
-              <div className="grid gap-4">
-                <p className="text-xl font-semibold capitalize text-white">
-                  RuangObat mempersembahkan! 🎉🎉
-                </p>
-
-                <h1 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
-                  Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia
-                </h1>
-
-                <p className="font-medium leading-[170%] text-white">
-                  Smart assistant berbasis AI yang dirancang khusus untuk
-                  membantu kamu dalam proses pembelajaran secara praktis, cepat,
-                  dan efisien.
-                </p>
-
-                <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
-                  <Button
-                    endContent={<Sparkle weight="duotone" size={20} />}
-                    onClick={() => router.push("/rosa/chat")}
-                    className="bg-pink-500 px-4 font-bold text-white"
-                  >
-                    Tanya ROSA Sekarang
-                  </Button>
-
-                  <Button
-                    variant="bordered"
-                    endContent={<ArrowRight weight="bold" size={20} />}
-                    onClick={onOpen}
-                    className="border-white px-4 font-bold text-white"
-                  >
-                    Fitur Unggulan ROSA
-                  </Button>
-
-                  <Modal
-                    isDismissable={false}
-                    placement="center"
-                    scrollBehavior="inside"
-                    size="lg"
-                    isOpen={isOpen}
-                    onOpenChange={onOpenChange}
-                  >
-                    <ModalContent>
-                      {(onClose) => (
-                        <>
-                          <ModalHeader className="font-extrabold text-black">
-                            Fitur Unggulan ROSA
-                          </ModalHeader>
-
-                          <ModalBody>
-                            <ul className="grid gap-4">
-                              {dummyRosaFeatures.map((item, index) => (
-                                <li key={index} className="grid list-decimal">
-                                  <h4 className="font-bold text-black">
-                                    {item.title}
-                                  </h4>
-
-                                  <p className="text-sm font-medium leading-[170%] text-gray">
-                                    {item.description}
-                                  </p>
-                                </li>
-                              ))}
-                            </ul>
-                          </ModalBody>
-
-                          <ModalFooter>
-                            <Button
-                              color="danger"
-                              variant="light"
-                              onClick={onClose}
-                              className="px-6 font-bold"
-                            >
-                              Tutup
-                            </Button>
-                          </ModalFooter>
-                        </>
-                      )}
-                    </ModalContent>
-                  </Modal>
-                </div>
-              </div>
-
-              <Image
-                loading="lazy"
-                src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
-                alt="apoteker rosa image"
-                width={1000}
-                height={1000}
-                className="hidden h-auto w-[400px] justify-self-center xl:flex"
-              />
-            </div>
-          </div>
-        </section>
+        <CTARosaAi />
 
         {!error ? (
           <section className="grid gap-8 py-[100px]">
             <div className="base-container place-items-center gap-2 text-center">
-              <h1 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+              <h2 className="text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
                 Kenalan Yuk Sama Mentor Keren di RuangObat
-              </h1>
+              </h2>
 
               <p className="max-w-[700px] font-medium leading-[170%] text-gray">
                 Dari Klinis hingga Industri, berbagai mentor di ruangobat siap
@@ -854,9 +638,9 @@ export default function HomePage({
                       />
 
                       <div className="grid flex-1 gap-1 [padding:1.5rem_1rem]">
-                        <h1 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
+                        <h3 className="text-2xl font-black -tracking-wide text-black group-hover:text-purple sm:text-xl">
                           {mentor.fullname}
-                        </h1>
+                        </h3>
 
                         <p className="line-clamp-1 text-sm font-medium capitalize leading-[170%] text-gray">
                           {mentor.mentor_title}
@@ -873,12 +657,12 @@ export default function HomePage({
         <section className="base-container relative isolate gap-4 py-[100px] md:gap-8">
           <ChatTeardropText
             weight="duotone"
-            className="absolute left-24 top-0 hidden size-20 -rotate-12 text-purple lg:flex"
+            className="absolute left-24 top-0 hidden size-20 -rotate-12 text-purple xl:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Kata Mereka Tentang RuangObat
-          </h1>
+          </h2>
 
           <div className="testimonial-container overflow-hidden">
             <Swiper
@@ -910,9 +694,9 @@ export default function HomePage({
                         />
 
                         <div className="grid flex-1">
-                          <h1 className="text-sm font-bold text-black">
+                          <h3 className="text-sm font-bold text-black">
                             {testimonial.name}
-                          </h1>
+                          </h3>
 
                           <p className="line-clamp-1 text-xs font-medium leading-[170%] text-gray">
                             {testimonial.university}
@@ -942,12 +726,12 @@ export default function HomePage({
         <section className="base-container relative isolate gap-8 py-[100px]">
           <Question
             weight="duotone"
-            className="absolute right-24 top-0 hidden size-20 rotate-12 text-purple lg:flex"
+            className="absolute right-24 top-0 hidden size-20 rotate-12 text-purple xl:flex"
           />
 
-          <h1 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl md:text-4xl">
             Yang Paling Banyak Ditanyakan
-          </h1>
+          </h2>
 
           <IconContext.Provider
             value={{
@@ -983,12 +767,10 @@ export default function HomePage({
   );
 }
 
-type DataProps = {
+export const getStaticProps: GetStaticProps<{
   data?: HomepageResponse;
   error?: ErrorDataType;
-};
-
-export const getStaticProps: GetStaticProps<DataProps> = async () => {
+}> = async () => {
   try {
     const response: SuccessResponse<HomepageResponse> = await fetcher({
       method: "GET",

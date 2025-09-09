@@ -21,22 +21,23 @@ export default function RosaPage() {
   return (
     <>
       <Layout
-        title="Apoteker ROSA (BETA)"
-        description="Apoteker ROSA (BETA) adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
+        title="Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia"
+        description="Apoteker ROSA adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
       >
-        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_500px] xl:gap-0">
+        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_max-content] xl:gap-0">
           <div className="grid gap-4">
             <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl lg:text-5xl">
-              Apoteker ROSA (Beta):{" "}
+              Apoteker ROSA: <br />
+              Partner{" "}
               <TextHighlight
-                text="Smart Assistant"
-                className="inline-flex font-black"
+                text="Virtual Farmasi Pertama"
+                className="font-black"
               />{" "}
-              Pendamping Belajar Mahasiswa Farmasi
+              di Indonesia
             </h1>
 
             <p className="mb-8 font-medium leading-[170%] text-gray">
-              Apoteker ROSA (BETA) adalah{" "}
+              Apoteker ROSA adalah{" "}
               <TextHighlight text="smart assistant berbasis AI" /> yang
               dirancang khusus untuk membantu kamu dalam{" "}
               <TextHighlight
@@ -76,16 +77,16 @@ export default function RosaPage() {
             alt="apoteker rosa image"
             width={1000}
             height={1000}
-            className="justify-self-center"
+            className="h-auto max-w-[500px] justify-self-center"
           />
         </section>
 
         <section ref={learnMore} className="base-container gap-12 py-[100px]">
-          <h1 className="max-w-[900px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="max-w-[900px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
             Belajar udah berkali-kali,{" "}
             <span className="text-purple">tapi masih bingung?</span> Materi
             diulang, <span className="text-purple">tetap aja belum masuk?</span>
-          </h1>
+          </h2>
 
           <Image
             priority
@@ -96,21 +97,13 @@ export default function RosaPage() {
             className="justify-self-center"
           />
 
-          <h4 className="text-center text-xl font-medium leading-[140%] text-black md:text-3xl">
+          <h2 className="text-center text-xl font-semibold leading-[170%] text-black md:text-3xl md:leading-[150%]">
             Kini saatnya beralih ke solusi yang lebih cerdas. Apoteker ROSA
-            hadir sebagai{" "}
-            <TextHighlight
-              text="asisten pintar yang siap membantu menjawab berbagai
-            pertanyaan seputar dunia farmasi."
-              className="font-extrabold lowercase"
-            />{" "}
-            Dengan penjelasan yang mudah dipahami dan akses 24 jam, kamu tidak
-            perlu lagi belajar sendirian. ROSA akan menemani proses belajarmu,{" "}
-            <TextHighlight
-              text="kapan pun kamu butuh."
-              className="font-extrabold lowercase"
-            />
-          </h4>
+            hadir sebagai asisten pintar yang siap membantu menjawab berbagai
+            pertanyaan seputar dunia farmasi. Dengan penjelasan yang mudah
+            dipahami dan akses 24 jam, kamu tidak perlu lagi belajar sendirian.
+            ROSA akan menemani proses belajarmu, kapan pun kamu butuh.
+          </h2>
 
           <Button
             color="secondary"
@@ -123,10 +116,10 @@ export default function RosaPage() {
         </section>
 
         <section className="base-container gap-8 py-[100px]">
-          <h1 className="max-w-[600px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="max-w-[600px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
             Mengapa Pilih <span className="text-purple">Apoteker ROSA</span>{" "}
             sebagai Asisten Belajar?
-          </h1>
+          </h2>
 
           <div className="grid items-start gap-4 sm:grid-cols-2">
             {siteROSAPage.reasoning.map((item, index) => (
@@ -137,9 +130,9 @@ export default function RosaPage() {
                 <item.icon weight="duotone" size={64} className="text-purple" />
 
                 <div className="grid gap-2">
-                  <h4 className="text-xl font-extrabold capitalize text-black">
+                  <h3 className="text-xl font-extrabold capitalize text-black">
                     {item.title}
-                  </h4>
+                  </h3>
 
                   <p className="font-medium leading-[170%] text-gray">
                     {item.description}
@@ -160,11 +153,11 @@ export default function RosaPage() {
         </section>
 
         <section className="base-container gap-8 py-[100px]">
-          <h1 className="max-w-[700px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="max-w-[700px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
             Saat bingung belajar,{" "}
             <span className="text-purple">Apoteker ROSA</span> yang selalu siap
             bantu.
-          </h1>
+          </h2>
 
           <Image
             priority
@@ -186,9 +179,9 @@ export default function RosaPage() {
         </section>
 
         <section className="base-container gap-4 py-[100px] md:gap-8">
-          <h1 className="text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
             <span className="text-purple">1000+</span> Mahasiswa Sudah Mencoba
-          </h1>
+          </h2>
 
           <div className="testimonial-container overflow-hidden">
             <Swiper
@@ -218,7 +211,7 @@ export default function RosaPage() {
                         className="aspect-square size-10 rounded-full bg-purple/20"
                       />
 
-                      <h1 className="font-bold text-black">{item.name}</h1>
+                      <h3 className="font-bold text-black">{item.name}</h3>
                     </div>
 
                     <p className="line-clamp-3 pt-4 text-sm font-medium leading-[170%] text-gray">
@@ -232,10 +225,10 @@ export default function RosaPage() {
         </section>
 
         <section className="base-container gap-8 py-[100px]">
-          <h1 className="max-w-[700px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
+          <h2 className="max-w-[700px] justify-self-center text-center text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl">
             Pertanyaan yang sering ditanyakan tentang{" "}
             <span className="text-purple">Apoteker ROSA</span>
-          </h1>
+          </h2>
 
           <Accordion defaultExpandedKeys={["0"]}>
             {siteROSAPage.faqs.map((item, index) => (
