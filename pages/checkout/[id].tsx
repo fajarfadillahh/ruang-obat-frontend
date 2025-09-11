@@ -4,10 +4,10 @@ import { Accordion, AccordionItem } from "@nextui-org/react";
 import {
   Bank,
   ClipboardText,
+  ClockCountdown,
   IconContext,
   QrCode,
 } from "@phosphor-icons/react";
-import { ClockCountdown } from "@phosphor-icons/react/dist/ssr";
 import { useRouter } from "next/router";
 
 const summary_order = [
