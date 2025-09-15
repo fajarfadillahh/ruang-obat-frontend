@@ -4,7 +4,6 @@ import seoConfig from "@/config/seo.config";
 import AppProvider from "@/context/AppProvider";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
-import { GoogleAnalytics } from "@next/third-parties/google";
 import { NextUIProvider } from "@nextui-org/react";
 import "katex/dist/katex.min.css";
 import { SessionProvider } from "next-auth/react";
@@ -53,9 +52,10 @@ export default function App({
           </AppProvider>
         </SWRConfig>
       </SessionProvider>
-      {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+
+      {/* {process.env.NEXT_PUBLIC_MODE === "prod" ? (
         <GoogleAnalytics gaId="G-QPX13ESQJV" />
-      ) : null}
+      ) : null} */}
     </NextUIProvider>
   );
 }
