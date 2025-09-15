@@ -11,9 +11,10 @@ export default function CardMyTest(test: MyTestType) {
       className="group flex items-start gap-4 rounded-xl border-2 border-gray/10 p-6 hover:cursor-pointer hover:bg-purple/10"
       onClick={() =>
         router.push({
-          pathname: `/results/${test.result_id}`,
+          pathname: `/programs/osce-ukmppai/results/${test.result_id}`,
           query: {
             title: test.title,
+            id: test.test_id,
           },
         })
       }

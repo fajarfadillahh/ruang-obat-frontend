@@ -70,7 +70,7 @@ export const siteConfigHomePage = {
       id: 1,
       title: "Sarjana & Diploma Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
-      path: "/video",
+      path: "/programs/sarjana-diploma",
       tagline:
         "Video belajar fleksibel & lengkap untuk gelar Sarjana & Diploma.",
     },
@@ -78,35 +78,35 @@ export const siteConfigHomePage = {
       id: 2,
       title: "Private 1 on 1 Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
-      path: "/kelas/private-1-on-1",
+      path: "/programs/private-1-on-1",
       tagline: "Pendampingan intensif untuk hasil belajar maksimal.",
     },
     {
       id: 3,
       title: "Skripsi Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-skripsi.webp",
-      path: "/kelas/skripsi-farmasi",
+      path: "/programs/skripsi-farmasi",
       tagline: "Bimbingan skripsi terarah dari awal hingga tuntas.",
     },
     {
       id: 4,
       title: "Riset Farmasi",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-riset.webp",
-      path: "/kelas/riset-farmasi",
+      path: "/programs/riset-farmasi",
       tagline: "Tingkatkan skill risetmu dengan metode yang tepat.",
     },
     {
       id: 5,
       title: "Masuk Apoteker",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
-      path: "/kelas/masuk-apoteker",
+      path: "/programs/masuk-apoteker",
       tagline: "Persiapan matang menuju profesi apoteker impianmu.",
     },
     {
       id: 6,
       title: "OSCE & UKMPPAI",
       icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-osce-ukmppai.webp",
-      path: "/osce-ukmppai",
+      path: "/programs/osce-ukmppai",
       tagline: "Siap hadapi ujian kompetensi dengan percaya diri.",
     },
   ],
@@ -226,48 +226,56 @@ export const siteConfigHomePage = {
 
 export const siteConfigCompanyPage = {
   data: [
-    { label: "Tentang RuangObat", icon: Pill, url: "/perusahaan/tentang-kami" },
-    { label: "Kontak Kami", icon: PhoneCall, url: "/perusahaan/kontak-kami" },
+    { label: "Tentang RuangObat", icon: Pill, url: "/about-us" },
+    { label: "Kontak Kami", icon: PhoneCall, url: "/contact-us" },
     {
       label: "Testimonial",
       icon: ChatCircleDots,
-      url: "/testimonial",
+      url: "/testimonials",
     },
     {
       label: "Ketentuan Layanan ",
       icon: ClipboardText,
-      url: "/perusahaan/ketentuan-layanan",
+      url: "/terms-conditions",
     },
     {
       label: "Kebijakan Privasi",
       icon: LockKey,
-      url: "/perusahaan/kebijakan-privasi",
+      url: "/privacy-policy",
     },
   ],
   about: {
     products: [
-      { label: "Video Pembelajaran", url: "/video", icon: Video },
       {
-        label: "Kelas Private 1 on 1",
-        url: "/kelas/private-1-on-1",
+        label: "Ruang Sarjana & Diploma Farmasi",
+        url: "/programs/sarjana-diploma",
+        icon: Video,
+      },
+      {
+        label: "Ruang Private 1 on 1 Farmasi",
+        url: "/programs/private-1-on-1",
         icon: ClipboardText,
       },
       {
-        label: "Kelas Skripsi Farmasi",
-        url: "/kelas/skripsi-farmasi",
+        label: "Ruang Skripsi Farmasi",
+        url: "/programs/skripsi-farmasi",
         icon: BookBookmark,
       },
       {
-        label: "Kelas Riset Farmasi",
-        url: "/kelas/riset-farmasi",
+        label: "Ruang Riset Farmasi",
+        url: "/programs/riset-farmasi",
         icon: MagnifyingGlass,
       },
       {
-        label: "Kelas Masuk Apoteker",
-        url: "/kelas/masuk-apoteker",
+        label: "Ruang Masuk Apoteker",
+        url: "/programs/masuk-apoteker",
         icon: Pill,
       },
-      { label: "OSCE & UKMPPAI", url: "/osce-ukmppai", icon: PencilRuler },
+      {
+        label: "Ruang OSCE & UKMPPAI",
+        url: "/programs/osce-ukmppai",
+        icon: PencilRuler,
+      },
     ],
     data: {
       vision: {

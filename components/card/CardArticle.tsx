@@ -14,7 +14,7 @@ export default function CardArticle({ article }: CardArticleProps) {
   return (
     <article
       onClick={() =>
-        router.push(`/artikel/${encodeURIComponent(article.slug)}`)
+        router.push(`/articles/${encodeURIComponent(article.slug)}`)
       }
       className="group relative isolate grid overflow-hidden rounded-xl border-2 border-purple/10 hover:cursor-pointer hover:border-purple hover:bg-purple/10"
     >

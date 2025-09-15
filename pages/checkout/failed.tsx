@@ -35,6 +35,7 @@ export default function CheckoutFailedPage() {
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
+                onClick={() => router.push("/my/transactions")}
                 className="mt-6 w-max font-bold"
               >
                 Detail Transaksi

@@ -17,11 +17,11 @@ export default function CardProgram(program: ProgramsType) {
     <div
       onClick={(e) => {
         if (!isMyProgramsPage) {
-          router.push(`/programs/${program.program_id}`);
+          router.push(`/programs/osce-ukmppai/${program.program_id}`);
         }
 
         if (isMyProgramsPage && program.is_active) {
-          router.push(`/programs/${program.program_id}`);
+          router.push(`/programs/osce-ukmppai/${program.program_id}`);
         } else {
           e.preventDefault();
         }

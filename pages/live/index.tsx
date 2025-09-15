@@ -8,11 +8,22 @@ import { ArrowRight } from "@phosphor-icons/react";
 import { useRouter } from "next/router";
 
 export default function LiveTeachingPage() {
+  const title =
+    "Meet The Expert Explore Your Future: Pengenalan Bidang dan Profesi di Dunia Farmasi";
+
+  function toSlug(str: string) {
+    return decodeURIComponent(str)
+      .toLowerCase()
+      .trim()
+      .replace(/\s+/g, "-")
+      .replace(/[^a-z0-9-]/g, "");
+  }
+
   return (
     <>
       <Layout
         title="Live Teaching: Belajar Interaktif Secara Langsung"
-        description="Ikuti sesi pembelajaran interaktif secara langsung bersama pengajar berpengalaman. Dapatkan penjelasan materi yang mendalam, kesempatan untuk bertanya, serta diskusi dua arah yang membuat proses belajar menjadi lebih efektif."
+        description="Ikuti sesi belajar interaktif langsung dengan pengajar berpengalaman. Dapatkan penjelasan mendalam, diskusi dua arah, dan pembelajaran efektif."
       >
         <section className="base-container gap-1 py-[50px]">
           <h1 className="text-2xl font-black -tracking-wide text-black md:text-4xl">
@@ -35,8 +46,8 @@ export default function LiveTeachingPage() {
             <LiveTeachingCardSection
               key={item.code}
               title={`Live ${item.label}`}
-              liveSectionPath={`/live/detail?type=${item.code}`}
-              cardPath="/live/slug-content"
+              liveSectionPath={`/live/details?type=${item.code}`}
+              cardPath={`/live/${toSlug(title)}`}
             />
           ))}
         </section>

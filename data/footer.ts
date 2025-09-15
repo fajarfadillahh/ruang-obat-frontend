@@ -9,31 +9,31 @@ export const footer = {
   copyright: `Part of Pharma Metrocity Group ${new Date().getFullYear()} | Hak cipta di lindungi undang-undang`,
   menu: [
     {
-      label: "Produk Kami",
+      label: "Program Kami",
       list: [
         {
           label: "Ruang Sarjana & Diploma Farmasi",
-          href: "/video",
+          href: "/programs/sarjana-diploma",
         },
         {
           label: "Ruang Private 1 on 1 Farmasi",
-          href: "/kelas/private-1-on-1",
+          href: "/programs/private-1-on-1",
         },
         {
           label: "Ruang Skripsi Farmasi",
-          href: "/kelas/skripsi-farmasi",
+          href: "/programs/skripsi-farmasi",
         },
         {
           label: "Ruang Riset Farmasi",
-          href: "/kelas/riset-farmasi",
+          href: "/programs/riset-farmasi",
         },
         {
           label: "Ruang Masuk Apoteker",
-          href: "/kelas/masuk-apoteker",
+          href: "/programs/masuk-apoteker",
         },
         {
           label: "Ruang OSCE & UKMPPAI",
-          href: "/osce-ukmppai",
+          href: "/programs/osce-ukmppai",
         },
         {
           label: "Apoteker ROSA",
@@ -46,11 +46,11 @@ export const footer = {
       list: [
         {
           label: "Ketentuan Layanan",
-          href: "/perusahaan/ketentuan-layanan",
+          href: "/terms-conditions",
         },
         {
           label: "Kebijakan Privasi",
-          href: "/perusahaan/kebijakan-privasi",
+          href: "/privacy-policy",
         },
       ],
     },
@@ -59,15 +59,15 @@ export const footer = {
       list: [
         {
           label: "Tentang RuangObat",
-          href: "/perusahaan/tentang-kami",
+          href: "/about-us",
         },
         {
           label: "Kontak Kami",
-          href: "/perusahaan/kontak-kami",
+          href: "/contact-us",
         },
         {
           label: "Testimonial",
-          href: "/testimonial",
+          href: "/testimonials",
         },
       ],
     },

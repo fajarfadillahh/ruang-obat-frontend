@@ -169,7 +169,9 @@ export default function CardTest(test: CardTest) {
         onClick={() => {
           if (test.status === "Berlangsung") {
             test.remaining_tests > 0
-              ? router.push(`/tests/${test.test_id}`)
+              ? router.push(
+                  `/programs/osce-ukmppai/tests/${test.test_id}/details`,
+                )
               : router.push(`/my/tests`);
           } else if (test.status === "Berakhir") {
             test.remaining_tests > 0 || test.has_result

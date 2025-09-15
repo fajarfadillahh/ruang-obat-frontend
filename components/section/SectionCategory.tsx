@@ -43,8 +43,8 @@ export default function SectionCategory({
             key={item.category_id}
             href={
               type === "apotekerclass"
-                ? `/materi/${item.slug}?type=${type}`
-                : `/kategori/${item.slug}?type=${type}`
+                ? `/material/${item.slug}?type=${type}`
+                : `/categories/${item.slug}?type=${type}`
             }
             image={item.img_url}
             name={item.name}
