@@ -75,7 +75,7 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
-      toast.success("Yeay, kamu berhasil login");
+      toast.success("Yeay, kamu berhasil login!");
       return router.push(
         `/unverified${router.query.callback ? `?callback=${router.query.callback}` : ""}`,
       );

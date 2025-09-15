@@ -81,7 +81,7 @@ export default function NavbarMain() {
 
   function handleSignOut() {
     setLoading(true);
-    toast.success("Berhasil Logout");
+    toast.success("Berhasil logout!");
 
     setTimeout(() => {
       signOut();
@@ -162,7 +162,7 @@ export default function NavbarMain() {
 
         <NavbarItem>
           <Link
-            href="/artikel"
+            href="/articles"
             className="text-sm font-medium text-gray hover:text-purple"
           >
             Artikel
@@ -287,12 +287,12 @@ export default function NavbarMain() {
                     </DropdownItem>
 
                     <DropdownItem
-                      key="mypurchases"
+                      key="mytransactions"
                       color="secondary"
                       startContent={<ShoppingCart />}
-                      onClick={() => router.push("/my/purchases")}
+                      onClick={() => router.push("/my/transactions")}
                     >
-                      Pembelian Saya
+                      Transaksi Saya
                     </DropdownItem>
                   </DropdownSection>
 
@@ -340,7 +340,7 @@ export default function NavbarMain() {
             <ModalRequestHelp isOpen={isHelpOpen} onClose={onHelpClose} />
 
             <ModalConfirm
-              btnText="Logout"
+              btnText="Ya, Logout"
               header="Pemberitahuan"
               text="Apakah kamu yakin ingin logout?"
               loading={loading}
