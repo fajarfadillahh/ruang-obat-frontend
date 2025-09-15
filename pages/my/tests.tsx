@@ -1,13 +1,12 @@
 import CardMyTest from "@/components/card/CardMyTest";
-import Loading from "@/components/Loading";
 import Layout from "@/components/wrapper/Layout";
 import { SuccessResponse } from "@/types/global.type";
 import { MyTestType } from "@/types/tests.type";
-import { Button } from "@nextui-org/react";
+import { Button, Skeleton } from "@nextui-org/react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
 import useSWR from "swr";
 
 export default function MyTestsPage({
@@ -20,51 +19,64 @@ export default function MyTestsPage({
     token,
   });
 
-  if (isLoading) return <Loading />;
-
   return (
     <Layout title="Ujian Saya">
-      <section className="mx-auto grid gap-6 md:max-w-[770px] xl:max-w-none">
+      <section className="mx-auto grid gap-6 [padding:50px_0_100px] md:max-w-[770px] xl:max-w-none">
         <h1 className="text-2xl font-extrabold -tracking-wide text-black">
           Ujian Saya 📋
         </h1>
 
-        {data?.data.length === 0 ? (
-          <div className="grid gap-8 pt-12">
-            <Image
-              priority
-              src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/no-data-img.svg"
-              alt="no data img"
-              width={1000}
-              height={500}
-              className="h-[120px] w-auto justify-self-center"
-            />
+        <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-4 xl:grid-cols-3">
+          {isLoading ? (
+            Array.from({ length: 6 }).map((_, index) => (
+              <Skeleton key={index} className="h-36 w-full rounded-xl" />
+            ))
+          ) : data?.data.length ? (
+            data?.data.map((test, index) => (
+              <CardMyTest key={index} {...test} />
+            ))
+          ) : (
+            <div className="grid gap-8 pt-12 sm:col-span-2 xl:col-span-3">
+              <Image
+                priority
+                src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/no-data-img.svg"
+                alt="no data img"
+                width={1000}
+                height={500}
+                className="h-[120px] w-auto justify-self-center"
+              />
 
-            <div className="grid justify-items-center gap-4 text-center">
-              <p className="font-medium leading-[170%] text-gray">
-                Oops! Daftar ujian kamu masih kosong,
-                <br />
-                ayo ikuti ujian yang tersedia.
-              </p>
+              <div className="grid justify-items-center gap-4 text-center">
+                <p className="font-medium leading-[170%] text-gray">
+                  Oops! Daftar ujian kamu masih kosong,
+                  <br />
+                  ayo ikuti ujian yang tersedia.
+                </p>
 
-              <Button
-                color="secondary"
-                onClick={() => {
-                  router.push("/osce-ukmppai");
-                }}
-                className="w-max font-bold"
-              >
-                Halaman OSCE & UKMPPAI
-              </Button>
+                <Button
+                  color="secondary"
+                  onClick={() => {
+                    router.push("/programs/osce-ukmppai");
+                  }}
+                  className="w-max font-bold"
+                >
+                  Halaman OSCE & UKMPPAI
+                </Button>
+              </div>
             </div>
-          </div>
-        ) : (
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6 xl:grid-cols-3">
-            {data?.data.map((test) => (
-              <CardMyTest key={test.test_id} {...test} />
-            ))}
-          </div>
-        )}
+          )}
+        </div>
+
+        {data?.data.length ? (
+          <Button
+            color="secondary"
+            endContent={<ArrowRight weight="bold" size={18} />}
+            onClick={() => router.push("/programs/osce-ukmppai")}
+            className="mt-6 w-max justify-self-center font-bold"
+          >
+            Halaman OSCE & UKMPPAI
+          </Button>
+        ) : null}
       </section>
     </Layout>
   );
@@ -72,12 +84,10 @@ export default function MyTestsPage({
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
-  query: ParsedUrlQuery;
-}> = async ({ req, query }) => {
+}> = async ({ req }) => {
   return {
     props: {
       token: req.headers["access_token"] as string,
-      query,
     },
   };
 };

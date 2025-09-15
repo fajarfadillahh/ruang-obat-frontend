@@ -27,7 +27,7 @@ export default function MySubscriptionsPage({
   return (
     <>
       <Layout title="Langganan Saya">
-        <section className="base-container gap-8 pb-[100px]">
+        <section className="base-container gap-8 [padding:50px_0_100px]">
           <div className="grid gap-1">
             <h1 className="text-2xl font-extrabold -tracking-wide text-black">
               Langganan Saya 💳

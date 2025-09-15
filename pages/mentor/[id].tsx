@@ -14,54 +14,55 @@ export default function DetailMentorPage({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <>
-      <Layout title={data?.fullname}>
-        <div className="grid gap-8">
-          <ButtonBack />
+      <Layout
+        title={`Profil ${data?.fullname}: Kenali Pengajar Ahli di RuangObat`}
+        description={`Kenali profil mentor ${data?.fullname} RuangObat dengan pengalaman dan keahlian di bidang farmasi. Belajar langsung dari pengajar ahli yang siap membimbing kamu.`}
+      >
+        <ButtonBack />
 
-          <section className="base-container gap-8 pb-[40px] xl:grid-cols-2 xl:items-start">
-            <div className="grid gap-8">
-              <Image
-                priority
-                src={data?.img_url as string}
-                alt="mentor img"
-                width={480}
-                height={480}
-                className="aspect-square h-auto w-full rounded-xl xl:max-w-[480px]"
-              />
+        <section className="base-container gap-8 [padding:50px_0_100px] xl:grid-cols-2 xl:items-start">
+          <div className="grid gap-8">
+            <Image
+              priority
+              src={data?.img_url as string}
+              alt="mentor img"
+              width={480}
+              height={480}
+              className="aspect-square h-auto w-full rounded-xl xl:max-w-[480px]"
+            />
 
-              <div className="grid gap-4">
-                <div className="grid max-w-[420px]">
-                  <h1 className="text-xl font-black -tracking-wide text-black xl:text-3xl">
-                    {data?.fullname}
-                  </h1>
+            <div className="grid gap-4">
+              <div className="grid max-w-[420px]">
+                <h1 className="text-xl font-black -tracking-wide text-black xl:text-3xl">
+                  {data?.fullname}
+                </h1>
 
-                  <h3 className="text-xl font-black -tracking-wide text-black">
-                    &#40;{data?.nickname}&#41;
-                  </h3>
-                </div>
-
-                <p className="text-lg font-medium leading-[170%] text-gray">
-                  {data?.mentor_title}
-                </p>
+                <h3 className="text-xl font-black -tracking-wide text-black">
+                  &#40;{data?.nickname}&#41;
+                </h3>
               </div>
+
+              <p className="text-lg font-medium leading-[170%] text-gray">
+                {data?.mentor_title}
+              </p>
             </div>
+          </div>
 
-            <div className="grid gap-5">
-              <h2 className="max-w-[420px] text-xl font-black -tracking-wide text-black xl:text-3xl">
-                Deskripsi Singkat
-              </h2>
+          <div className="grid gap-5">
+            <h2 className="max-w-[420px] text-xl font-black -tracking-wide text-black xl:text-3xl">
+              Deskripsi Singkat
+            </h2>
 
-              <p
-                className="preventive-list preventive-table list-outside font-medium leading-[170%] text-black"
-                dangerouslySetInnerHTML={{
-                  __html: data?.description as string,
-                }}
-              />
-            </div>
-          </section>
+            <p
+              className="preventive-list preventive-table list-outside font-medium leading-[170%] text-black"
+              dangerouslySetInnerHTML={{
+                __html: data?.description as string,
+              }}
+            />
+          </div>
+        </section>
 
-          <CTAMain />
-        </div>
+        <CTAMain />
       </Layout>
 
       <Footer />

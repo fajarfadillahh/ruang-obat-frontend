@@ -13,11 +13,11 @@ export default function StreamPage() {
     <>
       <Layout
         title="Meet The Expert Explore Your Future: Pengenalan Bidang dan Profesi di Dunia Farmasi"
-        description="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo, quam. Accusantium commodi, aut incidunt quasi omnis illum rerum voluptates provident."
+        description="Ikuti sesi belajar interaktif langsung dengan pengajar berpengalaman. Dapatkan penjelasan mendalam, diskusi dua arah, dan pembelajaran efektif."
       >
         <ButtonBack />
 
-        <section className="base-container gap-4 [padding:2rem_0_100px]">
+        <section className="base-container gap-4 [padding:50px_0_100px]">
           <div className="flex flex-wrap items-end justify-between gap-4">
             <h1 className="line-clamp-2 max-w-[700px] text-2xl font-extrabold text-black">
               {title}

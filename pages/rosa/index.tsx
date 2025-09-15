@@ -22,18 +22,18 @@ export default function RosaPage() {
     <>
       <Layout
         title="Apoteker ROSA: Partner Virtual Farmasi Pertama di Indonesia"
-        description="Apoteker ROSA adalah smart assistant berbasis AI yang dirancang khusus untuk membantu mahasiswa farmasi dalam proses pembelajaran secara praktis, cepat, dan efisien."
+        description="Apoteker ROSA, smart assistant AI untuk mahasiswa farmasi. Belajar jadi lebih praktis, cepat, dan efisien dengan panduan pintar berbasis teknologi."
       >
-        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-[1fr_max-content] xl:gap-0">
+        <section className="base-container items-center gap-4 [padding:50px_0_100px] xl:grid-cols-2">
           <div className="grid gap-4">
             <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl md:text-4xl lg:text-5xl">
-              Apoteker ROSA: <br />
-              Partner{" "}
+              Apoteker ROSA:
+              <br />{" "}
               <TextHighlight
-                text="Virtual Farmasi Pertama"
+                text="Partner Virtual Farmasi"
                 className="font-black"
               />{" "}
-              di Indonesia
+              Pertama di Indonesia
             </h1>
 
             <p className="mb-8 font-medium leading-[170%] text-gray">
@@ -77,7 +77,7 @@ export default function RosaPage() {
             alt="apoteker rosa image"
             width={1000}
             height={1000}
-            className="h-auto max-w-[500px] justify-self-center"
+            className="h-auto w-full justify-self-center"
           />
         </section>
 

@@ -2,6 +2,7 @@ import CardProduct from "@/components/card/CardProduct";
 import CTAMain from "@/components/cta/CTAMain";
 import CTARosaAi from "@/components/cta/CTARosaAi";
 import Footer from "@/components/footer/Footer";
+import GradientText from "@/components/reactbits/GradientText";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
@@ -10,13 +11,7 @@ import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
 import { scrollToSection } from "@/utils/scrollToSection";
-import {
-  Accordion,
-  AccordionItem,
-  Button,
-  Chip,
-  useDisclosure,
-} from "@nextui-org/react";
+import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
 import {
   ArrowRight,
   ChatTeardropText,
@@ -44,7 +39,6 @@ export default function HomePage({
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
   const listClassRef = useRef<HTMLElement | null>(null);
-  const { onOpen, onOpenChange, isOpen } = useDisclosure();
   const [client, setClient] = useState<boolean>(false);
 
   function getCardStyles(item: any, type: "reasons" | "programs") {
@@ -69,7 +63,10 @@ export default function HomePage({
   if (!client) {
     return (
       <>
-        <Layout title="Bimbel Private Farmasi No.1 di Indonesia Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia">
+        <Layout
+          title="Bimbel Private Farmasi No.1 di Indonesia"
+          description="RuangObat adalah tempat private farmasi No.1 di Indonesia telah memfasilitasi 10.000+ mahasiswa farmasi"
+        >
           <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
             <Sparkle
               weight="duotone"
@@ -94,19 +91,23 @@ export default function HomePage({
               </Chip>
 
               <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl xs:leading-[115%] lg:text-5xl">
-                <TextHighlight
-                  text="“Bimbel Private Farmasi No.1 di Indonesia”"
-                  className="font-black leading-[115%]"
-                />
-                <br />
+                <GradientText
+                  colors={["#6238C3", "#ec4899", "#805DD0"]}
+                  animationSpeed={3}
+                  showBorder={false}
+                >
+                  <span className="font-black leading-[115%]">
+                    “Bimbel Private Farmasi No.1 di Indonesia”
+                  </span>
+                </GradientText>
                 Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar
                 Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia
               </h1>
 
-              <p className="max-w-[900px] font-medium leading-[170%] text-gray xs:text-lg">
+              <p className="max-w-[850px] font-medium leading-[170%] text-gray xs:text-lg">
                 Dapatkan{" "}
                 <TextHighlight
-                  text="akses lengkap Video Pembelajaran, Bimbingan Private Skripsi & Riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
+                  text="akses lengkap video pembelajaran, bimbingan private skripsi & riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
                   className="normal-case"
                 />{" "}
                 Semua yang kamu butuhkan untuk sukses menjadi{" "}
@@ -127,7 +128,7 @@ export default function HomePage({
                 <Button
                   variant="bordered"
                   endContent={<ArrowRight weight="bold" size={18} />}
-                  onClick={() => router.push("/video")}
+                  onClick={() => router.push("/packages")}
                   className="px-6 font-bold"
                 >
                   Beli Paket Belajar
@@ -210,8 +211,8 @@ export default function HomePage({
                 <Button
                   color="secondary"
                   endContent={<ArrowRight weight="bold" size={18} />}
-                  onClick={() => router.push("/video")}
-                  className="w-full px-10 font-bold sm:w-max"
+                  onClick={() => router.push("/packages")}
+                  className="w-full px-6 font-bold sm:w-max"
                 >
                   Mulai Belajar Sekarang!
                 </Button>
@@ -233,12 +234,15 @@ export default function HomePage({
 
             <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
               {[
-                ["🎬 Ruang Sarjana & Diploma Farmasi", "/video"],
-                ["📋 Ruang Private 1 on 1 Farmasi", "/kelas/private-1-on-1"],
-                ["📚 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
-                ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
-                ["💊 Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
-                ["💉 Ruang OSCE & UKMPPAI", "/osce-ukmppai"],
+                [
+                  "🎬 Ruang Sarjana & Diploma Farmasi",
+                  "/programs/sarjana-diploma",
+                ],
+                ["📋 Ruang Private 1 on 1 Farmasi", "/programs/private-1-on-1"],
+                ["📚 Ruang Skripsi Farmasi", "/programs/skripsi-farmasi"],
+                ["🔍 Ruang Riset Farmasi", "/programs/riset-farmasi"],
+                ["💊 Ruang Masuk Apoteker", "/programs/masuk-apoteker"],
+                ["💉 Ruang OSCE & UKMPPAI", "/programs/osce-ukmppai"],
                 ["🤖 Apoteker ROSA", "/rosa"],
               ].map(([title, path], index) => (
                 <Link
@@ -314,7 +318,10 @@ export default function HomePage({
 
   return (
     <>
-      <Layout title="Bimbel Private Farmasi No.1 di Indonesia Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia">
+      <Layout
+        title="Bimbel Private Farmasi No.1 di Indonesia"
+        description="RuangObat adalah tempat private farmasi No.1 di Indonesia telah memfasilitasi 10.000+ mahasiswa farmasi."
+      >
         <section className="base-container relative isolate gap-20 [padding:50px_0_100px]">
           <Sparkle
             weight="duotone"
@@ -339,19 +346,23 @@ export default function HomePage({
             </Chip>
 
             <h1 className="text-2xl font-black capitalize -tracking-wide text-black xs:text-3xl xs:leading-[115%] lg:text-5xl">
-              <TextHighlight
-                text="“Bimbel Private Farmasi No.1 di Indonesia”"
-                className="font-black leading-[115%]"
-              />
-              <br />
+              <GradientText
+                colors={["#6238C3", "#ec4899", "#805DD0"]}
+                animationSpeed={3}
+                showBorder={false}
+              >
+                <span className="font-black leading-[115%]">
+                  “Bimbel Private Farmasi No.1 di Indonesia”
+                </span>
+              </GradientText>
               Telah Memfasilitasi 10.000+ Mahasiswa Farmasi untuk meraih gelar
               Sarjana, Diploma, hingga Profesi Apoteker di Seluruh Indonesia
             </h1>
 
-            <p className="max-w-[900px] font-medium leading-[170%] text-gray xs:text-lg">
+            <p className="max-w-[850px] font-medium leading-[170%] text-gray xs:text-lg">
               Dapatkan{" "}
               <TextHighlight
-                text="akses lengkap Video Pembelajaran, Bimbingan Private Skripsi & Riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
+                text="akses lengkap video pembelajaran, bimbingan private skripsi & riset, persiapan masuk profesi Apoteker, OSCE, hingga UKMPPAI."
                 className="normal-case"
               />{" "}
               Semua yang kamu butuhkan untuk sukses menjadi{" "}
@@ -371,7 +382,7 @@ export default function HomePage({
               <Button
                 variant="bordered"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/video")}
+                onClick={() => router.push("/packages")}
                 className="px-6 font-bold"
               >
                 Beli Paket Belajar
@@ -497,8 +508,8 @@ export default function HomePage({
               <Button
                 color="secondary"
                 endContent={<ArrowRight weight="bold" size={18} />}
-                onClick={() => router.push("/video")}
-                className="w-full px-10 font-bold sm:w-max"
+                onClick={() => router.push("/packages")}
+                className="w-full px-6 font-bold sm:w-max"
               >
                 Mulai Belajar Sekarang!
               </Button>
@@ -520,12 +531,15 @@ export default function HomePage({
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
             {[
-              ["🎬 Ruang Sarjana & Diploma Farmasi", "/video"],
-              ["📋 Ruang Private 1 on 1 Farmasi", "/kelas/private-1-on-1"],
-              ["📚 Ruang Skripsi Farmasi", "/kelas/skripsi-farmasi"],
-              ["🔍 Ruang Riset Farmasi", "/kelas/riset-farmasi"],
-              ["💊 Ruang Masuk Apoteker", "/kelas/masuk-apoteker"],
-              ["💉 Ruang OSCE & UKMPPAI", "/osce-ukmppai"],
+              [
+                "🎬 Ruang Sarjana & Diploma Farmasi",
+                "/programs/sarjana-diploma",
+              ],
+              ["📋 Ruang Private 1 on 1 Farmasi", "/programs/private-1-on-1"],
+              ["📚 Ruang Skripsi Farmasi", "/programs/skripsi-farmasi"],
+              ["🔍 Ruang Riset Farmasi", "/programs/riset-farmasi"],
+              ["💊 Ruang Masuk Apoteker", "/programs/masuk-apoteker"],
+              ["💉 Ruang OSCE & UKMPPAI", "/programs/osce-ukmppai"],
               ["🤖 Apoteker ROSA", "/rosa"],
             ].map(([title, path], index) => (
               <Link
