@@ -2,12 +2,20 @@ import { getToken } from "next-auth/jwt";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function middleware(request: NextRequest) {
+  const pathname = request.nextUrl.pathname;
+
+  if (pathname === "/rosa/chat") {
+    return NextResponse.redirect(new URL("/maintenance", request.url));
+  }
+
+  if (pathname.startsWith("/rosa")) {
+    return NextResponse.next();
+  }
+
   const token = await getToken({
     req: request,
     secret: process.env.JWT_SECRET_KEY,
   });
-
-  const pathname = request.nextUrl.pathname;
 
   if (pathname.startsWith("/auth")) {
     if (!token) {
@@ -39,5 +47,6 @@ export const config = {
     "/auth/:path*",
     "/unverified",
     "/verified",
+    "/rosa/:path*",
   ],
 };
