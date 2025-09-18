@@ -43,3 +43,31 @@ export function formatDayWithoutTime(date: Date) {
 
   return `${days[date.getDay()]}, ${day} ${months[month]} ${year}`;
 }
+
+export function formatTimeAgo(dateString: string) {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diff = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+  if (diff < 60) {
+    return `${diff} detik lalu`;
+  } else if (diff < 3600) {
+    const minutes = Math.floor(diff / 60);
+    return `${minutes} menit lalu`;
+  } else if (diff < 86400) {
+    const hours = Math.floor(diff / 3600);
+    return `${hours} jam lalu`;
+  } else if (diff < 604800) {
+    const days = Math.floor(diff / 86400);
+    return `${days} hari lalu`;
+  } else if (diff < 2629800) {
+    const weeks = Math.floor(diff / 604800);
+    return `${weeks} minggu lalu`;
+  } else if (diff < 31557600) {
+    const months = Math.floor(diff / 2629800);
+    return `${months} bulan lalu`;
+  } else {
+    const years = Math.floor(diff / 31557600);
+    return `${years} tahun lalu`;
+  }
+}
