@@ -3,6 +3,7 @@ import ModalRequestHelp from "@/components/modal/ModalRequestHelp";
 import ModalSendFeedback from "@/components/modal/ModalSendFeedback";
 import { menuItemsDesktop, menuItemsMobile } from "@/data/navbar";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
+import { formatName } from "@/utils/string.util";
 import {
   Avatar,
   Badge,
@@ -63,21 +64,6 @@ export default function NavbarMain() {
   } = useDisclosure();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  function formatName(name: string): string {
-    const parts: string[] = name.split(" ");
-    let result: string;
-
-    if (parts.length === 1) {
-      result = parts[0];
-    } else if (parts.length === 2) {
-      result = `${parts[0]} ${parts[1].charAt(0)}.`;
-    } else {
-      result = `${parts[0]} ${parts[1].charAt(0)}. ${parts[2].charAt(0)}.`;
-    }
-
-    return result;
-  }
 
   function handleSignOut() {
     setLoading(true);
