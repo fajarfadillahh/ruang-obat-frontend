@@ -27,6 +27,10 @@ const nextConfig = {
         protocol: "https",
         hostname: "ruangobatdev.is3.cloudhost.id",
       },
+      {
+        protocol: "https",
+        hostname: "ik.imagekit.io",
+      },
     ],
   },
   eslint: {
