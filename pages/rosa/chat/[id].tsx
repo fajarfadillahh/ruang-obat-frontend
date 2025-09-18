@@ -3,16 +3,21 @@ import InputComponent from "@/components/rosa-ai/InputComponent";
 import Message from "@/components/rosa-ai/Message";
 import Navbar from "@/components/rosa-ai/NavbarNew";
 import Sidebar from "@/components/rosa-ai/SidebarNew";
-import WelcomeChat from "@/components/rosa-ai/WelcomeChat";
 import { AIContext } from "@/context/AIContext";
 import AIProvider from "@/context/AIProvider";
-import { MessageState } from "@/types/chat.type";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import { ChatResponse, MessageState } from "@/types/chat.type";
+import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
+import { isUUID } from "@/utils/string.util";
 import { Button } from "@nextui-org/react";
 import { ArrowDown } from "@phosphor-icons/react";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
+import { useQueryState } from "nuqs";
 import {
   memo,
   useCallback,
@@ -24,22 +29,84 @@ import {
 import toast from "react-hot-toast";
 const MemoizedMessage = memo(Message);
 
-export default function RosaPage() {
+export default function RosaPageById({
+  title,
+  chats,
+}: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <AIProvider>
-      <SubRosaPage />
+      <SubRosaPageById {...{ title, chats }} />
     </AIProvider>
   );
 }
 
-function SubRosaPage() {
+export const getServerSideProps: GetServerSideProps<{
+  title: string;
+  chats: ChatResponse[];
+}> = async ({ params, req, res }) => {
+  try {
+    const session = await getServerSession(req, res, authOptions);
+
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
+    if (!isUUID(params?.id as string)) {
+      return {
+        redirect: {
+          destination: "/",
+          permanent: false,
+        },
+      };
+    }
+
+    const chats: SuccessResponse<{
+      thread_id: string;
+      title: string;
+      chats: ChatResponse[];
+    }> = await fetcher({
+      url: `/ai/chat/${params?.id}`,
+      method: "GET",
+      token: session.user.access_token,
+    });
+
+    return {
+      props: {
+        title: chats.data.title,
+        chats: chats.data.chats || [],
+      },
+    };
+  } catch (error) {
+    console.log(error);
+
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+};
+
+function SubRosaPageById({
+  chats,
+  title,
+}: {
+  title: string;
+  chats: ChatResponse[];
+}) {
   const ctx = useContext(AIContext);
   const router = useRouter();
   const { data, status } = useSession();
+  const [personality] = useQueryState("personality");
 
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [messages, setMessages] = useState<MessageState[]>([]);
-  const [suggestion, setSuggestion] = useState("");
 
   const scrollThrottleRef = useRef<boolean>(false);
   const pendingScrollRef = useRef<boolean>(false);
@@ -49,7 +116,6 @@ function SubRosaPage() {
   const streamingContentRef = useRef<string>("");
   const streamingChatIdRef = useRef<string>("");
   const lastUpdateTimeRef = useRef<number>(0);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout>();
   const rafUpdateRef = useRef<number>();
 
   function cancelPendingRAF() {
@@ -60,7 +126,7 @@ function SubRosaPage() {
   }
 
   const scrollToBottom = useCallback(
-    (behavior: "smooth" | "auto" = "smooth") => {
+    (behavior: "smooth" | "instant" | "auto" = "smooth") => {
       if (chatContainerRef.current) {
         chatContainerRef.current.scrollTo({
           top: chatContainerRef.current.scrollHeight,
@@ -72,32 +138,13 @@ function SubRosaPage() {
   );
 
   useEffect(() => {
-    return () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, []);
-
-  useEffect(() => {
-    return () => {
-      cancelPendingRAF();
-
-      if (streamingContentRef.current && streamingChatIdRef.current) {
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.chat_id === streamingChatIdRef.current
-              ? {
-                  ...msg,
-                  role: "assistant",
-                  content: streamingContentRef.current,
-                }
-              : msg,
-          ),
-        );
-      }
-    };
-  }, []);
+    if (chats.length) {
+      setMessages(chats);
+      setTimeout(() => {
+        scrollToBottom("instant");
+      }, 10);
+    }
+  }, [chats]);
 
   const throttledUpdateContent = useCallback(() => {
     const now = Date.now();
@@ -119,11 +166,12 @@ function SubRosaPage() {
   }, []);
 
   const smoothUpdateContent = useCallback(() => {
-    cancelPendingRAF();
+    if (rafUpdateRef.current) {
+      cancelAnimationFrame(rafUpdateRef.current);
+    }
 
     rafUpdateRef.current = requestAnimationFrame(() => {
       throttledUpdateContent();
-      rafUpdateRef.current = undefined;
     });
   }, [throttledUpdateContent]);
 
@@ -162,7 +210,14 @@ function SubRosaPage() {
 
     requestAnimationFrame(() => {
       if (chatContainerRef.current) {
-        scrollToBottom("smooth");
+        const container = chatContainerRef.current;
+        const isNearBottom =
+          container.scrollTop + container.clientHeight >=
+          container.scrollHeight - 100;
+
+        if (isNearBottom) {
+          scrollToBottom("smooth");
+        }
       }
 
       setTimeout(() => {
@@ -223,56 +278,32 @@ function SubRosaPage() {
     setTimeout(() => scrollToBottom(), 100);
 
     try {
-      let threadId: string = "";
-
-      if (status === "authenticated") {
-        const responseThread = await fetcher({
-          url: "/ai/threads",
-          method: "POST",
-          token: data?.user.access_token,
-        });
-        threadId = responseThread.data.thread_id;
-      }
-
       const prefix = process.env.NEXT_PUBLIC_MODE === "prod" ? "api" : "dev";
+
       const response = await fetch(
         `https://${prefix}.ruangobat.id/api/ai/chat/streaming/v4`,
         {
           headers: {
-            ...(status === "authenticated"
-              ? { Authorization: `Bearer ${data?.user.access_token}` }
-              : {}),
+            Authorization: `Bearer ${data?.user.access_token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(
-            status === "authenticated"
-              ? {
-                  input,
-                  img_url: imageUrls?.map((item) => item.url),
-                  thread_id: threadId,
-                }
-              : {
-                  input,
-                  messages: [...messages, { role: "user", content: input }].map(
-                    (msg) => ({
-                      role: msg.role,
-                      content: msg.content,
-                    }),
-                  ),
-                },
-          ),
+          body: JSON.stringify({
+            input,
+            img_url: imageUrls?.map((item) => item.url),
+            thread_id: router.query.id,
+          }),
           method: "POST",
         },
       );
 
       const reader = response.body?.getReader();
+
       if (!reader) {
         return toast.error("Gagal mendapatkan pembaca dari response body!");
       }
 
       const decoder = new TextDecoder();
       let buffer = "";
-      let text = "";
       let chunkCount = 0;
       let streamComplete = false;
 
@@ -299,7 +330,6 @@ function SubRosaPage() {
               const parsed = JSON.parse(data);
               if (parsed.content) {
                 streamingContentRef.current += parsed.content;
-                text += parsed.content;
                 chunkCount++;
 
                 if (chunkCount % 3 === 0) {
@@ -351,45 +381,7 @@ function SubRosaPage() {
 
       reader?.cancel();
       scrollToBottom();
-
-      if (status === "unauthenticated") {
-        ctx?.setIsStreaming(false);
-      }
-
-      if (status === "authenticated") {
-        fetcher({
-          url: "/ai/chat/summarize",
-          method: "POST",
-          token: data?.user.access_token,
-          data: {
-            input: "xxx",
-            thread_id: threadId,
-            messages: [
-              {
-                role: "user",
-                content: input,
-              },
-              {
-                role: "assistant",
-                content: text,
-              },
-            ],
-          },
-        }).then(() => {
-          router.push(`/rosa/chat/${threadId}`);
-
-          setTimeout(() => {
-            ctx?.mutateThreads();
-            ctx?.setTypingThreadId(threadId);
-          }, 500);
-
-          setTimeout(() => {
-            ctx?.setIsStreaming(false);
-            ctx?.setTypingThreadId(null);
-          }, 2000);
-        });
-        ctx?.mutateLimit();
-      }
+      ctx?.setIsStreaming(false);
     } catch (error) {
       ctx?.setIsStreaming(false);
       console.error(error);
@@ -412,12 +404,12 @@ function SubRosaPage() {
   return (
     <>
       <NextSeo
-        title="ROSA | Ruang Obat Smart Assistant"
+        title={title}
         description="Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi."
         canonical="https://rosa.ruangobat.id"
         openGraph={{
           url: "https://rosa.ruangobat.id",
-          title: "ROSA | Ruang Obat Smart Assistant",
+          title,
           description:
             "Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi.",
           site_name: "RuangObat",
@@ -445,27 +437,24 @@ function SubRosaPage() {
 
           <div
             ref={chatContainerRef}
-            className="relative isolate flex-1 overflow-y-scroll bg-white px-4 scrollbar-hide lg:px-0 lg:scrollbar-default"
+            className="relative flex-1 overflow-y-scroll bg-white px-4 scrollbar-hide lg:px-0 lg:scrollbar-default"
           >
             <div className="mx-auto min-h-full max-w-3xl px-4 py-4">
-              {!messages.length ? (
-                <WelcomeChat setSuggestion={setSuggestion} />
-              ) : (
-                <div className="space-y-4 pb-8">
-                  {messages.map((message) => (
-                    <MemoizedMessage {...message} key={message.chat_id} />
-                  ))}
-                </div>
-              )}
+              <div className="space-y-4 pb-8">
+                {messages.map((message) => (
+                  <MemoizedMessage {...message} key={message.chat_id} />
+                ))}
+              </div>
             </div>
 
             {showScrollButton && (
               <Button
                 isIconOnly
+                onClick={() => scrollToBottom("smooth")}
+                className="fixed bottom-28 right-4 z-50 lg:bottom-32"
+                size="sm"
                 variant="solid"
                 color="secondary"
-                onClick={() => scrollToBottom("smooth")}
-                className="fixed bottom-0 right-0 z-40"
               >
                 <ArrowDown size={18} weight="bold" className="animate-bounce" />
               </Button>
@@ -477,7 +466,6 @@ function SubRosaPage() {
               inputContainerRef,
               textareaRef,
               handleSendMessage,
-              suggestion,
             }}
           />
         </div>
