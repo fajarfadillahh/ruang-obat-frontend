@@ -17,7 +17,6 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import { useQueryState } from "nuqs";
 import {
   memo,
   useCallback,
@@ -102,8 +101,7 @@ function SubRosaPageById({
 }) {
   const ctx = useContext(AIContext);
   const router = useRouter();
-  const { data, status } = useSession();
-  const [personality] = useQueryState("personality");
+  const { data } = useSession();
 
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [messages, setMessages] = useState<MessageState[]>([]);
@@ -234,16 +232,8 @@ function SubRosaPageById({
     input: string,
     imageUrls?: { url: string }[],
   ) {
-    if (status === "authenticated") {
-      if (!ctx?.remaining) return;
-      if (!input.trim() && !imageUrls?.length) return;
-    } else {
-      if (!input.trim() || imageUrls?.length) return;
-
-      if (messages.length >= 6) {
-        return ctx?.onOpenUnauthenticated();
-      }
-    }
+    if (!ctx?.remaining) return;
+    if (!input.trim() && !imageUrls?.length) return;
 
     ctx?.setIsStreaming(true);
     const id = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
@@ -406,9 +396,9 @@ function SubRosaPageById({
       <NextSeo
         title={title}
         description="Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi."
-        canonical="https://rosa.ruangobat.id"
+        canonical="https://ruangobat.id"
         openGraph={{
-          url: "https://rosa.ruangobat.id",
+          url: "https://ruangobat.id",
           title,
           description:
             "Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi.",

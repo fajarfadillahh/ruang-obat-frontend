@@ -191,7 +191,8 @@ export default function InputComponent({
     if (
       !input.trim() ||
       (!imageUrls.length && !input.trim()) ||
-      ctx?.isStreaming
+      ctx?.isStreaming ||
+      status !== "authenticated"
     )
       return;
 
@@ -259,7 +260,8 @@ export default function InputComponent({
                 isDisabled={
                   !input.trim() ||
                   (!imageUrls.length && !input.trim()) ||
-                  ctx?.isStreaming
+                  ctx?.isStreaming ||
+                  status !== "authenticated"
                 }
                 onTouchStart={handleSubmit}
                 onClick={handleSubmit}

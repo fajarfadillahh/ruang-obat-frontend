@@ -8,7 +8,7 @@ import { AIContext } from "@/context/AIContext";
 import AIProvider from "@/context/AIProvider";
 import { MessageState } from "@/types/chat.type";
 import { fetcher } from "@/utils/fetcher";
-import { Button } from "@nextui-org/react";
+import { Button, useDisclosure } from "@nextui-org/react";
 import { ArrowDown } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
@@ -37,6 +37,7 @@ function SubRosaPage() {
   const router = useRouter();
   const { data, status } = useSession();
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [showScrollButton, setShowScrollButton] = useState(false);
   const [messages, setMessages] = useState<MessageState[]>([]);
   const [suggestion, setSuggestion] = useState("");
@@ -70,6 +71,12 @@ function SubRosaPage() {
     },
     [],
   );
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      onOpen();
+    }
+  }, [status, onOpen]);
 
   useEffect(() => {
     return () => {
@@ -179,16 +186,8 @@ function SubRosaPage() {
     input: string,
     imageUrls?: { url: string }[],
   ) {
-    if (status === "authenticated") {
-      if (!ctx?.remaining) return;
-      if (!input.trim() && !imageUrls?.length) return;
-    } else {
-      if (!input.trim() || imageUrls?.length) return;
-
-      if (messages.length >= 6) {
-        return ctx?.onOpenUnauthenticated();
-      }
-    }
+    if (!ctx?.remaining) return;
+    if (!input.trim() && !imageUrls?.length) return;
 
     ctx?.setIsStreaming(true);
     const id = `${Date.now()}-${Math.random().toString(36).substring(2, 15)}`;
@@ -223,44 +222,25 @@ function SubRosaPage() {
     setTimeout(() => scrollToBottom(), 100);
 
     try {
-      let threadId: string = "";
-
-      if (status === "authenticated") {
-        const responseThread = await fetcher({
-          url: "/ai/threads",
-          method: "POST",
-          token: data?.user.access_token,
-        });
-        threadId = responseThread.data.thread_id;
-      }
+      const responseThread = await fetcher({
+        url: "/ai/threads",
+        method: "POST",
+        token: data?.user.access_token,
+      });
 
       const prefix = process.env.NEXT_PUBLIC_MODE === "prod" ? "api" : "dev";
       const response = await fetch(
         `https://${prefix}.ruangobat.id/api/ai/chat/streaming/v4`,
         {
           headers: {
-            ...(status === "authenticated"
-              ? { Authorization: `Bearer ${data?.user.access_token}` }
-              : {}),
+            Authorization: `Bearer ${data?.user.access_token}`,
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(
-            status === "authenticated"
-              ? {
-                  input,
-                  img_url: imageUrls?.map((item) => item.url),
-                  thread_id: threadId,
-                }
-              : {
-                  input,
-                  messages: [...messages, { role: "user", content: input }].map(
-                    (msg) => ({
-                      role: msg.role,
-                      content: msg.content,
-                    }),
-                  ),
-                },
-          ),
+          body: JSON.stringify({
+            input,
+            img_url: imageUrls?.map((item) => item.url),
+            thread_id: responseThread.data.thread_id,
+          }),
           method: "POST",
         },
       );
@@ -352,44 +332,38 @@ function SubRosaPage() {
       reader?.cancel();
       scrollToBottom();
 
-      if (status === "unauthenticated") {
-        ctx?.setIsStreaming(false);
-      }
+      fetcher({
+        url: "/ai/chat/summarize",
+        method: "POST",
+        token: data?.user.access_token,
+        data: {
+          input: "xxx",
+          thread_id: responseThread.data.thread_id,
+          messages: [
+            {
+              role: "user",
+              content: input,
+            },
+            {
+              role: "assistant",
+              content: text,
+            },
+          ],
+        },
+      }).then(() => {
+        router.push(`/rosa/chat/${responseThread.data.thread_id}`);
 
-      if (status === "authenticated") {
-        fetcher({
-          url: "/ai/chat/summarize",
-          method: "POST",
-          token: data?.user.access_token,
-          data: {
-            input: "xxx",
-            thread_id: threadId,
-            messages: [
-              {
-                role: "user",
-                content: input,
-              },
-              {
-                role: "assistant",
-                content: text,
-              },
-            ],
-          },
-        }).then(() => {
-          router.push(`/rosa/chat/${threadId}`);
+        setTimeout(() => {
+          ctx?.mutateThreads();
+          ctx?.setTypingThreadId(responseThread.data.thread_id);
+        }, 500);
 
-          setTimeout(() => {
-            ctx?.mutateThreads();
-            ctx?.setTypingThreadId(threadId);
-          }, 500);
-
-          setTimeout(() => {
-            ctx?.setIsStreaming(false);
-            ctx?.setTypingThreadId(null);
-          }, 2000);
-        });
-        ctx?.mutateLimit();
-      }
+        setTimeout(() => {
+          ctx?.setIsStreaming(false);
+          ctx?.setTypingThreadId(null);
+        }, 2000);
+      });
+      ctx?.mutateLimit();
     } catch (error) {
       ctx?.setIsStreaming(false);
       console.error(error);
@@ -414,9 +388,9 @@ function SubRosaPage() {
       <NextSeo
         title="ROSA | Ruang Obat Smart Assistant"
         description="Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi."
-        canonical="https://rosa.ruangobat.id"
+        canonical="https://ruangobat.id"
         openGraph={{
-          url: "https://rosa.ruangobat.id",
+          url: "https://ruangobat.id",
           title: "ROSA | Ruang Obat Smart Assistant",
           description:
             "Ruang Obat Smart Assistant dirancang untuk meningkatkan efektivitas proses belajar mahasiswa serta mempersiapkan mereka menghadapi tantangan profesional di dunia farmasi.",
@@ -425,9 +399,11 @@ function SubRosaPage() {
       />
 
       <ModalUnauthenticated
-        isOpen={ctx?.isOpenUnauthenticated as boolean}
+        isOpen={isOpen}
         onClose={() => {
-          ctx?.onCloseUnauthenticated();
+          onClose();
+          router.back();
+          return;
         }}
       />
 
