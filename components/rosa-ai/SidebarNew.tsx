@@ -236,7 +236,7 @@ export default function SidebarNew({
           <div className="grid gap-8 [padding:1.5rem_1.5rem_1rem]">
             <Button
               startContent={<NotePencil size={18} weight="duotone" />}
-              className="group relative h-12 w-full justify-start gap-3 overflow-hidden bg-gradient-to-r from-purple via-purple-500 to-purple font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+              className="group relative h-12 w-full justify-start gap-3 overflow-hidden bg-purple font-semibold text-white shadow-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
               radius="lg"
               onClick={() => {
                 router.push("/rosa/chat");
