@@ -1,16 +1,19 @@
 import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
 import { quotes } from "@/data/quotes";
-import { customInputClassnames } from "@/utils/customInputClassnames";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { validateEmail, validatePassword } from "@/utils/formValidators";
 import { handleKeyDown } from "@/utils/handleKeyDown";
-import { Button, Input } from "@nextui-org/react";
+import { Button, Card, CardBody, Input } from "@nextui-org/react";
 import {
   EnvelopeSimple,
   Eye,
   EyeSlash,
   IconContext,
   Lock,
-  Quotes,
+  Microscope,
+  Pill,
+  Sparkle,
+  TestTube,
 } from "@phosphor-icons/react";
 import { signIn } from "next-auth/react";
 import { NextSeo } from "next-seo";
@@ -91,7 +94,7 @@ export default function LoginPage() {
   }, []);
 
   if (!client) {
-    return;
+    return null;
   }
 
   return (
@@ -113,119 +116,220 @@ export default function LoginPage() {
         <title>Login Untuk Mulai Belajar | RuangObat</title>
       </Head>
 
-      <main className="grid h-screen xl:grid-cols-[1fr_550px]">
-        <div className="hidden items-center justify-center bg-gray/10 px-20 xl:flex">
-          <div className="relative grid gap-16">
-            <Quotes
-              weight="fill"
-              size={64}
-              className="absolute -left-12 -top-12 rotate-180 text-purple/40"
-            />
-
-            <h1 className="z-10 max-w-[680px] text-[32px] font-bold leading-[125%] -tracking-wide text-black">
-              {quote.quote}
-            </h1>
-
-            <div className="inline-flex items-center gap-4">
-              <Image
-                src={quote.image}
-                alt={quote.figure + " Img"}
-                width={100}
-                height={100}
-                className="h-[64px] w-[64px] rounded-full object-cover object-center"
-              />
-
-              <h4 className="text-[22px] font-bold text-black">
-                {quote.figure}
-              </h4>
-            </div>
-          </div>
+      <main className="relative min-h-screen overflow-hidden bg-gradient-to-br from-purple/5 via-white to-purple/10">
+        <div className="pointer-events-none absolute inset-0">
+          <Sparkle
+            className="absolute left-20 top-16 animate-pulse text-purple/30"
+            size={32}
+            weight="duotone"
+          />
+          <Pill
+            className="absolute right-32 top-40 animate-bounce text-purple/20"
+            size={24}
+            weight="duotone"
+          />
+          <Microscope
+            className="absolute bottom-32 left-16 animate-pulse text-purple/25"
+            size={28}
+            weight="duotone"
+          />
+          <TestTube
+            className="absolute bottom-20 right-20 animate-bounce text-purple/20"
+            size={20}
+            weight="duotone"
+          />
         </div>
 
-        <div className="mx-auto flex max-w-[400px] items-center justify-center px-6 xl:max-w-none">
-          <div className="grid gap-8">
-            <div className="text-center xl:text-left">
-              <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
-                Login ke akunmu 🙌
-              </h1>
-              <p className="font-medium text-gray">
-                Sebelum belajar, silakan login dulu
-              </p>
+        <div className="grid min-h-screen xl:grid-cols-[1.2fr_1fr]">
+          <div className="relative hidden items-center justify-center p-20 xl:flex">
+            <div className="relative grid max-w-2xl gap-12">
+              <div className="absolute -inset-8 rounded-3xl bg-gradient-to-br from-purple/5 to-purple/10 blur-xl" />
+
+              <Card className="relative border-0 bg-white/80 shadow-xl backdrop-blur-sm">
+                <CardBody className="p-12">
+                  <blockquote className="relative z-10 mb-8 text-2xl font-bold leading-[125%] -tracking-wide text-black">
+                    {quote.quote}
+                  </blockquote>
+
+                  <div className="flex items-center gap-6">
+                    <div className="relative">
+                      <Image
+                        src={quote.image}
+                        alt={quote.figure + " Img"}
+                        width={80}
+                        height={80}
+                        className="rounded-full object-cover shadow-lg"
+                      />
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-purple/20 to-transparent" />
+                    </div>
+                    <div>
+                      <h4 className="text-xl font-bold text-black">
+                        {quote.figure}
+                      </h4>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
             </div>
+          </div>
 
-            <IconContext.Provider
-              value={{
-                weight: "duotone",
-                size: 18,
-                className: "text-gray",
-              }}
-            >
-              <div className="grid gap-2">
-                <Input
-                  type="email"
-                  autoComplete="off"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Alamat Email"
-                  name="email"
-                  onChange={(e) => handleInputChange(e, validateEmail)}
-                  onKeyDown={(e) => handleKeyDown(e, handleLogin)}
-                  startContent={<EnvelopeSimple />}
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.email}
-                  errorMessage={errors.email}
-                />
-
-                <Input
-                  type={passwordType}
-                  autoComplete="off"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Kata Sandi"
-                  name="password"
-                  onChange={(e) => handleInputChange(e, validatePassword)}
-                  onKeyDown={(e) => handleKeyDown(e, handleLogin)}
-                  startContent={<Lock />}
-                  endContent={
-                    <button
-                      onClick={() =>
-                        setPasswordType((prevType) =>
-                          prevType === "password" ? "text" : "password",
-                        )
-                      }
-                    >
-                      {passwordType === "password" ? <Eye /> : <EyeSlash />}
-                    </button>
-                  }
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.password}
-                  errorMessage={errors.password}
-                />
-
-                <ModalForgotPassword />
+          <div className="relative flex items-center justify-center px-6 py-12">
+            <div className="w-full max-w-md">
+              <div className="mb-8 text-center">
+                <div className="mb-4 inline-flex items-center gap-3">
+                  <LogoRuangobat className="h-auto w-10 text-gray/20" />
+                  <h1 className="text-2xl font-extrabold -tracking-wide text-purple">
+                    RuangObat
+                  </h1>
+                </div>
+                <h2 className="text-2xl font-bold text-black">
+                  Selamat Datang Kembali 👋
+                </h2>
+                <p className="font-medium text-gray">
+                  Ayo lanjutkan perjalanan belajar farmasi kamu
+                </p>
               </div>
-            </IconContext.Provider>
 
-            <div className="grid gap-4">
-              <Button
-                isLoading={loading}
-                isDisabled={!isFormEmpty() || loading}
-                color="secondary"
-                onClick={handleLogin}
-                className="font-bold"
-              >
-                {loading ? "Tunggu Sebentar..." : "Masuk Akun"}
-              </Button>
+              <Card className="border-0 bg-white/90 shadow-xl backdrop-blur-md">
+                <CardBody className="p-6">
+                  <IconContext.Provider
+                    value={{
+                      weight: "duotone",
+                      size: 20,
+                      className: "text-gray",
+                    }}
+                  >
+                    <div className="grid gap-4">
+                      <Input
+                        type="email"
+                        autoComplete="off"
+                        variant="bordered"
+                        labelPlacement="outside"
+                        placeholder="Masukkan email kamu"
+                        label="Email"
+                        name="email"
+                        onChange={(e) => handleInputChange(e, validateEmail)}
+                        onKeyDown={(e) => handleKeyDown(e, handleLogin)}
+                        startContent={<EnvelopeSimple />}
+                        classNames={{
+                          input: "text-sm font-medium placeholder:text-gray",
+                          inputWrapper:
+                            "border-gray/20 hover:border-purple/50 focus-within:!border-purple group-data-[focus=true]:border-purple bg-gray-50/50",
+                        }}
+                        isInvalid={!!errors.email}
+                        errorMessage={errors.email}
+                      />
 
-              <p className="text-center text-sm font-medium text-gray">
-                Belum punya akun?{" "}
-                <Link
-                  href="/auth/register"
-                  className="font-extrabold text-purple hover:underline"
-                >
-                  Daftar di sini
-                </Link>
-              </p>
+                      <Input
+                        type={passwordType}
+                        autoComplete="off"
+                        variant="bordered"
+                        labelPlacement="outside"
+                        placeholder="Masukkan kata sandi"
+                        label="Password"
+                        name="password"
+                        onChange={(e) => handleInputChange(e, validatePassword)}
+                        onKeyDown={(e) => handleKeyDown(e, handleLogin)}
+                        startContent={<Lock />}
+                        endContent={
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setPasswordType((prevType) =>
+                                prevType === "password" ? "text" : "password",
+                              )
+                            }
+                            className="text-gray transition-colors hover:text-purple"
+                          >
+                            {passwordType === "password" ? (
+                              <Eye />
+                            ) : (
+                              <EyeSlash />
+                            )}
+                          </button>
+                        }
+                        classNames={{
+                          input: "text-sm font-medium placeholder:text-gray",
+                          inputWrapper:
+                            "border-gray/20 hover:border-purple/50 focus-within:!border-purple group-data-[focus=true]:border-purple bg-gray-50/50",
+                        }}
+                        isInvalid={!!errors.password}
+                        errorMessage={errors.password}
+                      />
+
+                      <div className="flex justify-end">
+                        <ModalForgotPassword />
+                      </div>
+                    </div>
+                  </IconContext.Provider>
+
+                  <div className="mt-4 space-y-2">
+                    <Button
+                      isLoading={loading}
+                      isDisabled={!isFormEmpty() || loading}
+                      className="w-full bg-purple py-6 font-bold text-white shadow-lg transition-all duration-300 hover:scale-[1.02] hover:shadow-xl"
+                      size="md"
+                      onClick={handleLogin}
+                    >
+                      {loading ? "Sedang masuk..." : "Masuk ke Akun"}
+                    </Button>
+
+                    <div className="text-center">
+                      <p className="font-medium text-gray">
+                        Belum punya akun?{" "}
+                        <Link
+                          href="/auth/register"
+                          className="font-bold text-purple transition-all duration-300 hover:underline"
+                        >
+                          Daftar sekarang
+                        </Link>
+                      </p>
+                    </div>
+                  </div>
+                </CardBody>
+              </Card>
+
+              <div className="mt-4">
+                <h3 className="mb-3 text-center text-sm font-bold text-purple">
+                  Program Unggulan
+                </h3>
+
+                <div className="grid grid-cols-3 gap-4 text-center">
+                  {[
+                    {
+                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
+                      label: "Ruang Private 1 on 1 Farmasi",
+                    },
+                    {
+                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
+                      label: "Ruang Sarjana & Diploma Farmasi",
+                    },
+                    {
+                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
+                      label: "Ruang Masuk Apoteker",
+                    },
+                  ].map((item) => {
+                    return (
+                      <div
+                        className="cursor-pointer rounded-xl border border-purple/10 bg-white/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-purple/20 hover:bg-purple/10"
+                        key={item.label}
+                      >
+                        <Image
+                          src={item.icon}
+                          alt="icon program"
+                          width={500}
+                          height={500}
+                          priority
+                          className="mx-auto mb-3 size-7"
+                        />
+                        <p className="text-xs font-semibold text-black">
+                          {item.label}
+                        </p>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
             </div>
           </div>
         </div>
