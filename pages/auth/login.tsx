@@ -178,19 +178,19 @@ export default function LoginPage() {
               <div className="mb-8 text-center">
                 <div className="mb-4 inline-flex items-center gap-3">
                   <LogoRuangobat className="h-auto w-10 text-gray/20" />
-                  <h1 className="text-2xl font-extrabold -tracking-wide text-purple">
-                    RuangObat
+                  <h1 className="text-2xl font-extrabold -tracking-wide text-black">
+                    RuangObat<span className="text-purple">.</span>
                   </h1>
                 </div>
                 <h2 className="text-2xl font-bold text-black">
                   Selamat Datang Kembali 👋
                 </h2>
                 <p className="font-medium text-gray">
-                  Ayo lanjutkan perjalanan belajar farmasi kamu
+                  Ayo lanjutkan perjalanan belajar farmasi kamu.
                 </p>
               </div>
 
-              <Card className="border-0 bg-white/90 shadow-xl backdrop-blur-md">
+              <Card className="border-0 bg-white/90 shadow-xl backdrop-blur-sm">
                 <CardBody className="p-6">
                   <IconContext.Provider
                     value={{
@@ -275,7 +275,7 @@ export default function LoginPage() {
                     </Button>
 
                     <div className="text-center">
-                      <p className="font-medium text-gray">
+                      <p className="text-sm font-medium text-gray">
                         Belum punya akun?{" "}
                         <Link
                           href="/auth/register"
@@ -288,48 +288,6 @@ export default function LoginPage() {
                   </div>
                 </CardBody>
               </Card>
-
-              <div className="mt-4">
-                <h3 className="mb-3 text-center text-sm font-bold text-purple">
-                  Program Unggulan
-                </h3>
-
-                <div className="grid grid-cols-3 gap-4 text-center">
-                  {[
-                    {
-                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
-                      label: "Ruang Private 1 on 1 Farmasi",
-                    },
-                    {
-                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
-                      label: "Ruang Sarjana & Diploma Farmasi",
-                    },
-                    {
-                      icon: "https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
-                      label: "Ruang Masuk Apoteker",
-                    },
-                  ].map((item) => {
-                    return (
-                      <div
-                        className="cursor-pointer rounded-xl border border-purple/10 bg-white/60 p-4 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-purple/20 hover:bg-purple/10"
-                        key={item.label}
-                      >
-                        <Image
-                          src={item.icon}
-                          alt="icon program"
-                          width={500}
-                          height={500}
-                          priority
-                          className="mx-auto mb-3 size-7"
-                        />
-                        <p className="text-xs font-semibold text-black">
-                          {item.label}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
             </div>
           </div>
         </div>
