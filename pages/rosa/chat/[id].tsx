@@ -232,7 +232,6 @@ function SubRosaPageById({
     input: string,
     imageUrls?: { url: string }[],
   ) {
-    if (!ctx?.remaining) return;
     if (!input.trim() && !imageUrls?.length) return;
 
     ctx?.setIsStreaming(true);
@@ -281,6 +280,7 @@ function SubRosaPageById({
             input,
             img_url: imageUrls?.map((item) => item.url),
             thread_id: router.query.id,
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
           }),
           method: "POST",
         },
@@ -370,6 +370,7 @@ function SubRosaPageById({
       });
 
       reader?.cancel();
+      ctx?.mutateLimit();
       scrollToBottom();
       ctx?.setIsStreaming(false);
     } catch (error) {
@@ -427,9 +428,9 @@ function SubRosaPageById({
 
           <div
             ref={chatContainerRef}
-            className="relative flex-1 overflow-y-scroll bg-white px-4 scrollbar-hide lg:px-0 lg:scrollbar-default"
+            className="relative flex-1 overflow-y-scroll bg-white px-2 scrollbar-hide sm:px-4 lg:px-0 lg:scrollbar-default"
           >
-            <div className="mx-auto min-h-full max-w-3xl px-4 py-4">
+            <div className="mx-auto min-h-full max-w-3xl px-2 py-4 sm:px-4">
               <div className="space-y-4 pb-8">
                 {messages.map((message) => (
                   <MemoizedMessage {...message} key={message.chat_id} />

@@ -14,7 +14,7 @@ export default function Message(prop: MessageState) {
   if (role === "user") {
     return (
       <div className="flex justify-end gap-3">
-        <div className="max-w-xs space-y-2">
+        <div className="max-w-xs space-y-2 sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl">
           {images && images.length > 0 && (
             <div className="flex flex-wrap justify-end gap-1">
               {images.map((image, index) => (
@@ -32,10 +32,10 @@ export default function Message(prop: MessageState) {
             </div>
           )}
           {content && (
-            <div className="rounded-2xl rounded-tr-sm bg-purple px-4 py-2 text-white">
-              <p className="text-md">
+            <div className="break-words rounded-2xl rounded-tr-sm bg-purple px-4 py-2 text-white">
+              <div className="text-md overflow-wrap-anywhere">
                 <MemoizedMarkdown id={chat_id as string} content={content} />
-              </p>
+              </div>
             </div>
           )}
         </div>
@@ -49,13 +49,13 @@ export default function Message(prop: MessageState) {
 
   return (
     <div className="flex justify-start gap-3">
-      <div className="flex max-w-3xl flex-col gap-3">
-        <div className="overflow-y-auto rounded-2xl rounded-tl-sm bg-gray-100 px-4 py-3 text-gray-800 shadow-sm">
+      <div className="flex w-full flex-col gap-3 lg:max-w-3xl">
+        <div className="overflow-hidden rounded-2xl rounded-tl-sm bg-gray-100 px-4 py-3 text-gray-800 shadow-sm">
           <div className="flex items-start gap-2">
-            <div className="flex-1">
-              <p className="text-md leading-relaxed">
+            <div className="min-w-0 flex-1">
+              <div className="text-md overflow-wrap-anywhere break-words leading-relaxed">
                 <MemoizedMarkdown id={chat_id as string} content={content} />
-              </p>
+              </div>
             </div>
           </div>
         </div>
