@@ -1,7 +1,7 @@
 import Loading from "@/components/Loading";
 import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
-import Iridescence from "@/components/reactbits/Iridescence";
+import { authImages } from "@/data/authImages";
 import { quotes } from "@/data/quotes";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
@@ -57,6 +57,7 @@ import toast from "react-hot-toast";
 import { useDebounce } from "use-debounce";
 
 const quote = quotes[Math.floor(Math.random() * quotes.length)];
+const authImage = authImages[Math.floor(Math.random() * authImages.length)];
 
 type InputState = {
   fullname: string;
@@ -348,15 +349,15 @@ export default function RegisterPage() {
 
       <main className="grid min-h-screen w-full xl:grid-cols-[580px_1fr]">
         <div className="relative isolate hidden h-full xl:block">
-          <Iridescence
-            color={[1, 1, 1]}
-            mouseReact={false}
-            amplitude={0.1}
-            speed={1.0}
-            className="h-full"
+          <Image
+            src={authImage.image}
+            alt="auth image"
+            width={1080}
+            height={1920}
+            className="h-full max-h-screen object-cover object-center grayscale"
           />
 
-          <div className="absolute left-0 top-0 flex h-full w-full items-end bg-gradient-to-t from-purple to-transparent p-8">
+          <div className="absolute left-0 top-0 flex h-full w-full items-end bg-gradient-to-t from-purple via-purple/50 to-transparent p-8">
             <div className="grid gap-8">
               <h2 className="text-xl font-bold leading-[125%] -tracking-wide text-white md:text-2xl">
                 "{quote.quote}"
