@@ -1,9 +1,10 @@
 import Loading from "@/components/Loading";
 import ModalCodeVerification from "@/components/modal/ModalCodeVerification";
 import ModalTermsPrivacy from "@/components/modal/ModalTermsPrivacy";
+import Iridescence from "@/components/reactbits/Iridescence";
 import { quotes } from "@/data/quotes";
+import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
-import { customInputClassnames } from "@/utils/customInputClassnames";
 import { fetcher } from "@/utils/fetcher";
 import {
   validateEmail,
@@ -29,9 +30,12 @@ import {
   Eye,
   EyeSlash,
   IconContext,
-  Lock,
+  LockKey,
+  Microscope,
   Phone,
-  Quotes,
+  Pill,
+  Sparkle,
+  Stethoscope,
   User,
   Users,
 } from "@phosphor-icons/react";
@@ -145,7 +149,7 @@ export default function RegisterPage() {
           },
         });
 
-      toast.success("OTP terkirim, cek inbox atau spam", {
+      toast.success("OTP terkirim, cek inbox atau spam!", {
         duration: 3000,
       });
 
@@ -220,7 +224,7 @@ export default function RegisterPage() {
         onCodeVerificationClose();
         setCode("");
 
-        toast.success("Registrasi berhasil");
+        toast.success("Registrasi berhasil!");
         return router.push(
           `/welcome?from=register${router.query.callback ? `&callback=${router.query.callback}` : ""}`,
         );
@@ -342,213 +346,271 @@ export default function RegisterPage() {
         <title>Daftar Akun Untuk Mulai Belajar | RuangObat</title>
       </Head>
 
-      <main className="grid h-screen xl:grid-cols-[1fr_550px]">
-        <div className="hidden items-center justify-center bg-gray/10 px-20 xl:flex">
-          <div className="relative grid gap-16">
-            <Quotes
-              weight="fill"
-              size={64}
-              className="absolute -left-12 -top-12 rotate-180 text-purple/40"
-            />
+      <main className="grid min-h-screen w-full xl:grid-cols-[580px_1fr]">
+        <div className="relative isolate hidden h-full xl:block">
+          <Iridescence
+            color={[1, 1, 1]}
+            mouseReact={false}
+            amplitude={0.1}
+            speed={1.0}
+            className="h-full"
+          />
 
-            <h1 className="z-10 max-w-[680px] text-[32px] font-bold leading-[125%] -tracking-wide text-black">
-              {quote.quote}
-            </h1>
+          <div className="absolute left-0 top-0 flex h-full w-full items-end bg-gradient-to-t from-purple to-transparent p-8">
+            <div className="grid gap-8">
+              <h2 className="text-xl font-bold leading-[125%] -tracking-wide text-white md:text-2xl">
+                "{quote.quote}"
+              </h2>
 
-            <div className="inline-flex items-center gap-4">
-              <Image
-                src={quote.image}
-                alt={quote.figure + " Img"}
-                width={100}
-                height={100}
-                className="h-[64px] w-[64px] rounded-full object-cover object-center"
-              />
+              <div className="flex items-center gap-4">
+                <Image
+                  src={quote.image}
+                  alt={quote.figure + " Img"}
+                  width={100}
+                  height={100}
+                  className="size-12 rounded-full object-cover object-center"
+                />
 
-              <h4 className="text-[22px] font-bold text-black">
-                {quote.figure}
-              </h4>
+                <h3 className="text-lg font-bold text-white">{quote.figure}</h3>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="mx-auto flex max-w-[400px] items-center justify-center px-6 xl:max-w-none">
-          <div className="grid gap-8">
-            <div className="text-center xl:text-left">
-              <h1 className="text-[32px] font-bold capitalize -tracking-wide text-black">
-                Daftarkan akunmu 🚀
-              </h1>
-              <p className="font-medium text-gray">
-                Ayo, bergabung dengan kita di sini.
-              </p>
-            </div>
+        <div className="relative isolate h-full xl:h-auto">
+          <div className="pointer-events-none absolute inset-0 hidden xl:block">
+            <Sparkle
+              className="absolute left-10 top-20 animate-pulse text-3xl text-purple/40 xl:left-20 xl:top-40 xl:text-4xl"
+              weight="duotone"
+            />
+            <Pill
+              className="absolute right-6 top-32 animate-bounce text-3xl text-purple/40 xl:right-32 xl:top-40 xl:text-4xl"
+              weight="duotone"
+            />
+            <Microscope
+              className="absolute bottom-24 right-10 animate-pulse text-3xl text-purple/40 xl:bottom-32 xl:right-16 xl:text-4xl"
+              weight="duotone"
+            />
+            <Stethoscope
+              className="absolute bottom-6 left-16 animate-bounce text-3xl text-purple/40 xl:bottom-20 xl:left-20 xl:text-4xl"
+              weight="duotone"
+            />
+          </div>
 
-            <IconContext.Provider
-              value={{
-                weight: "duotone",
-                size: 18,
-                className: "text-gray",
-              }}
-            >
-              <div className="grid gap-2">
-                <Input
-                  value={input.fullname}
-                  autoComplete="off"
-                  type="text"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Nama Lengkap"
-                  name="fullname"
-                  onChange={(e) => handleInputChange(e, validateFullname)}
-                  startContent={<User />}
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.fullname}
-                  errorMessage={errors.fullname}
-                />
+          <div className="grid h-full grid-rows-[max-content_1fr] gap-12 p-6 xl:gap-4 xl:pb-0 xl:[padding:2rem_5rem]">
+            <Link href="/" className="inline-flex w-max items-center gap-2">
+              <LogoRuangobat className="h-auto w-8 text-gray/20" />
+              <h3 className="text-lg font-extrabold -tracking-wide text-black">
+                RuangObat<span className="text-purple">.</span>
+              </h3>
+            </Link>
 
-                <Input
-                  value={input.email}
-                  autoComplete="off"
-                  type="email"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Alamat Email"
-                  name="email"
-                  onChange={(e) => handleInputChange(e, validateEmail)}
-                  startContent={<EnvelopeSimple />}
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.email}
-                  errorMessage={errors.email}
-                />
+            <div className="flex w-full flex-col items-center justify-center gap-8 justify-self-center pb-20 xl:max-w-xl xl:pb-0">
+              <div className="text-center">
+                <h1 className="text-2xl font-bold capitalize -tracking-wide text-black md:text-3xl">
+                  Daftarkan akunmu 🚀
+                </h1>
 
-                <Input
-                  value={input.phone_number}
-                  autoComplete="off"
-                  type="text"
-                  inputMode="numeric"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Nomor Telpon"
-                  name="phone_number"
-                  onChange={(e) => handleInputChange(e, validatePhoneNumber)}
-                  startContent={<Phone />}
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.phone_number}
-                  errorMessage={errors.phone_number}
-                />
+                <p className="font-medium text-gray">
+                  Ayo, bergabung dengan kita di sini.
+                </p>
+              </div>
 
-                <Select
-                  selectedKeys={[input.gender]}
-                  aria-label="select gender"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Jenis Kelamin"
-                  name="gender"
-                  onChange={(e) =>
-                    setInput({
-                      ...input,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
-                  startContent={<Users />}
-                  classNames={{
-                    value: "font-semibold text-gray",
-                  }}
-                >
-                  <SelectItem key="M">Laki-Laki</SelectItem>
-                  <SelectItem key="F">Perempuan</SelectItem>
-                </Select>
+              <IconContext.Provider
+                value={{
+                  weight: "duotone",
+                  size: 20,
+                  className: "text-gray",
+                }}
+              >
+                <div className="grid w-full gap-4">
+                  <Input
+                    isRequired
+                    autoComplete="off"
+                    type="text"
+                    label="Nama Lengkap"
+                    labelPlacement="outside"
+                    placeholder="Contoh: Ahmad Megantara"
+                    name="fullname"
+                    value={input.fullname}
+                    onChange={(e) => handleInputChange(e, validateFullname)}
+                    startContent={<User />}
+                    isInvalid={!!errors.fullname}
+                    errorMessage={errors.fullname}
+                    classNames={{
+                      input: "text-sm font-medium placeholder:text-gray",
+                      label: "text-black",
+                    }}
+                  />
 
-                <Autocomplete
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Ketik Nama Universitas"
-                  inputValue={searchUniversities}
-                  onInputChange={setSearchUniversities}
-                  onSelectionChange={handleUniversitySelection}
-                  startContent={<Buildings />}
-                  isLoading={loadingUniversities}
-                  inputProps={{
-                    classNames: {
-                      input:
-                        "font-semibold placeholder:font-semibold placeholder:text-gray",
-                    },
-                  }}
-                  classNames={{
-                    listboxWrapper: "max-h-60",
-                  }}
-                  onFocus={() => {
-                    if (
-                      input.university &&
-                      searchUniversities === input.university
-                    ) {
-                      setSearchUniversities("");
-                    }
-                  }}
-                  selectedKey={input.university}
-                >
-                  {universityOptions.map((university) => (
-                    <AutocompleteItem
-                      key={university.name}
-                      value={university.name}
-                      textValue={university.name}
-                    >
-                      {university.name}
-                    </AutocompleteItem>
-                  ))}
-                </Autocomplete>
+                  <div className="grid gap-4 xl:grid-cols-2 xl:gap-2">
+                    <Input
+                      isRequired
+                      autoComplete="off"
+                      type="email"
+                      label="Alamat Email"
+                      labelPlacement="outside"
+                      placeholder="Contoh: pengguna@gmail.com"
+                      name="email"
+                      value={input.email}
+                      onChange={(e) => handleInputChange(e, validateEmail)}
+                      startContent={<EnvelopeSimple />}
+                      isInvalid={!!errors.email}
+                      errorMessage={errors.email}
+                      classNames={{
+                        input: "text-sm font-medium placeholder:text-gray",
+                        label: "text-black",
+                      }}
+                    />
 
-                <Select
-                  selectedKeys={[input.entry_year]}
-                  aria-label="select entry_year"
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Tahun Masuk Kuliah"
-                  name="entry_year"
-                  onChange={(e) =>
-                    setInput({
-                      ...input,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
-                  startContent={<Calendar />}
-                  classNames={{
-                    value: "font-semibold text-gray",
-                  }}
-                >
-                  {entryYears.map((year) => (
-                    <SelectItem key={year} value={year.toString()}>
-                      {year.toString()}
-                    </SelectItem>
-                  ))}
-                </Select>
-
-                <Input
-                  value={input.password}
-                  autoComplete="off"
-                  type={passwordType}
-                  variant="flat"
-                  labelPlacement="outside"
-                  placeholder="Kata Sandi"
-                  name="password"
-                  onChange={(e) => handleInputChange(e, validatePassword)}
-                  startContent={<Lock />}
-                  endContent={
-                    <button
-                      onClick={() =>
-                        setPasswordType((prevType) =>
-                          prevType === "password" ? "text" : "password",
-                        )
+                    <Input
+                      isRequired
+                      autoComplete="off"
+                      type="text"
+                      inputMode="numeric"
+                      label="Nomor Telpon"
+                      labelPlacement="outside"
+                      placeholder="Contoh: 08xxxxxxxx"
+                      name="phone_number"
+                      value={input.phone_number}
+                      onChange={(e) =>
+                        handleInputChange(e, validatePhoneNumber)
                       }
-                    >
-                      {passwordType === "password" ? <Eye /> : <EyeSlash />}
-                    </button>
-                  }
-                  classNames={customInputClassnames}
-                  isInvalid={!!errors.password}
-                  errorMessage={errors.password}
-                />
+                      startContent={<Phone />}
+                      isInvalid={!!errors.phone_number}
+                      errorMessage={errors.phone_number}
+                      classNames={{
+                        input: "text-sm font-medium placeholder:text-gray",
+                        label: "text-black",
+                      }}
+                    />
+                  </div>
 
-                <div className="mt-1 flex items-start gap-1">
+                  <Autocomplete
+                    isRequired
+                    label="Nama Universitas"
+                    labelPlacement="outside"
+                    placeholder="Contoh: Universitas Pancasila"
+                    inputValue={searchUniversities}
+                    onInputChange={setSearchUniversities}
+                    onSelectionChange={handleUniversitySelection}
+                    startContent={<Buildings />}
+                    isLoading={loadingUniversities}
+                    selectedKey={input.university}
+                    onFocus={() => {
+                      if (
+                        input.university &&
+                        searchUniversities === input.university
+                      ) {
+                        setSearchUniversities("");
+                      }
+                    }}
+                    inputProps={{
+                      classNames: {
+                        input: "text-sm font-medium placeholder:text-gray",
+                        label: "text-black",
+                      },
+                    }}
+                    classNames={{
+                      listboxWrapper: "max-h-60",
+                    }}
+                  >
+                    {universityOptions.map((university) => (
+                      <AutocompleteItem
+                        key={university.name}
+                        value={university.name}
+                        textValue={university.name}
+                      >
+                        {university.name}
+                      </AutocompleteItem>
+                    ))}
+                  </Autocomplete>
+
+                  <div className="grid gap-4 xl:grid-cols-2 xl:gap-2">
+                    <Select
+                      isRequired
+                      aria-label="select gender"
+                      label="Jenis Kelamin"
+                      labelPlacement="outside"
+                      placeholder="Contoh: Laki-Laki"
+                      name="gender"
+                      selectedKeys={[input.gender]}
+                      onChange={(e) =>
+                        setInput({
+                          ...input,
+                          [e.target.name]: e.target.value,
+                        })
+                      }
+                      startContent={<Users />}
+                      classNames={{
+                        value: "text-sm font-medium text-gray",
+                        label: "text-black",
+                      }}
+                    >
+                      <SelectItem key="M">Laki-Laki</SelectItem>
+                      <SelectItem key="F">Perempuan</SelectItem>
+                    </Select>
+
+                    <Select
+                      isRequired
+                      aria-label="select entry_year"
+                      label="Tahun Masuk Kuliah"
+                      labelPlacement="outside"
+                      placeholder="Contoh: 2025"
+                      name="entry_year"
+                      selectedKeys={[input.entry_year]}
+                      onChange={(e) =>
+                        setInput({
+                          ...input,
+                          [e.target.name]: e.target.value,
+                        })
+                      }
+                      startContent={<Calendar />}
+                      classNames={{
+                        value: "text-sm font-medium text-gray",
+                        label: "text-black",
+                      }}
+                    >
+                      {entryYears.map((year) => (
+                        <SelectItem key={year} value={year.toString()}>
+                          {year.toString()}
+                        </SelectItem>
+                      ))}
+                    </Select>
+                  </div>
+
+                  <Input
+                    isRequired
+                    autoComplete="off"
+                    type={passwordType}
+                    label="Password"
+                    labelPlacement="outside"
+                    placeholder="Min. 8 karakter"
+                    name="password"
+                    value={input.password}
+                    onChange={(e) => handleInputChange(e, validatePassword)}
+                    startContent={<LockKey />}
+                    endContent={
+                      <button
+                        onClick={() =>
+                          setPasswordType((prevType) =>
+                            prevType === "password" ? "text" : "password",
+                          )
+                        }
+                      >
+                        {passwordType === "password" ? <Eye /> : <EyeSlash />}
+                      </button>
+                    }
+                    isInvalid={!!errors.password}
+                    errorMessage={errors.password}
+                    classNames={{
+                      input: "text-sm font-medium placeholder:text-gray",
+                      label: "text-black",
+                    }}
+                  />
+                </div>
+
+                <div className="-mt-2 flex w-full max-w-sm items-start gap-1 self-start">
                   <Checkbox
                     size="md"
                     color="secondary"
@@ -556,7 +618,7 @@ export default function RegisterPage() {
                     onValueChange={setIsSelected}
                   />
 
-                  <p className="max-w-[300px] text-[12px] font-medium text-gray">
+                  <p className="text-sm font-medium text-gray">
                     Ya, saya menyetujui{" "}
                     <span
                       onClick={onTermsPrivacyOpen}
@@ -587,33 +649,33 @@ export default function RegisterPage() {
                   isOpen={isTermsPrivacyOpen}
                   onClose={onTermsPrivacyClose}
                 />
-              </div>
-            </IconContext.Provider>
+              </IconContext.Provider>
 
-            <div className="grid gap-4">
-              <Button
-                isDisabled={!isFormEmpty()}
-                color="secondary"
-                onClick={() => {
-                  setLoadingScreen(true);
-                  handleCodeVerification();
-                  setTime(60);
-                  onCodeVerificationOpen();
-                }}
-                className="font-bold"
-              >
-                Daftar Akun
-              </Button>
-
-              <p className="text-center text-sm font-medium text-gray">
-                Sudah punya akun?{" "}
-                <Link
-                  href="/auth/login"
-                  className="font-extrabold text-purple hover:underline"
+              <div className="grid w-full gap-4">
+                <Button
+                  isDisabled={!isFormEmpty()}
+                  color="secondary"
+                  onClick={() => {
+                    setLoadingScreen(true);
+                    handleCodeVerification();
+                    setTime(60);
+                    onCodeVerificationOpen();
+                  }}
+                  className="font-bold"
                 >
-                  Masuk di sini
-                </Link>
-              </p>
+                  {loading ? "Tunggu sebentar..." : "Daftar Sekarang"}
+                </Button>
+
+                <p className="text-center text-sm font-medium text-gray">
+                  Sudah punya akun?{" "}
+                  <Link
+                    href="/auth/login"
+                    className="font-extrabold text-purple hover:underline"
+                  >
+                    Masuk di sini
+                  </Link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
