@@ -284,12 +284,12 @@ export default function StartTestPage({
             </div>
 
             <div
-              className={`grid h-full grid-rows-[max-content_1fr] overflow-hidden overflow-y-scroll rounded-xl border-2 ${question?.is_hesitant ? "border-warning/50 bg-warning-100" : "border-gray/20"}`}
+              className={`grid h-full grid-rows-[max-content_1fr] overflow-hidden overflow-y-scroll rounded-xl border-2 font-serif ${question?.is_hesitant ? "border-warning/50 bg-warning-100" : "border-gray/20"}`}
             >
               <div
                 className={`sticky left-0 top-0 z-20 grid gap-4 p-5 ${question?.is_hesitant ? "bg-warning-100" : "bg-white"}`}
               >
-                <span className="font-extrabold text-black xs:text-lg">
+                <span className="font-semibold text-black">
                   Nomor: {number}
                 </span>
 
@@ -323,7 +323,7 @@ export default function StartTestPage({
                   }}
                   classNames={{
                     base: cn(
-                      "inline-flex w-max m-[2px_0_2px_2px] text-black font-semibold",
+                      "inline-flex w-max m-[2px_0_2px_2px] text-black",
                       "border-2 border-gray/20 rounded-lg hover:bg-gray/10 px-3",
                       "data-[selected=true]:border-warning data-[selected=true]:bg-warning/20",
                     ),
@@ -340,7 +340,7 @@ export default function StartTestPage({
                   </Suspense>
                 ) : (
                   <p
-                    className="preventive-list preventive-table list-outside text-sm font-semibold leading-[170%] text-black xs:text-base xs:leading-[170%]"
+                    className="preventive-list preventive-table list-outside text-sm leading-[170%] tracking-wide text-black"
                     dangerouslySetInnerHTML={{
                       __html: question?.text as string,
                     }}
@@ -352,7 +352,7 @@ export default function StartTestPage({
                   aria-label="select the answer"
                   color={question?.is_hesitant ? "warning" : "secondary"}
                   classNames={{
-                    base: "font-semibold text-black",
+                    base: "text-black",
                   }}
                   onChange={(e) => {
                     setQuestions((prev) => {
@@ -385,7 +385,7 @@ export default function StartTestPage({
                         value={option.option_id}
                         key={option.option_id}
                         classNames={{
-                          label: "text-sm xs:text-base",
+                          label: "text-sm tracking-wide",
                         }}
                       >
                         {option.text}

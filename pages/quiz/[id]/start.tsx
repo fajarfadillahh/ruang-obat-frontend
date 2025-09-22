@@ -203,38 +203,8 @@ export default function StartQuiz({
 
           {/* === center content === */}
           <div className="grid flex-1 grid-rows-[max-content_1fr_max-content] gap-4">
-            {/* === mobile view top data === */}
-            <div className="flex items-center justify-between gap-4 xl:hidden">
-              <Button
-                isIconOnly
-                size="sm"
-                variant="light"
-                color="secondary"
-                className="xl:hidden"
-                onClick={() => toggleContentOpen("left")}
-              >
-                <Sidebar weight="duotone" size={20} className="rotate-180" />
-              </Button>
-
-              <h2 className="line-clamp-1 font-bold -tracking-wide text-purple hover:cursor-pointer">
-                {data?.data.title}
-              </h2>
-
-              <Button
-                isIconOnly
-                size="sm"
-                variant="light"
-                color="secondary"
-                className="justify-self-end xl:hidden"
-                onClick={() => toggleContentOpen("right")}
-              >
-                <Sidebar weight="duotone" size={20} />
-              </Button>
-            </div>
-
-            {/* === desktop view top data === */}
-            <div className="hidden h-auto items-start justify-between rounded-xl border-2 border-gray/20 p-5 xl:flex">
-              <div className="grid gap-1">
+            <div className="relative isolate flex h-auto items-start justify-between rounded-xl border-2 border-gray/20 p-5">
+              <div className="hidden gap-1 xl:grid">
                 <h2 className="font-bold text-black">Data Peserta:</h2>
 
                 <div className="grid">
@@ -247,8 +217,34 @@ export default function StartQuiz({
                 </div>
               </div>
 
-              <div className="grid gap-1">
-                <h2 className="font-bold text-black">Nama Ujian:</h2>
+              <div className="flex flex-1 items-center justify-between gap-2 xl:hidden">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  color="secondary"
+                  className="xl:hidden"
+                  onClick={() => toggleContentOpen("left")}
+                >
+                  <Sidebar weight="duotone" size={20} className="rotate-180" />
+                </Button>
+
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  color="secondary"
+                  className="justify-self-end xl:hidden"
+                  onClick={() => toggleContentOpen("right")}
+                >
+                  <Sidebar weight="duotone" size={20} />
+                </Button>
+              </div>
+
+              <div className="absolute left-1/2 top-6 grid -translate-x-1/2 gap-1 xl:static xl:left-0 xl:top-0 xl:-translate-x-0">
+                <h2 className="hidden font-bold text-black xl:block">
+                  Nama Ujian:
+                </h2>
 
                 <CustomTooltip content={data?.data.title as string}>
                   <h2 className="line-clamp-1 max-w-[200px] font-bold -tracking-wide text-purple hover:cursor-pointer">
@@ -315,7 +311,7 @@ export default function StartQuiz({
                   </Suspense>
                 ) : (
                   <p
-                    className="preventive-list preventive-table list-outside text-sm font-semibold leading-[170%] text-black xs:text-base xs:leading-[170%]"
+                    className="preventive-list preventive-table list-outside text-sm font-semibold leading-[170%] tracking-wide text-black xs:text-base xs:leading-[170%]"
                     dangerouslySetInnerHTML={{
                       __html: question?.text as string,
                     }}
@@ -360,7 +356,7 @@ export default function StartQuiz({
                         value={option.asso_id}
                         key={option.asso_id}
                         classNames={{
-                          label: "text-sm xs:text-base",
+                          label: "text-sm tracking-wide",
                         }}
                       >
                         {option.text}

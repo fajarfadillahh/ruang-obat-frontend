@@ -184,52 +184,49 @@ export default function ResultTestPage({
 
           {/* === center content === */}
           <div className="grid flex-1 grid-rows-[max-content_1fr] gap-4">
-            {/* === mobile view top data === */}
-            <div className="flex items-center justify-between gap-2 xl:hidden">
-              <Button
-                isIconOnly
-                size="sm"
-                variant="light"
-                color="secondary"
-                className="xl:hidden"
-                onClick={() => toggleContentOpen("left")}
-              >
-                <Sidebar weight="duotone" size={20} className="rotate-180" />
-              </Button>
-
-              <h2 className="line-clamp-1 font-bold -tracking-wide text-purple hover:cursor-pointer">
-                {router.query.title}
-              </h2>
-
-              <Button
-                isIconOnly
-                size="sm"
-                variant="light"
-                color="secondary"
-                className="justify-self-end xl:hidden"
-                onClick={() => toggleContentOpen("right")}
-              >
-                <Sidebar weight="duotone" size={20} />
-              </Button>
-            </div>
-
-            {/* === desktop view top data === */}
-            <div className="hidden h-auto items-start justify-between rounded-xl border-2 border-gray/20 p-5 xl:flex">
-              <div className="grid gap-1">
+            <div className="relative isolate flex h-auto items-start justify-between rounded-xl border-2 border-gray/20 p-5">
+              <div className="hidden gap-1 xl:grid">
                 <h2 className="font-bold text-black">Data Peserta:</h2>
 
                 <div className="grid">
                   <h2 className="line-clamp-1 max-w-[200px] font-bold -tracking-wide text-purple">
-                    {status == "authenticated" ? session?.user.fullname : ""}
+                    {status == "authenticated" ? session.user.fullname : ""}
                   </h2>
+
                   <p className="text-xs font-medium text-gray">
-                    {status == "authenticated" ? session?.user.user_id : ""}
+                    {status == "authenticated" ? session.user.user_id : ""}
                   </p>
                 </div>
               </div>
 
-              <div className="grid gap-1">
-                <h2 className="font-bold text-black">Nama Ujian:</h2>
+              <div className="flex flex-1 items-center justify-between gap-2 xl:hidden">
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  color="secondary"
+                  className="xl:hidden"
+                  onClick={() => toggleContentOpen("left")}
+                >
+                  <Sidebar weight="duotone" size={20} className="rotate-180" />
+                </Button>
+
+                <Button
+                  isIconOnly
+                  size="sm"
+                  variant="light"
+                  color="secondary"
+                  className="justify-self-end xl:hidden"
+                  onClick={() => toggleContentOpen("right")}
+                >
+                  <Sidebar weight="duotone" size={20} />
+                </Button>
+              </div>
+
+              <div className="absolute left-1/2 top-6 grid -translate-x-1/2 gap-1 xl:static xl:left-0 xl:top-0 xl:-translate-x-0">
+                <h2 className="hidden font-bold text-black xl:block">
+                  Nama Ujian:
+                </h2>
 
                 <CustomTooltip content={router.query.title as string}>
                   <h2 className="line-clamp-1 max-w-[200px] font-bold -tracking-wide text-purple hover:cursor-pointer">
@@ -239,9 +236,9 @@ export default function ResultTestPage({
               </div>
             </div>
 
-            <div className="grid h-full grid-rows-[max-content_1fr] overflow-hidden overflow-y-scroll rounded-xl border-2 border-gray/20">
+            <div className="grid h-full grid-rows-[max-content_1fr] overflow-hidden overflow-y-scroll rounded-xl border-2 border-gray/20 font-serif">
               <div className="sticky left-0 top-0 z-20 flex items-end justify-between gap-4 bg-white p-5">
-                <span className="font-extrabold text-black xs:text-lg">
+                <span className="font-semibold text-black">
                   Nomor: {number}
                 </span>
 
@@ -252,7 +249,7 @@ export default function ResultTestPage({
                   onClick={() => {
                     handlePrint();
                   }}
-                  className="w-max font-bold"
+                  className="w-max font-sans font-bold"
                 >
                   Export PDF
                 </Button>
@@ -270,7 +267,7 @@ export default function ResultTestPage({
                   </Suspense>
                 ) : (
                   <p
-                    className="preventive-list preventive-table list-outside text-sm font-semibold leading-[170%] text-black xs:text-base xs:leading-[170%]"
+                    className="preventive-list preventive-table list-outside text-sm leading-[170%] tracking-wide text-black"
                     dangerouslySetInnerHTML={{
                       __html: question?.text as string,
                     }}
@@ -281,7 +278,7 @@ export default function ResultTestPage({
                   aria-label="select the answer"
                   defaultValue="fase-s"
                   classNames={{
-                    base: "font-semibold text-black",
+                    base: "text-black",
                   }}
                   value={question?.user_answer}
                 >
@@ -307,7 +304,7 @@ export default function ResultTestPage({
                               : question.user_answer == option.option_id
                                 ? "text-danger"
                                 : "text-gray/80"
-                          } font-semibold text-sm xs:text-base`,
+                          } text-sm tracking-wide`,
                         }}
                       >
                         {option.text}
@@ -322,12 +319,12 @@ export default function ResultTestPage({
                     key="answer"
                     title="Penjelasan:"
                     classNames={{
-                      title: "font-semibold text-black",
+                      title: "text-black text-base font-semibold tracking-wide",
                       content: "font-medium text-black leading-[170%] pb-4",
                     }}
                   >
-                    <div
-                      className="preventive-list preventive-table list-outside text-base leading-[170%] text-black"
+                    <p
+                      className="preventive-list preventive-table list-outside text-sm leading-[170%] tracking-wide text-black"
                       dangerouslySetInnerHTML={{
                         __html: question?.explanation as string,
                       }}
