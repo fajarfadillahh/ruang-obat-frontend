@@ -74,7 +74,7 @@ export default function WelcomePage({
             <div className="grid gap-2 sm:inline-flex sm:items-center sm:gap-4">
               <Button
                 color="secondary"
-                onClick={() => router.push("/osce-ukmppai")}
+                onClick={() => router.push("/programs/osce-ukmppai")}
                 className="px-6 font-bold"
               >
                 Halaman OSCE & UKMPPAI

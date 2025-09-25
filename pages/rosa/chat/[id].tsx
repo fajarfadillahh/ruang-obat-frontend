@@ -1,6 +1,7 @@
 import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import InputComponent from "@/components/rosa-ai/InputComponent";
 import Message from "@/components/rosa-ai/Message";
+import MessageStreaming from "@/components/rosa-ai/MessageStreaming";
 import Navbar from "@/components/rosa-ai/NavbarNew";
 import Sidebar from "@/components/rosa-ai/SidebarNew";
 import { AIContext } from "@/context/AIContext";
@@ -17,16 +18,8 @@ import { getServerSession } from "next-auth";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-const MemoizedMessage = memo(Message);
 
 export default function RosaPageById({
   title,
@@ -113,15 +106,7 @@ function SubRosaPageById({
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const streamingContentRef = useRef<string>("");
   const streamingChatIdRef = useRef<string>("");
-  const lastUpdateTimeRef = useRef<number>(0);
-  const rafUpdateRef = useRef<number>();
-
-  function cancelPendingRAF() {
-    if (rafUpdateRef.current) {
-      cancelAnimationFrame(rafUpdateRef.current);
-      rafUpdateRef.current = undefined;
-    }
-  }
+  const messageStreamingRef = useRef<HTMLDivElement>(null);
 
   const scrollToBottom = useCallback(
     (behavior: "smooth" | "instant" | "auto" = "smooth") => {
@@ -143,35 +128,6 @@ function SubRosaPageById({
       }, 10);
     }
   }, [chats]);
-
-  const throttledUpdateContent = useCallback(() => {
-    const now = Date.now();
-    if (now - lastUpdateTimeRef.current < 100) return;
-
-    lastUpdateTimeRef.current = now;
-
-    setMessages((prev) =>
-      prev.map((msg) =>
-        msg.chat_id === streamingChatIdRef.current
-          ? {
-              ...msg,
-              role: "assistant",
-              content: streamingContentRef.current,
-            }
-          : msg,
-      ),
-    );
-  }, []);
-
-  const smoothUpdateContent = useCallback(() => {
-    if (rafUpdateRef.current) {
-      cancelAnimationFrame(rafUpdateRef.current);
-    }
-
-    rafUpdateRef.current = requestAnimationFrame(() => {
-      throttledUpdateContent();
-    });
-  }, [throttledUpdateContent]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -256,12 +212,6 @@ function SubRosaPageById({
             }))
           : [],
       },
-      {
-        role: "assistant",
-        content: "",
-        id,
-        chat_id: chat_id_assistant,
-      },
     ]);
 
     setTimeout(() => scrollToBottom(), 100);
@@ -294,8 +244,8 @@ function SubRosaPageById({
 
       const decoder = new TextDecoder();
       let buffer = "";
-      let chunkCount = 0;
       let streamComplete = false;
+      let content = "";
 
       while (!streamComplete) {
         const { done, value } = await reader.read();
@@ -320,11 +270,13 @@ function SubRosaPageById({
               const parsed = JSON.parse(data);
               if (parsed.content) {
                 streamingContentRef.current += parsed.content;
-                chunkCount++;
+                content += parsed.content;
 
-                if (chunkCount % 3 === 0) {
-                  smoothUpdateContent();
-                  throttledScrollToBottom();
+                if (messageStreamingRef.current) {
+                  messageStreamingRef.current.innerHTML = content;
+                  setTimeout(() => {
+                    scrollToBottom();
+                  }, 50);
                 }
               }
             } catch (error) {
@@ -351,44 +303,37 @@ function SubRosaPageById({
         }
       }
 
-      cancelPendingRAF();
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content: streamingContentRef.current,
+          id,
+          chat_id: chat_id_assistant,
+        },
+      ]);
 
-      await new Promise((resolve) => {
-        setMessages((prev) =>
-          prev.map((msg) =>
-            msg.chat_id === streamingChatIdRef.current
-              ? {
-                  ...msg,
-                  role: "assistant",
-                  content: streamingContentRef.current,
-                }
-              : msg,
-          ),
-        );
-
-        setTimeout(resolve, 100);
-      });
+      setTimeout(() => {
+        scrollToBottom("instant");
+      }, 100);
 
       reader?.cancel();
       ctx?.mutateLimit();
-      scrollToBottom();
       ctx?.setIsStreaming(false);
     } catch (error) {
       ctx?.setIsStreaming(false);
       console.error(error);
 
-      setMessages((prev) =>
-        prev.map((msg) =>
-          msg.chat_id === chat_id_assistant
-            ? {
-                role: "assistant",
-                content:
-                  "Ups sepertinya server kita ada masalah. Maaf ya atas ketidaknyamanannya 😫",
-                id: 0,
-              }
-            : msg,
-        ),
-      );
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "assistant",
+          content:
+            "Ups sepertinya server kita ada masalah. Maaf ya atas ketidaknyamanannya 😫",
+          id,
+          chat_id: chat_id_assistant,
+        },
+      ]);
     }
   }
 
@@ -433,8 +378,12 @@ function SubRosaPageById({
             <div className="mx-auto min-h-full max-w-3xl px-2 py-4 sm:px-4">
               <div className="space-y-4 pb-8">
                 {messages.map((message) => (
-                  <MemoizedMessage {...message} key={message.chat_id} />
+                  <Message {...message} key={message.chat_id} />
                 ))}
+
+                {ctx?.isStreaming ? (
+                  <MessageStreaming messageStreamingRef={messageStreamingRef} />
+                ) : null}
               </div>
             </div>
 

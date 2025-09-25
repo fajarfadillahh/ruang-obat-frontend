@@ -13,16 +13,8 @@ import { ArrowDown } from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
 import { NextSeo } from "next-seo";
 import { useRouter } from "next/router";
-import {
-  memo,
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-const MemoizedMessage = memo(Message);
 
 export default function RosaPage() {
   return (
@@ -429,7 +421,7 @@ function SubRosaPage() {
               ) : (
                 <div className="space-y-4 pb-8">
                   {messages.map((message) => (
-                    <MemoizedMessage {...message} key={message.chat_id} />
+                    <Message {...message} key={message.chat_id} />
                   ))}
                 </div>
               )}
