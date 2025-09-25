@@ -1,4 +1,3 @@
-import ButtonBack from "@/components/button/ButtonBack";
 import CardArticle from "@/components/card/CardArticle";
 import CTARosaAi from "@/components/cta/CTARosaAi";
 import EmptyData from "@/components/EmptyData";
@@ -30,18 +29,14 @@ type ArticleResponse = {
 
 export default function AllArticlePage() {
   const router = useRouter();
-  const [search, setSearch] = useQueryState("q", { defaultValue: "" });
   const [page, setPage] = useQueryState("page", { defaultValue: "" });
   const [sort, setSort] = useQueryState("sort", { defaultValue: "" });
-  const [topic] = useQueryState("topic", { defaultValue: "" });
 
+  const [search, setSearch] = useQueryState("q", { defaultValue: "" });
   const [searchValue] = useDebounce(search, 800);
-  const url = topic
-    ? getUrl(`/articles/topics/${topic}`, { q: searchValue, page, sort })
-    : getUrl("/articles", { q: searchValue, page, sort });
 
   const { data, isLoading } = useSWR<SuccessResponse<ArticleResponse>>({
-    url,
+    url: getUrl("/articles", { q: searchValue, page, sort }),
     method: "GET",
   });
 
@@ -51,33 +46,18 @@ export default function AllArticlePage() {
         title="Explore Semua Artikel Hits & Terbaru"
         description="Kumpulan artikel lengkap mulai dari yang terbaru, sampai topik pilihan. Temukan inspirasi, informasi, dan insight menarik di RuangObat."
       >
-        {router.query.topic ? <ButtonBack href="/articles/topics" /> : null}
+        <section className="base-container gap-1 py-[50px]">
+          <h1 className="text-2xl font-black -tracking-wide text-black md:text-4xl">
+            Explore Artikel Hits & Terbaru
+            <span className="text-purple">.</span>
+          </h1>
 
-        {router.query.topic ? (
-          <section className="base-container gap-1 py-[50px]">
-            <h1 className="text-2xl font-black capitalize -tracking-wide text-black md:text-4xl">
-              {router.query.topic}
-            </h1>
-
-            <p className="max-w-[500px] font-medium leading-[170%] text-gray">
-              Kumpulan artikel pilihan mengenai {router.query.topic} untuk
-              menambah wawasan kamu 🔥
-            </p>
-          </section>
-        ) : (
-          <section className="base-container gap-1 py-[50px]">
-            <h1 className="text-2xl font-black -tracking-wide text-black md:text-4xl">
-              Explore Artikel Hits & Terbaru
-              <span className="text-purple">.</span>
-            </h1>
-
-            <p className="max-w-[600px] font-medium leading-[170%] text-gray">
-              Kumpulan artikel lengkap mulai dari yang terbaru, sampai topik
-              pilihan. Temukan inspirasi, informasi, dan insight menarik di
-              RuangObat.
-            </p>
-          </section>
-        )}
+          <p className="max-w-[600px] font-medium leading-[170%] text-gray">
+            Kumpulan artikel lengkap mulai dari yang terbaru, sampai topik
+            pilihan. Temukan inspirasi, informasi, dan insight menarik di
+            RuangObat.
+          </p>
+        </section>
 
         <section className="base-container gap-8 pb-[100px]">
           <div className="grid gap-4">
