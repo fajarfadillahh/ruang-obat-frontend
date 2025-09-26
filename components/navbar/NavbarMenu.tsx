@@ -91,7 +91,7 @@ export default function NavbarMain() {
         <NavbarBrand className="hidden lg:inline-flex">
           <Link href="/" className="inline-flex items-center gap-2">
             <LogoRuangobat className="h-auto w-10 text-gray/20" />
-            <h1 className="text-2xl font-extrabold -tracking-wide text-black">
+            <h1 className="text-2xl font-black -tracking-wide text-black">
               RuangObat<span className="text-purple">.</span>
             </h1>
           </Link>
