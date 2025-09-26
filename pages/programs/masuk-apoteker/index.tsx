@@ -13,6 +13,7 @@ import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
 import { Button, Chip } from "@nextui-org/react";
 import {
+  ArrowRight,
   ClipboardText,
   IconContext,
   ShareNetwork,
@@ -131,7 +132,7 @@ export default function ApotekerClassPage({
 
         {data?.universities.length ? (
           <section className="base-container gap-4 py-[100px]">
-            <div className="grid">
+            <div className="grid gap-1">
               <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
                 Tryout Universitas 🎓
               </h2>
@@ -196,6 +197,29 @@ export default function ApotekerClassPage({
             </div>
           </section>
         ) : null}
+
+        <section className="base-container gap-6 [padding:100px_0_50px]">
+          <div className="flex flex-wrap items-center justify-between gap-8 rounded-xl border-2 border-gray-500/10 p-12">
+            <div className="grid gap-1">
+              <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
+                Jadwal Ujian Masuk Apoteker 🗓️
+              </h2>
+
+              <p className="font-medium leading-[170%] text-gray">
+                Lihat semua jadwal lengkap untuk ujian Masuk Apoteker.
+              </p>
+            </div>
+
+            <Button
+              color="secondary"
+              endContent={<ArrowRight weight="bold" size={18} />}
+              onClick={() => router.push(`/programs/masuk-apoteker/schedules`)}
+              className="font-bold"
+            >
+              Lihat Semua Ujian
+            </Button>
+          </div>
+        </section>
 
         {data?.subscriptions.length ? (
           <SectionSubscription
