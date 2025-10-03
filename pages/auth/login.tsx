@@ -1,4 +1,3 @@
-import ModalForgotPassword from "@/components/modal/ModalForgotPassword";
 import { authImages } from "@/data/authImages";
 import { quotes } from "@/data/quotes";
 import { LogoRuangobat } from "@/public/img/LogoRuangobat";
@@ -247,9 +246,12 @@ export default function LoginPage() {
                     }}
                   />
 
-                  <div className="-mt-2 flex justify-end">
-                    <ModalForgotPassword />
-                  </div>
+                  <p
+                    className="-mt-2 justify-self-end text-sm font-semibold text-purple hover:cursor-pointer hover:underline"
+                    onClick={() => router.push("/reset-password")}
+                  >
+                    Lupa Password?
+                  </p>
                 </div>
               </IconContext.Provider>
 
