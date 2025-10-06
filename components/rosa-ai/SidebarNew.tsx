@@ -136,12 +136,12 @@ export default function SidebarNew({
                 closeDelay={200}
                 classNames={{
                   content:
-                    "font-semibold text-black bg-white shadow-lg border border-gray/20",
+                    "font-semibold capitalize text-black bg-white shadow-lg border border-gray/20",
                 }}
               >
                 <div className="grid min-w-0 flex-1 gap-1">
                   <h3
-                    className={`line-clamp-1 text-sm font-medium transition-all duration-300 ${
+                    className={`line-clamp-1 text-sm font-medium capitalize transition-all duration-300 ${
                       isActive
                         ? "font-semibold text-white"
                         : "text-black group-hover:font-semibold group-hover:text-purple"
@@ -188,7 +188,7 @@ export default function SidebarNew({
                     className={`scale-90 bg-transparent opacity-0 transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 ${
                       isActive
                         ? "text-white/80 hover:bg-white/20 hover:text-white"
-                        : "text-purple hover:bg-red-500 hover:text-white"
+                        : "text-purple hover:bg-purple hover:text-white"
                     }`}
                   >
                     <Archive size={16} weight="duotone" />
