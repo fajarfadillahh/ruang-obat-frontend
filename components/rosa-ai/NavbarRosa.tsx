@@ -9,13 +9,20 @@ import {
   DropdownSection,
   DropdownTrigger,
 } from "@nextui-org/react";
-import { Gear, IconContext, SidebarSimple } from "@phosphor-icons/react";
+import {
+  Archive,
+  Gear,
+  IconContext,
+  SidebarSimple,
+} from "@phosphor-icons/react";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
 import { useContext } from "react";
 import toast from "react-hot-toast";
 
-export default function Navbar() {
+export default function NavbarRosa() {
   const { status, data } = useSession();
+  const router = useRouter();
   const ctx = useContext(AIContext);
 
   return (
@@ -75,6 +82,15 @@ export default function Navbar() {
                 aria-label="account & settings section"
                 title="Akun & Info"
               >
+                <DropdownItem
+                  key="archive"
+                  color="secondary"
+                  startContent={<Archive />}
+                  onClick={() => router.push("/rosa/chat/archives")}
+                >
+                  Archive
+                </DropdownItem>
+
                 <DropdownItem
                   key="settings"
                   color="secondary"
