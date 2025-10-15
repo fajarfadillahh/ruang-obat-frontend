@@ -1,7 +1,7 @@
 import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import InputComponent from "@/components/rosa-ai/InputComponent";
 import Message from "@/components/rosa-ai/Message";
-import Navbar from "@/components/rosa-ai/NavbarNew";
+import NavbarRosa from "@/components/rosa-ai/NavbarRosa";
 import Sidebar from "@/components/rosa-ai/SidebarNew";
 import WelcomeChat from "@/components/rosa-ai/WelcomeChat";
 import { AIContext } from "@/context/AIContext";
@@ -409,7 +409,7 @@ function SubRosaPage() {
         />
 
         <div className="relative isolate grid w-full grid-rows-[max-content_1fr_max-content]">
-          <Navbar />
+          <NavbarRosa />
 
           <div
             ref={chatContainerRef}

@@ -1,5 +1,6 @@
 import { EventTestApotekerclass } from "@/types/event.type";
 import { formatDateWithoutTime } from "@/utils/formatDate";
+import { getPreviewFromHTML } from "@/utils/getPreviewFromHTML";
 import { Chip } from "@nextui-org/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -18,6 +19,7 @@ export default function CardSchedule({
   endStr,
 }: CardScheduleProps) {
   const router = useRouter();
+  const preview = getPreviewFromHTML(event.content as string, 15);
 
   return (
     <article
@@ -66,7 +68,7 @@ export default function CardSchedule({
               "Tanggal Pendaftaran",
               `${formatDateWithoutTime(startStr)} - ${formatDateWithoutTime(endStr)}`,
             ],
-            ["Universitas", event.university_name],
+            ["Ringkasan Jadwal", preview],
           ].map(([key, value], index) => (
             <div key={index} className="flex flex-col gap-1">
               <span className="text-xs font-medium text-gray">{key}:</span>

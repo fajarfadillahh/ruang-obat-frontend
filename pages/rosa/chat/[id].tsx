@@ -2,7 +2,7 @@ import ModalUnauthenticated from "@/components/modal/ModalUnauthenticated";
 import InputComponent from "@/components/rosa-ai/InputComponent";
 import Message from "@/components/rosa-ai/Message";
 import MessageStreaming from "@/components/rosa-ai/MessageStreaming";
-import Navbar from "@/components/rosa-ai/NavbarNew";
+import Navbar from "@/components/rosa-ai/NavbarRosa";
 import Sidebar from "@/components/rosa-ai/SidebarNew";
 import { AIContext } from "@/context/AIContext";
 import AIProvider from "@/context/AIProvider";

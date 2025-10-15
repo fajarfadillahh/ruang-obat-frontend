@@ -1,20 +1,34 @@
+import CardSchedule from "@/components/card/CardSchedule";
 import CTASecondary from "@/components/cta/CTASecondary";
 import CustomTooltip from "@/components/CustomTooltip";
+import EmptyData from "@/components/EmptyData";
 import Footer from "@/components/footer/Footer";
+import SearchInput from "@/components/SearchInput";
 import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
+import { getUrl } from "@/lib/getUrl";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { ApotekerClassResponse } from "@/types/apotekerclass.type";
+import { EventTestApotekerclass } from "@/types/event.type";
 import { SuccessResponse } from "@/types/global.type";
+import { Province } from "@/types/province.type";
 import { fetcher } from "@/utils/fetcher";
+import { getStatusEvent } from "@/utils/getStatusEvent";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { handleShareClipboard } from "@/utils/shareClipboard";
-import { Button, Chip } from "@nextui-org/react";
 import {
-  ArrowRight,
+  Button,
+  Chip,
+  Pagination,
+  Select,
+  SelectItem,
+  Skeleton,
+} from "@nextui-org/react";
+import {
   ClipboardText,
+  Funnel,
   IconContext,
   ShareNetwork,
   Sparkle,
@@ -23,15 +37,38 @@ import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
+import { useQueryState } from "nuqs";
 import { useRef } from "react";
+import useSWR from "swr";
+import { useDebounce } from "use-debounce";
+
+type EventResposnse = {
+  events: EventTestApotekerclass[];
+  page: number;
+  total_events: number;
+  total_pages: number;
+};
 
 export default function ApotekerClassPage({
-  data,
+  detailsData,
+  provincesData,
   error,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const subscribeRef = useRef<HTMLElement | null>(null);
   const hasSubscribeRef = useRef<HTMLElement | null>(null);
+
+  const [page, setPage] = useQueryState("page", { defaultValue: "" });
+  const [sort, setSort] = useQueryState("sort", { defaultValue: "" });
+  const [filter, setFilter] = useQueryState("filter", { defaultValue: "" });
+  const [search, setSearch] = useQueryState("q", { defaultValue: "" });
+  const [searchValue] = useDebounce(search, 800);
+
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const { data, isLoading } = useSWR<SuccessResponse<EventResposnse>>({
+    url: getUrl("/events", { q: searchValue, page, sort, filter }),
+    method: "GET",
+  });
 
   return (
     <>
@@ -39,7 +76,7 @@ export default function ApotekerClassPage({
         title="Ruang Masuk Apoteker: Persiapan Skill Terbaik Jadi Apoteker Andal"
         description="Bersiap seleksi profesi apoteker dengan program khusus. Kuasai materi mendalam & terarah untuk jadi apoteker handal dan profesional."
       >
-        {data?.subscriptions.length ? null : (
+        {detailsData?.subscriptions.length ? null : (
           <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3 text-sm sm:text-base">
             <h4 className="font-medium text-success-800">
               🎉 Yeay, anda telah berlangganan pada:{" "}
@@ -81,12 +118,14 @@ export default function ApotekerClassPage({
                 endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() =>
                   scrollToSection(
-                    data?.subscriptions.length ? subscribeRef : hasSubscribeRef,
+                    detailsData?.subscriptions.length
+                      ? subscribeRef
+                      : hasSubscribeRef,
                   )
                 }
                 className="px-6 font-bold"
               >
-                {data?.subscriptions.length
+                {detailsData?.subscriptions.length
                   ? "Langganan Sekarang!"
                   : "Lihat Video Belajar!"}
               </Button>
@@ -127,10 +166,10 @@ export default function ApotekerClassPage({
         <SectionCategory
           sectionRef={hasSubscribeRef}
           type="apotekerclass"
-          categories={data?.categories}
+          categories={detailsData?.categories}
         />
 
-        {data?.universities.length ? (
+        {detailsData?.universities.length ? (
           <section className="base-container gap-4 py-[100px]">
             <div className="grid gap-1">
               <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
@@ -144,7 +183,7 @@ export default function ApotekerClassPage({
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
-              {data.universities.map((university) => (
+              {detailsData.universities.map((university) => (
                 <div
                   className="group relative isolate grid grid-cols-[max-content_1fr] items-center gap-4 overflow-hidden rounded-xl border-2 border-gray/10 p-4 hover:cursor-pointer hover:bg-purple/10"
                   key={university.univ_id}
@@ -198,33 +237,135 @@ export default function ApotekerClassPage({
           </section>
         ) : null}
 
-        <section className="base-container gap-6 [padding:100px_0_50px]">
-          <div className="flex flex-wrap items-center justify-between gap-8 rounded-xl border-2 border-gray-500/10 p-12">
-            <div className="grid gap-1">
-              <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
-                Jadwal Ujian Masuk Apoteker 🗓️
-              </h2>
+        <section className="base-container gap-4 py-[100px]">
+          <div className="grid gap-1">
+            <h2 className="text-2xl font-black -tracking-wide text-black sm:text-3xl">
+              Jadwal Ujian Masuk Apoteker 📆
+            </h2>
 
-              <p className="font-medium leading-[170%] text-gray">
-                Lihat semua jadwal lengkap untuk ujian Masuk Apoteker.
-              </p>
+            <p className="font-medium leading-[170%] text-gray">
+              Temukan jadwal ujian masuk apoteker terkini beserta detail penting
+              lainnya.
+            </p>
+          </div>
+
+          <div className="mt-4 grid gap-4">
+            <div className="flex flex-wrap items-center justify-between gap-2 lg:gap-4">
+              <SearchInput
+                placeholder="Cari Jadwal..."
+                onClear={() => setSearch("")}
+                defaultValue={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="w-full max-w-[500px]"
+              />
+
+              <div className="flex flex-1 items-center justify-end gap-2">
+                <Select
+                  aria-label="filter"
+                  size="md"
+                  variant="flat"
+                  startContent={
+                    <Funnel weight="duotone" size={18} className="text-gray" />
+                  }
+                  placeholder="Provinsi"
+                  selectedKeys={[filter]}
+                  onChange={(e) => setFilter(e.target.value)}
+                  className="max-w-[180px] text-gray"
+                  classNames={{
+                    value: "font-semibold text-gray",
+                  }}
+                >
+                  {provincesData?.map((province) => (
+                    <SelectItem key={province.name}>{province.name}</SelectItem>
+                  )) ?? []}
+                </Select>
+
+                <Select
+                  aria-label="sort"
+                  size="md"
+                  variant="flat"
+                  startContent={
+                    <Funnel weight="duotone" size={18} className="text-gray" />
+                  }
+                  placeholder="Urutkan"
+                  selectedKeys={[sort]}
+                  onChange={(e) => setSort(e.target.value)}
+                  className="max-w-[180px] text-gray"
+                  classNames={{
+                    value: "font-semibold text-gray",
+                  }}
+                >
+                  <SelectItem key="title.asc">A-Z</SelectItem>
+                  <SelectItem key="title.desc">Z-A</SelectItem>
+                  <SelectItem key="created_at.desc">Terbaru</SelectItem>
+                  <SelectItem key="created_at.asc">Terlama</SelectItem>
+                </Select>
+              </div>
             </div>
 
-            <Button
-              color="secondary"
-              endContent={<ArrowRight weight="bold" size={18} />}
-              onClick={() => router.push(`/programs/masuk-apoteker/schedules`)}
-              className="font-bold"
-            >
-              Lihat Semua Ujian
-            </Button>
+            <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+              {isLoading ? (
+                Array.from({ length: data?.data.events.length || 8 }).map(
+                  (_, index) => (
+                    <Skeleton
+                      key={index}
+                      className="h-[300px] w-full rounded-xl"
+                    />
+                  ),
+                )
+              ) : data?.data.events.length ? (
+                data.data.events.map((event, index) => {
+                  const rawDate = event?.registration_date ?? "";
+                  const [startStr, endStr] = rawDate.split(" - ");
+
+                  const startDate = startStr ? new Date(startStr) : null;
+                  const endDate = endStr ? new Date(endStr) : null;
+
+                  const status =
+                    startDate && endDate
+                      ? getStatusEvent(startDate, endDate)
+                      : null;
+
+                  return (
+                    <CardSchedule
+                      key={index}
+                      event={event}
+                      status={status}
+                      startStr={startStr}
+                      endStr={endStr}
+                    />
+                  );
+                })
+              ) : (
+                <div className="col-span-4 flex items-center justify-center rounded-xl border-2 border-dashed border-gray/20">
+                  <EmptyData text="Jadwal Tidak Ditemukan!" />
+                </div>
+              )}
+            </div>
           </div>
+
+          {!isLoading && data?.data.events.length ? (
+            <Pagination
+              isCompact
+              showControls
+              page={data.data.page as number}
+              total={data.data.total_pages as number}
+              onChange={(e) => {
+                setPage(`${e}`);
+                divRef.current?.scrollIntoView({ behavior: "smooth" });
+              }}
+              className="justify-self-center"
+              classNames={{
+                cursor: "bg-purple text-white",
+              }}
+            />
+          ) : null}
         </section>
 
-        {data?.subscriptions.length ? (
+        {detailsData?.subscriptions.length ? (
           <SectionSubscription
             sectionRef={subscribeRef}
-            subscriptions={data.subscriptions}
+            subscriptions={detailsData.subscriptions}
           />
         ) : null}
 
@@ -237,7 +378,8 @@ export default function ApotekerClassPage({
 }
 
 export const getServerSideProps: GetServerSideProps<{
-  data?: ApotekerClassResponse;
+  detailsData?: ApotekerClassResponse;
+  provincesData?: Province[];
   error?: any;
 }> = async ({ req, res }) => {
   const session = await getServerSession(req, res, authOptions);
@@ -249,9 +391,15 @@ export const getServerSideProps: GetServerSideProps<{
       token: session?.user.access_token,
     });
 
+    const responseProvices = await fetch(
+      "https://ruangobat.is3.cloudhost.id/statics/provinces.json",
+    );
+    let provincesData: Province[] = await responseProvices.json();
+
     return {
       props: {
-        data: response.data,
+        detailsData: response.data,
+        provincesData,
       },
     };
   } catch (error: any) {
