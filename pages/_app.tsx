@@ -4,6 +4,7 @@ import seoConfig from "@/config/seo.config";
 import AppProvider from "@/context/AppProvider";
 import "@/styles/globals.css";
 import { fetcher } from "@/utils/fetcher";
+import { scrollRestoration } from "@/utils/scrollRestoration";
 import { NextUIProvider } from "@nextui-org/react";
 import "katex/dist/katex.min.css";
 import { SessionProvider } from "next-auth/react";
@@ -18,6 +19,8 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
+  scrollRestoration(5);
+
   return (
     <NextUIProvider>
       <Toaster
