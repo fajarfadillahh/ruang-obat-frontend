@@ -52,9 +52,6 @@ const nextConfig = {
       "swiper",
     ],
   },
-  generateBuildId: async () => {
-    return "build-" + Math.random().toString(36).substring(7);
-  },
 };
 
 export default nextConfig;
