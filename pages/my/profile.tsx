@@ -150,8 +150,8 @@ export default function MyProfilePage({
             <Image
               src={
                 data?.gender === "M"
-                  ? "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
-                  : "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg"
+                  ? "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
+                  : "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg"
               }
               alt="profile img"
               width={500}

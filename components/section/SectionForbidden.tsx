@@ -11,7 +11,7 @@ export default function SectionForbidden() {
       <div className="grid gap-8">
         <Image
           priority
-          src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/forbidden-img.webp"
+          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/forbidden-img.webp"
           alt="forbidden img"
           width={1000}
           height={1000}

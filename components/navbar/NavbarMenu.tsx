@@ -196,7 +196,7 @@ export default function NavbarMain() {
                     isBordered
                     showFallback
                     size="sm"
-                    src={`${status == "authenticated" ? (session?.user.gender == "M" ? "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg" : "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg") : null}`}
+                    src={`${status == "authenticated" ? (session?.user.gender == "M" ? "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg" : "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg") : null}`}
                     classNames={{
                       base: "ring-purple bg-purple/20",
                       icon: "text-purple",
