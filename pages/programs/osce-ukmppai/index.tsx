@@ -152,6 +152,9 @@ function renderContent(isLoading: boolean, programs: ProgramsType[]) {
         <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
         <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
         <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
+        <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
+        <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
+        <Skeleton className="h-36 w-full rounded-xl" isLoaded={false} />
       </>
     );
   }
