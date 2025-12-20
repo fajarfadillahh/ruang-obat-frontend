@@ -21,7 +21,7 @@ export default function CardProduct({
   return (
     <article
       onClick={() => router.push(path)}
-      className="base-card group hover:cursor-pointer"
+      className="base-card group flex h-full flex-col hover:cursor-pointer"
     >
       <div className="relative isolate grid aspect-square h-auto w-full bg-purple-100 object-cover object-center">
         {icon}
@@ -33,8 +33,8 @@ export default function CardProduct({
         </h3>
       </div>
 
-      <div className="grid gap-4 [padding:1.5rem_1rem]">
-        <p className="text-sm font-medium leading-[170%] text-gray">
+      <div className="flex flex-1 flex-col gap-4 [padding:1.5rem_1rem]">
+        <p className="flex-1 text-sm font-medium leading-[170%] text-gray">
           {tagline}
         </p>
 
