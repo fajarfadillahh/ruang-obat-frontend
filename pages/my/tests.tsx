@@ -5,9 +5,11 @@ import { MyTestType } from "@/types/tests.type";
 import { Button, Skeleton } from "@nextui-org/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function MyTestsPage({
   token,
@@ -84,10 +86,12 @@ export default function MyTestsPage({
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
-}> = async ({ req }) => {
+}> = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
   return {
     props: {
-      token: req.headers["access_token"] as string,
+      token: session?.user.access_token as string,
     },
   };
 };

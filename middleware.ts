@@ -23,11 +23,7 @@ export async function middleware(request: NextRequest) {
     );
   }
 
-  const response = NextResponse.next();
-
-  response.headers.set("access_token", token.access_token);
-
-  return response;
+  return NextResponse.next();
 }
 
 export const config = {

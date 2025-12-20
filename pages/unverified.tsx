@@ -15,10 +15,12 @@ import {
 } from "@nextui-org/react";
 import { PaperPlaneTilt, Warning } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
+import { authOptions } from "./api/auth/[...nextauth]";
 
 export default function UnverifiedPage({
   data,
@@ -331,8 +333,10 @@ export const getServerSideProps: GetServerSideProps<{
   data?: UserDataResponse;
   token?: string;
   error?: any;
-}> = async ({ req, query }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, res, query }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  const token = session?.user.access_token as string;
 
   try {
     const response: SuccessResponse<UserDataResponse> = await fetcher({

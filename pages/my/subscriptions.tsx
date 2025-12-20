@@ -4,7 +4,9 @@ import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { FilmSlate, IconContext, Pill } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export type SubscriptionsResponse = {
   access_id: string;
@@ -128,8 +130,10 @@ export default function MySubscriptionsPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = req.headers["access_token"] as string;
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  const token = session?.user.access_token as string;
 
   try {
     const response: SuccessResponse<SubscriptionsResponse> = await fetcher({
