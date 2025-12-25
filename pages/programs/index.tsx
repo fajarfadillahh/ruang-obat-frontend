@@ -4,7 +4,6 @@ import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigHomePage } from "@/data/site";
-import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { scrollToSection } from "@/utils/scrollToSection";
 import { Button, Chip } from "@nextui-org/react";
 import { ArrowRight, Sparkle } from "@phosphor-icons/react";
@@ -32,7 +31,7 @@ export default function ListProgramsPage() {
         <section className="base-container items-center gap-6 [padding:50px_0_100px] xl:grid-cols-[550px_1fr]">
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-osce-ukmppai.webp"
+            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-osce-ukmppai.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -100,7 +99,7 @@ export default function ListProgramsPage() {
             Daftar Program RuangObat
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {siteConfigHomePage.classes.map((item, index) => (
               <CardProduct
                 key={index}
@@ -119,14 +118,6 @@ export default function ListProgramsPage() {
                 tagline={item.tagline}
               />
             ))}
-
-            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <span className="z-10 text-6xl font-black -tracking-wide text-purple">
-                RuangObat.
-              </span>
-
-              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[320px] -translate-y-1/2 text-purple opacity-15" />
-            </div>
           </div>
         </section>
 

@@ -3,6 +3,7 @@ import Footer from "@/components/footer/Footer";
 import TemplateInvoice from "@/components/template/TemplateInvoice";
 import Layout from "@/components/wrapper/Layout";
 import { products } from "@/lib/products";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { SuccessResponse } from "@/types/global.type";
 import { UserDataResponse } from "@/types/profile.type";
 import { DetailsPurchaceResponse } from "@/types/purchase.type";
@@ -12,6 +13,7 @@ import { formatRupiah } from "@/utils/formatRupiah";
 import { Button, Chip } from "@nextui-org/react";
 import { Circle, DownloadSimple } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 
@@ -234,8 +236,10 @@ export const getServerSideProps: GetServerSideProps<{
   data?: DetailsPurchaceResponse;
   user?: UserDataResponse;
   error?: any;
-}> = async ({ req, params }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, params, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  const token = session?.user.access_token as string;
 
   try {
     const [orderRes, userRes]: [

@@ -54,7 +54,7 @@ function ImagePreview() {
   return (
     <div className="relative isolate size-20 overflow-hidden rounded-xl bg-gray-400">
       <Image
-        src="https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/default-thumbnail.png"
+        src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/default-thumbnail.png"
         alt="image user"
         width={500}
         height={500}

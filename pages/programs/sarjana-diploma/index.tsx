@@ -4,7 +4,6 @@ import SectionCategory from "@/components/section/SectionCategory";
 import SectionSubscription from "@/components/section/SectionSubscription";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
-import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { SuccessResponse } from "@/types/global.type";
 import { VideoCourseResponse } from "@/types/videocourse.type";
 import { fetcher } from "@/utils/fetcher";
@@ -127,7 +126,7 @@ export default function VideoLearningClassPage({
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-sarjana.webp"
+            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-sarjana.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -137,7 +136,7 @@ export default function VideoLearningClassPage({
 
         <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
           <Image
-            src="https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-sarjana.webp"
+            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-sarjana.webp"
             alt="logo program"
             width={1000}
             height={1000}
@@ -145,11 +144,13 @@ export default function VideoLearningClassPage({
             loading="lazy"
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-6">
             {headlines.map((headline, index) => (
               <div
                 key={index}
-                className="grid gap-4 rounded-xl border-2 border-gray/10 p-8"
+                className={`grid gap-4 rounded-xl border-2 border-gray/10 p-8 ${
+                  index < 3 ? "xl:col-span-2" : "xl:col-span-3"
+                }`}
               >
                 <headline.icon
                   weight="duotone"
@@ -162,14 +163,6 @@ export default function VideoLearningClassPage({
                 </p>
               </div>
             ))}
-
-            <div className="group relative isolate hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <span className="z-10 text-2xl font-black -tracking-wide text-purple">
-                RuangObat.
-              </span>
-
-              <LogoRuangobat className="absolute right-3 top-1/2 h-auto w-[140px] -translate-y-1/2 text-purple opacity-15" />
-            </div>
           </div>
         </section>
 

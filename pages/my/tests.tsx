@@ -5,9 +5,11 @@ import { MyTestType } from "@/types/tests.type";
 import { Button, Skeleton } from "@nextui-org/react";
 import { ArrowRight } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import useSWR from "swr";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export default function MyTestsPage({
   token,
@@ -39,7 +41,7 @@ export default function MyTestsPage({
             <div className="grid gap-8 pt-12 sm:col-span-2 xl:col-span-3">
               <Image
                 priority
-                src="https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/no-data-img.svg"
+                src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/no-data-img.svg"
                 alt="no data img"
                 width={1000}
                 height={500}
@@ -84,10 +86,12 @@ export default function MyTestsPage({
 
 export const getServerSideProps: GetServerSideProps<{
   token: string;
-}> = async ({ req }) => {
+}> = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
   return {
     props: {
-      token: req.headers["access_token"] as string,
+      token: session?.user.access_token as string,
     },
   };
 };

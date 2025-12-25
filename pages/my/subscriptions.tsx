@@ -4,7 +4,9 @@ import { SuccessResponse } from "@/types/global.type";
 import { fetcher } from "@/utils/fetcher";
 import { FilmSlate, IconContext, Pill } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 export type SubscriptionsResponse = {
   access_id: string;
@@ -107,7 +109,7 @@ export default function MySubscriptionsPage({
           ) : (
             <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8">
               <Image
-                src="https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/main-illustrations/img-no-data-upload.webp"
                 alt="no data image"
                 width={1000}
                 height={1000}
@@ -128,8 +130,10 @@ export default function MySubscriptionsPage({
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-  const token = req.headers["access_token"] as string;
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  const token = session?.user.access_token as string;
 
   try {
     const response: SuccessResponse<SubscriptionsResponse> = await fetcher({

@@ -37,14 +37,14 @@ function TemplateInvoice(
 
   return (
     <div
-      className="font-mulish grid w-full max-w-[1000px] divide-y-2 divide-gray/10 p-10 text-sm"
+      className="grid w-full max-w-[1000px] divide-y-2 divide-gray/10 p-10 font-mulish text-sm"
       ref={ref}
     >
       <div className="flex items-start justify-between gap-8 pb-8">
         <div className="grid gap-4">
           <div className="inline-flex items-center gap-2">
             <img
-              src="https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/ruangobat-logo.png"
+              src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/ruangobat-logo/ruangobat-logo.png"
               alt="ruangobat logo"
               className="size-10"
             />

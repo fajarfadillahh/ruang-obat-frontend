@@ -23,10 +23,12 @@ import {
   XCircle,
 } from "@phosphor-icons/react";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
+import { getServerSession } from "next-auth";
 import Image from "next/image";
 import { Key, useCallback, useEffect, useMemo, useState } from "react";
 import toast from "react-hot-toast";
 import { useDebounce } from "use-debounce";
+import { authOptions } from "../api/auth/[...nextauth]";
 
 type InputState = {
   fullname: string;
@@ -150,8 +152,8 @@ export default function MyProfilePage({
             <Image
               src={
                 data?.gender === "M"
-                  ? "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
-                  : "https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg"
+                  ? "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
+                  : "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-female.svg"
               }
               alt="profile img"
               width={500}
@@ -360,8 +362,10 @@ export default function MyProfilePage({
 export const getServerSideProps: GetServerSideProps<{
   token: string;
   data?: UserDataResponse;
-}> = async ({ req }) => {
-  const token = req.headers["access_token"] as string;
+}> = async ({ req, res }) => {
+  const session = await getServerSession(req, res, authOptions);
+
+  const token = session?.user.access_token as string;
   const response: SuccessResponse<UserDataResponse> = await fetcher({
     url: "/my/profile",
     method: "GET",
@@ -371,7 +375,7 @@ export const getServerSideProps: GetServerSideProps<{
   return {
     props: {
       data: response.data,
-      token: req.headers["access_token"] as string,
+      token,
     },
   };
 };

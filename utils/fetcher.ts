@@ -17,10 +17,10 @@ export async function fetcher({
   user_agent,
   file,
 }: FetcherParams) {
-  const prefix = process.env.NEXT_PUBLIC_MODE == "dev" ? "dev" : "api";
+  const prefix = process.env.NEXT_PUBLIC_MODE === "production" ? "api" : "dev";
 
   const options = {
-    url: `https://${prefix}.ruangobat.id/api` + url,
+    url: `https://${prefix}.ruangobat.id/api${url}`,
     method,
   };
 

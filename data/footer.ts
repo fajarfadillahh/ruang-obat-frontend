@@ -6,7 +6,7 @@ import {
 } from "@phosphor-icons/react";
 
 export const footer = {
-  copyright: `Part of Pharma Metrocity Group ${new Date().getFullYear()} | Hak cipta di lindungi undang-undang`,
+  copyright: `Part of Pharma Metrocity Group ${new Date().getFullYear()} | Hak cipta dilindungi undang-undang`,
   menu: [
     {
       label: "Program Kami",

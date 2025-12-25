@@ -6,7 +6,6 @@ import GradientText from "@/components/reactbits/GradientText";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { siteConfigCompanyPage, siteConfigHomePage } from "@/data/site";
-import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { HomepageResponse, MentorType } from "@/types/mentor.type";
 import { fetcher } from "@/utils/fetcher";
@@ -15,7 +14,6 @@ import { Accordion, AccordionItem, Button, Chip } from "@nextui-org/react";
 import {
   ArrowRight,
   ChatTeardropText,
-  Dna,
   IconContext,
   Microscope,
   Question,
@@ -175,7 +173,7 @@ export default function HomePage({
             <div className="grid pt-5">
               <Image
                 priority
-                src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
+                src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
                 alt="illustration img"
                 width={1000}
                 height={1000}
@@ -225,7 +223,7 @@ export default function HomePage({
 
             <Image
               loading="eager"
-              src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
+              src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
               alt="ilustration img"
               width={1000}
               height={1000}
@@ -429,7 +427,7 @@ export default function HomePage({
           <div className="grid pt-5">
             <Image
               priority
-              src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
+              src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/new-research.webp"
               alt="illustration img"
               width={1000}
               height={1000}
@@ -442,16 +440,11 @@ export default function HomePage({
           ref={listClassRef}
           className="base-container relative gap-5 py-[100px]"
         >
-          <Dna
-            weight="duotone"
-            className="absolute right-64 top-0 hidden size-16 rotate-12 text-purple xl:flex"
-          />
-
           <h2 className="text-center text-2xl font-black -tracking-wide text-black xs:text-3xl xl:text-left">
             Daftar Program RuangObat
           </h2>
 
-          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-4">
+          <div className="grid gap-4 sm:grid-cols-2 sm:items-start xl:grid-cols-3">
             {siteConfigHomePage.classes.map((item, index) => (
               <CardProduct
                 key={index}
@@ -470,14 +463,6 @@ export default function HomePage({
                 tagline={item.tagline}
               />
             ))}
-
-            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <span className="z-10 text-6xl font-black -tracking-wide text-purple">
-                RuangObat.
-              </span>
-
-              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[320px] -translate-y-1/2 text-purple opacity-15" />
-            </div>
           </div>
         </section>
 
@@ -522,7 +507,7 @@ export default function HomePage({
 
           <Image
             loading="eager"
-            src="https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
+            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
             alt="ilustration img"
             width={1000}
             height={1000}
@@ -700,7 +685,7 @@ export default function HomePage({
                     <div className="base-card group divide-y-2 divide-dashed divide-gray/20 p-6 [margin:1rem_0]">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
-                          src="https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
+                          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
                           alt="avatar"
                           width={100}
                           height={100}

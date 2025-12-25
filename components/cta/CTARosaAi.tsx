@@ -33,7 +33,7 @@ export default function CTARosaAi() {
         <div className="absolute left-0 top-0 z-10 grid h-full w-full items-center gap-8 bg-purple/70 [padding:6rem_2rem] xl:grid-cols-2 xl:[padding:4rem_6rem]">
           <div className="grid gap-4">
             <h3 className="text-xl font-semibold capitalize text-white">
-              RuangObat mempersembahkan! 🎉🎉
+              RuangObat mempersembahkan! 🎉
             </h3>
 
             <h2 className="text-2xl font-black text-white xs:text-3xl md:text-4xl lg:text-5xl">
@@ -41,8 +41,8 @@ export default function CTARosaAi() {
             </h2>
 
             <p className="font-medium leading-[170%] text-white">
-              Smart assistant berbasis AI yang dirancang khusus untuk membantu
-              kamu dalam proses pembelajaran secara praktis, cepat, dan efisien.
+              Asisten AI yang membantu pembelajaran farmasi secara cepat,
+              praktis, dan efisien.
             </p>
 
             <div className="mt-4 grid w-full gap-2 sm:inline-flex sm:w-auto sm:items-center sm:gap-4">
@@ -113,7 +113,7 @@ export default function CTARosaAi() {
 
           <Image
             priority
-            src="https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
+            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
             alt="apoteker rosa image"
             width={1000}
             height={1000}
