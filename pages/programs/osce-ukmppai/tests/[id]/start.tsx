@@ -63,6 +63,7 @@ export default function StartTestPage({
     onClose: onSaveTestClose,
   } = useDisclosure();
   const [loading, setLoading] = useState(false);
+  const [isTimeExpired, setIsTimeExpired] = useState(false);
 
   const [contentOpen, setContentOpen] = useState<{
     left: boolean;
@@ -164,7 +165,6 @@ export default function StartTestPage({
 
       <main className="relative h-screen w-full gap-4 p-6">
         <section className="flex h-full w-full gap-4">
-          {/* === left content === */}
           <div
             className={`fixed top-0 z-30 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.left ? "left-0 xl:w-[85px]" : "-left-full xl:w-[280px]"}`}
           >
@@ -210,7 +210,6 @@ export default function StartTestPage({
             </div>
           </div>
 
-          {/* === center content === */}
           <div className="grid flex-1 grid-rows-[max-content_1fr_max-content] gap-4">
             <div className="relative isolate flex h-auto items-start justify-between rounded-xl border-2 border-gray/20 p-5">
               <div className="hidden gap-1 xl:grid">
@@ -276,7 +275,8 @@ export default function StartTestPage({
                       toast.success("Waktu telah habis", {
                         duration: 1000,
                       });
-                      handleSaveTest();
+                      setIsTimeExpired(true);
+                      onSaveTestOpen();
                     }}
                   />
                 </h2>
@@ -401,7 +401,7 @@ export default function StartTestPage({
 
               <div className="grid grid-cols-2 gap-2">
                 <Button
-                  isDisabled={number <= 1}
+                  isDisabled={number <= 1 || isTimeExpired}
                   color="default"
                   startContent={<CaretDoubleLeft weight="bold" size={16} />}
                   onClick={() => {
@@ -427,7 +427,11 @@ export default function StartTestPage({
                     <ModalConfirm
                       btnText="Kumpulkan Sekarang"
                       header="Pemberitahuan"
-                      text="Yakin dengan semua jawaban kamu? Aksi tidak dapat dibatalkan jika kamu telah mengumpulkan jawaban."
+                      text={
+                        isTimeExpired
+                          ? "Waktu ujian telah habis. Jawaban Anda akan dikumpulkan sekarang."
+                          : "Yakin dengan semua jawaban kamu? Aksi tidak dapat dibatalkan jika kamu telah mengumpulkan jawaban."
+                      }
                       loading={loading}
                       isOpen={isSaveTestOpen}
                       onClose={onSaveTestClose}
@@ -436,7 +440,7 @@ export default function StartTestPage({
                   </>
                 ) : (
                   <Button
-                    isDisabled={number >= questions.length}
+                    isDisabled={number >= questions.length || isTimeExpired}
                     color={question?.is_hesitant ? "warning" : "secondary"}
                     endContent={<CaretDoubleRight weight="bold" size={18} />}
                     onClick={() => {
@@ -451,7 +455,6 @@ export default function StartTestPage({
             </div>
           </div>
 
-          {/* === right content === */}
           <div
             className={`fixed top-0 z-30 h-screen w-[280px] rounded-xl border-2 border-gray/20 bg-white p-5 shadow-[-8px_0_8px_rgba(0,0,0,0.05)] transition-all xl:static xl:block xl:h-auto xl:shadow-none ${contentOpen.right ? "right-0 xl:w-[85px]" : "-right-full xl:w-[280px]"}`}
           >
