@@ -5,7 +5,7 @@ on:
     workflows: ["Build Docker Image"]
     types:
       - completed
-    branches: [main]
+    branches: [master]
   workflow_dispatch:
 
 jobs:
