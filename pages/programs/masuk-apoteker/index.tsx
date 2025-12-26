@@ -385,16 +385,16 @@ export const getServerSideProps: GetServerSideProps<{
   const session = await getServerSession(req, res, authOptions);
 
   try {
-    const response: SuccessResponse<ApotekerClassResponse> = await fetcher({
-      url: "/apotekerclass",
-      method: "GET",
-      token: session?.user.access_token,
-    });
+    const [response, responseProvinces] = await Promise.all([
+      fetcher({
+        url: "/apotekerclass",
+        method: "GET",
+        token: session?.user.access_token,
+      }) as Promise<SuccessResponse<ApotekerClassResponse>>,
+      fetch("https://ruangobat.is3.cloudhost.id/statics/provinces.json"),
+    ]);
 
-    const responseProvices = await fetch(
-      "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/provinces.json",
-    );
-    let provincesData: Province[] = await responseProvices.json();
+    const provincesData: Province[] = await responseProvinces.json();
 
     return {
       props: {
