@@ -76,14 +76,14 @@ export default function ApotekerClassPage({
         title="Ruang Masuk Apoteker: Persiapan Skill Terbaik Jadi Apoteker Andal"
         description="Bersiap seleksi profesi apoteker dengan program khusus. Kuasai materi mendalam & terarah untuk jadi apoteker handal dan profesional."
       >
-        {detailsData?.subscriptions.length ? null : (
+        {detailsData?.has_subscription ? (
           <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3 text-sm sm:text-base">
             <h4 className="font-medium text-success-800">
               🎉 Yeay, anda telah berlangganan pada:{" "}
               <strong className="font-bold">Ruang Masuk Apoteker 💊</strong>
             </h4>
           </div>
-        )}
+        ) : null}
 
         <section className="base-container items-center gap-6 [padding:50px_0_100px] xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
@@ -118,16 +118,16 @@ export default function ApotekerClassPage({
                 endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() =>
                   scrollToSection(
-                    detailsData?.subscriptions.length
-                      ? subscribeRef
-                      : hasSubscribeRef,
+                    detailsData?.has_subscription
+                      ? hasSubscribeRef
+                      : subscribeRef,
                   )
                 }
                 className="px-6 font-bold"
               >
-                {detailsData?.subscriptions.length
-                  ? "Langganan Sekarang!"
-                  : "Lihat Video Belajar!"}
+                {detailsData?.has_subscription
+                  ? "Lihat Video Belajar!"
+                  : "Langganan Sekarang!"}
               </Button>
 
               <Button
@@ -362,10 +362,10 @@ export default function ApotekerClassPage({
           ) : null}
         </section>
 
-        {detailsData?.subscriptions.length ? (
+        {!detailsData?.has_subscription ? (
           <SectionSubscription
             sectionRef={subscribeRef}
-            subscriptions={detailsData.subscriptions}
+            subscriptions={detailsData?.subscriptions}
           />
         ) : null}
 
