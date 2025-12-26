@@ -60,7 +60,7 @@ export default function VideoLearningClassPage({
         title="Ruang Sarjana & Diploma: Video Belajar Farmasi Terlengkap"
         description="Kelas online farmasi dengan video lengkap & mudah dipahami. Belajar praktis kapan saja, di mana saja, buat persiapan jadi Apoteker keren."
       >
-        {data?.subscriptions.length ? null : (
+        {data?.has_subscription ? (
           <div className="mb-4 flex items-center justify-center rounded-xl border-2 border-success bg-success/10 p-3 text-sm sm:text-base">
             <h4 className="font-medium text-success-800">
               🎉 Yeay, anda telah berlangganan pada:{" "}
@@ -69,7 +69,7 @@ export default function VideoLearningClassPage({
               </strong>
             </h4>
           </div>
-        )}
+        ) : null}
 
         <section className="base-container items-center gap-6 [padding:50px_0_100px] xl:grid-cols-[1fr_550px]">
           <div className="grid gap-4">
@@ -102,14 +102,14 @@ export default function VideoLearningClassPage({
                 endContent={<Sparkle weight="duotone" size={18} />}
                 onClick={() =>
                   scrollToSection(
-                    data?.subscriptions.length ? subscribeRef : hasSubscribeRef,
+                    data?.has_subscription ? hasSubscribeRef : subscribeRef,
                   )
                 }
                 className="px-6 font-bold"
               >
-                {data?.subscriptions.length
-                  ? "Langganan Sekarang!"
-                  : "Lihat Video Belajar!"}
+                {data?.has_subscription
+                  ? "Lihat Video Belajar!"
+                  : "Langganan Sekarang!"}
               </Button>
 
               <Button
@@ -172,9 +172,9 @@ export default function VideoLearningClassPage({
           categories={data?.categories}
         />
 
-        {data?.subscriptions.length ? (
+        {!data?.has_subscription ? (
           <SectionSubscription
-            subscriptions={data.subscriptions}
+            subscriptions={data?.subscriptions}
             sectionRef={subscribeRef}
           />
         ) : null}
