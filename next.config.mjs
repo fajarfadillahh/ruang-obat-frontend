@@ -52,6 +52,7 @@ const nextConfig = {
       "swiper",
     ],
   },
+  output: "standalone",
 };
 
 export default nextConfig;
