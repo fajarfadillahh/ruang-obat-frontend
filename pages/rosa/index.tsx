@@ -104,15 +104,6 @@ export default function RosaPage() {
             dipahami dan akses 24 jam, kamu tidak perlu lagi belajar sendirian.
             ROSA akan menemani proses belajarmu, kapan pun kamu butuh.
           </h2>
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-8 py-[100px]">
@@ -141,15 +132,6 @@ export default function RosaPage() {
               </div>
             ))}
           </div>
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-8 py-[100px]">
@@ -167,15 +149,6 @@ export default function RosaPage() {
             height={2000}
             className="justify-self-center"
           />
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-4 py-[100px] md:gap-8">
