@@ -108,7 +108,7 @@ export default function Private1on1Page({
 
           <Image
             priority
-            src="=https://cdn.ruangobat.id/statics/images/new-illustration-program/img-private.webp"
+            src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-private.webp"
             alt="private img"
             width={1000}
             height={1000}
@@ -118,7 +118,7 @@ export default function Private1on1Page({
 
         <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
           <Image
-            src="=https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-private.webp"
+            src="https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-private.webp"
             alt="logo program"
             width={1000}
             height={1000}

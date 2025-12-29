@@ -6,7 +6,7 @@ export default function ServerErrorPage() {
     <main className="flex h-screen w-full items-center justify-center px-6">
       <section className="grid justify-items-center gap-12">
         <Image
-          src="=https://cdn.ruangobat.id/statics/images/second-illustrations/500-img.svg"
+          src="https://cdn.ruangobat.id/statics/images/second-illustrations/500-img.svg"
           alt="500 img"
           className="h-[250px] w-auto"
         />

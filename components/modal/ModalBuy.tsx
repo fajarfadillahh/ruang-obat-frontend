@@ -44,7 +44,7 @@ export default function ModalBuy({ buttonText, productName }: ModalBuyProps) {
             <div className="grid gap-12">
               <Image
                 priority
-                src="=https://cdn.ruangobat.id/statics/images/second-illustrations/notify-img.svg"
+                src="https://cdn.ruangobat.id/statics/images/second-illustrations/notify-img.svg"
                 alt="img"
                 width={800}
                 height={800}

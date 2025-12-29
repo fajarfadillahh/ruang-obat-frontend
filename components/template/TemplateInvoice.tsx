@@ -44,7 +44,7 @@ function TemplateInvoice(
         <div className="grid gap-4">
           <div className="inline-flex items-center gap-2">
             <img
-              src="=https://cdn.ruangobat.id/statics/images/ruangobat-logo/ruangobat-logo.png"
+              src="https://cdn.ruangobat.id/statics/images/ruangobat-logo/ruangobat-logo.png"
               alt="ruangobat logo"
               className="size-10"
             />

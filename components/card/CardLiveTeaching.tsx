@@ -31,7 +31,7 @@ export default function CardLiveTeaching({
 
       <div className="relative isolate flex aspect-video items-center justify-center overflow-hidden">
         <Image
-          src="=https://cdn.ruangobat.id/statics/images/ruangobat-logo/default-thumbnail.png"
+          src="https://cdn.ruangobat.id/statics/images/ruangobat-logo/default-thumbnail.png"
           alt="default img"
           width={500}
           height={500}

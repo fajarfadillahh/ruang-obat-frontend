@@ -177,7 +177,7 @@ export default function MyTransactionsPage({
             ) : (
               <div className="grid justify-items-center gap-4 rounded-xl border-2 border-dashed border-gray/20 p-8 xl:col-span-2">
                 <Image
-                  src="=https://cdn.ruangobat.id/statics/images/main-illustrations/img-no-data-upload.webp"
+                  src="https://cdn.ruangobat.id/statics/images/main-illustrations/img-no-data-upload.webp"
                   alt="no data image"
                   width={1000}
                   height={1000}
