@@ -2,28 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "www.youtube.com",
-      },
-      {
-        protocol: "https",
-        hostname: "is3.cloudhost.id",
-      },
-      {
-        protocol: "https",
-        hostname: "ruangobat.is3.cloudhost.id",
-      },
-      {
-        protocol: "https",
-        hostname: "ruangobatdev.is3.cloudhost.id",
-      },
-      {
-        protocol: "https",
-        hostname: "cdn.ruangobat.id",
-      },
-    ],
+    loader: "custom",
   },
   eslint: {
     ignoreDuringBuilds: true,
