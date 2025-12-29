@@ -178,6 +178,7 @@ export default function HomePage({
                 width={1000}
                 height={1000}
                 className="h-auto justify-self-center"
+                unoptimized
               />
             </div>
           </section>
@@ -228,6 +229,7 @@ export default function HomePage({
               width={1000}
               height={1000}
               className="h-auto justify-self-center"
+              unoptimized
             />
 
             <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
@@ -432,6 +434,7 @@ export default function HomePage({
               width={1000}
               height={1000}
               className="h-auto justify-self-center"
+              unoptimized
             />
           </div>
         </section>
@@ -457,6 +460,7 @@ export default function HomePage({
                     height={500}
                     loading="lazy"
                     className="size-[calc(100%-8rem)] justify-self-end"
+                    unoptimized
                   />
                 }
                 path={item.path}
@@ -512,6 +516,7 @@ export default function HomePage({
             width={1000}
             height={1000}
             className="h-auto justify-self-center"
+            unoptimized
           />
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
@@ -690,6 +695,7 @@ export default function HomePage({
                           width={100}
                           height={100}
                           className="aspect-square size-10 rounded-full bg-purple/20"
+                          unoptimized
                         />
 
                         <div className="grid flex-1">
