@@ -14,7 +14,7 @@ export default function CheckoutFailedPage() {
         <section className="base-container relative isolate [padding:50px_0_100px]">
           <div className="z-20 grid justify-items-center gap-8">
             <Image
-              src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/checkout-img/img-checkout-failed.webp"
+              src="https://cdn.ruangobat.id/statics/images/checkout-img/img-checkout-failed.webp"
               alt="success checkout img"
               width={1000}
               height={1000}

@@ -9,7 +9,7 @@ export default function NotFoundPage() {
     <main className="flex h-screen w-full items-center justify-center px-6">
       <section className="grid justify-items-center gap-12">
         <Image
-          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/404-img.svg"
+          src="https://cdn.ruangobat.id/statics/images/second-illustrations/404-img.svg"
           alt="404 img"
           className="h-[250px] w-auto"
         />

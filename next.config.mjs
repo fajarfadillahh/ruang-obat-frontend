@@ -5,14 +5,6 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "dev.ruangobat.id",
-      },
-      {
-        protocol: "https",
-        hostname: "api.ruangobat.id",
-      },
-      {
-        protocol: "https",
         hostname: "www.youtube.com",
       },
       {
@@ -29,11 +21,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "ik.imagekit.io",
-      },
-      {
-        protocol: "https",
-        hostname: "serveproxy.com",
+        hostname: "cdn.ruangobat.id",
       },
     ],
   },

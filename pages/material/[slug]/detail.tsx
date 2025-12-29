@@ -864,7 +864,7 @@ function handleAccordionItemCondition({
     return (
       <div className="flex flex-col items-center justify-center gap-4 p-12">
         <Image
-          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/confused.webp"
+          src="https://cdn.ruangobat.id/statics/images/second-illustrations/confused.webp"
           priority
           width={300}
           height={300}

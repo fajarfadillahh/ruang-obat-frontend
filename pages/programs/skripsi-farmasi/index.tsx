@@ -4,7 +4,6 @@ import Footer from "@/components/footer/Footer";
 import TextHighlight from "@/components/text/TextHighlight";
 import Layout from "@/components/wrapper/Layout";
 import { AppContext } from "@/context/AppContext";
-import { LogoRuangobat } from "@/public/img/LogoRuangobat";
 import { ThesisClassType, ThesisResponse } from "@/types/classes.type";
 import { ErrorDataType, SuccessResponse } from "@/types/global.type";
 import { MentorClassType } from "@/types/mentor.type";
@@ -173,7 +172,7 @@ export default function PharmacyThesisClassPage({
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-skripsi.webp"
+            src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-skripsi.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -183,7 +182,7 @@ export default function PharmacyThesisClassPage({
 
         <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
           <Image
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-skripsi.webp"
+            src="https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-skripsi.webp"
             alt="logo program"
             width={1000}
             height={1000}
@@ -191,7 +190,7 @@ export default function PharmacyThesisClassPage({
             loading="lazy"
           />
 
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-2">
             {benefits.map((benefit, index) => (
               <div
                 key={index}
@@ -208,14 +207,6 @@ export default function PharmacyThesisClassPage({
                 </p>
               </div>
             ))}
-
-            <div className="group relative isolate col-span-2 hidden h-full items-center justify-center overflow-hidden rounded-xl bg-purple-100 xl:flex">
-              <span className="z-10 text-4xl font-black -tracking-wide text-purple">
-                RuangObat.
-              </span>
-
-              <LogoRuangobat className="absolute right-6 top-1/2 h-auto w-[180px] -translate-y-1/2 text-purple opacity-15" />
-            </div>
           </div>
         </section>
 

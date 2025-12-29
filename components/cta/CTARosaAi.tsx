@@ -113,7 +113,7 @@ export default function CTARosaAi() {
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
+            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
             alt="apoteker rosa image"
             width={1000}
             height={1000}

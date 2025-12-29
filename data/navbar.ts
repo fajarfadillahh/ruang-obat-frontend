@@ -30,7 +30,7 @@ export const menuItemsMobile = [
 // === navbar menu desktop view ===
 export const menuItemsDesktop = [
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-sarjana.webp",
     iconColor: "warning",
     label: "Ruang Sarjana & Diploma Farmasi",
     description:
@@ -38,35 +38,35 @@ export const menuItemsDesktop = [
     href: "/programs/sarjana-diploma",
   },
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-private.webp",
     iconColor: "secondary",
     label: "Ruang Private 1 on 1 Farmasi",
     description: "Pendampingan intensif untuk hasil belajar maksimal.",
     href: "/programs/private-1-on-1",
   },
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-skripsi.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-skripsi.webp",
     iconColor: "success",
     label: "Ruang Skripsi Farmasi",
     description: "Bimbingan skripsi terarah dari awal hingga tuntas.",
     href: "/programs/skripsi-farmasi",
   },
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-riset.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-riset.webp",
     iconColor: "primary",
     label: "Ruang Riset Farmasi",
     description: "Tingkatkan skill risetmu dengan metode yang tepat.",
     href: "/programs/riset-farmasi",
   },
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-masuk-apoteker.webp",
     iconColor: "danger",
     label: "Ruang Masuk Apoteker",
     description: "Persiapan matang menuju profesi apoteker impianmu.",
     href: "/programs/masuk-apoteker",
   },
   {
-    icon: "https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/icon/icon-ruang-osce-ukmppai.webp",
+    icon: "https://cdn.ruangobat.id/statics/images/new-logo-program/icon/icon-ruang-osce-ukmppai.webp",
     iconColor: "warning",
     label: "Ruang OSCE & UKMPPAI",
     description: "Siap hadapi ujian kompetensi dengan percaya diri.",

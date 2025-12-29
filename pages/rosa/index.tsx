@@ -73,7 +73,7 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
+            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
             alt="apoteker rosa image"
             width={1000}
             height={1000}
@@ -90,7 +90,7 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-3.webp"
+            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-3.webp"
             alt="apoteker rosa image"
             width={900}
             height={1000}
@@ -104,15 +104,6 @@ export default function RosaPage() {
             dipahami dan akses 24 jam, kamu tidak perlu lagi belajar sendirian.
             ROSA akan menemani proses belajarmu, kapan pun kamu butuh.
           </h2>
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-8 py-[100px]">
@@ -141,15 +132,6 @@ export default function RosaPage() {
               </div>
             ))}
           </div>
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-8 py-[100px]">
@@ -161,21 +143,12 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/apoteker-rosa/APOTEKER-ROSA-2.webp"
+            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-2.webp"
             alt="apoteker rosa image"
             width={3056}
             height={2000}
             className="justify-self-center"
           />
-
-          <Button
-            color="secondary"
-            endContent={<Sparkle weight="duotone" size={20} />}
-            onClick={() => router.push("/rosa/chat")}
-            className="justify-self-center px-6 font-bold"
-          >
-            Tanya ROSA Sekarang
-          </Button>
         </section>
 
         <section className="base-container gap-4 py-[100px] md:gap-8">
@@ -204,7 +177,7 @@ export default function RosaPage() {
                     <div className="flex items-center gap-4 pb-4">
                       <Image
                         priority
-                        src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/avatar-img/avatar-male.svg"
+                        src="https://cdn.ruangobat.id/statics/images/avatar-img/avatar-male.svg"
                         alt="avatar"
                         width={100}
                         height={100}
