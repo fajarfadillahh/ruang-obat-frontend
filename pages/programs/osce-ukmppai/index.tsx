@@ -133,7 +133,7 @@ export default function OsceUkmppaiPage({
 
       <section className="base-container justify-items-center pt-[50px]">
         <Image
-          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-osce-ukmppai.webp"
+          src="=https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-osce-ukmppai.webp"
           alt="logo program"
           width={1000}
           height={1000}

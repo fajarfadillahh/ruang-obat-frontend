@@ -169,7 +169,7 @@ export default function PharmacyResearchClassPage({
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-riset.webp"
+            src="=https://cdn.ruangobat.id/statics/images/new-illustration-program/img-riset.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -179,7 +179,7 @@ export default function PharmacyResearchClassPage({
 
         <section className="base-container items-center gap-12 [padding:100px_0_2rem] xl:grid-cols-[max-content_1fr]">
           <Image
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-riset.webp"
+            src="=https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-riset.webp"
             alt="logo program"
             width={1000}
             height={1000}

@@ -81,7 +81,7 @@ export default function Footer() {
       {/* RUANGOBAT text */}
       <div className="flex max-w-[100vw] justify-center opacity-20">
         <Image
-          src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/second-illustrations/text-footer-img.svg"
+          src="=https://cdn.ruangobat.id/statics/images/second-illustrations/text-footer-img.svg"
           alt="footer img"
           className="h-auto w-full max-w-[100vw]"
         />

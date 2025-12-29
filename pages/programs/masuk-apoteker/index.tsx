@@ -144,7 +144,7 @@ export default function ApotekerClassPage({
 
           <Image
             priority
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-illustration-program/img-masuk-apoteker.webp"
+            src="=https://cdn.ruangobat.id/statics/images/new-illustration-program/img-masuk-apoteker.webp"
             alt="class subject img"
             width={1000}
             height={1000}
@@ -154,7 +154,7 @@ export default function ApotekerClassPage({
 
         <section className="base-container justify-items-center [padding:100px_0_50px]">
           <Image
-            src="https://serveproxy.com/?url=https://ruangobat.is3.cloudhost.id/statics/images/new-logo-program/logo/logo-ruang-masuk-apoteker.webp"
+            src="=https://cdn.ruangobat.id/statics/images/new-logo-program/logo/logo-ruang-masuk-apoteker.webp"
             alt="logo program"
             width={1000}
             height={1000}
@@ -391,7 +391,7 @@ export const getServerSideProps: GetServerSideProps<{
         method: "GET",
         token: session?.user.access_token,
       }) as Promise<SuccessResponse<ApotekerClassResponse>>,
-      fetch("https://ruangobat.is3.cloudhost.id/statics/provinces.json"),
+      fetch("https://cdn.ruangobat.id/statics/provinces.json"),
     ]);
 
     const provincesData: Province[] = await responseProvinces.json();
