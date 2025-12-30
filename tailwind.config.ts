@@ -29,8 +29,8 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-sans)"],
         mono: ["var(--font-mono)"],
-        inter: ["Inter", "sans-serif"],
-        mulish: ["Mulish", "sans-serif"],
+        inter: ["var(--font-inter)", "sans-serif"],
+        mulish: ["var(--font-sans)", "sans-serif"],
       },
       colors: {
         black: "#171717",
