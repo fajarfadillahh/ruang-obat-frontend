@@ -118,7 +118,6 @@ export default function CTARosaAi() {
             width={1000}
             height={1000}
             className="hidden h-auto w-[400px] justify-self-center xl:flex"
-            unoptimized
           />
         </div>
       </div>

@@ -31,6 +31,21 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+function getCardStyles(item: any, type: "reasons" | "programs") {
+  const cardItem =
+    (type === "reasons" && item.id === 2) ||
+    (type === "programs" && item.id === 1);
+
+  const cardWrapper = cardItem
+    ? "bg-purple"
+    : "bg-white border-2 border-gray/10";
+  const cardIcon = cardItem ? "text-white" : "text-purple";
+  const cardTitle = cardItem ? "text-white" : "text-black";
+  const cardText = cardItem ? "text-gray-200" : "text-gray";
+
+  return { cardWrapper, cardIcon, cardTitle, cardText };
+}
+
 export default function HomePage({
   data,
   error,
@@ -38,21 +53,6 @@ export default function HomePage({
   const router = useRouter();
   const listClassRef = useRef<HTMLElement | null>(null);
   const [client, setClient] = useState<boolean>(false);
-
-  function getCardStyles(item: any, type: "reasons" | "programs") {
-    const cardItem =
-      (type === "reasons" && item.id === 2) ||
-      (type === "programs" && item.id === 1);
-
-    const cardWrapper = cardItem
-      ? "bg-purple"
-      : "bg-white border-2 border-gray/10";
-    const cardIcon = cardItem ? "text-white" : "text-purple";
-    const cardTitle = cardItem ? "text-white" : "text-black";
-    const cardText = cardItem ? "text-gray-200" : "text-gray";
-
-    return { cardWrapper, cardIcon, cardTitle, cardText };
-  }
 
   useEffect(() => {
     setClient(true);
@@ -178,7 +178,6 @@ export default function HomePage({
                 width={1000}
                 height={1000}
                 className="h-auto justify-self-center"
-                unoptimized
               />
             </div>
           </section>
@@ -229,7 +228,6 @@ export default function HomePage({
               width={1000}
               height={1000}
               className="h-auto justify-self-center"
-              unoptimized
             />
 
             <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
@@ -434,7 +432,6 @@ export default function HomePage({
               width={1000}
               height={1000}
               className="h-auto justify-self-center"
-              unoptimized
             />
           </div>
         </section>
@@ -460,7 +457,6 @@ export default function HomePage({
                     height={500}
                     loading="lazy"
                     className="size-[calc(100%-8rem)] justify-self-end"
-                    unoptimized
                   />
                 }
                 path={item.path}
@@ -516,7 +512,6 @@ export default function HomePage({
             width={1000}
             height={1000}
             className="h-auto justify-self-center"
-            unoptimized
           />
 
           <ul className="mt-10 flex flex-wrap items-center justify-center gap-4 xl:col-span-2">
@@ -695,7 +690,6 @@ export default function HomePage({
                           width={100}
                           height={100}
                           className="aspect-square size-10 rounded-full bg-purple/20"
-                          unoptimized
                         />
 
                         <div className="grid flex-1">
