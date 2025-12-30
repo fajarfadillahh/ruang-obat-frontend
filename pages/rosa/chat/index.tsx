@@ -219,7 +219,8 @@ function SubRosaPage() {
         token: data?.user.access_token,
       });
 
-      const prefix = process.env.NEXT_PUBLIC_MODE === "prod" ? "api" : "dev";
+      const prefix =
+        process.env.NEXT_PUBLIC_MODE === "production" ? "api" : "dev";
       const response = await fetch(
         `https://${prefix}.ruangobat.id/api/ai/chat/streaming/v4`,
         {
