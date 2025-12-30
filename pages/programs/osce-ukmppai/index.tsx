@@ -1,4 +1,4 @@
-import CardProgram from "@/components/card/CardProgram";
+import CardProgramNew from "@/components/card/CardProgramNew";
 import Empty from "@/components/Empty";
 import SearchInput from "@/components/SearchInput";
 import Layout from "@/components/wrapper/Layout";
@@ -105,7 +105,7 @@ export default function OsceUkmppaiPage({
           {!isLoading && !data?.data.programs.length ? (
             <Empty text="Program tidak ditemukan!" />
           ) : (
-            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-start justify-center gap-2 lg:gap-6 xl:grid-cols-3">
+            <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] items-stretch justify-center gap-2 lg:gap-6 xl:grid-cols-3">
               {renderContent(isLoading, data?.data.programs as ProgramsType[])}
             </div>
           )}
@@ -160,7 +160,7 @@ function renderContent(isLoading: boolean, programs: ProgramsType[]) {
   }
 
   return programs.map((program) => (
-    <CardProgram key={program.program_id} {...program} />
+    <CardProgramNew key={program.program_id} {...program} />
   ));
 }
 
