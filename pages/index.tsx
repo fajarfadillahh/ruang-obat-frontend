@@ -31,6 +31,21 @@ import "swiper/css/pagination";
 import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 
+function getCardStyles(item: any, type: "reasons" | "programs") {
+  const cardItem =
+    (type === "reasons" && item.id === 2) ||
+    (type === "programs" && item.id === 1);
+
+  const cardWrapper = cardItem
+    ? "bg-purple"
+    : "bg-white border-2 border-gray/10";
+  const cardIcon = cardItem ? "text-white" : "text-purple";
+  const cardTitle = cardItem ? "text-white" : "text-black";
+  const cardText = cardItem ? "text-gray-200" : "text-gray";
+
+  return { cardWrapper, cardIcon, cardTitle, cardText };
+}
+
 export default function HomePage({
   data,
   error,
@@ -38,21 +53,6 @@ export default function HomePage({
   const router = useRouter();
   const listClassRef = useRef<HTMLElement | null>(null);
   const [client, setClient] = useState<boolean>(false);
-
-  function getCardStyles(item: any, type: "reasons" | "programs") {
-    const cardItem =
-      (type === "reasons" && item.id === 2) ||
-      (type === "programs" && item.id === 1);
-
-    const cardWrapper = cardItem
-      ? "bg-purple"
-      : "bg-white border-2 border-gray/10";
-    const cardIcon = cardItem ? "text-white" : "text-purple";
-    const cardTitle = cardItem ? "text-white" : "text-black";
-    const cardText = cardItem ? "text-gray-200" : "text-gray";
-
-    return { cardWrapper, cardIcon, cardTitle, cardText };
-  }
 
   useEffect(() => {
     setClient(true);

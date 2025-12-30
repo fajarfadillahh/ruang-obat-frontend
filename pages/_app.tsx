@@ -46,7 +46,7 @@ export default function App({
           }}
         >
           <AppProvider>
-            {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+            {process.env.NEXT_PUBLIC_MODE === "production" ? (
               <DefaultSeo {...seoConfig} />
             ) : null}
             <NuqsAdapter>
@@ -56,7 +56,7 @@ export default function App({
         </SWRConfig>
       </SessionProvider>
 
-      {/* {process.env.NEXT_PUBLIC_MODE === "prod" ? (
+      {/* {process.env.NEXT_PUBLIC_MODE === "production" ? (
         <GoogleAnalytics gaId="G-QPX13ESQJV" />
       ) : null} */}
     </NextUIProvider>
