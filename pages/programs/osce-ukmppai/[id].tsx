@@ -1,6 +1,5 @@
 import ButtonBack from "@/components/button/ButtonBack";
 import CardTest from "@/components/card/CardTest";
-import Loading from "@/components/Loading";
 import ModalBuy from "@/components/modal/ModalBuy";
 import ModalFreeAccess from "@/components/modal/ModalFreeAccess";
 import ModalJoinGroup from "@/components/modal/ModalJoinGroup";
@@ -10,7 +9,7 @@ import { AppContext } from "@/context/AppContext";
 import { SuccessResponse } from "@/types/global.type";
 import { DetailsProgramResponse } from "@/types/programs.type";
 import { formatRupiah } from "@/utils/formatRupiah";
-import { Button, Chip } from "@nextui-org/react";
+import { Button, Chip, Skeleton } from "@nextui-org/react";
 import {
   BookBookmark,
   ClipboardText,
@@ -53,7 +52,50 @@ export default function DetailsProgramPage({
     );
   }
 
-  if (isLoading) return <Loading />;
+  if (isLoading)
+    return (
+      <Layout title="Memuat...">
+        <section className="grid pb-[100px]">
+          <ButtonBack />
+
+          <div className="grid divide-y-2 divide-dashed divide-gray/20 pt-[50px]">
+            <div className="grid gap-10 pb-10 sm:grid-cols-[1fr_max-content] sm:items-start md:pr-6">
+              <div className="flex items-start gap-6">
+                <Skeleton className="h-12 w-12 rounded-lg" />
+
+                <div className="grid flex-1 gap-6">
+                  <Skeleton className="h-8 w-3/4 rounded-lg" />
+
+                  <div className="flex flex-wrap items-start gap-4 lg:gap-10">
+                    <div className="grid gap-2">
+                      <Skeleton className="h-4 w-24 rounded-lg" />
+                      <Skeleton className="h-7 w-32 rounded-lg" />
+                    </div>
+
+                    <div className="grid gap-2">
+                      <Skeleton className="h-4 w-24 rounded-lg" />
+                      <Skeleton className="h-6 w-20 rounded-lg" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <Skeleton className="h-10 w-32 rounded-lg" />
+            </div>
+
+            <div className="grid gap-4 pt-10">
+              <Skeleton className="h-8 w-48 rounded-lg" />
+
+              <div className="grid gap-2">
+                {[...Array(4)].map((_, index) => (
+                  <Skeleton key={index} className="h-20 w-full rounded-xl" />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </Layout>
+    );
 
   return (
     <Layout title={data?.data.title}>

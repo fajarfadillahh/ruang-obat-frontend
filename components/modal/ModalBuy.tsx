@@ -74,7 +74,7 @@ export default function ModalBuy({ buttonText, productName }: ModalBuyProps) {
                     const template = `Hallo kak saya ${fullname} dengan UserID ${userID}, ingin membeli ${productName}`;
 
                     window.open(
-                      `https://api.whatsapp.com/send?phone=6282289509438&text=${encodeURIComponent(template)}`,
+                      `https://api.whatsapp.com/send?phone=62895383359491&text=${encodeURIComponent(template)}`,
                       "_blank",
                     );
                   }}

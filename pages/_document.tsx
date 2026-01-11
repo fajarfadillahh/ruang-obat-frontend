@@ -1,4 +1,4 @@
-import { fontSans } from "@/config/fonts";
+import { fontInter, fontSans } from "@/config/fonts";
 import { Head, Html, Main, NextScript } from "next/document";
 
 export default function Document() {
@@ -8,7 +8,9 @@ export default function Document() {
         <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon" />
         <link rel="apple-touch-icon" href="/img/favicon.ico" />
       </Head>
-      <body className={`font-sans antialiased ${fontSans.variable}`}>
+      <body
+        className={`font-sans antialiased ${fontSans.variable} ${fontInter.variable}`}
+      >
         <Main />
         <NextScript />
       </body>
