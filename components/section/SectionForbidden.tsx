@@ -11,7 +11,7 @@ export default function SectionForbidden() {
       <div className="grid gap-8">
         <Image
           priority
-          src="https://cdn.ruangobat.id/statics/images/main-illustrations/forbidden-img.webp"
+          src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/main-illustrations/forbidden-img.webp"
           alt="forbidden img"
           width={1000}
           height={1000}

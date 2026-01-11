@@ -45,7 +45,7 @@ export default function NavbarRosa() {
                   isBordered
                   showFallback
                   size="sm"
-                  src={`https://cdn.ruangobat.id/statics/images/avatar-img/avatar-${data?.user.gender === "M" ? "male" : "female"}.svg`}
+                  src={`https://s3.nevaobjects.id/ruang-obat-assets/statics/images/avatar-img/avatar-${data?.user.gender === "M" ? "male" : "female"}.svg`}
                   classNames={{
                     base: "ring-purple bg-purple/20",
                     icon: "text-purple",

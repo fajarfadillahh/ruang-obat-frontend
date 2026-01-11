@@ -82,7 +82,7 @@ export default function Maintenance() {
         </div>
 
         <Image
-          src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-7.webp"
+          src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-7.webp"
           alt="apoteker rosa image"
           width={1000}
           height={1000}

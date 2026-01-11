@@ -31,7 +31,7 @@ export default function ListProgramsPage() {
         <section className="base-container items-center gap-6 [padding:50px_0_100px] xl:grid-cols-[550px_1fr]">
           <Image
             priority
-            src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-osce-ukmppai.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/new-illustration-program/img-osce-ukmppai.webp"
             alt="class subject img"
             width={1000}
             height={1000}

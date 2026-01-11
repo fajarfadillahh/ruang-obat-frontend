@@ -98,7 +98,7 @@ export default function WelcomePage({
 
           <Image
             priority
-            src="https://cdn.ruangobat.id/statics/images/second-illustrations/happy-img.svg"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/second-illustrations/happy-img.svg"
             alt="happy img"
             className="lg:h-[550px] lg:w-auto"
             width="0"

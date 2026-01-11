@@ -41,7 +41,7 @@ export default function MyTestsPage({
             <div className="grid gap-8 pt-12 sm:col-span-2 xl:col-span-3">
               <Image
                 priority
-                src="https://cdn.ruangobat.id/statics/images/second-illustrations/no-data-img.svg"
+                src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/second-illustrations/no-data-img.svg"
                 alt="no data img"
                 width={1000}
                 height={500}

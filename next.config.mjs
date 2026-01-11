@@ -21,7 +21,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "cdn.ruangobat.id",
+        hostname: "s3.nevaobjects.id",
       },
     ],
   },
