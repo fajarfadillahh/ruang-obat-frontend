@@ -72,7 +72,7 @@ export default function WelcomeChat({ setSuggestion }: WelcomeChatProps) {
           }}
         >
           <Image
-            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-7.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-7.webp"
             alt="apoteker rosa image"
             width={600}
             height={600}

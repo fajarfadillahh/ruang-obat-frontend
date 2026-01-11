@@ -73,7 +73,7 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-1.webp"
             alt="apoteker rosa image"
             width={1000}
             height={1000}
@@ -90,7 +90,7 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-3.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-3.webp"
             alt="apoteker rosa image"
             width={900}
             height={1000}
@@ -143,7 +143,7 @@ export default function RosaPage() {
 
           <Image
             priority
-            src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-2.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-2.webp"
             alt="apoteker rosa image"
             width={3056}
             height={2000}
@@ -177,7 +177,7 @@ export default function RosaPage() {
                     <div className="flex items-center gap-4 pb-4">
                       <Image
                         priority
-                        src="https://cdn.ruangobat.id/statics/images/avatar-img/avatar-male.svg"
+                        src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/avatar-img/avatar-male.svg"
                         alt="avatar"
                         width={100}
                         height={100}

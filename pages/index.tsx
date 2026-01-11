@@ -173,7 +173,7 @@ export default function HomePage({
             <div className="grid pt-5">
               <Image
                 priority
-                src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-riset.webp"
+                src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/new-illustration-program/img-riset.webp"
                 alt="illustration img"
                 width={1000}
                 height={1000}
@@ -222,8 +222,7 @@ export default function HomePage({
             </div>
 
             <Image
-              loading="eager"
-              src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-skripsi.webp"
+              src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/new-illustration-program/img-skripsi.webp"
               alt="ilustration img"
               width={1000}
               height={1000}
@@ -426,8 +425,7 @@ export default function HomePage({
 
           <div className="grid pt-5">
             <Image
-              priority
-              src="https://cdn.ruangobat.id/statics/images/new-illustration-program/new-research.webp"
+              src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/new-illustration-program/new-research.webp"
               alt="illustration img"
               width={1000}
               height={1000}
@@ -506,8 +504,7 @@ export default function HomePage({
           </div>
 
           <Image
-            loading="eager"
-            src="https://cdn.ruangobat.id/statics/images/new-illustration-program/img-skripsi.webp"
+            src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/new-illustration-program/img-skripsi.webp"
             alt="ilustration img"
             width={1000}
             height={1000}
@@ -685,7 +682,7 @@ export default function HomePage({
                     <div className="base-card group divide-y-2 divide-dashed divide-gray/20 p-6 [margin:1rem_0]">
                       <div className="flex items-start gap-4 pb-4">
                         <Image
-                          src="https://cdn.ruangobat.id/statics/images/avatar-img/avatar-male.svg"
+                          src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/avatar-img/avatar-male.svg"
                           alt="avatar"
                           width={100}
                           height={100}

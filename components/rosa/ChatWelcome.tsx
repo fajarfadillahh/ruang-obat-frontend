@@ -5,7 +5,7 @@ export default function ChatWelcome() {
     <div className="mt-8 grid h-max gap-4 xl:mt-0">
       <Image
         priority
-        src="https://cdn.ruangobat.id/statics/images/apoteker-rosa/APOTEKER-ROSA-4.webp"
+        src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/apoteker-rosa/APOTEKER-ROSA-4.webp"
         alt="apoteker rosa image"
         width={250}
         height={250}

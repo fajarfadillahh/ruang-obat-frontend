@@ -81,7 +81,7 @@ export default function Footer() {
       {/* RUANGOBAT text */}
       <div className="flex max-w-[100vw] justify-center opacity-20">
         <Image
-          src="https://cdn.ruangobat.id/statics/images/second-illustrations/text-footer-img.svg"
+          src="https://s3.nevaobjects.id/ruang-obat-assets/statics/images/second-illustrations/text-footer-img.svg"
           alt="footer img"
           className="h-auto w-full max-w-[100vw]"
         />

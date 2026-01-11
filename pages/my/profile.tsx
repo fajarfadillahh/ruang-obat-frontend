@@ -152,8 +152,8 @@ export default function MyProfilePage({
             <Image
               src={
                 data?.gender === "M"
-                  ? "https://cdn.ruangobat.id/statics/images/avatar-img/avatar-male.svg"
-                  : "https://cdn.ruangobat.id/statics/images/avatar-img/avatar-female.svg"
+                  ? "https://s3.nevaobjects.id/ruang-obat-assets/statics/images/avatar-img/avatar-male.svg"
+                  : "https://s3.nevaobjects.id/ruang-obat-assets/statics/images/avatar-img/avatar-female.svg"
               }
               alt="profile img"
               width={500}
