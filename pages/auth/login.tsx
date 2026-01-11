@@ -79,7 +79,15 @@ export default function LoginPage() {
     }
 
     if (response?.ok) {
+      await fetch("/api/auth/session", {
+        method: "GET",
+        credentials: "include",
+      });
+
+      await new Promise((r) => setTimeout(r, 80));
+
       toast.success("Yeay, kamu berhasil login!");
+
       return router.push(
         `/unverified${router.query.callback ? `?callback=${router.query.callback}` : ""}`,
       );
